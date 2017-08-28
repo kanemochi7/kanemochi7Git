@@ -39,5 +39,6 @@ label{
 </form>
 <a href="/kanemochi/member/signUpForm" class="btn btn-info">KANEMOCHI 加入</a><br><br>
 <a href="/kanemochi/member/findIdPwdForm" class="btn btn-success">id/pwdを探す</a>
+<a href="/kanemochi/game/game">재훈이의 작업실</a>
 </body>
 </html>
