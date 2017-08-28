@@ -15,7 +15,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		String id = (String)session.getAttribute("id");
 		
 		if(id == null) {
-			response.sendRedirect("/board/member/loginForm");
+			response.sendRedirect("/kanemochi/");
 			return false;
 		}
 		

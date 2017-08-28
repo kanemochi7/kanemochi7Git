@@ -13,19 +13,17 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 
+import com.project.vo.MemberVO;
+
 public class Mail extends Authenticator {
-	public static void main(String[] args) {
-		Mail mail = new Mail();
-		mail.sendMail();
-	}
 	
-	public void sendMail() {
+	public void sendMail(MemberVO member) {
 		//보내는 서버 주소
 		String host = "smtp.gmail.com";
 		//메일 제목 설정
-		String subject = "ID / 비밀번호"; 
+		String subject = "ID / 電話番号 "; 
 		//보내는 사람 이메일 주소
-		String from = "myboardemail@gmail.com"; 
+		String from = "KANEMOCHI 運営者"; 
 		//보내는사람 이름
 		String writer = "test test"; 
 		//받는사람 이메일주소
@@ -43,7 +41,7 @@ public class Mail extends Authenticator {
 		Session session = Session.getDefaultInstance(props, new Authenticator() {
 			@Override
 			protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("이름","패스워드");
+				return new PasswordAuthentication("kongkongup@gmail.com","vmfkdla3438");
 			}
 		});
 		
