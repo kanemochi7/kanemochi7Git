@@ -8,6 +8,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:if test=""></c:if>
+<c:if test="${loginid!=null}">
+	<p>
+		${loginName} 様　Welcome!
+		<a href="/kanemochi/member/logout" class="btn btn-danger"></a>
+		<a href="/kanemochi/member/mypageForm" class="btn btn-info">マイページ</a>
+	</p>
+</c:if>
 </body>
-</html>
+</html>1
