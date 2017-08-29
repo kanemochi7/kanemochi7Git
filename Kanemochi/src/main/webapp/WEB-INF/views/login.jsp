@@ -14,6 +14,6 @@
 		<a href="/kanemochi/member/logout" class="btn btn-danger"></a>
 		<a href="/kanemochi/member/mypageForm" class="btn btn-info">マイページ</a>
 	</p>
-</c:if>
+</c:if>3241414
 </body>
-</html>1
+</html>
