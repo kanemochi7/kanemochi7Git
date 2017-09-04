@@ -192,6 +192,28 @@ th, td {
 			}
 		}
 		
+		function genderCheck(){
+			var gender = $('.optionsRadios').val();
+			var st = $(":input:radio[name='optionsRadios']:checked").val();
+			//var checkedValue = $("input[type=radio][name=optionsRadios]:checked").val();
+			//var gender = document.getElementsByName("optionsRadios");
+			//var checked_radio = $('input:radio[name=optionsRadios]:checked').val();
+			alert(st);
+			
+		    if(gender == ''){
+		    	//alert(gender);
+		    	//alert(checkedValue);
+		    	//alert(checked_radio);
+		    	document.getElementById("genderMsg").innerHTML = "genderを入力してください";
+			}else{
+				//alert(gender);
+				//alert(checkedValue);
+				//alert(checked_radio);
+				document.getElementById("genderMsg").innerHTML = "gender ok"; //gender woman은 안되는 이유?
+				genderResut= true;
+			}
+		}
+		
 </script>
 </head>
 <body>
@@ -281,27 +303,4 @@ th, td {
 	<a href ="/kanemochi/member/list">list로</a><br>
 	<a href ="/kanemochi/member/memberListForm">memberListForm으로</a>
 </body>
-<script>
-function genderCheck(){
-	var gender = $('.optionsRadios').val();
-	var st = $(":input:radio[name='optionsRadios']:checked").val();
-	//var checkedValue = $("input[type=radio][name=optionsRadios]:checked").val();
-	//var gender = document.getElementsByName("optionsRadios");
-	//var checked_radio = $('input:radio[name=optionsRadios]:checked').val();
-	alert(st);
-	
-    if(gender == ''){
-    	//alert(gender);
-    	//alert(checkedValue);
-    	//alert(checked_radio);
-    	document.getElementById("genderMsg").innerHTML = "genderを入力してください";
-	}else{
-		//alert(gender);
-		//alert(checkedValue);
-		//alert(checked_radio);
-		document.getElementById("genderMsg").innerHTML = "gender ok"; //gender woman은 안되는 이유?
-		genderResut= true;
-	}
-}
-</script>
 </html>
