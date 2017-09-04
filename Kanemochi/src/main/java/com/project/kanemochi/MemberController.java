@@ -24,7 +24,7 @@ private static final Logger logger = LoggerFactory.getLogger(HomeController.clas
 	
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
 	public String signup() {
-		
+		System.out.println("signup");
 		return "home";
 	}
 	
@@ -58,4 +58,18 @@ private static final Logger logger = LoggerFactory.getLogger(HomeController.clas
 		return "home";
 	}
 	
+	@RequestMapping(value = "album", method = RequestMethod.GET)
+	public String album() {
+		return "album";
+	}
+	
+	@RequestMapping(value = "write", method = RequestMethod.GET)
+	public String write() {
+		return "write";
+	}
+	
+	@RequestMapping(value = "myPage", method = RequestMethod.GET)
+	public String myPage() {
+		return "myPage";
+	}
 }

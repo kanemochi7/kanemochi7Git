@@ -37,7 +37,7 @@ label{
   <input type="button"  class="btn btn-primary" value="ログイン">
   <input type="reset" class="btn btn-warning" value="キャンセル">
 </form>
-<a href="/kanemochi/member/signUpForm" class="btn btn-info">KANEMOCHI 加入</a><br><br>
+<a href="/kanemochi/member/signUpForm" class="btn btn-info">KANEMOCHI 会員登録</a><br><br>
 <a href="/kanemochi/member/findIdPwdForm" class="btn btn-success">id/pwdを探す</a>
 <a href="/kanemochi/game/game">재훈이의 작업실</a>
 </body>
