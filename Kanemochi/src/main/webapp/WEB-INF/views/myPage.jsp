@@ -29,7 +29,7 @@ th, td {
 <table>
 		<tr>
 			<td><label for="id">ID</label></td>
-			<td><input type="text" class="form-control" id="id" placeholder="ID" autofocus  /></td>
+			<td><input type="text" class="form-control input-sm" id="id" placeholder="ID" disabled  value="currentId" /></td>
 			<td rowspan ="6">
 				<img src="http://via.placeholder.com/150x200" class="rounded float-center" alt="avatar-img"><br><br>
 				<img src="http://via.placeholder.com/150x50" class="rounded float-center" alt="level-img">
@@ -37,21 +37,23 @@ th, td {
 		</tr>
 		<tr>
 			<td><label for="password">Password</label></td>
-			<td><input type="password" id="password" class="form-control" placeholder="Password"></td>
+			<td><input type="password" id="password" class="form-control input-sm" placeholder="Password"></td>
 		</tr>
 		<tr>
 			<td><label for="name">お名前</label></td>
-			<td><input type="text" class="form-control" id="name" placeholder="お名前"></td>
+			<td><input type="text" class="form-control input-sm" id="name" placeholder="お名前"></td>
 		</tr>
 		
 		<tr>
 			<td><label for="email">Eメール</label></td>
-			<td><input type="text" class="form-control" id="email" placeholder="Eメール"></td>
+			<td><input type="text" class="form-control input-sm" id="email" placeholder="Eメール"></td>
 		</tr>
 		
 		<tr>
 			<td><label for="phone">電話番号</label></td>
-			<td><input type="tel" class="form-control" id="phone" placeholder="電話番号"></td>
+			<td>
+			<input type="tel" class="form-control input-sm" id="phone" placeholder="電話番号">
+			</td>
 		</tr>
 	
 		<tr>

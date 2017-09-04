@@ -25,7 +25,7 @@ private static final Logger logger = LoggerFactory.getLogger(HomeController.clas
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
 	public String signup() {
 		System.out.println("signup");
-		return "home";
+		return "loginForm";
 	}
 	
 	@RequestMapping(value = "findIdPwdForm", method = RequestMethod.GET)
@@ -40,7 +40,7 @@ private static final Logger logger = LoggerFactory.getLogger(HomeController.clas
 		Mail mail = new Mail();
 		mail.sendMail(vo);
 		
-		return "home";
+		return "loginForm";
 	}
 	
 	@RequestMapping(value = "findId", method = RequestMethod.GET)
@@ -48,14 +48,14 @@ private static final Logger logger = LoggerFactory.getLogger(HomeController.clas
 		MemberVO vo = new MemberVO();
 		vo.setEmail(email);
 		Mail mail = new Mail();
-		return "home";
+		return "loginForm";
 	}
 
 	
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String logout(Locale locale, Model model) {
 		
-		return "home";
+		return "loginForm";
 	}
 	
 	@RequestMapping(value = "album", method = RequestMethod.GET)
@@ -70,7 +70,22 @@ private static final Logger logger = LoggerFactory.getLogger(HomeController.clas
 	
 	@RequestMapping(value = "myPage", method = RequestMethod.GET)
 	public String myPage() {
-		//memberController 수정
 		return "myPage";
 	}
+
+	@RequestMapping(value = "list", method = RequestMethod.GET)
+	public String list() {
+		return "list";
+	}
+	
+	@RequestMapping(value = "memberListForm", method = RequestMethod.GET)
+	public String memberListForm() {
+		return "memberListForm";
+	}
+	
+	@RequestMapping(value = "idDuplCheck", method = RequestMethod.GET)
+	public String idDuplCheck() {
+		return "signUpForm";
+	}
+	
 }
