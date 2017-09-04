@@ -70,6 +70,7 @@ private static final Logger logger = LoggerFactory.getLogger(HomeController.clas
 	
 	@RequestMapping(value = "myPage", method = RequestMethod.GET)
 	public String myPage() {
+		//memberController 수정
 		return "myPage";
 	}
 }

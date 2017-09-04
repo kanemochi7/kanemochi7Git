@@ -224,7 +224,7 @@ th, td {
 	<a href="#" class="btn btn-warning">Warning</a>
 	<a href="#" class="btn btn-danger">Danger</a>
 	<a href="#" class="btn btn-link">Link</a>
-	<h1>KANEMOCHI</h1>
+	<h1>[ KANEMOCHI ]</h1>
 	<form class="form-horizontal" id="joinForm"
 		action="/kanemochi/member/signup" method="post">
 		<fieldset>

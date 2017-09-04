@@ -25,7 +25,7 @@ th, td {
 </style>
 </head>
 <body>
-<h1>My Page</h1>
+<h1>[ My Page ]</h1>
 <table>
 		<tr>
 			<td><label for="id">ID</label></td>

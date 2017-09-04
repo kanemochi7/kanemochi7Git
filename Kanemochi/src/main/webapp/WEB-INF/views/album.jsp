@@ -28,7 +28,7 @@ a{
 </style>
 </head>
 <body>
-	<h1>Album</h1>
+	<h1>[ Album ]</h1>
 	<table>
 		<tr>
 			<td><a href="#"><img src="http://via.placeholder.com/300x200" class="rounded float-left" alt="left-img"></a></td>

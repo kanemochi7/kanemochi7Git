@@ -25,7 +25,7 @@ th, td {
 </style>
 </head>
 <body>
-<h1>write</h1>
+<h1>[ write ]</h1>
 <table>
 <tr>
 	<td>date</td>
