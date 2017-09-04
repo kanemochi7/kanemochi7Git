@@ -17,26 +17,38 @@ body{
 label{
 	text-align: center;
 }
- 
+
+table {
+	margin: auto;
+	text-align: center;
+}
+
+th, td {
+	padding: 10px;
+}
+
 </style>
 </head>
 <body>
 <h1>KANEMOCHI</h1>
-<form class="form-horizontal">
-  <fieldset>
-    <legend style="font-size:50px, text-align:center">ログイン</legend>
-    <div class="form-group">
-      <label for="id" class="col-lg-2 control-label">ID</label>
-      <input type="text" id="id" placeholder="ID">
-    </div>
-    <div class="form-group">
-      <label for="password" class="col-lg-2 control-label">Password</label>
-      <input type="password" id="pwd" placeholder="Password">      
-    </div>
-  </fieldset>
-  <input type="button"  class="btn btn-primary" value="ログイン">
-  <input type="reset" class="btn btn-warning" value="キャンセル">
-</form>
+<table>
+	<tr>
+		<td>ID</td>
+		<td><input type="text" id="id" class="form-control input-sm"  placeholder="ID"></td>
+ 	</tr>
+ 	<tr>
+		<td>Password</td>
+		<td><input type="password" id="pwd" class="form-control input-sm" placeholder="Password"></td>
+ 	</tr>
+ 	<tr>
+ 		<td colspan ="2">
+	 	<input type="button"  class="btn btn-primary" value="ログイン">
+	 	<input type="reset" class="btn btn-warning" value="キャンセル">
+ 		</td>
+ 	</tr>
+</table>
+
+
 <a href="/kanemochi/member/signUpForm" class="btn btn-info">KANEMOCHI 会員登録</a><br><br>
 <a href="/kanemochi/member/findIdPwdForm" class="btn btn-success">id/pwdを探す</a>
 <a href="/kanemochi/game/game">재훈이의 작업실</a>

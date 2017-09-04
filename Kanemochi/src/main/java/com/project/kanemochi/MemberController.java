@@ -2,12 +2,16 @@ package com.project.kanemochi;
 
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.kanemochi.util.Mail;
 import com.project.vo.MemberVO;
@@ -50,11 +54,9 @@ private static final Logger logger = LoggerFactory.getLogger(HomeController.clas
 		Mail mail = new Mail();
 		return "loginForm";
 	}
-
 	
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String logout(Locale locale, Model model) {
-		
 		return "loginForm";
 	}
 	
@@ -84,7 +86,13 @@ private static final Logger logger = LoggerFactory.getLogger(HomeController.clas
 	}
 	
 	@RequestMapping(value = "idDuplCheck", method = RequestMethod.GET)
-	public String idDuplCheck() {
+	@ResponseBody
+	public void idDuplCheck() {
+		
+	}
+	
+	@RequestMapping(value = "emailDuplCheck", method = RequestMethod.GET)
+	public String emailDuplCheck() {
 		return "signUpForm";
 	}
 	

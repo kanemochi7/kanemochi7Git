@@ -26,7 +26,6 @@ th, td {
 <script type="text/javascript">
 		
 		$(function() {
-			
 			var idResult= false;
 			var pwResult = false;
 			var pwResult2 = false;
@@ -34,6 +33,8 @@ th, td {
 			var emailResult = false;
 			var phoneResult = false;
 			var genderResult = false;
+			var idDuplResult = false;
+			var emailDuplResult = false;
 			
 			$("#id").on('keyup', idCheck);
 			$("#password").on('keyup', pwCheck);
@@ -41,11 +42,20 @@ th, td {
 			$("#name").on('keyup', nameCheck);
 			$("#email").on('keyup', emailCheck);
 			$("#phone").on('keyup', phoneCheck);
-			$("#gender").on('click', genderCheck);
-			
+			$(".gender").on('click', genderCheck);
+
 			$("#joinBtn").on('click', join);
 			$("#idDuplCheck").on('click', idDuplCheck);
 			$("#emailDuplCheck").on('click', emailDuplCheck);
+			
+			function join(){
+				if(idResult && pwResult && pwResult2 && nameResult && emailResult && phoneResult && genderResult && idDuplResult && emailDuplResult) {
+					alert("ok");
+					$('#joinForm').submit();
+				}else{
+					alert("you input something wrong");
+				}
+			}
 		});
 		 
 		function idDuplCheck(){
@@ -61,7 +71,8 @@ th, td {
 						$('#id').focus();
 					}
 					if(repo == ""){
-						alert("사용하실 수 있는 아이디입니다.")
+						alert("사용하실 수 있는 아이디입니다.");
+						idDuplResult= true;
 					}
 				}
 				,error: function(repo) {
@@ -70,15 +81,28 @@ th, td {
 			});
 		} 
 		
-		function join(){
-			if((pwResult== true) && (pwResult2 == true) && (idCheck == true) && (nameCheck == true)){
-				alert("ok");
-				$('#joinForm').submit();
-			}else{
-				alert("you input something wrong");
-			}
-		}
-
+		function emailDuplCheck(){
+			var email= $('#email').val();
+			$.ajax({
+				url : 'emailDuplCheck'
+				, method : 'GET'
+				, data : 'email=' + email
+				, success: function(repo) {
+					if(repo != ""){
+						alert("중복되는 이메일이 있습니다.");
+						$('#email').val("");
+						$('#email').focus();
+					}
+					if(repo == ""){
+						alert("사용하실 수 있는 email입니다.")
+					}
+				}
+				,error: function(repo) {
+					alert("오류 발생");
+				}
+			});
+		} 
+		
 		function idCheck(){
 			var id = $('#id').val();
 		    
@@ -103,6 +127,7 @@ th, td {
 		    if(password != ''){
 		    	if ((password.length < 5) || (password.length > 10)) {
 					document.getElementById("pwMsg").innerHTML = "passwordは5～ 10文字";
+					return pwResult;
 				}else{
 					document.getElementById("pwMsg").innerHTML = "";
 					pwResult = true;
@@ -117,6 +142,7 @@ th, td {
 			    if(password != ''){
 			    	if(password != password2){
 						document.getElementById("pwMsg").innerHTML = "pwが一致しません"; // ? 
+						return pwResult2;
 					}else{
 						document.getElementById("pwMsg").innerHTML = "password ok!";
 						pwResult2 = true;
@@ -163,17 +189,6 @@ th, td {
 			}else{
 				document.getElementById("phoneMsg").innerHTML = "phone ok";
 				phoneResult = true;
-			}
-		}
-		
-		function genderCheck(){
-			var gender = $('#gender').val();
-			    
-		    if(gender == ''){
-		    	document.getElementById("genderMsg").innerHTML = "genderを入力してください";
-			}else{
-				document.getElementById("genderMsg").innerHTML = "gender ok"; //gender woman은 안되는 이유?
-				genderResut= true;
 			}
 		}
 		
@@ -243,8 +258,10 @@ th, td {
 				<tr>
 					<td><label>性別</label></td>
 					<td>
-					<input type="radio" name="optionsRadios" id="gender"value="man"> 男性
-					<input type="radio" name="optionsRadios" id="gender"value="woman"> 女性
+					<input type="radio" name="optionsRadios" class ="gender" value="woman"> 女性
+					</td>
+					<td>
+					<input type="radio" name="optionsRadios" class ="gender" value="man"> 男性
 					</td>
 				</tr>
 				<tr>
@@ -260,8 +277,31 @@ th, td {
 	
 	<a href ="/kanemochi/member/album">album으로</a><br>
 	<a href ="/kanemochi/member/write">write로</a><br>
-	<a href ="/kanemochi/member/myPage">myPage로</a>
-	<a href ="/kanemochi/member/list">list로</a>
+	<a href ="/kanemochi/member/myPage">myPage로</a><br>
+	<a href ="/kanemochi/member/list">list로</a><br>
 	<a href ="/kanemochi/member/memberListForm">memberListForm으로</a>
 </body>
+<script>
+function genderCheck(){
+	var gender = $('.optionsRadios').val();
+	var st = $(":input:radio[name='optionsRadios']:checked").val();
+	//var checkedValue = $("input[type=radio][name=optionsRadios]:checked").val();
+	//var gender = document.getElementsByName("optionsRadios");
+	//var checked_radio = $('input:radio[name=optionsRadios]:checked').val();
+	alert(st);
+	
+    if(gender == ''){
+    	//alert(gender);
+    	//alert(checkedValue);
+    	//alert(checked_radio);
+    	document.getElementById("genderMsg").innerHTML = "genderを入力してください";
+	}else{
+		//alert(gender);
+		//alert(checkedValue);
+		//alert(checked_radio);
+		document.getElementById("genderMsg").innerHTML = "gender ok"; //gender woman은 안되는 이유?
+		genderResut= true;
+	}
+}
+</script>
 </html>
