@@ -200,8 +200,6 @@ th, td {
 				}
 			}
 		});
-		 
-		
 		
 </script>
 </head>

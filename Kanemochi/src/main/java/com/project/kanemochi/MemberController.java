@@ -80,6 +80,11 @@ private static final Logger logger = LoggerFactory.getLogger(HomeController.clas
 		return "list";
 	}
 	
+	@RequestMapping(value = "characterSelect", method = RequestMethod.GET)
+	public String characterSelect() {
+		return "characterSelect";
+	}
+	
 	@RequestMapping(value = "memberListForm", method = RequestMethod.GET)
 	public String memberListForm() {
 		return "memberListForm";
