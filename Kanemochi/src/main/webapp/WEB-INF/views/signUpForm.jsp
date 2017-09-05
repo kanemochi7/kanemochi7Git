@@ -56,163 +56,152 @@ th, td {
 					alert("you input something wrong");
 				}
 			}
-		});
-		 
-		function idDuplCheck(){
-			var id = $('#id').val();
-			$.ajax({
-				url : 'idDuplCheck'
-				, method : 'GET'
-				, data : 'id=' + id
-				, success: function(repo) {
-					if(repo != ""){
-						alert("중복되는 아이디가 있습니다.");
-						$('#id').val("");
-						$('#id').focus();
+			
+			
+			function idDuplCheck(){
+				var id = $('#id').val();
+				$.ajax({
+					url : 'idDuplCheck'
+					, method : 'GET'
+					, data : 'id=' + id
+					, success: function(repo) {
+						if(repo != ""){
+							alert("중복되는 아이디가 있습니다.");
+							$('#id').val("");
+							$('#id').focus();
+						}
+						if(repo == ""){
+							alert("사용하실 수 있는 아이디입니다.");
+							document.getElementById("idMsg").innerHTML = "id ok!!!";
+							idDuplResult= true;
+						}
 					}
-					if(repo == ""){
-						alert("사용하실 수 있는 아이디입니다.");
-						idDuplResult= true;
+					,error: function(repo) {
+						alert("오류 발생");
 					}
-				}
-				,error: function(repo) {
-					alert("오류 발생");
-				}
-			});
-		} 
-		
-		function emailDuplCheck(){
-			var email= $('#email').val();
-			$.ajax({
-				url : 'emailDuplCheck'
-				, method : 'GET'
-				, data : 'email=' + email
-				, success: function(repo) {
-					if(repo != ""){
-						alert("중복되는 이메일이 있습니다.");
-						$('#email').val("");
-						$('#email').focus();
+				});
+			} 
+			
+			function emailDuplCheck(){
+				var email= $('#email').val();
+				$.ajax({
+					url : 'emailDuplCheck'
+					, method : 'GET'
+					, data : 'email=' + email
+					, success: function(repo) {
+						if(repo != ""){
+							alert("중복되는 이메일이 있습니다.");
+							$('#email').val("");
+							$('#email').focus();  //emailDuplCheck 컨트롤러단에서 수정해주세요. 
+						}
+						if(repo == ""){
+							alert("사용하실 수 있는 email입니다.");
+							document.getElementById("emailMsg").innerHTML = "email ok!!!";
+							emailDuplResult= true;
+						}
 					}
-					if(repo == ""){
-						alert("사용하실 수 있는 email입니다.")
+					,error: function(repo) {
+						alert("오류 발생");
 					}
-				}
-				,error: function(repo) {
-					alert("오류 발생");
-				}
-			});
-		} 
-		
-		function idCheck(){
-			var id = $('#id').val();
-		    
-		    if(id != ''){
-		    	if (((id.charAt(0) < 'a') || (id.charAt(0)) > 'z')){
-		        	document.getElementById("idMsg").innerHTML = "idはアルファベットの小文字で";
-		        }else if ((id.length < 3) || (id.length > 10)) {
-					document.getElementById("idMsg").innerHTML = "idは3～ 10文字desu";
-				}else{
-					document.getElementById("idMsg").innerHTML = "idcheckしてください";
-					$("#idcheck").click(function(){
-					document.getElementById("idMsg").innerHTML = "id ok!";
-					idResult = true;
-					});
-				}
-		    }
-		}
-		
-		function pwCheck(){
-			var password = $('#password').val();
-		    
-		    if(password != ''){
-		    	if ((password.length < 5) || (password.length > 10)) {
-					document.getElementById("pwMsg").innerHTML = "passwordは5～ 10文字";
-					return pwResult;
-				}else{
-					document.getElementById("pwMsg").innerHTML = "";
-					pwResult = true;
-				}
-		    }	
-		}
-		
-		function pwCheck2(){
-			 var password = $('#password').val();
-			 var password2 = $('#password2').val();
+				});
+			} 
+			
+			function idCheck(){
+				var id = $('#id').val();
 			    
-			    if(password != ''){
-			    	if(password != password2){
-						document.getElementById("pwMsg").innerHTML = "pwが一致しません"; // ? 
-						return pwResult2;
+			    if(id != ''){
+			    	if (((id.charAt(0) < 'a') || (id.charAt(0)) > 'z')){
+			        	document.getElementById("idMsg").innerHTML = "idはアルファベットの小文字で";
+			        }else if ((id.length < 3) || (id.length > 10)) {
+						document.getElementById("idMsg").innerHTML = "idは3～ 10文字desu";
 					}else{
-						document.getElementById("pwMsg").innerHTML = "password ok!";
-						pwResult2 = true;
+						document.getElementById("idMsg").innerHTML = "id checkをしてください！";
+						idResult = true;
 					}
 			    }
-		}
-		
-		function nameCheck() {
-			var name = $('#name').val();
-		    
-		    if(name == ''){
-		    	document.getElementById("nameMsg").innerHTML = "nameを入力してください";
-		    }else if(name.match(/^[5678910]$/)){
-		    	document.getElementById("nameMsg").innerHTML = "nameは文字だけ入力してください"; //? 숫자 특수문자 금지
-		    }else{
-				document.getElementById("nameMsg").innerHTML = "name ok!";
-				nameResult = true;
-		    }
-		}
-		
-		function emailCheck(){
-			var email = $('#email').val();
-		    var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-		    ///^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i; 
-		    
-		    if(email == ''){
-		    	document.getElementById("emailMsg").innerHTML = "emailを入力してください";
-		    }else if(exptext.test(email) == false){
-		    	document.getElementById("emailMsg").innerHTML = "emailが正しくありません"; //? 숫자 특수문자 금지
-		    }else{
-				document.getElementById("emailMsg").innerHTML = "email ok!";
-				emailResult = true;
 			}
-		}
-		
-		function phoneCheck(){
-			var phone = $('#phone').val();
-		    var re = /^[0-9]+$/;
-	        
-		    if(phone == ''){
-		    	document.getElementById("phoneMsg").innerHTML = "phoneを入力してください";
-		    }else if((!re.test(phone)) || (phone.length != 10)){
-				document.getElementById("phoneMsg").innerHTML = "phone number is wrong!";
-			}else{
-				document.getElementById("phoneMsg").innerHTML = "phone ok";
-				phoneResult = true;
-			}
-		}
-		
-		function genderCheck(){
-			var gender = $('.optionsRadios').val();
-			var st = $(":input:radio[name='optionsRadios']:checked").val();
-			//var checkedValue = $("input[type=radio][name=optionsRadios]:checked").val();
-			//var gender = document.getElementsByName("optionsRadios");
-			//var checked_radio = $('input:radio[name=optionsRadios]:checked').val();
-			alert(st);
 			
-		    if(gender == ''){
-		    	//alert(gender);
-		    	//alert(checkedValue);
-		    	//alert(checked_radio);
-		    	document.getElementById("genderMsg").innerHTML = "genderを入力してください";
-			}else{
-				//alert(gender);
-				//alert(checkedValue);
-				//alert(checked_radio);
-				document.getElementById("genderMsg").innerHTML = "gender ok"; //gender woman은 안되는 이유?
-				genderResut= true;
+			function pwCheck(){
+				var password = $('#password').val();
+			    
+			    if(password != ''){
+			    	if ((password.length < 5) || (password.length > 10)) {
+						document.getElementById("pwMsg").innerHTML = "passwordは5～ 10文字";
+					}else{
+						document.getElementById("pwMsg").innerHTML = "";
+						pwResult = true;
+					}
+			    }	
 			}
-		}
+			
+			function pwCheck2(){
+				 var password = $('#password').val();
+				 var password2 = $('#password2').val();
+				    
+				    if(password != ''){
+				    	if(password != password2){
+							document.getElementById("pwMsg").innerHTML = "pwが一致しません"; 
+						}else{
+							document.getElementById("pwMsg").innerHTML = "password ok!";
+							pwResult2 = true;
+						}
+				    }
+			}
+			
+			function nameCheck() {
+				var name = $('#name').val();
+			    
+			    if(name == ''){
+			    	document.getElementById("nameMsg").innerHTML = "nameを入力してください";
+			    }else if(name.match(/^[5678910]$/)){
+			    	document.getElementById("nameMsg").innerHTML = "nameは文字だけ入力してください"; //? 숫자 특수문자 금지
+			    }else{
+					document.getElementById("nameMsg").innerHTML = "name ok!";
+					nameResult = true;
+			    }
+			}
+			
+			function emailCheck(){
+				var email = $('#email').val();
+			    var exptext = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+			    
+			    if(email == ''){
+			    	document.getElementById("emailMsg").innerHTML = "emailを入力してください";
+			    }else if(exptext.test(email) == false){
+			    	document.getElementById("emailMsg").innerHTML = "emailが正しくありません"; 
+			    }else{
+			    	document.getElementById("emailMsg").innerHTML = "email checkをしてください！";
+					emailResult = true;
+				}
+			}
+			
+			function phoneCheck(){
+				var phone = $('#phone').val();
+			    var re = /^[0-9]+$/;
+		        
+			    if(phone == ''){
+			    	document.getElementById("phoneMsg").innerHTML = "phoneを入力してください";
+			    }else if((!re.test(phone)) || (phone.length != 10)){
+					document.getElementById("phoneMsg").innerHTML = "phone number is wrong!";
+				}else{
+					document.getElementById("phoneMsg").innerHTML = "phone ok";
+					phoneResult = true;
+				}
+			}
+			
+			function genderCheck(){
+				var gender = $(":input:radio[name='optionsRadios']:checked").val();
+				
+			    if(gender == ''){
+			    	document.getElementById("genderMsg").innerHTML = "genderを入力してください";
+				}else{
+				document.getElementById("genderMsg").innerHTML = "gender ok";
+				genderResult= true;
+				}
+			}
+		});
+		 
+		
 		
 </script>
 </head>
@@ -264,7 +253,7 @@ th, td {
 				</tr>
 				<tr>
 					<td><label for="email">Eメール</label></td>
-					<td><input type="text" id="email" class="form-control input-sm" placeholder="Eメール"></td>
+					<td><input type="email" id="email" class="form-control input-sm" placeholder="Eメール" autocomplete="off"></td>
 					<td><a id ="emailDuplCheck" class="btn btn-success">email</a></td>
 				</tr>
 				<tr>
@@ -281,8 +270,6 @@ th, td {
 					<td><label>性別</label></td>
 					<td>
 					<input type="radio" name="optionsRadios" class ="gender" value="woman"> 女性
-					</td>
-					<td>
 					<input type="radio" name="optionsRadios" class ="gender" value="man"> 男性
 					</td>
 				</tr>
