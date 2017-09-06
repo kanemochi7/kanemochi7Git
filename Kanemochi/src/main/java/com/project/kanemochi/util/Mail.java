@@ -18,7 +18,10 @@ import com.project.vo.MemberVO;
 
 public class Mail extends Authenticator {
 	
+	
+	//비밀번호, 아이디 찾아주는 용도로 쓰일것.
 	public void sendMail(String email) {
+		//미구현
 		//보내는 서버 주소
 		String host = "smtp.naver.com";
 		//메일 제목 설정

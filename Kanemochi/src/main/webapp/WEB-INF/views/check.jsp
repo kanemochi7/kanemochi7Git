@@ -25,8 +25,7 @@ function gotoParents() {
 </head>
 <body>
 <h5>인증번호를 확인해주세요.</h5>
-
 <input type="text" id="userNum">
-<button onclick="gotoParents()">gotoparents</button>
+<button onclick="gotoParents()">確認</button>
 </body>
 </html>

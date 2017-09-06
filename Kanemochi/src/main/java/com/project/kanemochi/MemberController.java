@@ -54,7 +54,6 @@ public class MemberController {
 	public String findPwd(String email) {
 		MemberVO vo = new MemberVO();
 		vo.setEmail(email);
-		Mail mail = new Mail();
 		return "loginForm";
 	}
 	

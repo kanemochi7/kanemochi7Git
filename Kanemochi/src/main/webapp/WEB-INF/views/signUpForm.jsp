@@ -280,6 +280,6 @@ th, td {
 	<a href ="/kanemochi/member/list">list로</a><br>
 	<a href ="/kanemochi/member/memberListForm">memberListForm으로</a>
 	<a href ="/kanemochi/member/reportForm">report로</a><br>
-	<input type="hidden" id="tempEmail">
+
 </body>
 </html>
