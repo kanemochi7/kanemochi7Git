@@ -84,26 +84,18 @@ th, td {
 			
 			function emailDuplCheck(){
 				var email= $('#email').val();
-				$.ajax({
-					url : 'emailDuplCheck'
-					, method : 'GET'
-					, data : 'email=' + email
-					, success: function(repo) {
-						if(repo != ""){
-							alert("중복되는 이메일이 있습니다.");
-							$('#email').val("");
-							$('#email').focus();  //emailDuplCheck 컨트롤러단에서 수정해주세요. 
+				if(emailResult){
+					$.ajax({
+						url: '/kanemochi/member/emailCheck'
+						, method: 'GET'
+						, data: 'email=' +email
+						, success: function (number) {
+							var newWindow = window.open('/kanemochi/member/checkForm?num='+number+'&email='+email,'check','height=50,weight=50,resizalbe=yes');
 						}
-						if(repo == ""){
-							alert("사용하실 수 있는 email입니다.");
-							document.getElementById("emailMsg").innerHTML = "email ok!!!";
-							emailDuplResult= true;
-						}
-					}
-					,error: function(repo) {
-						alert("오류 발생");
-					}
-				});
+					});
+				}else{
+					alert("올바른 이메일 형식이 아닙니다.");
+				}
 			} 
 			
 			function idCheck(){
@@ -287,5 +279,7 @@ th, td {
 	<a href ="/kanemochi/member/myPage">myPage로</a><br>
 	<a href ="/kanemochi/member/list">list로</a><br>
 	<a href ="/kanemochi/member/memberListForm">memberListForm으로</a>
+	<a href ="/kanemochi/member/reportForm">report로</a><br>
+	<input type="hidden" id="tempEmail">
 </body>
 </html>

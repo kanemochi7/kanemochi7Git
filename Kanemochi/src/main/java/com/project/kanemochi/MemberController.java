@@ -3,15 +3,18 @@ package com.project.kanemochi;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.kanemochi.util.Mail;
 import com.project.vo.MemberVO;
@@ -19,7 +22,10 @@ import com.project.vo.MemberVO;
 @Controller
 @RequestMapping("/member")
 public class MemberController {
-private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	private Mail mail = new Mail();
+	
 	
 	@RequestMapping(value = "signUpForm", method = RequestMethod.GET)
 	public String signUpForm() {
@@ -40,10 +46,7 @@ private static final Logger logger = LoggerFactory.getLogger(HomeController.clas
 	@RequestMapping(value = "findIdPwd", method = RequestMethod.GET)
 	public String findId(String email) {
 		MemberVO vo = new MemberVO();
-		vo.setEmail(email);
-		Mail mail = new Mail();
-		mail.sendMail(vo);
-		
+		vo.setEmail(email);		
 		return "loginForm";
 	}
 	
@@ -60,10 +63,18 @@ private static final Logger logger = LoggerFactory.getLogger(HomeController.clas
 		return "loginForm";
 	}
 	
+	@RequestMapping(value = "login", method = RequestMethod.POST)
+	public String login(String id,String pwd,HttpSession session) {
+		session.setAttribute("loginid", id);
+		session.setAttribute("loginName",pwd );//꼭고칠것!!!!!!!!!!!!!!! DB연결후 
+		return "loginForm";
+	}
+	
 	@RequestMapping(value = "album", method = RequestMethod.GET)
 	public String album() {
 		return "album";
 	}
+	
 	
 	@RequestMapping(value = "write", method = RequestMethod.GET)
 	public String write() {
@@ -90,15 +101,34 @@ private static final Logger logger = LoggerFactory.getLogger(HomeController.clas
 		return "memberListForm";
 	}
 	
+	@RequestMapping(value = "checkForm", method = RequestMethod.GET)
+	public String tempCheckForm(String num,String email,RedirectAttributes re) {
+		re.addFlashAttribute("email", email);
+		re.addFlashAttribute("checkNum", num);
+		return "redirect:/member/check";
+	}
+	
+	@RequestMapping(value = "check", method = RequestMethod.GET)
+	public String check() {
+		return "check";
+	}
+	
+	@RequestMapping(value = "reportForm", method = RequestMethod.GET)
+	public String reportForm() {
+		return "report";
+	}
+	
 	@RequestMapping(value = "idDuplCheck", method = RequestMethod.GET)
 	@ResponseBody
 	public void idDuplCheck() {
 		
 	}
 	
-	@RequestMapping(value = "emailDuplCheck", method = RequestMethod.GET)
-	public String emailDuplCheck() {
-		return "signUpForm";
+	@RequestMapping(value = "emailCheck", method = RequestMethod.GET)
+	@ResponseBody
+	public int emailCheck(String email) {
+		int number = mail.emailCheck(email);
+		return number;
 	}
 	
 }
