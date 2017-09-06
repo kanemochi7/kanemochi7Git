@@ -26,7 +26,48 @@ th, td {
 </head>
 <body>
 <h1>Select Your Character</h1>
-
+<table>
+	<tr>
+		<td>id</td>
+		<td>hongsi</td>
+		<td rowspan="3">
+			<a href="#"><img src="http://via.placeholder.com/150x200" class="rounded float-left" alt="left-img" id="chrOne"></a>
+			<a href="#"><img src="http://via.placeholder.com/150x200" class="rounded float-center" alt="center-img" id="chrTwo"></a>
+			<a href="#"><img src="http://via.placeholder.com/150x200" class="rounded float-right" alt="right-img" id="chrThree"></a>
+		</td>
+	</tr>
+	<tr class="warning">
+		<td>password</td>
+		<td>??</td>
+	</tr>
+	<tr class="info">
+		<td>name</td>
+		<td><p>Gyuhee Hong</p></td>
+	</tr>
+	<tr class="success">
+		<td>email</td>
+		<td><p>hong@naver.com</p></td>
+		<td rowspan="3">
+			<a href="#"><img src="http://via.placeholder.com/150x200" class="rounded float-left" alt="left-img" id="chrFour"></a>
+			<a href="#"><img src="http://via.placeholder.com/150x200" class="rounded float-center" alt="center-img" id="chrFive"></a>
+			<a href="#"><img src="http://via.placeholder.com/150x200" class="rounded float-right" alt="right-img" id="chrSix"></a>
+		</td>
+	</tr>
+	<tr>
+		<td>name</td>
+		<td><p>010-111-1111</p></td>
+	</tr>
+	<tr>
+		<td>gender</td>
+		<td><p>女性</p></td>
+	</tr>
+	<tr>
+		<td colspan="3">
+		<a href="/kanemochi/member/signUpForm" class="btn btn-success">back</a>
+		<a href="#" class="btn btn-warning">finish</a>
+		</td>
+	</tr>
+</table>
 
 </body>
 </html>
