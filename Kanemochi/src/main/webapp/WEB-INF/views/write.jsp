@@ -30,8 +30,6 @@ th, td {
 	    $('#datetimepicker').datetimepicker();
 	});
 </script>
-
-
 </head>
 <body>
 	<h1>[ write ]</h1>
@@ -74,8 +72,7 @@ th, td {
 				card</td>
 		</tr>
 		<tr>
-			<td colspan="2"><a href="/kanemochi/member/"
-				class="btn btn-success">back</a> <a href="#" class="btn btn-success">ok</a>
+			<td colspan="2"><a href="/kanemochi/member/" class="btn btn-success">back</a> <a href="#" class="btn btn-success">ok</a>
 			</td>
 		</tr>
 
