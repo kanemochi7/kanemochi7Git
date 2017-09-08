@@ -50,8 +50,8 @@ public class MemberController {
 	@RequestMapping(value = "memberList", method = RequestMethod.POST)
 	@ResponseBody
 	public ArrayList<MemberVO> memberList() {
-		ArrayList<MemberVO> members = dao.memberList();
-		System.out.println(members);
+		ArrayList<MemberVO> members = new ArrayList<>();
+		members = dao.memberList();
 		return members;
 	}
 	
