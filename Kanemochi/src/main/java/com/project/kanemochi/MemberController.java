@@ -38,7 +38,7 @@ public class MemberController {
 		System.out.println(vo);
 		int result = dao.signUp(vo);
 		model.addAttribute("result", result);
-		return "loginForm";
+		return "characterSelect";
 	}
 	
 	@RequestMapping(value = "findIdPwdForm", method = RequestMethod.GET)
