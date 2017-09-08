@@ -5,8 +5,8 @@
 <mapper namespace="com.project.kanemochi.dao.MemberMapper">
 	<!--가입  -->
 	<insert id="signUp" parameterType="MemberVO">
-		insert into users(user_id,user_pw,user_name,user_gender,user_phone,user_email,user_authority) 
-		values(#{id},#{pwd},#{name},#{email},#{phone},#{gender},0)
+		insert into users(user_id,user_pw,user_name,user_gender,user_phone,user_email,user_authority,level_title) 
+		values(#{id},#{pwd},#{name},#{email},#{phone},#{gender},0,1)
 	</insert>
 	<!--캐릭터 선택  -->
 	<update id="charUpdate">

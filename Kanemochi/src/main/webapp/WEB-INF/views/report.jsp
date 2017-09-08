@@ -11,15 +11,8 @@
 body {
 	margin: 50px;
 	text-align: center;
-}
-
-table {
-	margin: auto;
-	text-align: center;
-}
-
-th, td {
-	padding: 10px;
+	/* background: #F7CAC9; */
+	background: mistyrose;
 }
 div {
 	display: inline-block;
@@ -43,15 +36,17 @@ div {
 		var data = new google.visualization.DataTable();
 		data.addColumn('string', 'Topping');
 		data.addColumn('number', 'Slices');
-		data.addRows([ [ 'Mushrooms', 3 ], [ 'Onions', 1 ], [ 'Olives', 1 ],
-				[ 'Zucchini', 1 ], [ 'Pepperoni', 2 ] ]);
+		data.addRows([ [ '식비', 3 ], [ '교통비', 1 ], [ '교육비', 1 ],
+				[ '문화생활', 1 ], [ '생활비', 2 ] ]);
 
 		// Set chart options
 		var options = {
-			'title' : 'Where have my money gone?',
-			'is3D' : true,
-			'width' : 600,
-			'height' : 300
+			'title' : '어디에 돈을 썼나요?',
+			//'is3D' : true,
+			'width' : 800,
+			'height' : 400,
+			'backgroundColor': 'transparent',
+			'colors': ['#91A8D0', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']
 		};
 
 		// Instantiate and draw our chart, passing in some options.
@@ -76,18 +71,21 @@ div {
 
 		var options = {
 			chart : {
-				title : 'My money, please come back to me.',
-				subtitle : '월별 변동'
+				title : '월간 레포트',
+				subtitle : '카테고리별 변동'
 			},
 			width : 600,
-			height : 300,
+			height : 400,
 			axes : {
 				x : {
 					0 : {
 						side : 'top'
 					}
 				}
-			}
+			},
+			'backgroundColor': 'transparent',
+			'colors': ['#88B04B', '#578CA9', '#F3CF55']
+			
 		};
 
 		var chart = new google.charts.Line(document

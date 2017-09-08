@@ -11,26 +11,75 @@
 <style type="text/css">
 body{
 	margin: 0 auto;
+	margin-top: 5%;
 	text-align: center;
+	background: #578CA9;
+	background-image:url(/kanemochi/resources/image/bg/bg3.gif);
+	background-size: 100% 100%;
 }
-
-label{
-	text-align: center;
-}
-
 table {
 	margin: auto;
 	text-align: center;
 }
-
 th, td {
 	padding: 10px;
 }
-
+label{
+	text-align: center;
+}
+img{
+	width: 30%;
+}
 </style>
+<script>
+/*    $(function(){
+	var header = $('body');
+
+	var backgrounds = new Array(
+	    'url(/kanemochi/resources/image/bg/jinja.gif)'
+	  , 'url(/kanemochi/resources/image/bg/densha.gif)'
+	  , 'url(/kanemochi/resources/image/bg/ame.gif)'
+	  , 'url(/kanemochi/resources/image/bg/spring.gif)'
+	);
+
+	var current = 0;
+
+	function nextBackground() {
+	    current++;
+	    current = current % backgrounds.length;
+	    header.css('background-image', backgrounds[current]);
+	}
+	setInterval(nextBackground, 5000);
+
+	header.css('background-image', backgrounds[0]);
+	}); */  
+	 
+
+/* 	 $(function(){
+	var imgs = new Array("/kanemochi/resources/image/bg/jinja.gif",
+			"/kanemochi/resources/image/bg/densha.gif",
+			"/kanemochi/resources/image/bg/ame.gif",
+			"/kanemochi/resources/image/bg/spring.gif");
+	function changeBg() {
+	    var imgUrl = imgs[Math.floor(Math.random()*imgs.length)];
+	    $('body').css('background-image', 'url(' + imgUrl + ')');
+	    $('body').fadeIn(1000); //this is new, will fade in smoothly
+	}
+	
+	function changeBackgroundSmoothly() {
+	    $('body').fadeOut(1000, changeBg); //this is new, will fade out smoothly
+	}
+	
+	setInterval(changeBackgroundSmoothly,5000);
+	
+	 }); */
+
+</script>
+
 </head>
 <body>
-<h1>KANEMOCHI</h1>
+<!-- <h1>KANEMOCHI</h1> -->
+<a href="#"><img src="/kanemochi/resources/image/logo2.png" class="rounded float-left" alt="left-img" id="logo"></a>
 <table>
 	<tr>
 		<td>ID</td>
@@ -50,8 +99,8 @@ th, td {
 
 
 <a href="/kanemochi/member/signUpForm" class="btn btn-info">KANEMOCHI 会員登録</a><br><br>
-<a href="/kanemochi/member/findIdPwdForm" class="btn btn-success">id/pwdを探す</a>
-<a href="/kanemochi/game/game">재훈이의 작업실</a>
+<a href="/kanemochi/member/findIdPwdForm" class="btn btn-success">id/pwdを探す</a><br>
+<a href="/kanemochi/game/game">재훈이의 작업실</a><br>
 <a href="/kanemochi/member/characterSelect">characterSelect</a>
 </body>
 </html>

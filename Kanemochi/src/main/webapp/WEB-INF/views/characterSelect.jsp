@@ -12,6 +12,8 @@
 body {
 	margin: 50px;
 	text-align: center;
+	background: #CFB095;
+	font-size: large;
 }
 
 table {
@@ -31,9 +33,9 @@ th, td {
 		<td>id</td>
 		<td>hongsi</td>
 		<td rowspan="3">
-			<a href="#"><img src="http://via.placeholder.com/150x200" class="rounded float-left" alt="left-img" id="chrOne"></a>
-			<a href="#"><img src="http://via.placeholder.com/150x200" class="rounded float-center" alt="center-img" id="chrTwo"></a>
-			<a href="#"><img src="http://via.placeholder.com/150x200" class="rounded float-right" alt="right-img" id="chrThree"></a>
+			<a href="#"><img src="/kanemochi/resources/image/chineseGirl_front.png" class="rounded float-left" alt="left-img" id="chrOne"></a>
+			<a href="#"><img src="/kanemochi/resources/image/catGirl_front.png" class="rounded float-center" alt="center-img" id="chrTwo"></a>
+			<a href="#"><img src="/kanemochi/resources/image/pinkGirl_front.png" class="rounded float-right" alt="right-img" id="chrThree"></a>
 		</td>
 	</tr>
 	<tr class="warning">
@@ -48,9 +50,9 @@ th, td {
 		<td>email</td>
 		<td><p>hong@naver.com</p></td>
 		<td rowspan="3">
-			<a href="#"><img src="http://via.placeholder.com/150x200" class="rounded float-left" alt="left-img" id="chrFour"></a>
-			<a href="#"><img src="http://via.placeholder.com/150x200" class="rounded float-center" alt="center-img" id="chrFive"></a>
-			<a href="#"><img src="http://via.placeholder.com/150x200" class="rounded float-right" alt="right-img" id="chrSix"></a>
+			<a href="#"><img src="/kanemochi/resources/image/englishBoy_front.png" class="rounded float-left" alt="left-img" id="chrFour"></a>
+			<a href="#"><img src="/kanemochi/resources/image/coolBoy_front.png" class="rounded float-center" alt="center-img" id="chrFive"></a>
+			<a href="#"><img src="/kanemochi/resources/image/Usoku_front.png" class="rounded float-right" alt="right-img" id="chrSix"></a>
 		</td>
 	</tr>
 	<tr>
