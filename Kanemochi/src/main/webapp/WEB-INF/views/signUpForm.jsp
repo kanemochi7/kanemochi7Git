@@ -24,17 +24,17 @@ th, td {
 }
 </style>
 <script type="text/javascript">
+		var idResult= false;
+		var pwResult = false;
+		var pwResult2 = false;
+		var nameResult = false;
+		var emailResult = false;
+		var phoneResult = false;
+		var genderResult = false;
+		var idDuplResult = false;
+		var emailDuplResult = false;
 		
 		$(function() {
-			var idResult= false;
-			var pwResult = false;
-			var pwResult2 = false;
-			var nameResult = false;
-			var emailResult = false;
-			var phoneResult = false;
-			var genderResult = false;
-			var idDuplResult = false;
-			var emailDuplResult = false;
 			
 			$("#id").on('keyup', idCheck);
 			$("#password").on('keyup', pwCheck);
@@ -49,8 +49,17 @@ th, td {
 			$("#emailDuplCheck").on('click', emailDuplCheck);
 			
 			function join(){
-				if(idResult && pwResult && pwResult2 && nameResult && emailResult && phoneResult && genderResult && idDuplResult && emailDuplResult) {
 					alert("ok");
+					alert(idResult)
+					alert(pwResult)
+					alert(pwResult2)
+					alert(nameResult)
+					alert(emailResult)
+					alert(phoneResult)
+					alert(genderResult)
+					alert(idDuplResult)
+					alert(emailDuplResult)
+				if(idResult && pwResult && pwResult2 && nameResult && emailResult && phoneResult && genderResult && idDuplResult && emailDuplResult) {
 					$('#joinForm').submit();
 				}else{
 					alert("you input something wrong");
@@ -65,12 +74,12 @@ th, td {
 					, method : 'GET'
 					, data : 'id=' + id
 					, success: function(repo) {
-						if(repo != ""){
+						if(repo != true){
 							alert("중복되는 아이디가 있습니다.");
 							$('#id').val("");
 							$('#id').focus();
 						}
-						if(repo == ""){
+						if(repo == true){
 							alert("사용하실 수 있는 아이디입니다.");
 							document.getElementById("idMsg").innerHTML = "id ok!!!";
 							idDuplResult= true;
@@ -173,7 +182,7 @@ th, td {
 		        
 			    if(phone == ''){
 			    	document.getElementById("phoneMsg").innerHTML = "phoneを入力してください";
-			    }else if((!re.test(phone)) || (phone.length != 10)){
+			    }else if((!re.test(phone)) || (phone.length != 11)){
 					document.getElementById("phoneMsg").innerHTML = "phone number is wrong!";
 				}else{
 					document.getElementById("phoneMsg").innerHTML = "phone ok";
@@ -211,7 +220,7 @@ th, td {
 			<table>
 				<tr>
 					<td><label for="id">ID</label></td>
-					<td><input type="text" id="id" placeholder="ID" class="form-control input-sm" autofocus /></td>
+					<td><input type="text" id="id" name="id" placeholder="ID" class="form-control input-sm" autofocus /></td>
 					<td><a id="idDuplCheck" class="btn btn-success">IDCHECK</a></td>
 				</tr>
 				<tr>
@@ -221,7 +230,7 @@ th, td {
 				</tr>
 				<tr>
 					<td><label for="password">Password</label></td>
-					<td><input type="password" id="password" class="form-control input-sm"	placeholder="Password"></td>
+					<td><input type="password" id="password" name="pwd"  class="form-control input-sm"	placeholder="Password"></td>
 				</tr>
 				<tr>
 					<td><label for="password2">Password 確認</label></td>
@@ -234,7 +243,7 @@ th, td {
 				</tr>
 				<tr>
 					<td><label for="name">お名前</label></td>
-					<td><input type="text" id="name" class="form-control input-sm" placeholder="お名前"></td>
+					<td><input type="text" id="name" name="name"  class="form-control input-sm" placeholder="お名前"></td>
 				</tr>
 				<tr>
 					<td colspan="3"><p>
@@ -243,7 +252,7 @@ th, td {
 				</tr>
 				<tr>
 					<td><label for="email">Eメール</label></td>
-					<td><input type="email" id="email" class="form-control input-sm" placeholder="Eメール" autocomplete="off"></td>
+					<td><input type="email" id="email" name="email"  class="form-control input-sm" placeholder="Eメール" autocomplete="off"></td>
 					<td><a id ="emailDuplCheck" class="btn btn-success">email</a></td>
 				</tr>
 				<tr>
@@ -251,7 +260,7 @@ th, td {
 				</tr>
 				<tr>
 					<td><label for="phone">電話番号</label></td>
-					<td><input type="tel" id="phone" class="form-control input-sm" placeholder="電話番号"></td>
+					<td><input type="tel" id="phone" name="phone"  class="form-control input-sm" placeholder="電話番号"></td>
 				</tr>
 				<tr>
 					<td colspan="3"><p><span id="phoneMsg"></span></p></td>
@@ -259,8 +268,8 @@ th, td {
 				<tr>
 					<td><label>性別</label></td>
 					<td>
-					<input type="radio" name="optionsRadios" class ="gender" value="woman"> 女性
-					<input type="radio" name="optionsRadios" class ="gender" value="man"> 男性
+					<input type="radio" name="gender" class ="gender" value="woman"> 女性
+					<input type="radio" name="gender" class ="gender" value="man"> 男性
 					</td>
 				</tr>
 				<tr>
@@ -280,6 +289,6 @@ th, td {
 	<a href ="/kanemochi/member/list">list로</a><br>
 	<a href ="/kanemochi/member/memberListForm">memberListForm으로</a>
 	<a href ="/kanemochi/member/reportForm">report로</a><br>
-
+	<input type="hidden" id="smt">
 </body>
 </html>

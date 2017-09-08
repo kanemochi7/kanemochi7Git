@@ -1,4 +1,4 @@
-package com.project.vo;
+package com.project.kanemochi.vo;
 
 public class MemberVO {
 	private String id;

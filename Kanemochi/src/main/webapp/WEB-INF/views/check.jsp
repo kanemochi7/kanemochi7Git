@@ -12,12 +12,14 @@
 function gotoParents() {
 	var authNum = ${checkNum};
 	var userNum = $('#userNum').val();
-	if(i==authNum){
+	if(userNum==authNum){
 		alert("이메일 인증성공");
 		opener.document.getElementById("email").value = "${email}";
+		opener.emailDuplResult = true;
 		window.close();
 	}else{
 		alert("이메일 인증 실패");
+		opener.emailDuplResult = false;
 		opener.document.getElementById("email").value = "";
 	}
 }

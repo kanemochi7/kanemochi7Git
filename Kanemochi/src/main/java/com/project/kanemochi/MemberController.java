@@ -2,9 +2,7 @@ package com.project.kanemochi;
 
 import java.util.Locale;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.kanemochi.dao.MemberDAO;
 import com.project.kanemochi.util.Mail;
-import com.project.vo.MemberVO;
+import com.project.kanemochi.vo.MemberVO;
 
 @Controller
 @RequestMapping("/member")
@@ -25,6 +24,8 @@ public class MemberController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	private Mail mail = new Mail();
+	@Autowired
+	private MemberDAO dao;
 	
 	
 	@RequestMapping(value = "signUpForm", method = RequestMethod.GET)
@@ -33,8 +34,10 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
-	public String signup() {
-		System.out.println("signup");
+	public String signup(MemberVO vo,Model model) {
+		System.out.println(vo);
+		int result = dao.signUp(vo);
+		model.addAttribute("result", result);
 		return "loginForm";
 	}
 	
@@ -46,7 +49,7 @@ public class MemberController {
 	@RequestMapping(value = "findIdPwd", method = RequestMethod.GET)
 	public String findId(String email) {
 		MemberVO vo = new MemberVO();
-		vo.setEmail(email);		
+		vo.setEmail(email);
 		return "loginForm";
 	}
 	
@@ -57,15 +60,27 @@ public class MemberController {
 		return "loginForm";
 	}
 	
-	@RequestMapping(value = "logout", method = RequestMethod.GET)
-	public String logout(Locale locale, Model model) {
+	@RequestMapping(value = "login", method = RequestMethod.POST)
+	public String login(String id,String pwd,HttpSession session) {
+		MemberVO vo = new MemberVO();
+		vo.setId(id);
+		vo.setPwd(pwd);
+		MemberVO loginVO= dao.login(vo);
+		if(loginVO!=null){
+			session.setAttribute("loginID", id);
+			session.setAttribute("loginName",pwd );//꼭고칠것!!!!!!!!!!!!!!! DB연결후 
+			if(loginVO.getAuthority()==0){
+				return "memberList";
+			}
+		}
 		return "loginForm";
 	}
 	
-	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public String login(String id,String pwd,HttpSession session) {
-		session.setAttribute("loginid", id);
-		session.setAttribute("loginName",pwd );//꼭고칠것!!!!!!!!!!!!!!! DB연결후 
+	@RequestMapping(value = "logout", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+		if(session.getAttribute("loginID")!=null){
+			session.invalidate();
+		}
 		return "loginForm";
 	}
 	
@@ -119,8 +134,12 @@ public class MemberController {
 	
 	@RequestMapping(value = "idDuplCheck", method = RequestMethod.GET)
 	@ResponseBody
-	public void idDuplCheck() {
-		
+	public boolean idDuplCheck(String id,Model model) {
+		boolean result = false;
+		if(dao.checkId(id)==null){
+			result = true;
+		}
+		return result;
 	}
 	
 	@RequestMapping(value = "emailCheck", method = RequestMethod.GET)

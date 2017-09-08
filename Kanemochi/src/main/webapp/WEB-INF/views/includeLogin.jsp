@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<c:if test="${loginid!=null}">
+<c:if test="${loginID!=null}">
 	<p>
 		${loginName} 様　Welcome!
 		<a href="/kanemochi/member/logout" class="btn btn-danger"></a>

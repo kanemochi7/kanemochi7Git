@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.kanemochi.dao.MemberMapper">
+	<!--가입  -->
+	<insert id="signUp" parameterType="MemberVO">
+		insert into users(user_id,user_pw,user_name,user_gender,user_phone,user_email,user_authority) 
+		values(#{id},#{pwd},#{name},#{email},#{phone},#{gender},0)
+	</insert>
+	<!--캐릭터 선택  -->
+	<update id="charUpdate">
+		update users 
+		set char = #{img_id}
+		where user_id= #{id}
+	</update>
+	<!--로그인-->
+	<select id="login" parameterType="MemberVO" resultType="MemberVO">
+  		SELECT * FROM users WHERE users_id =#{id} AND user_pwd=#{pwd}
+  	</select>
+  	
+  	<select id="checkId" parameterType="String" resultType="MemberVO">
+  		SELECT * FROM users WHERE user_id = #{id}
+  	</select>
+  
+</mapper>

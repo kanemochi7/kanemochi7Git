@@ -3,5 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	
+	<typeAliases>
+		<typeAlias type="com.project.kanemochi.vo.MemberVO" alias="MemberVO"/>
+	</typeAliases>
+	<mappers>
+		<mapper resource="mapper/memberMapper.xml"/>
+	</mappers>
 </configuration>

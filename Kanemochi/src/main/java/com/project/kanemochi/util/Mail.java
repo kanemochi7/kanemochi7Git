@@ -14,14 +14,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 
-import com.project.vo.MemberVO;
+import com.project.kanemochi.vo.MemberVO;
 
 public class Mail extends Authenticator {
 	
 	
 	//비밀번호, 아이디 찾아주는 용도로 쓰일것.
-	public void sendMail(String email) {
-		//미구현
+	public void send(MemberVO vo) {
 		//보내는 서버 주소
 		String host = "smtp.naver.com";
 		//메일 제목 설정
@@ -31,7 +30,17 @@ public class Mail extends Authenticator {
 		//보내는사람 이름
 		String writer = "test test"; 
 		//받는사람 이메일주소
-		String to = "kongkongup@gmail.com";
+		String to = vo.getEmail();
+		
+		StringBuffer message = new StringBuffer();
+		message.append("<KANAEMOCHI>");
+		message.append("<br>");
+		message.append("ID: ");
+		message.append(vo.getId());
+		message.append("<br>");
+		message.append("password: ");
+		message.append(vo.getPwd());
+		message.append("<br>");		
 		
 		Properties props = new Properties();
 		props.put("mail.smtp.starttls.enable", "true");
@@ -54,7 +63,7 @@ public class Mail extends Authenticator {
 			msg.setFrom(new InternetAddress(from, MimeUtility.encodeText(writer, "UTF-8", "B")));
 			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
 			msg.setSubject(subject);
-			msg.setContent("테스트 메일 입니다.", "text/html;charset=UTF-8");
+			msg.setContent(message.toString(), "text/html;charset=UTF-8");
 			Transport.send(msg);
 		} catch (MessagingException | UnsupportedEncodingException e) {
 			e.printStackTrace();
