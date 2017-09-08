@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>MemberLIST</title>
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
 <script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
 <script src="/kanemochi/resources/js/bootstrap.js"></script>
@@ -17,15 +17,14 @@ function init() {
 	$.ajax({
 		url:"/kanemochi/member/memberList",
 		type:"POST",
-		dataType:"json",
 		success: function(result) {
 			$(".table table-striped table-hover").empty();
 			var row = '<tr><th>id</th><th>お名前</th><th>性別</th><th>メール</th><th>電話番号</th><th>전화번호</th><th>승인여부</th></tr>';
 			$(".table table-striped table-hover").append(row);
 			$(result).each(function (index,item) {
 				var addrow  ='<tr>'
-					+'<td>'+item.userId+'</td>';
-				addrow += '<td>'+item.userName+'</td>';
+					+'<td>'+item.userid+'</td>';
+				addrow += '<td>'+item.name+'</td>';
 				addrow += '<td>'+item.gender+'</td>';
 				addrow += '<td>'+item.email+'</td>';
 				addrow += '<td>'+item.phone+'</td>';

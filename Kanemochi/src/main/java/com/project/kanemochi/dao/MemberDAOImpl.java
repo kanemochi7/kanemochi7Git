@@ -1,5 +1,6 @@
 package com.project.kanemochi.dao;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -36,6 +37,13 @@ public class MemberDAOImpl implements MemberDAO {
 	public MemberVO checkId(String id) {
 		MemberMapper mapper = sqlsession.getMapper(MemberMapper.class);
 		return mapper.checkId(id);
+	}
+
+	@Override
+	public ArrayList<MemberVO> memberList() {
+		MemberMapper mapper = sqlsession.getMapper(MemberMapper.class);
+		System.out.println(mapper.memberList());
+		return mapper.memberList();
 	}
 
 }

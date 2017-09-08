@@ -18,9 +18,13 @@
 	<select id="login" parameterType="MemberVO" resultType="MemberVO">
   		SELECT * FROM users WHERE users_id =#{id} AND user_pwd=#{pwd}
   	</select>
-  	
+  	<!--아이디 중복체크  -->
   	<select id="checkId" parameterType="String" resultType="MemberVO">
   		SELECT * FROM users WHERE user_id = #{id}
+  	</select>
+  	
+  	<select id="memberList" resultType="MemberVO">
+  		select * from users where user_authority = 0
   	</select>
   
 </mapper>

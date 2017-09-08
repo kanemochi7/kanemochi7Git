@@ -1,5 +1,6 @@
 package com.project.kanemochi;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
@@ -44,6 +45,14 @@ public class MemberController {
 	@RequestMapping(value = "findIdPwdForm", method = RequestMethod.GET)
 	public String findIdPwdForm() {
 		return "findIdPwdForm";
+	}
+	
+	@RequestMapping(value = "memberList", method = RequestMethod.POST)
+	@ResponseBody
+	public ArrayList<MemberVO> memberList() {
+		ArrayList<MemberVO> members = dao.memberList();
+		System.out.println(members);
+		return members;
 	}
 	
 	@RequestMapping(value = "findIdPwd", method = RequestMethod.GET)
