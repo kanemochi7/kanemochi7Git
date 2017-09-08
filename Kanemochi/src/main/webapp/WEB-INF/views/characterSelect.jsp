@@ -14,11 +14,20 @@ body {
 	text-align: center;
 	background: #CFB095;
 	font-size: large;
+	background-color:#fff5c3;
+	background-image:url(/kanemochi/resources/image/bg/pinkSky2.png);
+	background-repeat: repeat-x;
+	color: black;
+	
 }
-
+h1{
+	font-weight: bolder;
+	margin: 5%;
+}
 table {
 	margin: auto;
 	text-align: center;
+	font-size:x-large;
 }
 
 th, td {
@@ -31,11 +40,11 @@ th, td {
 <table>
 	<tr>
 		<td>id</td>
-		<td>hongsi</td>
+		<td>${memberID}</td>
 		<td rowspan="3">
-			<a href="#"><img src="/kanemochi/resources/image/chineseGirl_front.png" class="rounded float-left" alt="left-img" id="chrOne"></a>
-			<a href="#"><img src="/kanemochi/resources/image/catGirl_front.png" class="rounded float-center" alt="center-img" id="chrTwo"></a>
-			<a href="#"><img src="/kanemochi/resources/image/pinkGirl_front.png" class="rounded float-right" alt="right-img" id="chrThree"></a>
+			<a href="#"><img src="/kanemochi/resources/image/character/chineseGirl_front.png" class="rounded float-left" alt="left-img" id="chrOne"></a>
+			<a href="#"><img src="/kanemochi/resources/image/character/catGirl_front.png" class="rounded float-center" alt="center-img" id="chrTwo"></a>
+			<a href="#"><img src="/kanemochi/resources/image/character/pinkGirl_front.png" class="rounded float-right" alt="right-img" id="chrThree"></a>
 		</td>
 	</tr>
 	<tr class="warning">
@@ -44,15 +53,15 @@ th, td {
 	</tr>
 	<tr class="info">
 		<td>name</td>
-		<td><p>Gyuhee Hong</p></td>
+		<td><p>${memberName}</p></td>
 	</tr>
 	<tr class="success">
 		<td>email</td>
 		<td><p>hong@naver.com</p></td>
 		<td rowspan="3">
-			<a href="#"><img src="/kanemochi/resources/image/englishBoy_front.png" class="rounded float-left" alt="left-img" id="chrFour"></a>
-			<a href="#"><img src="/kanemochi/resources/image/coolBoy_front.png" class="rounded float-center" alt="center-img" id="chrFive"></a>
-			<a href="#"><img src="/kanemochi/resources/image/Usoku_front.png" class="rounded float-right" alt="right-img" id="chrSix"></a>
+			<a href="#"><img src="/kanemochi/resources/image/character/englishBoy_front.png" class="rounded float-left" alt="left-img" id="chrFour"></a>
+			<a href="#"><img src="/kanemochi/resources/image/character/coolBoy_front.png" class="rounded float-center" alt="center-img" id="chrFive"></a>
+			<a href="#"><img src="/kanemochi/resources/image/character/Usoku_front.png" class="rounded float-right" alt="right-img" id="chrSix"></a>
 		</td>
 	</tr>
 	<tr>
@@ -65,8 +74,8 @@ th, td {
 	</tr>
 	<tr>
 		<td colspan="3">
-		<a href="/kanemochi/member/signUpForm" class="btn btn-success">back</a>
-		<a href="#" class="btn btn-warning">finish</a>
+		<a type="button" href="/kanemochi/member/signUpForm" class="btn btn-success">back</a>
+		<a href="#" class="btn btn-warning" onclick ="location.href='loginForm'">finish</a>
 		</td>
 	</tr>
 </table>

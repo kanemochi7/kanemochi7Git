@@ -16,6 +16,7 @@ body{
 	background: #578CA9;
 	background-image:url(/kanemochi/resources/image/bg/bg3.gif);
 	background-size: 100% 100%;
+	color: navy;
 }
 table {
 	margin: auto;
@@ -27,8 +28,11 @@ th, td {
 label{
 	text-align: center;
 }
-img{
+#logo{
 	width: 30%;
+}
+#icon{
+	width:20%;
 }
 </style>
 <script>
@@ -79,7 +83,8 @@ img{
 </head>
 <body>
 <!-- <h1>KANEMOCHI</h1> -->
-<a href="#"><img src="/kanemochi/resources/image/logo2.png" class="rounded float-left" alt="left-img" id="logo"></a>
+<a href="#"><img src="/kanemochi/resources/image/logo-white.gif" class="rounded float-left" alt="left-img" id="logo"></a>
+<c:if test="${memberID ==null}">
 <table>
 	<tr>
 		<td>ID</td>
@@ -91,15 +96,41 @@ img{
  	</tr>
  	<tr>
  		<td colspan ="2">
-	 	<input type="button"  class="btn btn-primary" value="ログイン">
+	 	<input type="button"  class="btn btn-primary" value="ログイン" onclick="location.href='login'">
 	 	<input type="reset" class="btn btn-warning" value="キャンセル">
  		</td>
  	</tr>
+ 	<tr>
+ 		<td colspan="2">
+			<a href="/kanemochi/member/signUpForm" class="btn btn-info">KANEMOCHI 会員登録</a>
+			<a href="/kanemochi/member/findIdPwdForm" class="btn btn-success">id/pwdを探す</a>
+ 		</td>
+ 	</tr>
 </table>
+</c:if>
 
-
-<a href="/kanemochi/member/signUpForm" class="btn btn-info">KANEMOCHI 会員登録</a><br><br>
-<a href="/kanemochi/member/findIdPwdForm" class="btn btn-success">id/pwdを探す</a><br>
+<c:if test="${memberID != null}">
+	<table>
+		<tr>
+			<td>
+				<p>${memberID}님 로그인 중</p>
+				<button type="button" class="btn btn-danger" onclick="location.href='/kanemochi/member/logout'">logout</button><br>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<button type="button" class="btn btn-success" onclick="location.href='/kanemochi/member/album'">album</button>
+				<button type="button" class="btn btn-warning" onclick="location.href='/kanemochi/member/write'">write</button>
+				<button type="button" class="btn btn-success" onclick="location.href='/kanemochi/member/myPage'">myPage</button>
+				<button type="button" class="btn btn-warning" onclick="location.href='/kanemochi/member/list'">list</button>
+				<button type="button" class="btn btn-success" onclick="location.href='/kanemochi/member/memberListForm'">memberListForm</button>
+				<button type="button" class="btn btn-warning" onclick="location.href='/kanemochi/member/report'">report</button>
+			</td>
+			<td></td>
+		</tr>
+	</table>
+</c:if>
+<br>
 <a href="/kanemochi/game/game">재훈이의 작업실</a><br>
 <a href="/kanemochi/member/characterSelect">characterSelect</a>
 </body>

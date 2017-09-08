@@ -52,8 +52,7 @@ th, td {
 		</tr>
 		<tr>
 			<td>price</td>
-			<td><input type="text" class="form-control input-sm"
-				placeholder="price"></td>
+			<td><input type="text" class="form-control input-sm" placeholder="price"></td>
 			<td><select class="form-control input-sm" id="select">
 					<option>Won</option>
 					<option>Yen</option>
@@ -72,7 +71,8 @@ th, td {
 				card</td>
 		</tr>
 		<tr>
-			<td colspan="2"><a href="/kanemochi/member/" class="btn btn-success">back</a> <a href="#" class="btn btn-success">ok</a>
+			<td colspan="2"><a href="/kanemochi/member/" class="btn btn-success">back</a> 
+			<a href="#" class="btn btn-success">ok</a>
 			</td>
 		</tr>
 

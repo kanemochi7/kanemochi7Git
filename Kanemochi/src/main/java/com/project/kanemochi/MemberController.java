@@ -28,6 +28,10 @@ public class MemberController {
 	@Autowired
 	private MemberDAO dao;
 	
+	@RequestMapping(value = "loginForm", method = RequestMethod.GET)
+	public String loginForm() {
+		return "loginForm";
+	}
 	
 	@RequestMapping(value = "signUpForm", method = RequestMethod.GET)
 	public String signUpForm() {

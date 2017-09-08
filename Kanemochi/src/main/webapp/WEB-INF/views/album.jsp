@@ -12,6 +12,10 @@
 body {
 	margin: 50px;
 	text-align: center;
+	background-color:#fff5c3;
+	background-image:url(/kanemochi/resources/image/bg/pinkSky2.png);
+	background-repeat: repeat-x;
+	color: black;
 }
 
 table {
@@ -28,7 +32,7 @@ a{
 </style>
 </head>
 <body>
-	<h1>[ Album ]</h1>
+	<h1>Album</h1>
 	<table>
 		<tr>
 			<td><a href="#"><img src="http://via.placeholder.com/300x200" class="rounded float-left" alt="left-img"></a></td>
@@ -51,6 +55,6 @@ a{
 			<td>2017-09-27 80:50:00</td>
 		</tr>
 	</table>
-	<a href="/kanemochi/member/signUpForm" class="btn btn-warning">Back</a>
+	<a href="/kanemochi/member/loginForm" class="btn btn-warning">Back</a>
 </body>
 </html>

@@ -12,15 +12,23 @@
 body {
 	margin: 50px;
 	text-align: center;
+	background-color:#eeafaf;
+	background-image:url(/kanemochi/resources/image/bg/pinkSky.png);
+	background-repeat: repeat-x;
+	color: black;
 }
 
 table {
 	margin: auto;
 	text-align: center;
+	font-size:large;
 }
 
 th, td {
 	padding: 10px;
+}
+img{
+	width: 15%;
 }
 </style>
 <script type="text/javascript">
@@ -114,7 +122,7 @@ th, td {
 			    	if (((id.charAt(0) < 'a') || (id.charAt(0)) > 'z')){
 			        	document.getElementById("idMsg").innerHTML = "idはアルファベットの小文字で";
 			        }else if ((id.length < 3) || (id.length > 10)) {
-						document.getElementById("idMsg").innerHTML = "idは3～ 10文字desu";
+						document.getElementById("idMsg").innerHTML = "idは3～ 10文字";
 					}else{
 						document.getElementById("idMsg").innerHTML = "id checkをしてください！";
 						idResult = true;
@@ -205,14 +213,16 @@ th, td {
 </script>
 </head>
 <body>
-	<a href="#" class="btn btn-default">Default</a>
+<!-- 	<a href="#" class="btn btn-default">Default</a>
 	<a href="#" class="btn btn-primary">Primary</a>
 	<a href="#" class="btn btn-success">Success</a>
 	<a href="#" class="btn btn-info">Info</a>
 	<a href="#" class="btn btn-warning">Warning</a>
 	<a href="#" class="btn btn-danger">Danger</a>
 	<a href="#" class="btn btn-link">Link</a>
-	<h1>[ KANEMOCHI ]</h1>
+	<h1>[ KANEMOCHI ]</h1> -->
+	<h1>Join us!</h1>
+	<!-- <a href="#"><img src="/kanemochi/resources/image/logo-black.gif" class="rounded float-left" alt="left-img" id="logo"></a> -->
 	<form class="form-horizontal" id="joinForm"
 		action="/kanemochi/member/signup" method="post">
 		<fieldset>
@@ -283,12 +293,12 @@ th, td {
 
 	</form>
 	
-	<a href ="/kanemochi/member/album">album으로</a><br>
+<!-- <a href ="/kanemochi/member/album">album으로</a><br>
 	<a href ="/kanemochi/member/write">write로</a><br>
 	<a href ="/kanemochi/member/myPage">myPage로</a><br>
 	<a href ="/kanemochi/member/list">list로</a><br>
 	<a href ="/kanemochi/member/memberListForm">memberListForm으로</a>
-	<a href ="/kanemochi/member/reportForm">report로</a><br>
+	<a href ="/kanemochi/member/reportForm">report로</a><br> -->
 	<input type="hidden" id="smt">
 </body>
 </html>

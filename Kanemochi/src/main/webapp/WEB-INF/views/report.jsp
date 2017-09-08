@@ -9,9 +9,8 @@
 <script src="/kanemochi/resources/js/bootstrap.js"></script>
 <style type="text/css">
 body {
-	margin: 50px;
+	margin: 0;
 	text-align: center;
-	/* background: #F7CAC9; */
 	background: mistyrose;
 }
 div {
@@ -46,7 +45,8 @@ div {
 			'width' : 800,
 			'height' : 400,
 			'backgroundColor': 'transparent',
-			'colors': ['#91A8D0', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']
+			'colors': ['#91A8D0', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6'],
+			'fontSize':20
 		};
 
 		// Instantiate and draw our chart, passing in some options.
@@ -57,9 +57,9 @@ div {
 		// [Line Chart]
 		var data = new google.visualization.DataTable();
 		data.addColumn('number', 'Day');
-		data.addColumn('number', 'Guardians of the Galaxy');
-		data.addColumn('number', 'The Avengers');
-		data.addColumn('number', 'Transformers: Age of Extinction');
+		data.addColumn('number', '식비 변동');
+		data.addColumn('number', '문화비 변동');
+		data.addColumn('number', '교통비 변동');
 
 		data.addRows([ [ 1, 37.8, 80.8, 41.8 ], [ 2, 30.9, 69.5, 32.4 ],
 				[ 3, 25.4, 57, 25.7 ], [ 4, 11.7, 18.8, 10.5 ],
@@ -74,7 +74,7 @@ div {
 				title : '월간 레포트',
 				subtitle : '카테고리별 변동'
 			},
-			width : 600,
+			width : 700,
 			height : 400,
 			axes : {
 				x : {
@@ -84,7 +84,8 @@ div {
 				}
 			},
 			'backgroundColor': 'transparent',
-			'colors': ['#88B04B', '#578CA9', '#F3CF55']
+			'colors': ['#88B04B', '#578CA9', '#F3CF55'],
+			'fontSize':25
 			
 		};
 
@@ -99,7 +100,10 @@ div {
 <body>
 	<h1>[Report]</h1>
 	<div id="chart_div"></div>
-	<div id="line_top_x"></div>
+	<div id="line_top_x"></div><br>
+	<button type="button" class="btn btn-warning">export in excel</button>
+	<button type="button" class="btn btn-success">export in pdf</button>
+	<button type="button" class="btn btn-info" onclick="location.href='loginForm'">back</button>
 
 	<!-- <p>Column Chart</p>
   	<div id="chart_div2"></div> -->
