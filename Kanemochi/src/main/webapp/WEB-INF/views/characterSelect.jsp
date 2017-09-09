@@ -33,7 +33,36 @@ table {
 th, td {
 	padding: 10px;
 }
+/* .chrOne:hover{
+	cursor:pointer; 
+    background:url('/kanemochi/resources/image/character/chineseGirl2.gif');
+} */
 </style>
+
+<script>
+/* $(function(){
+    $("#chrOne").hover(function(){
+        $("#chrOne").attr("src", "/kanemochi/resources/image/character/chineseGirl2.gif");
+    });
+    
+   
+});
+ */
+ $(function(){
+	    $("#chrOne").hover(function(){
+	    	$("#chrOne").attr("src", "/kanemochi/resources/image/character/chineseGirl2.gif");
+	        }, function(){
+	        	$("#chrOne").attr("src", "/kanemochi/resources/image/character/chineseGirl_front.png");
+	    });
+	    
+	    $("#chrOne").click(function(){
+	    	$(this).css("outline", "5px dotted red");
+	    	/* }, function(){
+	    		$(this).css("outline", "none"); */
+	    });
+	    
+	});
+</script>
 </head>
 <body>
 <h1>Select Your Character</h1>
@@ -79,6 +108,5 @@ th, td {
 		</td>
 	</tr>
 </table>
-
 </body>
 </html>

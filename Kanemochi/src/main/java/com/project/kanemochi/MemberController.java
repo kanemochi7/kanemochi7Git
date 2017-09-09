@@ -34,6 +34,11 @@ public class MemberController {
 		return "signUpForm";
 	}
 	
+	@RequestMapping(value = "screenshotForm", method = RequestMethod.GET)
+	public String screenshotForm() {
+		return "screenshotForm";
+	}
+	
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
 	public String signup(MemberVO vo,Model model) {
 		System.out.println(vo);
@@ -139,7 +144,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "reportForm", method = RequestMethod.GET)
 	public String reportForm() {
-		return "report";
+		return "reportForm";
 	}
 	
 	@RequestMapping(value = "idDuplCheck", method = RequestMethod.GET)

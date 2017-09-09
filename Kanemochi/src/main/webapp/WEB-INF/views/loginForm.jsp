@@ -136,7 +136,7 @@ $(function() {
 				<button type="button" class="btn btn-success" onclick="location.href='/kanemochi/member/myPage'">myPage</button>
 				<button type="button" class="btn btn-warning" onclick="location.href='/kanemochi/member/list'">list</button>
 				<button type="button" class="btn btn-success" onclick="location.href='/kanemochi/member/memberListForm'">memberListForm</button>
-				<button type="button" class="btn btn-warning" onclick="location.href='/kanemochi/member/report'">report</button>
+				<button type="button" class="btn btn-warning" onclick="location.href='/kanemochi/member/reportForm'">report</button>
 			</td>
 			<td></td>
 		</tr>
@@ -144,6 +144,5 @@ $(function() {
 </c:if>
 <br>
 <a href="/kanemochi/game/game">재훈이의 작업실</a><br>
-<a href="/kanemochi/member/characterSelect">characterSelect</a>
 </body>
 </html>
