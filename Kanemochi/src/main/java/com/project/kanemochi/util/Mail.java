@@ -30,16 +30,16 @@ public class Mail extends Authenticator {
 		//보내는사람 이름
 		String writer = "test test"; 
 		//받는사람 이메일주소
-		String to = vo.getEmail();
+		String to = vo.getUser_email();
 		
 		StringBuffer message = new StringBuffer();
 		message.append("<KANAEMOCHI>");
 		message.append("<br>");
 		message.append("ID: ");
-		message.append(vo.getId());
+		message.append(vo.getUser_id());
 		message.append("<br>");
 		message.append("password: ");
-		message.append(vo.getPwd());
+		message.append(vo.getUser_pw());
 		message.append("<br>");		
 		
 		Properties props = new Properties();

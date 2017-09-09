@@ -9,12 +9,13 @@
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
 <script src="/kanemochi/resources/js/bootstrap.js"></script>
 <script type="text/javascript">
+alert("${user_email}");
 function gotoParents() {
 	var authNum = ${checkNum};
 	var userNum = $('#userNum').val();
 	if(userNum==authNum){
 		alert("이메일 인증성공");
-		opener.document.getElementById("email").value = "${email}";
+		opener.document.getElementById("email").value = "${user_email}";
 		opener.emailDuplResult = true;
 		window.close();
 	}else{

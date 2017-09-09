@@ -76,11 +76,11 @@ img{
 			
 			
 			function idDuplCheck(){
-				var id = $('#id').val();
+				var user_id = $('#id').val();
 				$.ajax({
 					url : 'idDuplCheck'
 					, method : 'GET'
-					, data : 'id=' + id
+					, data : 'user_id=' + user_id
 					, success: function(repo) {
 						if(repo != true){
 							alert("중복되는 아이디가 있습니다.");
@@ -100,14 +100,14 @@ img{
 			} 
 			
 			function emailDuplCheck(){
-				var email= $('#email').val();
+				var user_email= $('#email').val();
 				if(emailResult){
 					$.ajax({
 						url: '/kanemochi/member/emailCheck'
 						, method: 'GET'
-						, data: 'email=' +email
+						, data: 'user_email=' +user_email
 						, success: function (number) {
-							var newWindow = window.open('/kanemochi/member/checkForm?num='+number+'&email='+email,'check','height=50,weight=50,resizalbe=yes');
+							var newWindow = window.open('/kanemochi/member/checkForm?num='+number+'&user_email='+user_email,'check','height=50,weight=50,resizalbe=yes');
 						}
 					});
 				}else{
@@ -116,12 +116,12 @@ img{
 			} 
 			
 			function idCheck(){
-				var id = $('#id').val();
+				var user_id = $('#id').val();
 			    
-			    if(id != ''){
-			    	if (((id.charAt(0) < 'a') || (id.charAt(0)) > 'z')){
+			    if(user_id != ''){
+			    	if (((user_id.charAt(0) < 'a') || (user_id.charAt(0)) > 'z')){
 			        	document.getElementById("idMsg").innerHTML = "idはアルファベットの小文字で";
-			        }else if ((id.length < 3) || (id.length > 10)) {
+			        }else if ((user_id.length < 3) || (user_id.length > 10)) {
 						document.getElementById("idMsg").innerHTML = "idは3～ 10文字";
 					}else{
 						document.getElementById("idMsg").innerHTML = "id checkをしてください！";
@@ -230,7 +230,7 @@ img{
 			<table>
 				<tr>
 					<td><label for="id">ID</label></td>
-					<td><input type="text" id="id" name="id" placeholder="ID" class="form-control input-sm" autofocus /></td>
+					<td><input type="text" id="id" name="user_id" placeholder="ID" class="form-control input-sm" autofocus /></td>
 					<td><a id="idDuplCheck" class="btn btn-success">IDCHECK</a></td>
 				</tr>
 				<tr>
@@ -240,7 +240,7 @@ img{
 				</tr>
 				<tr>
 					<td><label for="password">Password</label></td>
-					<td><input type="password" id="password" name="pwd"  class="form-control input-sm"	placeholder="Password"></td>
+					<td><input type="password" id="password" name="user_pw"  class="form-control input-sm"	placeholder="Password"></td>
 				</tr>
 				<tr>
 					<td><label for="password2">Password 確認</label></td>
@@ -253,7 +253,7 @@ img{
 				</tr>
 				<tr>
 					<td><label for="name">お名前</label></td>
-					<td><input type="text" id="name" name="name"  class="form-control input-sm" placeholder="お名前"></td>
+					<td><input type="text" id="name" name="user_name"  class="form-control input-sm" placeholder="お名前"></td>
 				</tr>
 				<tr>
 					<td colspan="3"><p>
@@ -262,7 +262,7 @@ img{
 				</tr>
 				<tr>
 					<td><label for="email">Eメール</label></td>
-					<td><input type="email" id="email" name="email"  class="form-control input-sm" placeholder="Eメール" autocomplete="off"></td>
+					<td><input type="email" id="email" name="user_email"  class="form-control input-sm" placeholder="Eメール" autocomplete="off"></td>
 					<td><a id ="emailDuplCheck" class="btn btn-success">email</a></td>
 				</tr>
 				<tr>
@@ -270,7 +270,7 @@ img{
 				</tr>
 				<tr>
 					<td><label for="phone">電話番号</label></td>
-					<td><input type="tel" id="phone" name="phone"  class="form-control input-sm" placeholder="電話番号"></td>
+					<td><input type="tel" id="phone" name="user_phone"  class="form-control input-sm" placeholder="電話番号"></td>
 				</tr>
 				<tr>
 					<td colspan="3"><p><span id="phoneMsg"></span></p></td>
@@ -278,8 +278,8 @@ img{
 				<tr>
 					<td><label>性別</label></td>
 					<td>
-					<input type="radio" name="gender" class ="gender" value="woman"> 女性
-					<input type="radio" name="gender" class ="gender" value="man"> 男性
+					<input type="radio" name="user_gender" class ="gender" value="woman"> 女性
+					<input type="radio" name="user_gender" class ="gender" value="man"> 男性
 					</td>
 				</tr>
 				<tr>

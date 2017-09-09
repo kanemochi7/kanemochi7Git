@@ -1,12 +1,9 @@
 package com.project.kanemochi;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +20,6 @@ import com.project.kanemochi.vo.MemberVO;
 @RequestMapping("/member")
 public class MemberController {
 
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	private Mail mail = new Mail();
 	@Autowired
 	private MemberDAO dao;
@@ -56,34 +52,35 @@ public class MemberController {
 	public ArrayList<MemberVO> memberList() {
 		ArrayList<MemberVO> members = new ArrayList<>();
 		members = dao.memberList();
+		System.out.println(members);
 		return members;
 	}
 	
 	@RequestMapping(value = "findIdPwd", method = RequestMethod.GET)
-	public String findId(String email) {
+	public String findId(String user_email) {
 		MemberVO vo = new MemberVO();
-		vo.setEmail(email);
+		vo.setUser_email(user_email);
 		return "loginForm";
 	}
 	
 	@RequestMapping(value = "findId", method = RequestMethod.GET)
-	public String findPwd(String email) {
+	public String findPwd(String user_email) {
 		MemberVO vo = new MemberVO();
-		vo.setEmail(email);
+		vo.setUser_email(user_email);
 		return "loginForm";
 	}
 	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public String login(String id,String pwd,HttpSession session) {
+	public String login(String user_id,String user_pw,HttpSession session) {
 		MemberVO vo = new MemberVO();
-		vo.setId(id);
-		vo.setPwd(pwd);
+		vo.setUser_id(user_id);
+		vo.setUser_pw(user_pw);
 		MemberVO loginVO= dao.login(vo);
 		if(loginVO!=null){
-			session.setAttribute("loginID", id);
-			session.setAttribute("loginName",pwd );//꼭고칠것!!!!!!!!!!!!!!! DB연결후 
-			if(loginVO.getAuthority()==0){
-				return "memberList";
+			session.setAttribute("loginID", loginVO.getUser_id());
+			session.setAttribute("loginName", loginVO.getUser_name());
+			if(loginVO.getUser_authority()!=0){
+				return "memberListForm";
 			}
 		}
 		return "loginForm";
@@ -129,8 +126,8 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "checkForm", method = RequestMethod.GET)
-	public String tempCheckForm(String num,String email,RedirectAttributes re) {
-		re.addFlashAttribute("email", email);
+	public String tempCheckForm(String num, String user_email,RedirectAttributes re) {
+		re.addFlashAttribute("user_email", user_email);
 		re.addFlashAttribute("checkNum", num);
 		return "redirect:/member/check";
 	}
@@ -147,9 +144,10 @@ public class MemberController {
 	
 	@RequestMapping(value = "idDuplCheck", method = RequestMethod.GET)
 	@ResponseBody
-	public boolean idDuplCheck(String id,Model model) {
+	public boolean idDuplCheck(String user_id,Model model) {
 		boolean result = false;
-		if(dao.checkId(id)==null){
+		System.out.println(user_id);
+		if(dao.checkId(user_id)==null){
 			result = true;
 		}
 		return result;
@@ -157,8 +155,8 @@ public class MemberController {
 	
 	@RequestMapping(value = "emailCheck", method = RequestMethod.GET)
 	@ResponseBody
-	public int emailCheck(String email) {
-		int number = mail.emailCheck(email);
+	public int emailCheck(String user_email) {
+		int number = mail.emailCheck(user_email);
 		return number;
 	}
 	

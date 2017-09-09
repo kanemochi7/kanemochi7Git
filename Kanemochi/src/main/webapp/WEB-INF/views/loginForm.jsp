@@ -36,7 +36,17 @@ label{
 }
 </style>
 <script>
-/*    $(function(){
+$(function() {
+	$("#loginBtn").on('click', function() {
+		if($("#id").val()=="" && $("#pwd").val()==""){
+			alert("아이디와 비밀번호를 입력해주세요.");
+			$("#id").focus();
+			return false;
+		}
+		$("#login").submit();
+	})
+});
+/*  $(function(){
 	var header = $('body');
 
 	var backgrounds = new Array(
@@ -84,36 +94,38 @@ label{
 <body>
 <!-- <h1>KANEMOCHI</h1> -->
 <a href="#"><img src="/kanemochi/resources/image/logo-white.gif" class="rounded float-left" alt="left-img" id="logo"></a>
-<c:if test="${memberID ==null}">
-<table>
-	<tr>
-		<td>ID</td>
-		<td><input type="text" id="id" class="form-control input-sm"  placeholder="ID"></td>
- 	</tr>
- 	<tr>
-		<td>Password</td>
-		<td><input type="password" id="pwd" class="form-control input-sm" placeholder="Password"></td>
- 	</tr>
- 	<tr>
- 		<td colspan ="2">
-	 	<input type="button"  class="btn btn-primary" value="ログイン" onclick="location.href='login'">
-	 	<input type="reset" class="btn btn-warning" value="キャンセル">
- 		</td>
- 	</tr>
- 	<tr>
- 		<td colspan="2">
-			<a href="/kanemochi/member/signUpForm" class="btn btn-info">KANEMOCHI 会員登録</a>
-			<a href="/kanemochi/member/findIdPwdForm" class="btn btn-success">id/pwdを探す</a>
- 		</td>
- 	</tr>
-</table>
+<c:if test="${loginID ==null}">
+<form id="login" action="/kanemochi/member/login" method="post">
+	<table>
+		<tr>
+			<td>ID</td>
+			<td><input type="text" id="id" name="user_id" class="form-control input-sm"  placeholder="ID"></td>
+	 	</tr>
+	 	<tr>
+			<td>Password</td>
+			<td><input type="password" id="pwd" name="user_pw" class="form-control input-sm" placeholder="Password"></td>
+	 	</tr>
+	 	<tr>
+	 		<td colspan ="2">
+		 	<input type="button" id="loginBtn" class="btn btn-primary" value="ログイン">
+		 	<input type="reset" class="btn btn-warning" value="キャンセル">
+	 		</td>
+	 	</tr>
+	 	<tr>
+	 		<td colspan="2">
+				<a href="/kanemochi/member/signUpForm" class="btn btn-info">KANEMOCHI 会員登録</a>
+				<a href="/kanemochi/member/findIdPwdForm" class="btn btn-success">id/pwdを探す</a>
+	 		</td>
+	 	</tr>
+	</table>
+</form>
 </c:if>
 
-<c:if test="${memberID != null}">
+<c:if test="${loginID != null}">
 	<table>
 		<tr>
 			<td>
-				<p>${memberID}님 로그인 중</p>
+				<p>${loginName}님 로그인 중</p>
 				<button type="button" class="btn btn-danger" onclick="location.href='/kanemochi/member/logout'">logout</button><br>
 			</td>
 		</tr>
