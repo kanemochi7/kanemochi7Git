@@ -64,11 +64,61 @@ input[type="text"]
 	    $("#chrOne").hover(function(){
 	    	$("#chrOne").attr("src", "/kanemochi/resources/image/character/chineseGirl2.gif");
 	        }, function(){
-	        	$("#chrOne").attr("src", "/kanemochi/resources/image/character/chineseGirl_front.png");
+	        	$("#chrOne").attr("src", "/kanemochi/resources/image/character/chineseGirl.png");
 	    });
 	    
 	    $("#chrOne").click(function(){
 	    	$(this).css("outline", "5px dotted red");
+	    });
+	    
+	    $("#chrTwo").hover(function(){
+	    	$("#chrTwo").attr("src", "/kanemochi/resources/image/character/catGirl2.gif");
+	        }, function(){
+	        	$("#chrTwo").attr("src", "/kanemochi/resources/image/character/catGirl.png");
+	    });
+	    
+	    $("#chrTwo").click(function(){
+	    	$(this).css("outline", "5px dotted blue");
+	    });
+	    
+	    $("#chrThree").hover(function(){
+	    	$("#chrThree").attr("src", "/kanemochi/resources/image/character/pinkGirl2.gif");
+	        }, function(){
+	        	$("#chrThree").attr("src", "/kanemochi/resources/image/character/pinkGirl.png");
+	    });
+	    
+	    $("#chrThree").click(function(){
+	    	$(this).css("outline", "5px dotted green");
+	    });
+	    
+	    $("#chrFour").hover(function(){
+	    	$("#chrFour").attr("src", "/kanemochi/resources/image/character/englishBoy2.gif");
+	        }, function(){
+	        	$("#chrThree").attr("src", "/kanemochi/resources/image/character/englishBoy.png");
+	    });
+	    
+	    $("#chrFour").click(function(){
+	    	$(this).css("outline", "5px dotted red");
+	    });
+	    
+	    $("#chrFive").hover(function(){
+	    	$("#chrFive").attr("src", "/kanemochi/resources/image/character/coolBoy2.gif");
+	        }, function(){
+	        	$("#chrFive").attr("src", "/kanemochi/resources/image/character/coolBoy.png");
+	    });
+	    
+	    $("#chrFive").click(function(){
+	    	$(this).css("outline", "5px dotted blue");
+	    });
+	    
+	    $("#chrSix").hover(function(){
+	    	$("#chrSix").attr("src", "/kanemochi/resources/image/character/usoku2.gif");
+	        }, function(){
+	        	$("#chrSix").attr("src", "/kanemochi/resources/image/character/usoku.png");
+	    });
+	    
+	    $("#chrSix").click(function(){
+	    	$(this).css("outline", "5px dotted green");
 	    });
 	    
 	    function join() {
@@ -81,32 +131,32 @@ input[type="text"]
 		}
 	    
 	    $("#chrOne").click(function(){
-	    	url = "/kanemochi/resources/image/character/chineseGirl_front.png";
+	    	url = "/kanemochi/resources/image/character/chineseGirl.png";
 	    	 $("#imgURL").attr("value", url);
 	    });
 	    
 	    $("#chrTwo").click(function(){
-	    	url = "/kanemochi/resources/image/character/catGirl_front.png";
+	    	url = "/kanemochi/resources/image/character/catGirl.png";
 	    	 $("#imgURL").attr("value", url);
 	    });
 	    
 	    $("#chrThree").click(function(){
-	    	url = "/kanemochi/resources/image/character/pinkGirl_front.png";
+	    	url = "/kanemochi/resources/image/character/pinkGirl.png";
 	    	 $("#imgURL").attr("value", url);
 	    });
 	    
 	    $("#chrFour").click(function(){
-	    	url = "/kanemochi/resources/image/character/englishBoy_front.png";
+	    	url = "/kanemochi/resources/image/character/englishBoy.png";
 	    	 $("#imgURL").attr("value", url);
 	    });
 	    
 	    $("#chrFive").click(function(){
-	    	url = "/kanemochi/resources/image/character/coolBoy_front.png";
+	    	url = "/kanemochi/resources/image/character/coolBoy.png";
 	    	 $("#imgURL").attr("value", url);
 	    });
 	    
 	    $("#chrSix").click(function(){
-	    	url = "/kanemochi/resources/image/character/Usoku_front.png";
+	    	url = "/kanemochi/resources/image/character/usoku.png";
 	    	 $("#imgURL").attr("value", url);
 	    });
 });
@@ -120,9 +170,9 @@ input[type="text"]
 			<td>id</td>
 			<td><input type ="text" id="user_id" name="user_id" value="${memVO.user_id}" readonly="readonly"/></td>
 			<td rowspan="3">
-				<a href="#"><img src="/kanemochi/resources/image/character/chineseGirl_front.png" class="rounded float-left" alt="left-img" id="chrOne"></a>
-				<a href="#"><img src="/kanemochi/resources/image/character/catGirl_front.png" class="rounded float-center" alt="center-img" id="chrTwo"></a>
-				<a href="#"><img src="/kanemochi/resources/image/character/pinkGirl_front.png" class="rounded float-right" alt="right-img" id="chrThree"></a>
+				<a href="#"><img src="/kanemochi/resources/image/character/chineseGirl.png" class="rounded float-left" alt="left-img" id="chrOne"></a>
+				<a href="#"><img src="/kanemochi/resources/image/character/catGirl.png" class="rounded float-center" alt="center-img" id="chrTwo"></a>
+				<a href="#"><img src="/kanemochi/resources/image/character/pinkGirl.png" class="rounded float-right" alt="right-img" id="chrThree"></a>
 			</td>
 		</tr>
 		<tr class="warning">
@@ -137,9 +187,9 @@ input[type="text"]
 			<td>email</td>
 			<td><input type ="text" id="user_email" name="user_email" value="${memVO.user_email}" readonly="readonly"/></td>
 			<td rowspan="3">
-				<a href="#"><img src="/kanemochi/resources/image/character/englishBoy_front.png" class="rounded float-left" alt="left-img" id="chrFour"></a>
-				<a href="#"><img src="/kanemochi/resources/image/character/coolBoy_front.png" class="rounded float-center" alt="center-img" id="chrFive"></a>
-				<a href="#"><img src="/kanemochi/resources/image/character/Usoku_front.png" class="rounded float-right" alt="right-img" id="chrSix"></a>
+				<a href="#"><img src="/kanemochi/resources/image/character/englishBoy.png" class="rounded float-left" alt="left-img" id="chrFour"></a>
+				<a href="#"><img src="/kanemochi/resources/image/character/coolBoy.png" class="rounded float-center" alt="center-img" id="chrFive"></a>
+				<a href="#"><img src="/kanemochi/resources/image/character/usoku.png" class="rounded float-right" alt="right-img" id="chrSix"></a>
 			</td>
 		</tr>
 		<tr>

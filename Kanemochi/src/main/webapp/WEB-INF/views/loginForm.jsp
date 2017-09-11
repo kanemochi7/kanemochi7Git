@@ -35,10 +35,11 @@ label{
 #icon{
 	width:20%;
 }
-#idpw{
-	border-bottom: 1px solid black;
+a > b{
+	border-bottom: 1px solid #348b8f;
     outline-color: blue;
-    color: #5858FA;
+    /* color: #5858FA; */
+    color: #348b8f;
 } 
 </style>
 <script>
