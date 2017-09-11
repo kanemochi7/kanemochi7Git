@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>album</title>
+<link rel="icon" href="/kanemochi/resources/image/favicon.png">
 <script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
 <script src="/kanemochi/resources/js/bootstrap.js"></script>
@@ -39,13 +40,13 @@ function popupOpen(){
 
 	var popUrl = "screenshotForm";	//팝업창에 출력될 페이지 URL
 
-	var popOption = "width=600, height=400, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+	var popOption = "width=600, height=500, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
 
 		window.open(popUrl,"",popOption);
 
 	}
-</script>
 
+</script>
 
 </head>
 <body>

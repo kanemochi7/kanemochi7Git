@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Home</title>
+<link rel="icon" href="/kanemochi/resources/image/favicon.png">
 <script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
 <script src="/kanemochi/resources/js/bootstrap.js"></script>
