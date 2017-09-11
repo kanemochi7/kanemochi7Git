@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 @RequestMapping("game")
-public class GameController {
+public class AccountController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(GameController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
