@@ -5,7 +5,7 @@
 	<title>MAIN</title>
 <script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
-<link rel="icon" href="resources/image/favicon.png">
+<link rel="icon" href="/kanemochi/resources/image/favicon.png">
 <script src="/kanemochi/resources/js/bootstrap.js"></script>
 <!-- phaser -->
 	<script type="text/javascript" src="resources/js/phaser.js"></script>
@@ -75,12 +75,13 @@ label{
 <body>
 
 	<div class="option_bar" align="right">
-		<span class="label label-default">Default</span>
+		<jsp:include page="/kanemochi/includeLogin.jsp"></jsp:include>
+		<!-- <span class="label label-default">Default</span>
 		<span class="label label-primary">Primary</span>
 		<span class="label label-success">Success</span>
 		<span class="label label-warning">Warning</span>
 		<span class="label label-danger">Danger</span>
-		<span class="label label-info">Info</span>
+		<span class="label label-info">Info</span> -->
 	</div>
 	
 	<div class="category">
