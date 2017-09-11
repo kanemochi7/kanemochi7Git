@@ -4,10 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Home</title>
+<title>SignUpForm</title>
 <script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
 <script src="/kanemochi/resources/js/bootstrap.js"></script>
+<link rel="icon" href="/kanemochi/resources/image/favicon.png">
 <style type="text/css">
 body {
 	margin: 50px;
@@ -31,6 +32,7 @@ img{
 	width: 15%;
 }
 </style>
+
 <script type="text/javascript">
 		var idResult= false;
 		var pwResult = false;
@@ -224,7 +226,7 @@ img{
 	<h1>Join us!</h1>
 	<!-- <a href="#"><img src="/kanemochi/resources/image/logo-black.gif" class="rounded float-left" alt="left-img" id="logo"></a> -->
 	<form class="form-horizontal" id="joinForm"
-		action="/kanemochi/member/signup" method="post">
+		action="/kanemochi/member/tempSignUp" method="post">
 		<fieldset>
 			<legend>歓迎します!</legend>
 			<table>

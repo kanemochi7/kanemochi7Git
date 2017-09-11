@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Home</title>
+<title>characterSelect</title>
+<link rel="icon" href="/kanemochi/resources/image/favicon.png">
 <script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
 <script src="/kanemochi/resources/js/bootstrap.js"></script>
@@ -33,6 +34,12 @@ table {
 th, td {
 	padding: 10px;
 }
+
+input[type="text"]
+{
+    background: transparent;
+    border: none;    
+}
 /* .chrOne:hover{
 	cursor:pointer; 
     background:url('/kanemochi/resources/image/character/chineseGirl2.gif');
@@ -49,6 +56,10 @@ th, td {
 });
  */
  $(function(){
+ 	var joinid= $("#user_id").val();
+	alert(joinid)
+	$("#joinBtn").on('click', join);
+	
 	    $("#chrOne").hover(function(){
 	    	$("#chrOne").attr("src", "/kanemochi/resources/image/character/chineseGirl2.gif");
 	        }, function(){
@@ -61,55 +72,59 @@ th, td {
 	    		$(this).css("outline", "none"); */
 	    });
 	    
-	});
+	    function join() {
+
+	    	$('#joinform').submit();
+		}
+	    
+});
 </script>
 </head>
 <body>
 <h1>Select Your Character</h1>
-<table>
-	<tr>
-		<td>id</td>
-		<td>${memVO.user_id}</td>
-		<td rowspan="3">
-			<a href="#"><img src="/kanemochi/resources/image/character/chineseGirl_front.png" class="rounded float-left" alt="left-img" id="chrOne"></a>
-			<a href="#"><img src="/kanemochi/resources/image/character/catGirl_front.png" class="rounded float-center" alt="center-img" id="chrTwo"></a>
-			<a href="#"><img src="/kanemochi/resources/image/character/pinkGirl_front.png" class="rounded float-right" alt="right-img" id="chrThree"></a>
-		</td>
-	</tr>
-	<tr class="warning">
-		<td>password</td>
-		<td>${memVO.user_pw}</td>
-	</tr>
-	<tr class="info">
-		<td>name</td>
-		<td><p>${memVO.user_name}</p></td>
-	</tr>
-	<tr class="success">
-		<td>email</td>
-		<td><p>${memVO.user_email}</p></td>
-		<td rowspan="3">
-			<a href="#"><img src="/kanemochi/resources/image/character/englishBoy_front.png" class="rounded float-left" alt="left-img" id="chrFour"></a>
-			<a href="#"><img src="/kanemochi/resources/image/character/coolBoy_front.png" class="rounded float-center" alt="center-img" id="chrFive"></a>
-			<a href="#"><img src="/kanemochi/resources/image/character/Usoku_front.png" class="rounded float-right" alt="right-img" id="chrSix"></a>
-			<object>
-				<param name="" value="hi">
-			</object>
-		</td>
-	</tr>
-	<tr>
-		<td>tel</td>
-		<td><p>${memVO.user_tel}</p></td>
-	</tr>
-	<tr>
-		<td>gender</td>
-		<td><p>${memVO.user_gender}</p></td>
-	</tr>
-	<tr>
-		<td colspan="3">
-		<a type="button" href="/kanemochi/member/signUpForm" class="btn btn-success">back</a>
-		<a href="#" class="btn btn-warning" onclick ="location.href='loginForm'">finish</a>
-		</td>
-	</tr>
-</table>
+<form action="/kanemochi/member/signup" id="joinform" method="post">
+	<table>
+		<tr>
+			<td>id</td>
+			<td><input type ="text" id="user_id" name="user_id" value="${memVO.user_id}" readonly="readonly"/></td>
+			<td rowspan="3">
+				<a href="#"><img src="/kanemochi/resources/image/character/chineseGirl_front.png" class="rounded float-left" alt="left-img" id="chrOne"></a>
+				<a href="#"><img src="/kanemochi/resources/image/character/catGirl_front.png" class="rounded float-center" alt="center-img" id="chrTwo"></a>
+				<a href="#"><img src="/kanemochi/resources/image/character/pinkGirl_front.png" class="rounded float-right" alt="right-img" id="chrThree"></a>
+			</td>
+		</tr>
+		<tr class="warning">
+			<td>password</td>
+			<td><input type ="text" id="user_pw" name="user_pw"  value="${memVO.user_pw}" readonly="readonly"/></td>
+		</tr>
+		<tr class="info">
+			<td>name</td>
+			<td><input type ="text" id="user_name" name="user_name" value="${memVO.user_name}" readonly="readonly"/></td>
+		</tr>
+		<tr class="success">
+			<td>email</td>
+			<td><input type ="text" id="user_email" name="user_email" value="${memVO.user_email}" readonly="readonly"/></td>
+			<td rowspan="3">
+				<a href="#"><img src="/kanemochi/resources/image/character/englishBoy_front.png" class="rounded float-left" alt="left-img" id="chrFour"></a>
+				<a href="#"><img src="/kanemochi/resources/image/character/coolBoy_front.png" class="rounded float-center" alt="center-img" id="chrFive"></a>
+				<a href="#"><img src="/kanemochi/resources/image/character/Usoku_front.png" class="rounded float-right" alt="right-img" id="chrSix"></a>
+			</td>
+		</tr>
+		<tr>
+			<td>phone</td>
+			<td><input type ="text" id="user_phone" name="user_phone" value="${memVO.user_phone}" readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td>gender</td>
+			<td><input type ="text" id="user_gender" name="user_gender" value="${memVO.user_gender}" readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td colspan="3">
+			<a type="button" href="/kanemochi/member/signUpForm" class="btn btn-success">back</a>
+			<button id="joinBtn" class="btn btn-warning">finish</button>
+			</td>
+		</tr>
+	</table>
+</form>
 </body>
 </html>

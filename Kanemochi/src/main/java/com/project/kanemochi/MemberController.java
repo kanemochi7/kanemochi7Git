@@ -47,8 +47,10 @@ public class MemberController {
 	
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
 	public String signup(MemberVO vo,Model model) {
-		
-		return "login";
+		System.out.println("signupVO: "+vo);
+		int result = dao.signUp(vo);
+		model.addAttribute("result", result);
+		return "loginForm";
 	}
 	
 	@RequestMapping(value = "findIdPwdForm", method = RequestMethod.GET)
