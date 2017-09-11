@@ -35,6 +35,11 @@ label{
 #icon{
 	width:20%;
 }
+#idpw{
+	border-bottom: 1px solid black;
+    outline-color: blue;
+    color: #5858FA;
+} 
 </style>
 <script>
 $(function() {
@@ -118,8 +123,8 @@ $(function() {
 	 		</td>
 	 	</tr>
 	 	<tr>
-	 		<td colspan="2">
-	 			<a href="/kanemochi/member/findIdPwdForm"><b>id</b></a> /
+	 		<td colspan="2" id="idpw">
+	 			<a href="/kanemochi/member/findIdPwdForm" ><b>id</b></a> /
 				<a href="/kanemochi/member/findIdPwdForm"><b>pwd を探す</b></a>
 			</td>
 	 	</tr>
