@@ -69,7 +69,7 @@ th, td {
 <table>
 	<tr>
 		<td>id</td>
-		<td>${memberID}</td>
+		<td>${memVO.user_id}</td>
 		<td rowspan="3">
 			<a href="#"><img src="/kanemochi/resources/image/character/chineseGirl_front.png" class="rounded float-left" alt="left-img" id="chrOne"></a>
 			<a href="#"><img src="/kanemochi/resources/image/character/catGirl_front.png" class="rounded float-center" alt="center-img" id="chrTwo"></a>
@@ -78,28 +78,31 @@ th, td {
 	</tr>
 	<tr class="warning">
 		<td>password</td>
-		<td>??</td>
+		<td>${memVO.user_pw}</td>
 	</tr>
 	<tr class="info">
 		<td>name</td>
-		<td><p>${memberName}</p></td>
+		<td><p>${memVO.user_name}</p></td>
 	</tr>
 	<tr class="success">
 		<td>email</td>
-		<td><p>hong@naver.com</p></td>
+		<td><p>${memVO.user_email}</p></td>
 		<td rowspan="3">
 			<a href="#"><img src="/kanemochi/resources/image/character/englishBoy_front.png" class="rounded float-left" alt="left-img" id="chrFour"></a>
 			<a href="#"><img src="/kanemochi/resources/image/character/coolBoy_front.png" class="rounded float-center" alt="center-img" id="chrFive"></a>
 			<a href="#"><img src="/kanemochi/resources/image/character/Usoku_front.png" class="rounded float-right" alt="right-img" id="chrSix"></a>
+			<object>
+				<param name="" value="hi">
+			</object>
 		</td>
 	</tr>
 	<tr>
-		<td>name</td>
-		<td><p>010-111-1111</p></td>
+		<td>tel</td>
+		<td><p>${memVO.user_tel}</p></td>
 	</tr>
 	<tr>
 		<td>gender</td>
-		<td><p>女性</p></td>
+		<td><p>${memVO.user_gender}</p></td>
 	</tr>
 	<tr>
 		<td colspan="3">

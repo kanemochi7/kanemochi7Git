@@ -6,7 +6,7 @@
 	<!--가입  -->
 	<insert id="signUp" parameterType="MemberVO">
 		insert into users(user_id,user_pw,user_name,user_gender,user_phone,user_email,user_authority,level_title) 
-		values(#{user_id},#{user_pw},#{user_name},#{user_email},#{user_phone},#{user_gender},0,1)
+		values(#{user_id},#{user_pw},#{user_name},#{user_gender},#{user_phone},#{user_email},0,1)
 	</insert>
 	<!--캐릭터 선택  -->
 	<update id="charUpdate">

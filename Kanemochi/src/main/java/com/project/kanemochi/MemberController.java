@@ -39,12 +39,16 @@ public class MemberController {
 		return "screenshotForm";
 	}
 	
+	@RequestMapping(value = "tempSignUp", method = RequestMethod.POST)
+	public String tempSignUp(MemberVO vo,Model model) {
+		model.addAttribute("memVO", vo);
+		return "characterSelect";
+	}
+	
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
 	public String signup(MemberVO vo,Model model) {
-		System.out.println(vo);
-		int result = dao.signUp(vo);
-		model.addAttribute("result", result);
-		return "characterSelect";
+		
+		return "login";
 	}
 	
 	@RequestMapping(value = "findIdPwdForm", method = RequestMethod.GET)
