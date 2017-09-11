@@ -57,6 +57,7 @@ input[type="text"]
  */
  $(function(){
  	var joinid= $("#user_id").val();
+ 	var url ="/kanemochi/resources/image/character/";
 	alert(joinid)
 	$("#joinBtn").on('click', join);
 	
@@ -73,10 +74,43 @@ input[type="text"]
 	    });
 	    
 	    function join() {
-
-	    	$('#joinform').submit();
+	    	if(url != "/kanemochi/resources/image/character/"){
+	    		$('#joinform').submit();
+	    	}else{
+	    		alert("plz select your character!");
+	    		return false;
+	    	}
 		}
 	    
+	    $("#chrOne").click(function(){
+	    	url = url + "chineseGirl_front.png";
+	    	 $("#imgURL").attr("value", url);
+	    });
+	    
+	    $("#chrTwo").click(function(){
+	    	url = url + "catGirl_front.png";
+	    	 $("#imgURL").attr("value", url);
+	    });
+	    
+	    $("#chrThree").click(function(){
+	    	url = url + "pinkGirl_front.png";
+	    	 $("#imgURL").attr("value", url);
+	    });
+	    
+	    $("#chrFour").click(function(){
+	    	url = url + "englishBoy_front.png";
+	    	 $("#imgURL").attr("value", url);
+	    });
+	    
+	    $("#chrFive").click(function(){
+	    	url = url + "coolBoy_front.png";
+	    	 $("#imgURL").attr("value", url);
+	    });
+	    
+	    $("#chrSix").click(function(){
+	    	url = url + "Usoku_front.png";
+	    	 $("#imgURL").attr("value", url);
+	    });
 });
 </script>
 </head>
@@ -122,6 +156,11 @@ input[type="text"]
 			<td colspan="3">
 			<a type="button" href="/kanemochi/member/signUpForm" class="btn btn-success">back</a>
 			<button id="joinBtn" class="btn btn-warning">finish</button>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type ="hidden" name ="img_id" value="" id="imgURL"/> 
 			</td>
 		</tr>
 	</table>
