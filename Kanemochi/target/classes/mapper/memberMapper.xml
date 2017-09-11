@@ -5,15 +5,9 @@
 <mapper namespace="com.project.kanemochi.dao.MemberMapper">
 	<!--가입  -->
 	<insert id="signUp" parameterType="MemberVO">
-		insert into users(user_id,user_pw,user_name,user_gender,user_phone,user_email,user_authority,level_title) 
-		values(#{user_id},#{user_pw},#{user_name},#{user_gender},#{user_phone},#{user_email},0,1)
+		insert into users(user_id,user_pw,user_name,user_gender,user_phone,user_email,user_authority,img_id,level_title) 
+		values(#{user_id},#{user_pw},#{user_name},#{user_gender},#{user_phone},#{user_email},0,#{img_id},1)
 	</insert>
-	<!--캐릭터 선택  -->
-	<update id="charUpdate">
-		update users 
-		set char = #{img_id}
-		where user_id= #{user_id}
-	</update>
 	<!--로그인-->
 	<select id="login" parameterType="MemberVO" resultType="MemberVO">
   		SELECT * FROM users WHERE user_id =#{user_id} AND user_pw=#{user_pw}

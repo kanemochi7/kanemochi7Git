@@ -115,8 +115,13 @@ $(function() {
 	 	<tr>
 	 		<td colspan="2">
 				<a href="/kanemochi/member/signUpForm" class="btn btn-info">KANEMOCHI 会員登録</a>
-				<a href="/kanemochi/member/findIdPwdForm" class="btn btn-success">id/pwdを探す</a>
 	 		</td>
+	 	</tr>
+	 	<tr>
+	 		<td colspan="2">
+	 			<a href="/kanemochi/member/findIdPwdForm"><b>id</b></a> /
+				<a href="/kanemochi/member/findIdPwdForm"><b>pwd を探す</b></a>
+			</td>
 	 	</tr>
 	 	<tr>
 	 		<td>임시</td>
