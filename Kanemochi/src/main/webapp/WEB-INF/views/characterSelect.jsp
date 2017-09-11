@@ -57,7 +57,7 @@ input[type="text"]
  */
  $(function(){
  	var joinid= $("#user_id").val();
- 	var url ="/kanemochi/resources/image/character/";
+ 	var url ="";
 	alert(joinid)
 	$("#joinBtn").on('click', join);
 	
@@ -74,7 +74,7 @@ input[type="text"]
 	    });
 	    
 	    function join() {
-	    	if(url != "/kanemochi/resources/image/character/"){
+	    	if(url != ""){
 	    		$('#joinform').submit();
 	    	}else{
 	    		alert("plz select your character!");
@@ -83,32 +83,32 @@ input[type="text"]
 		}
 	    
 	    $("#chrOne").click(function(){
-	    	url = url + "chineseGirl_front.png";
+	    	url = "/kanemochi/resources/image/character/chineseGirl_front.png";
 	    	 $("#imgURL").attr("value", url);
 	    });
 	    
 	    $("#chrTwo").click(function(){
-	    	url = url + "catGirl_front.png";
+	    	url = "/kanemochi/resources/image/character/catGirl_front.png";
 	    	 $("#imgURL").attr("value", url);
 	    });
 	    
 	    $("#chrThree").click(function(){
-	    	url = url + "pinkGirl_front.png";
+	    	url = "/kanemochi/resources/image/character/pinkGirl_front.png";
 	    	 $("#imgURL").attr("value", url);
 	    });
 	    
 	    $("#chrFour").click(function(){
-	    	url = url + "englishBoy_front.png";
+	    	url = "/kanemochi/resources/image/character/englishBoy_front.png";
 	    	 $("#imgURL").attr("value", url);
 	    });
 	    
 	    $("#chrFive").click(function(){
-	    	url = url + "coolBoy_front.png";
+	    	url = "/kanemochi/resources/image/character/coolBoy_front.png";
 	    	 $("#imgURL").attr("value", url);
 	    });
 	    
 	    $("#chrSix").click(function(){
-	    	url = url + "Usoku_front.png";
+	    	url = "/kanemochi/resources/image/character/Usoku_front.png";
 	    	 $("#imgURL").attr("value", url);
 	    });
 });

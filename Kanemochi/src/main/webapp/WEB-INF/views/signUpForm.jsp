@@ -132,6 +132,10 @@ img{
 			    }
 			}
 			
+			$('input[name="autocompletedField]').on('change', function() {
+			    $(this).valid();  // trigger validation test
+			});
+			
 			function pwCheck(){
 				var password = $('#password').val();
 			    
