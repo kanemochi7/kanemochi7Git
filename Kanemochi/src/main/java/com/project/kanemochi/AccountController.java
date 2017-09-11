@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Handles requests for the application home page.
  */
 @Controller
-@RequestMapping("game")
+@RequestMapping("/account")
 public class AccountController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
@@ -23,10 +23,8 @@ public class AccountController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "game", method = RequestMethod.GET)
+	@RequestMapping(value = "main", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		
-		return "game";
+		return "mainPage";
 	}
-	
 }

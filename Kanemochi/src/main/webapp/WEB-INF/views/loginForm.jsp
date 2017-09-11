@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-	<title>Home</title>
+	<title>KANEMOCHI</title>
 <script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
+<link rel="icon" href="resources/img/favicon.png">
 <script src="/kanemochi/resources/js/bootstrap.js"></script>
 <style type="text/css">
 body{
@@ -116,6 +117,10 @@ $(function() {
 				<a href="/kanemochi/member/signUpForm" class="btn btn-info">KANEMOCHI 会員登録</a>
 				<a href="/kanemochi/member/findIdPwdForm" class="btn btn-success">id/pwdを探す</a>
 	 		</td>
+	 	</tr>
+	 	<tr>
+	 		<td>임시</td>
+	 		<td><a href="/kanemochi/account/main">게임 화면으로 가기</a></td>
 	 	</tr>
 	</table>
 </form>
