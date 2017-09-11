@@ -7,7 +7,7 @@
 	<title>KANEMOCHI</title>
 <script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
-<link rel="icon" href="resources/img/favicon.png">
+<link rel="icon" href="/kanemochi/resources/image/favicon.png">
 <script src="/kanemochi/resources/js/bootstrap.js"></script>
 <style type="text/css">
 body{
