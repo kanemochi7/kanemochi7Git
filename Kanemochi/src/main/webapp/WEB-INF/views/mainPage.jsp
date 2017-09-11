@@ -3,39 +3,39 @@
 <html>
 <head>
 	<title>MAIN</title>
-<script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
-<link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
-<link rel="icon" href="/kanemochi/resources/image/favicon.png">
-<script src="/kanemochi/resources/js/bootstrap.js"></script>
-<!-- phaser -->
-	<script type="text/javascript" src="resources/js/phaser.js"></script>
-<style type="text/css">
-body{
-	margin: 0 auto;
-	margin-top: 5%;
-	text-align: center;
-	background: #578CA9;
-	background-image:url(/kanemochi/resources/image/bg/bg3.gif);
-	background-size: 100% 100%;
-	color: navy;
-}
-table {
-	margin: auto;
-	text-align: center;
-}
-th, td {
-	padding: 10px;
-}
-label{
-	text-align: center;
-}
-#logo{
-	width: 30%;
-}
-#icon{
-	width:20%;
-}
-.option_bar {
+	<script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
+	<link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
+	<link rel="icon" href="/kanemochi/resources/image/favicon.png">
+	<script src="/kanemochi/resources/js/bootstrap.js"></script>
+	<!-- phaser -->
+	<script type="text/javascript" src="resources/js/phaser.min.js"></script>
+	<style type="text/css">
+		body{
+			margin: 0 auto;
+			margin-top: 0%;
+			text-align: center;
+			background: #578CA9;
+			background-image:url(/kanemochi/resources/image/bg/bg3.gif);
+			background-size: 100% 100%;
+			color: navy;
+		}
+		table {
+			margin: auto;
+			text-align: center;
+		}
+		th, td {
+			padding: 10px;
+		}
+		label{
+			text-align: center;
+		}
+		#logo{
+			width: 30%;
+		}
+		#icon{
+			width:20%;
+		}
+		.option_bar {
 			background: black;
 			height: 5%;
 			width: 100%;
@@ -61,7 +61,7 @@ label{
 			width: 100%;
 			float: left;
 		}
-</style>
+	</style>
 
 	<script>
 	function popupOpen(){
@@ -75,13 +75,7 @@ label{
 <body>
 
 	<div class="option_bar" align="right">
-		<jsp:include page="/kanemochi/includeLogin.jsp"></jsp:include>
-		<!-- <span class="label label-default">Default</span>
-		<span class="label label-primary">Primary</span>
-		<span class="label label-success">Success</span>
-		<span class="label label-warning">Warning</span>
-		<span class="label label-danger">Danger</span>
-		<span class="label label-info">Info</span> -->
+		<jsp:include page="includeLogin.jsp"></jsp:include>
 	</div>
 	
 	<div class="category">
@@ -113,7 +107,6 @@ label{
 	
 	<!-- include the main game file -->
 	<div class="game" id="game">
-	<%-- <jsp:include page="game.jsp"></jsp:include> --%>
 	<script>
 		var GameState = {
 		

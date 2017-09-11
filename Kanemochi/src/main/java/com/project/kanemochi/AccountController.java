@@ -24,7 +24,8 @@ public class AccountController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "main", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String main(Model model) {
 		return "mainPage";
 	}
+
 }

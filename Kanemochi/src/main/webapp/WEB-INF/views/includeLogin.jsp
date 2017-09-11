@@ -6,8 +6,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	body {
+		color: white;
+	}
+	p {
+		color: white;
+	}
+</style>
 </head>
 <body>
+	body of includeLogin
 <c:if test="${loginID!=null}">
 	<p>
 		${loginName} 様　Welcome!
