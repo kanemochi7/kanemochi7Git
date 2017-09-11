@@ -69,8 +69,6 @@ input[type="text"]
 	    
 	    $("#chrOne").click(function(){
 	    	$(this).css("outline", "5px dotted red");
-	    	/* }, function(){
-	    		$(this).css("outline", "none"); */
 	    });
 	    
 	    function join() {
