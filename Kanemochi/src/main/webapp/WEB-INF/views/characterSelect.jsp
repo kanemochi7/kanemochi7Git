@@ -15,30 +15,30 @@ body {
 	text-align: center;
 	background: #CFB095;
 	font-size: large;
-	background-color:#fff5c3;
-	background-image:url(/kanemochi/resources/image/bg/pinkSky2.png);
+	background-color: #fff5c3;
+	background-image: url(/kanemochi/resources/image/bg/pinkSky2.png);
 	background-repeat: repeat-x;
 	color: black;
-	
 }
-h1{
+
+h1 {
 	font-weight: bolder;
 	margin: 5%;
 }
+
 table {
 	margin: auto;
 	text-align: center;
-	font-size:x-large;
+	font-size: x-large;
 }
 
 th, td {
 	padding: 10px;
 }
 
-input[type="text"]
-{
-    background: transparent;
-    border: none;    
+input[type="text"] {
+	background: transparent;
+	border: none;
 }
 /* .chrOne:hover{
 	cursor:pointer; 
@@ -47,171 +47,241 @@ input[type="text"]
 </style>
 
 <script>
-/* $(function(){
-    $("#chrOne").hover(function(){
-        $("#chrOne").attr("src", "/kanemochi/resources/image/character/chineseGirl2.gif");
-    });
-    
-   
-});
- */
- $(function(){
- 	var joinid= $("#user_id").val();
- 	var url ="";
-	alert(joinid)
-	$("#joinBtn").on('click', join);
-	
-	    $("#chrOne").hover(function(){
-	    	$("#chrOne").attr("src", "/kanemochi/resources/image/character/chineseGirl2.gif");
-	        }, function(){
-	        	$("#chrOne").attr("src", "/kanemochi/resources/image/character/chineseGirl.png");
-	    });
-	    
-	    $("#chrOne").click(function(){
-	    	$(this).css("outline", "5px dotted red");
-	    });
-	    
-	    $("#chrTwo").hover(function(){
-	    	$("#chrTwo").attr("src", "/kanemochi/resources/image/character/catGirl2.gif");
-	        }, function(){
-	        	$("#chrTwo").attr("src", "/kanemochi/resources/image/character/catGirl.png");
-	    });
-	    
-	    $("#chrTwo").click(function(){
-	    	$(this).css("outline", "5px dotted blue");
-	    });
-	    
-	    $("#chrThree").hover(function(){
-	    	$("#chrThree").attr("src", "/kanemochi/resources/image/character/pinkGirl2.gif");
-	        }, function(){
-	        	$("#chrThree").attr("src", "/kanemochi/resources/image/character/pinkGirl.png");
-	    });
-	    
-	    $("#chrThree").click(function(){
-	    	$(this).css("outline", "5px dotted green");
-	    });
-	    
-	    $("#chrFour").hover(function(){
-	    	$("#chrFour").attr("src", "/kanemochi/resources/image/character/englishBoy2.gif");
-	        }, function(){
-	        	$("#chrThree").attr("src", "/kanemochi/resources/image/character/englishBoy.png");
-	    });
-	    
-	    $("#chrFour").click(function(){
-	    	$(this).css("outline", "5px dotted red");
-	    });
-	    
-	    $("#chrFive").hover(function(){
-	    	$("#chrFive").attr("src", "/kanemochi/resources/image/character/coolBoy2.gif");
-	        }, function(){
-	        	$("#chrFive").attr("src", "/kanemochi/resources/image/character/coolBoy.png");
-	    });
-	    
-	    $("#chrFive").click(function(){
-	    	$(this).css("outline", "5px dotted blue");
-	    });
-	    
-	    $("#chrSix").hover(function(){
-	    	$("#chrSix").attr("src", "/kanemochi/resources/image/character/usoku2.gif");
-	        }, function(){
-	        	$("#chrSix").attr("src", "/kanemochi/resources/image/character/usoku.png");
-	    });
-	    
-	    $("#chrSix").click(function(){
-	    	$(this).css("outline", "5px dotted green");
-	    });
-	    
-	    function join() {
-	    	if(url != ""){
-	    		$('#joinform').submit();
-	    	}else{
-	    		alert("plz select your character!");
-	    		return false;
-	    	}
+	$(function() {
+		var joinid = $("#user_id").val();
+		var url = "";
+		var frontURL = "/kanemochi/resources/image/character/";
+		var chrName = "";
+		var pngName = "";
+		var gifName = "";
+		var clicks = true;
+		
+		//alert(joinid)
+		$("#joinBtn").on('click', join);
+
+		function join() {
+			//var which = document.getElementsByClassName("chr")[0].id;
+
+			if (url != "") {
+				$('#joinform').submit();
+			} else {
+				alert("plz select your character!");
+				return false;
+			}
 		}
-	    
-	    $("#chrOne").click(function(){
-	    	url = "/kanemochi/resources/image/character/chineseGirl.png";
-	    	 $("#imgURL").attr("value", url);
-	    });
-	    
-	    $("#chrTwo").click(function(){
-	    	url = "/kanemochi/resources/image/character/catGirl.png";
-	    	 $("#imgURL").attr("value", url);
-	    });
-	    
-	    $("#chrThree").click(function(){
-	    	url = "/kanemochi/resources/image/character/pinkGirl.png";
-	    	 $("#imgURL").attr("value", url);
-	    });
-	    
-	    $("#chrFour").click(function(){
-	    	url = "/kanemochi/resources/image/character/englishBoy.png";
-	    	 $("#imgURL").attr("value", url);
-	    });
-	    
-	    $("#chrFive").click(function(){
-	    	url = "/kanemochi/resources/image/character/coolBoy.png";
-	    	 $("#imgURL").attr("value", url);
-	    });
-	    
-	    $("#chrSix").click(function(){
-	    	url = "/kanemochi/resources/image/character/usoku.png";
-	    	 $("#imgURL").attr("value", url);
-	    });
-});
+		
+ 		/*  $('.chr').click(function(event) {
+		     if(this.id == "chrOne") {
+		          pngName = "chineseGirl.png";  gifName= "chineseGirl2.gif"; chrEvent("#chrOne");
+		     }else if(this.id == "chrTwo"){
+		    	 pngName = "catGirl.png";  gifName= "catGirl2.gif"; chrEvent("#chrTwo");
+		     }else if(this.id == "chrThree"){
+		    	 pngName = "pinkGirl.png";  gifName= "pinkGirl2.gif"; chrEvent("#chrThree");
+		     }else if(this.id == "chrFour"){
+		    	 pngName = "englishBoy.png";  gifName= "englishBoy2.gif"; chrEvent("#chrFour");
+		     }else if(this.id == "chrFive"){
+		    	 pngName = "coolBoy.png";  gifName= "coolBoy2.gif"; chrEvent("#chrFive");
+		     }else if(this.id == "chrSix"){
+		    	 pngName = "usoku.png";  gifName= "usoku2.gif"; chrEvent("#chrSix");
+		     }
+		});  */
+		
+		function hideLine(){
+			$("#chrOne").css("outline", "none");
+			$("#chrTwo").css("outline", "none");
+			$("#chrThree").css("outline", "none");
+			$("#chrFour").css("outline", "none");
+			$("#chrFive").css("outline", "none");
+			$("#chrSix").css("outline", "none");
+		}
+		
+/*  		function chrEvent(chrName){
+			$(chrName).mouseenter(function() {
+				$(this).attr("src", frontURL + gifName);
+			}).mouseleave(function() {
+				$(this).attr("src", frontURL + pngName);
+			}).click (function(){
+				if(clicks){
+					hideLine();
+					$(this).css("outline", "5px dotted red");
+					clicks = false;
+				}else{
+					$(this).css("outline", "none");
+					clicks = true;
+				}
+			});
+		}  */
+		
+		
+ 		$("#chrOne").mouseenter(function() {
+			gifName = "chineseGirl2.gif";
+			$(this).attr("src", frontURL + gifName);
+		}).mouseleave(function() {
+			pngName = "chineseGirl.png";
+			$(this).attr("src", frontURL + pngName);
+		}).click (function(){
+			if(clicks){
+				hideLine();
+				$(this).css("outline", "5px dotted red");
+				clicks = false;
+			}else{
+				$(this).css("outline", "none");
+				clicks = true;
+			}
+		});
+		
+		$("#chrTwo").mouseenter(function() {
+			gifName = "catGirl2.gif";
+			$(this).attr("src", frontURL + gifName);
+		}).mouseleave(function() {
+			pngName = "catGirl.png";
+			$(this).attr("src", frontURL + pngName);
+		}).click (function(){
+			if(clicks){
+				hideLine();
+				$(this).css("outline", "5px dotted red");
+				clicks = false;
+			}else{
+				$(this).css("outline", "none");
+				clicks = true;
+			}
+		});
+		
+		
+		$("#chrThree").mouseenter(function() {
+			gifName = "pinkGirl2.gif";
+			$(this).attr("src", frontURL + gifName);
+		}).mouseleave(function() {
+			pngName = "pinkGirl.png";
+			$(this).attr("src", frontURL + pngName);
+		}).click (function(){
+			if(clicks){
+				hideLine();
+				$(this).css("outline", "5px dotted red");
+				clicks = false;
+			}else{
+				$(this).css("outline", "none");
+				$(this).attr("src", frontURL + gifName);
+				clicks = true;
+			}
+		});
+		
+		$("#chrFour").mouseenter(function() {
+			gifName = "englishBoy2.gif";
+			$(this).attr("src", frontURL + gifName);
+		}).mouseleave(function() {
+			pngName = "englishBoy.png";
+			$(this).attr("src", frontURL + pngName);
+		}).click (function(){
+			if(clicks){
+				hideLine();
+				$(this).css("outline", "5px dotted red");
+				clicks = false;
+			}else{
+				$(this).css("outline", "none");
+				clicks = true;
+			}
+		});
+		
+		$("#chrFive").mouseenter(function() {
+			gifName = "coolBoy2.gif";
+			$(this).attr("src", frontURL + gifName);
+		}).mouseleave(function() {
+			pngName = "coolBoy.png";
+			$(this).attr("src", frontURL + pngName);
+		}).click (function(){
+			if(clicks){
+				hideLine();
+				$(this).css("outline", "5px dotted red");
+				clicks = false;
+			}else{
+				$(this).css("outline", "none");
+				clicks = true;
+			}
+		});
+		
+		$("#chrSix").mouseenter(function() {
+			gifName = "usoku2.gif";
+			$(this).attr("src", frontURL + gifName);
+		}).mouseleave(function() {
+			pngName = "usoku.png";
+			$(this).attr("src", frontURL + pngName);
+		}).click (function(){
+			if(clicks){
+				hideLine();
+				$(this).css("outline", "5px dotted red");
+				$(this).attr("src", frontURL + gifName);
+				clicks = false;
+			}else{
+				$(this).css("outline", "none");
+				clicks = true;
+			}
+		}); 
+		
+		
+	});
 </script>
 </head>
 <body>
-<h1>Select Your Character</h1>
-<form action="/kanemochi/member/signup" id="joinform" method="post">
-	<table>
-		<tr>
-			<td>id</td>
-			<td><input type ="text" id="user_id" name="user_id" value="${memVO.user_id}" readonly="readonly"/></td>
-			<td rowspan="3">
-				<a href="#"><img src="/kanemochi/resources/image/character/chineseGirl.png" class="rounded float-left" alt="left-img" id="chrOne"></a>
-				<a href="#"><img src="/kanemochi/resources/image/character/catGirl.png" class="rounded float-center" alt="center-img" id="chrTwo"></a>
-				<a href="#"><img src="/kanemochi/resources/image/character/pinkGirl.png" class="rounded float-right" alt="right-img" id="chrThree"></a>
-			</td>
-		</tr>
-		<tr class="warning">
-			<td>password</td>
-			<td><input type ="text" id="user_pw" name="user_pw"  value="${memVO.user_pw}" readonly="readonly"/></td>
-		</tr>
-		<tr class="info">
-			<td>name</td>
-			<td><input type ="text" id="user_name" name="user_name" value="${memVO.user_name}" readonly="readonly"/></td>
-		</tr>
-		<tr class="success">
-			<td>email</td>
-			<td><input type ="text" id="user_email" name="user_email" value="${memVO.user_email}" readonly="readonly"/></td>
-			<td rowspan="3">
-				<a href="#"><img src="/kanemochi/resources/image/character/englishBoy.png" class="rounded float-left" alt="left-img" id="chrFour"></a>
-				<a href="#"><img src="/kanemochi/resources/image/character/coolBoy.png" class="rounded float-center" alt="center-img" id="chrFive"></a>
-				<a href="#"><img src="/kanemochi/resources/image/character/usoku.png" class="rounded float-right" alt="right-img" id="chrSix"></a>
-			</td>
-		</tr>
-		<tr>
-			<td>phone</td>
-			<td><input type ="text" id="user_phone" name="user_phone" value="${memVO.user_phone}" readonly="readonly"/></td>
-		</tr>
-		<tr>
-			<td>gender</td>
-			<td><input type ="text" id="user_gender" name="user_gender" value="${memVO.user_gender}" readonly="readonly"/></td>
-		</tr>
-		<tr>
-			<td colspan="3">
-			<a type="button" href="/kanemochi/member/signUpForm" class="btn btn-success">back</a>
-			<button id="joinBtn" class="btn btn-warning">finish</button>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<input type ="hidden" name ="img_id" value="" id="imgURL"/> 
-			</td>
-		</tr>
-	</table>
-</form>
+	<h1>Select Your Character</h1>
+	<form action="/kanemochi/member/signup" id="joinform" method="post">
+		<table>
+			<tr>
+				<td>id</td>
+				<td><input type="text" id="user_id" name="user_id"
+					value="${memVO.user_id}" readonly="readonly" /></td>
+				<td rowspan="3"><a href="#"><img
+						src="/kanemochi/resources/image/character/chineseGirl.png"
+						class="chr" alt="left-img" id="chrOne"></a> <a href="#"><img
+						src="/kanemochi/resources/image/character/catGirl.png" class="chr"
+						alt="center-img" id="chrTwo"></a> <a href="#"><img
+						src="/kanemochi/resources/image/character/pinkGirl.png"
+						class="chr" alt="right-img" id="chrThree"></a></td>
+			</tr>
+			<tr class="warning">
+				<td>password</td>
+				<td><input type="text" id="user_pw" name="user_pw"
+					value="${memVO.user_pw}" readonly="readonly" /></td>
+			</tr>
+			<tr class="info">
+				<td>name</td>
+				<td><input type="text" id="user_name" name="user_name"
+					value="${memVO.user_name}" readonly="readonly" /></td>
+			</tr>
+			<tr class="success">
+				<td>email</td>
+				<td><input type="text" id="user_email" name="user_email"
+					value="${memVO.user_email}" readonly="readonly" /></td>
+				<td rowspan="3"><a href="#"><img
+						src="/kanemochi/resources/image/character/englishBoy.png"
+						class="rounded float-left" alt="left-img" id="chrFour"></a> <a
+					href="#"><img
+						src="/kanemochi/resources/image/character/coolBoy.png"
+						class="rounded float-center" alt="center-img" id="chrFive"></a>
+					<a href="#"><img
+						src="/kanemochi/resources/image/character/usoku.png"
+						class="rounded float-right" alt="right-img" id="chrSix"></a></td>
+			</tr>
+			<tr>
+				<td>phone</td>
+				<td><input type="text" id="user_phone" name="user_phone"
+					value="${memVO.user_phone}" readonly="readonly" /></td>
+			</tr>
+			<tr>
+				<td>gender</td>
+				<td><input type="text" id="user_gender" name="user_gender"
+					value="${memVO.user_gender}" readonly="readonly" /></td>
+			</tr>
+			<tr>
+				<td colspan="3"><a type="button"
+					href="/kanemochi/member/signUpForm" class="btn btn-success">back</a>
+					<button id="joinBtn" class="btn btn-warning">finish</button></td>
+			</tr>
+			<tr>
+				<td><input type="hidden" name="img_id" value="" id="imgURL" />
+				</td>
+			</tr>
+		</table>
+	</form>
 </body>
 </html>
