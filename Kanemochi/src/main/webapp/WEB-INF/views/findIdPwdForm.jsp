@@ -43,7 +43,8 @@ p{
 $(function () {
 	
 	<c:if test="${findResult!=null}">
-		if(findResult=false){
+		var findResult = ${findResult};
+		if(findResult==false){
 			alert("없는 정보 입니다.");
 		}
 	</c:if>
