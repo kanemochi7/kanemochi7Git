@@ -42,8 +42,19 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public ArrayList<MemberVO> memberList() {
 		MemberMapper mapper = sqlsession.getMapper(MemberMapper.class);
-		System.out.println(mapper.memberList());
 		return mapper.memberList();
+	}
+
+	@Override
+	public MemberVO findPw(MemberVO vo) {
+		MemberMapper mapper = sqlsession.getMapper(MemberMapper.class);
+		return mapper.findPw(vo);
+	}
+
+	@Override
+	public MemberVO findId(MemberVO vo) {
+		MemberMapper mapper = sqlsession.getMapper(MemberMapper.class);
+		return mapper.findId(vo);
 	}
 
 }

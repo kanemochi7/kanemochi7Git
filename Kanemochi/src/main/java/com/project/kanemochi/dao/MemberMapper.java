@@ -13,5 +13,7 @@ public interface MemberMapper {
 	public int charUpdate(Map<String, String> map);
 	public MemberVO login(MemberVO vo);
 	public MemberVO checkId(String id);
+	public MemberVO findPw(MemberVO vo);
+	public MemberVO findId(MemberVO vo);
 	public ArrayList<MemberVO> memberList();
 }

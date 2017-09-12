@@ -47,14 +47,18 @@ public class MemberController {
 	
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
 	public String signup(MemberVO vo,Model model) {
-		System.out.println("signupVO: "+vo);
 		int result = dao.signUp(vo);
 		model.addAttribute("result", result);
 		return "loginForm";
 	}
 	
 	@RequestMapping(value = "findIdPwdForm", method = RequestMethod.GET)
-	public String findIdPwdForm() {
+	public String findIdPwdForm(String menu,Model model) {
+		if(menu.equals("findpw")){
+			model.addAttribute("menu","findpw");
+		}else if(menu.equals("findinfo")){
+			model.addAttribute("menu","findinfo");
+		}
 		return "findIdPwdForm";
 	}
 	
@@ -63,21 +67,32 @@ public class MemberController {
 	public ArrayList<MemberVO> memberList() {
 		ArrayList<MemberVO> members = new ArrayList<>();
 		members = dao.memberList();
-		System.out.println(members);
 		return members;
 	}
 	
-	@RequestMapping(value = "findIdPwd", method = RequestMethod.GET)
-	public String findId(String user_email) {
-		MemberVO vo = new MemberVO();
-		vo.setUser_email(user_email);
+	@RequestMapping(value = "findId", method = RequestMethod.POST)
+	public String findId(MemberVO vo,Model model) {
+		MemberVO daoVO = dao.findId(vo);
+		if(daoVO==null){
+			model.addAttribute("findResult", false);
+			return findIdPwdForm("findinfo", model);
+		}else{
+			boolean result = mail.sendInfo(daoVO,"id");
+			model.addAttribute("findResult", result);				
+		}
 		return "loginForm";
 	}
 	
-	@RequestMapping(value = "findId", method = RequestMethod.GET)
-	public String findPwd(String user_email) {
-		MemberVO vo = new MemberVO();
-		vo.setUser_email(user_email);
+	@RequestMapping(value = "findPw", method = RequestMethod.POST)
+	public String findPw(MemberVO vo,Model model) {
+		MemberVO daoVO = dao.findPw(vo);
+		if(daoVO==null){
+			model.addAttribute("findResult", false);
+			return findIdPwdForm("findpw", model);
+		}else{
+			boolean result = mail.sendInfo(daoVO,"pw");
+			model.addAttribute("findResult", result);			
+		}
 		return "loginForm";
 	}
 	

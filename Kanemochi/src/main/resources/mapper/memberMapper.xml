@@ -20,5 +20,17 @@
   	<select id="memberList" resultType="MemberVO">
   		select * from users where user_authority = 0
   	</select>
+  	
+  	<select id="findId" parameterType="MemberVO" resultType="MemberVO">
+  		select * 
+  		from users 
+  		where user_email=#{user_email} and user_name=#{user_name}
+  	</select>
+  	
+  	<select id="findPw" parameterType="MemberVO" resultType="MemberVO">
+  		select * 
+  		from users 
+  		where user_id=#{user_id} and user_email=#{user_email} and user_name=#{user_name}
+  	</select>
   
 </mapper>

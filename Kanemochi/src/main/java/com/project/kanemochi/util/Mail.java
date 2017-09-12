@@ -20,7 +20,9 @@ public class Mail extends Authenticator {
 	
 	
 	//비밀번호, 아이디 찾아주는 용도로 쓰일것.
-	public void send(MemberVO vo) {
+	public boolean sendInfo(MemberVO vo,String menu) {
+		System.out.println(vo);
+		System.out.println(menu);
 		//보내는 서버 주소
 		String host = "smtp.naver.com";
 		//메일 제목 설정
@@ -35,12 +37,15 @@ public class Mail extends Authenticator {
 		StringBuffer message = new StringBuffer();
 		message.append("<KANAEMOCHI>");
 		message.append("<br>");
-		message.append("ID: ");
-		message.append(vo.getUser_id());
-		message.append("<br>");
-		message.append("password: ");
-		message.append(vo.getUser_pw());
-		message.append("<br>");		
+		if(menu.equals("id")){
+			message.append("ID: ");
+			message.append(vo.getUser_id());
+			message.append("<br>");			
+		}else if(menu.equals("pw")){
+			message.append("password: ");
+			message.append(vo.getUser_pw());
+			message.append("<br>");
+		}
 		
 		Properties props = new Properties();
 		props.put("mail.smtp.starttls.enable", "true");
@@ -67,8 +72,11 @@ public class Mail extends Authenticator {
 			Transport.send(msg);
 		} catch (MessagingException | UnsupportedEncodingException e) {
 			e.printStackTrace();
+			return false;
 		}
+		return true;
 	}
+	
 	
 	public int emailCheck(String email) {
 		int ran = new Random().nextInt(100000) + 10000; // 10000 ~ 99999

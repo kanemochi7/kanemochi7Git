@@ -12,4 +12,6 @@ public interface MemberDAO {
 	public MemberVO login(MemberVO vo);
 	public MemberVO checkId(String id);
 	public ArrayList<MemberVO> memberList();
+	public MemberVO findPw(MemberVO vo);
+	public MemberVO findId(MemberVO vo);
 }

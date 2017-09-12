@@ -44,6 +44,16 @@ a > b{
 </style>
 <script>
 $(function() {
+	
+	<c:if test="${findResult!=null}">
+		var findResult = ${findResult};
+		if(findResult==true){
+			alert("메일로 전송했습니다. 확인하세요");
+		}else if(findResult=false){
+			alert("전송오류.");
+		}
+	</c:if>
+	
 	$("#loginBtn").on('click', function() {
 		if($("#id").val()=="" && $("#pwd").val()==""){
 			alert("아이디와 비밀번호를 입력해주세요.");
@@ -125,8 +135,8 @@ $(function() {
 	 	</tr>
 	 	<tr>
 	 		<td colspan="2" id="idpw">
-	 			<a href="/kanemochi/member/findIdPwdForm" ><b>id</b></a> /
-				<a href="/kanemochi/member/findIdPwdForm"><b>pwd を探す</b></a>
+	 			<a href="/kanemochi/member/findIdPwdForm?menu=findinfo"><b>id</b></a> /
+				<a href="/kanemochi/member/findIdPwdForm?menu=findpw"><b>pwd を探す</b></a>
 			</td>
 	 	</tr>
 	 	<tr>
