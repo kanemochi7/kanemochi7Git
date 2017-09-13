@@ -7,8 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>FindID/PWD</title>
 <script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
-<link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
 <script src="/kanemochi/resources/js/bootstrap.js"></script>
+<link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
+<link rel="icon" href="/kanemochi/resources/image/favicon.png">
 <style type="text/css">
 body {
 	margin: 100px;
@@ -41,13 +42,10 @@ p{
 </style>
 <script type="text/javascript">
 $(function () {
-	
-	<c:if test="${findResult!=null}">
-		var findResult = ${findResult};
-		if(findResult==false){
-			alert("없는 정보 입니다.");
-		}
-	</c:if>
+	var result = ${empty findResult};
+	if(result==false){
+		alert("없는 정보 입니다.");
+	}
 	
 	$("#commit1").on('click',findinfo);
 	$("#commit2").on('click',findpw);

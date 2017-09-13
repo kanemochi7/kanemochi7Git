@@ -132,7 +132,10 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "myPage", method = RequestMethod.GET)
-	public String myPage() {
+	public String myPage(HttpSession session,Model model) {
+		String loginId = (String) session.getAttribute("loginID");
+		MemberVO vo = dao.checkId(loginId);
+		model.addAttribute("vo", vo);
 		return "myPage";
 	}
 
@@ -172,7 +175,6 @@ public class MemberController {
 	@ResponseBody
 	public boolean idDuplCheck(String user_id,Model model) {
 		boolean result = false;
-		System.out.println(user_id);
 		if(dao.checkId(user_id)==null){
 			result = true;
 		}

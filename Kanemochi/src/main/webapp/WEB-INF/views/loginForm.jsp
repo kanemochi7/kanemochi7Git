@@ -45,14 +45,14 @@ a > b{
 <script>
 $(function() {
 	
-	<c:if test="${findResult!=null}">
-		var findResult = ${findResult};
-		if(findResult==true){
+	var result = ${empty findResult};
+	if(result!=true){
+		if(${findResult}==true){
 			alert("메일로 전송했습니다. 확인하세요");
-		}else if(findResult=false){
+		}else if(${findResult}==false){
 			alert("전송오류.");
 		}
-	</c:if>
+	}
 	
 	$("#loginBtn").on('click', function() {
 		if($("#id").val()=="" && $("#pwd").val()==""){
