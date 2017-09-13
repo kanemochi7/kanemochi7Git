@@ -4,15 +4,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
-<link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
-<link rel="icon" href="/kanemochi/resources/image/favicon.png">
-<script src="/kanemochi/resources/js/bootstrap.js"></script>
-<style type="text/css">
-	.write {
-		color: white;
-		float: right;
-	}
+	<title>includeFooter</title>
+<!-- jquery -->
+	<script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
+<!-- bootstrap -->
+	<script src="/kanemochi/resources/js/bootstrap.js"></script>
+	<link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
+<!-- phaser -->
+	<script type="text/javascript" src="/kanemochi/resources/js/phaser.js"></script>
+<!-- CSS -->
+	<style type="text/css">
 	.pencil {
 		float: left;
 		height: 60px;
@@ -28,14 +29,16 @@
 		height: 50px;
 		width: auto;
 	}
-</style>
-<script>
-	function popupOpen(){
-		var popUrl = "/kanemochi/member/write";//팝업창에 출력될 페이지 URL
-		var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no";//팝업창 옵션(optoin)
-		window.open(popUrl, "", popOption);
-	}
-</script>
+	</style>
+	<script>
+		function popupOpen(){
+			var popUrl = "/kanemochi/member/write";
+			var popName = "writePOP";
+			var popOption = "width=1000px, height=1000px, resizable=no, scrollbars=no, status=no";
+		  //window.open(URL,    name,    specs,   replace);
+			window.open(popUrl, popName, popOption);
+		}
+	</script>
 </head>
 <body>
 	<a href="javascript:popupOpen()">

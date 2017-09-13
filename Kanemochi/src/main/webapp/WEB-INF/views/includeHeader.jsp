@@ -4,11 +4,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
-<link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
-<link rel="icon" href="/kanemochi/resources/image/favicon.png">
-<script src="/kanemochi/resources/js/bootstrap.js"></script>
-<style type="text/css">
+	<title>includeHeader</title>
+<!-- jquery -->
+	<script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
+<!-- bootstrap -->
+	<script src="/kanemochi/resources/js/bootstrap.js"></script>
+	<link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
+<!-- phaser -->
+	<script type="text/javascript" src="/kanemochi/resources/js/phaser.js"></script>
+<!-- CSS -->
+	<style type="text/css">
 	body{
 		background-size: 100% 100%
 	    background-color:#DDD;
