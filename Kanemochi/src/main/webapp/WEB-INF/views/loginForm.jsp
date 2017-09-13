@@ -47,9 +47,9 @@ $(function() {
 	
 	var result = ${empty findResult};
 	if(result!=true){
-		if(${findResult}==true){
+		if("${findResult}"== "true"){
 			alert("메일로 전송했습니다. 확인하세요");
-		}else if(${findResult}==false){
+		}else if("${findResult}"=="false"){
 			alert("전송오류.");
 		}
 	}
