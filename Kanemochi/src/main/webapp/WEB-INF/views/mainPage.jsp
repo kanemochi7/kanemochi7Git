@@ -1,153 +1,191 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>MAIN</title>
+<!-- jquery -->
 	<script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
-	<link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
-	<link rel="icon" href="/kanemochi/resources/image/favicon.png">
+<!-- bootstrap -->
 	<script src="/kanemochi/resources/js/bootstrap.js"></script>
-	<!-- phaser -->
-	<script type="text/javascript" src="resources/js/phaser.min.js"></script>
+	<link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
+<!-- favicon -->
+	<link rel="icon" href="/kanemochi/resources/image/favicon.png">
+<!-- phaser -->
+	<script type="text/javascript" src="/kanemochi/resources/js/phaser.js"></script>
 	<style type="text/css">
+		html{
+		    width:100%;
+		    height:100%;
+		}
 		body{
-			margin: 0 auto;
-			margin-top: 0%;
+			margin: 0px;
+			padding: 0px;
 			text-align: center;
-			background: #578CA9;
-			background-image:url(/kanemochi/resources/image/bg/bg3.gif);
+			background-color: white;
 			background-size: 100% 100%;
 			color: navy;
 		}
-		table {
-			margin: auto;
-			text-align: center;
+		#container {
+			background-color: white;
+			width: 1538px;
+			height: 730px;
+			margin: 0px;
+			padding: 0px;
 		}
-		th, td {
+		#header {
+			background-color: white;
+			width: 1518px;
+			height: 59px;
+			margin: 0px;
+			padding: 0px;
+			border: 1px solid white;
+		}
+		#sidebar {
+			background-color: white;
+			width: 101px;
+			height: 600px;
+			margin: 0px;
+			padding: 0px;
+			float: left;
+			border: 1px solid white;
+		}
+		#game {
+			width: 1417px;
+			height: 600px;
+			margin: 0px;
+			padding: 0px;
+			float: left;
+			border: 1px solid white;
+		}
+		#footer {
+			background-color: white;
+			width: 1518px;
+			height: 60px;
+			margin: 0px;
 			padding: 10px;
-		}
-		label{
-			text-align: center;
-		}
-		#logo{
-			width: 30%;
-		}
-		#icon{
-			width:20%;
-		}
-		.option_bar {
-			background: black;
-			height: 5%;
-			width: 100%;
 			float: left;
+			border: 1px solid white;
 		}
-		.category {
-			background: black;
-			height: 85%;
-			width: 5%;
-			float: left;
-		}
-		.game {
-			background: white;
-			height: 85%;
-			width: 95%;
-			float: right;
-		}
-		.budget_bar {
-			padding: 15px;
-			padding-left: 100px;
-			background: black;
-			height: 15%;
-			width: 100%;
-			float: left;
-		}
+		button.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+button.accordion.active, button.accordion:hover {
+    background-color: #ddd;
+}
+
+button.accordion:after {
+    content: '\002B';
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+button.accordion.active:after {
+    content: "\2212";
+}
+
+div.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+		
 	</style>
-
 	<script>
-	function popupOpen(){
-		var popUrl = "write";	//팝업창에 출력될 페이지 URL
-		var popOption = "width=370, height=360, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
-			window.open(popUrl,"",popOption);
-		}
-	</script>
+	$(document).ready(function() {
+		// menu 클래스 바로 하위에 있는 a 태그를 클릭했을때
+		$(".menu>a").click(function() {
+			var submenu = $(this).next("ul");
+			if(submenu.is(":visible")) {
+				submenu.slideUp();
+			} else {
+				submenu.slideDown();
+			}
+		});
+	});
 
+	var acc = document.getElementsByClassName("accordion");
+	var i;
+	
+	for (i = 0; i < acc.length; i++) {
+		acc[i].onclick = function() {
+		this.classList.toggle("active");
+			var panel = this.nextElementSibling;
+			if (panel.style.maxHeight){
+				panel.style.maxHeight = null;
+			} else {
+				panel.style.maxHeight = panel.scrollHeight + "px";
+			}
+		}
+	}
+</script>
 </head>
 <body>
+<div id="container">
+	<div id="header">
+	<jsp:include page="includeHeader.jsp"></jsp:include>
+	</div>
+	
+	<div id="sidebar">
+	<button class="accordion">Section 1</button>
+<div class="panel">
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>
 
-	<div class="option_bar" align="right">
-		<jsp:include page="includeLogin.jsp"></jsp:include>
+<button class="accordion">Section 2</button>
+<div class="panel">
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>
+
+<button class="accordion">Section 3</button>
+<div class="panel">
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>
 	</div>
-	
-	<div class="category">
-		<h3>items</h3>
-		<table>
-			<tr>
-				<td><a href="javascript:beer();">beer</a></td>
-			</tr>
-			<tr>
-				<td><input type="text" id="beer" value="${beer}"></td>			
-			</tr>
-			<tr>
-				<td><a href="javascript:dessert();">dessert</a></td>			
-			</tr>
-			<tr>
-				<td><input type="text" id="dessert" value="${dessert}"></td>
-			</tr>
-			<tr>
-				<td><a href="javascript:burger();">burger</a></td>
-			</tr>
-			<tr>
-				<td><input type="text" id="burger" value="${burger}"></td>
-			</tr>
-			<tr>
-				<td><a href="javascript:popupOpen();" >write</a></td>
-			</tr>
-		</table>
-	</div>
-	
-	<!-- include the main game file -->
-	<div class="game" id="game">
+
+	<div id="game">
 	<script>
 		var GameState = {
-		
 				preload: function() {
-					this.load.image('bg5', 'resources/img/bg/bg5.png');
-					this.load.image('beer','resources/img/beer.png');
-					this.load.image('burger','resources/img/burger.png');
-					this.load.image('dessert','resources/img/dessert.png');
+					this.load.image('bg', '/kanemochi/resources/image/bg/bg.jpg');
+					this.load.image('beer','/kanemochi/resources/image/beer.png');
+					this.load.image('burger','/kanemochi/resources/image/burger.png');
+					this.load.image('dessert','/kanemochi/resources/image/dessert.png');
 				},
 				create: function() {
 					this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-					this.background = this.game.add.sprite(0,0,'bg5');
+					this.background = this.game.add.sprite(0,0,'bg');
 				},
 				update: function() {
 				}
-		
 			}
-		/* $('#game').width(), $('#game').height(), */
-		var game = new Phaser.Game(1400, 610, Phaser.AUTO ,'game');
-		
+		var game = new Phaser.Game($("#game").width(), $("#game").height(), Phaser.AUTO ,"game");
 		game.state.add('GameState', GameState);
 		game.state.start('GameState');
-	</script>	
-	
+	</script>
 	</div>
 	
-	<div class="budget_bar">
-	
-	<div class="progress">
-		<div class="progress-bar progress-bar-success" style="width: 40%"></div>
+	<div id="footer">
+	<jsp:include page="includeFooter.jsp"></jsp:include>
 	</div>
 	
-	<div class="progress">
-		<div class="progress-bar progress-bar-warning" style="width: 60%"></div>
-	</div>
+</div>
 
-	</div>
-	
-	
-	
-	<script>
+<script>
 	function input() {
 		var param = $("#recordForm").serialize();
 		$.ajax({
@@ -207,6 +245,7 @@
 			error: function() {}
 		});	
 	}
-	</script>
+</script>
+
 </body>
 </html>
