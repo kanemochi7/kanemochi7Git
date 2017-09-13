@@ -112,23 +112,43 @@ input[type="text"] {
 			});
 		}  */
 		
-		
- 		$("#chrOne").mouseenter(function() {
+/*   		$("#chrOne").mouseenter(function() {
 			gifName = "chineseGirl2.gif";
 			$(this).attr("src", frontURL + gifName);
 		}).mouseleave(function() {
 			pngName = "chineseGirl.png";
 			$(this).attr("src", frontURL + pngName);
-		}).click (function(){
+		}).mouseup (function(){
 			if(clicks){
 				hideLine();
 				$(this).css("outline", "5px dotted red");
 				clicks = false;
 			}else{
-				$(this).css("outline", "none");
+				hideLine();
+				$(this).attr("src", frontURL + gifName);
 				clicks = true;
 			}
-		});
+		});  */
+		
+		$("#chrOne").mouseenter(function() {
+			gifName = "chineseGirl2.gif";
+			$(this).attr("src", frontURL + gifName);
+		}).mouseleave(function() {
+			pngName = "chineseGirl.png";
+			$(this).attr("src", frontURL + pngName);
+		}).mousedown (function(){
+			if(clicks){
+				hideLine();
+				$(this).css("outline", "5px dotted red");
+				clicks = false;
+			}else{
+				hideLine();
+				$(this).attr("src", frontURL + gifName);
+				clicks = true;
+			}
+		}).mouseup(function(){
+			$(this).attr("src", frontURL + gifName);
+		})
 		
 		$("#chrTwo").mouseenter(function() {
 			gifName = "catGirl2.gif";
@@ -140,13 +160,13 @@ input[type="text"] {
 			if(clicks){
 				hideLine();
 				$(this).css("outline", "5px dotted red");
+				$(this).attr("src", frontURL + gifName);
 				clicks = false;
 			}else{
 				$(this).css("outline", "none");
 				clicks = true;
 			}
 		});
-		
 		
 		$("#chrThree").mouseenter(function() {
 			gifName = "pinkGirl2.gif";
@@ -217,26 +237,25 @@ input[type="text"] {
 				clicks = true;
 			}
 		}); 
-		
-		
 	});
+	
 </script>
 </head>
 <body>
 	<h1>Select Your Character</h1>
-	<form action="/kanemochi/member/signup" id="joinform" method="post">
+	<!-- <form action="/kanemochi/member/signup" id="joinform" method="post"> -->
+	<form action="javascript:test()" id="joinform" method="post">
 		<table>
 			<tr>
 				<td>id</td>
 				<td><input type="text" id="user_id" name="user_id"
 					value="${memVO.user_id}" readonly="readonly" /></td>
-				<td rowspan="3"><a href="#"><img
-						src="/kanemochi/resources/image/character/chineseGirl.png"
-						class="chr" alt="left-img" id="chrOne"></a> <a href="#"><img
-						src="/kanemochi/resources/image/character/catGirl.png" class="chr"
-						alt="center-img" id="chrTwo"></a> <a href="#"><img
-						src="/kanemochi/resources/image/character/pinkGirl.png"
-						class="chr" alt="right-img" id="chrThree"></a></td>
+				<td rowspan="3">
+				<a href="#"><img src="/kanemochi/resources/image/character/chineseGirl.png" class="chr" alt="left-img" id="chrOne"></a>
+				<!-- <input type="image" src="/kanemochi/resources/image/character/chineseGirl.png" alt="chrOne" id ="chrOne" onclick="test(); return false"> -->
+				<a href="#"><img src="/kanemochi/resources/image/character/catGirl.png" class="chr"	alt="center-img" id="chrTwo"></a>
+				<a href="#"><img src="/kanemochi/resources/image/character/pinkGirl.png" class="chr" alt="right-img" id="chrThree"></a>
+				</td>
 			</tr>
 			<tr class="warning">
 				<td>password</td>
