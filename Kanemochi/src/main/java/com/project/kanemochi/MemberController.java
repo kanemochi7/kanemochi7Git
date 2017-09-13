@@ -46,7 +46,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
-	public String signup(MemberVO vo,Model model) {
+	public String signup(MemberVO vo, Model model) {
 		int result = dao.signUp(vo);
 		model.addAttribute("result", result);
 		return "loginForm";
@@ -186,6 +186,16 @@ public class MemberController {
 	public int emailCheck(String user_email) {
 		int number = mail.emailCheck(user_email);
 		return number;
+	}
+	
+	@RequestMapping(value = "emailDuplCheck", method = RequestMethod.GET)
+	@ResponseBody
+	public boolean emailDuplCheck(String user_email,Model model) {
+		boolean result = false;
+		if(dao.checkId(user_email)==null){
+			result = true;
+		}
+		return result;
 	}
 	
 }

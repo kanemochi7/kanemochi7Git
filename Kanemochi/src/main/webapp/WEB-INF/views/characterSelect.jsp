@@ -61,8 +61,10 @@ input[type="text"] {
 
 		function join() {
 			//var which = document.getElementsByClassName("chr")[0].id;
+			
+			var img_id = $("#img_id").val();
 
-			if (url != "") {
+			if (img_id != "") {
 				$('#joinform').submit();
 			} else {
 				alert("plz select your character!");
@@ -140,6 +142,7 @@ input[type="text"] {
 			if(clicks){
 				hideLine();
 				$(this).css("outline", "5px dotted red");
+				$("#imgURL").attr("value", "chineseGirl");
 				clicks = false;
 			}else{
 				hideLine();
@@ -160,7 +163,7 @@ input[type="text"] {
 			if(clicks){
 				hideLine();
 				$(this).css("outline", "5px dotted red");
-				$(this).attr("src", frontURL + gifName);
+				$("#imgURL").attr("value", "catGirl");
 				clicks = false;
 			}else{
 				$(this).css("outline", "none");
@@ -178,6 +181,7 @@ input[type="text"] {
 			if(clicks){
 				hideLine();
 				$(this).css("outline", "5px dotted red");
+				$("#imgURL").attr("value", "pinkGirl");
 				clicks = false;
 			}else{
 				$(this).css("outline", "none");
@@ -196,6 +200,7 @@ input[type="text"] {
 			if(clicks){
 				hideLine();
 				$(this).css("outline", "5px dotted red");
+				$("#imgURL").attr("value", "englishBoy");
 				clicks = false;
 			}else{
 				$(this).css("outline", "none");
@@ -213,6 +218,7 @@ input[type="text"] {
 			if(clicks){
 				hideLine();
 				$(this).css("outline", "5px dotted red");
+				$("#imgURL").attr("value", "coolBoy");
 				clicks = false;
 			}else{
 				$(this).css("outline", "none");
@@ -230,6 +236,7 @@ input[type="text"] {
 			if(clicks){
 				hideLine();
 				$(this).css("outline", "5px dotted red");
+				$("#imgURL").attr("value", "usoku");
 				$(this).attr("src", frontURL + gifName);
 				clicks = false;
 			}else{
@@ -243,8 +250,8 @@ input[type="text"] {
 </head>
 <body>
 	<h1>Select Your Character</h1>
-	<!-- <form action="/kanemochi/member/signup" id="joinform" method="post"> -->
-	<form action="javascript:test()" id="joinform" method="post">
+	<form action="/kanemochi/member/signup" id="joinform" method="post">
+	<!-- <form action="javascript:test()" id="joinform" method="post"> -->
 		<table>
 			<tr>
 				<td>id</td>
