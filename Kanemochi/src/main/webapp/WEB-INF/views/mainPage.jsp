@@ -118,20 +118,7 @@ div.panel {
 		});
 	});
 
-	var acc = document.getElementsByClassName("accordion");
-	var i;
 	
-	for (i = 0; i < acc.length; i++) {
-		acc[i].onclick = function() {
-		this.classList.toggle("active");
-			var panel = this.nextElementSibling;
-			if (panel.style.maxHeight){
-				panel.style.maxHeight = null;
-			} else {
-				panel.style.maxHeight = panel.scrollHeight + "px";
-			}
-		}
-	}
 </script>
 </head>
 <body>
@@ -176,6 +163,22 @@ div.panel {
 		var game = new Phaser.Game($("#game").width(), $("#game").height(), Phaser.AUTO ,"game");
 		game.state.add('GameState', GameState);
 		game.state.start('GameState');
+		
+		// 코드 이동시킴
+		var acc = document.getElementsByClassName("accordion");
+		var i;
+		
+		for (i = 0; i < acc.length; i++) {
+			acc[i].onclick = function() {
+			this.classList.toggle("active");
+				var panel = this.nextElementSibling;
+				if (panel.style.maxHeight){
+					panel.style.maxHeight = null;
+				} else {
+					panel.style.maxHeight = panel.scrollHeight + "px";
+				}
+			}
+		}
 	</script>
 	</div>
 	
