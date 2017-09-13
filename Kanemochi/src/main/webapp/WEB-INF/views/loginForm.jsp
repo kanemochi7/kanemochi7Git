@@ -45,8 +45,8 @@ a > b{
 <script>
 $(function() {
 	
-	var result = ${empty findResult};
-	if(result!=true){
+	var result = "${empty findResult}";
+	if(result!="true"){
 		if("${findResult}"== "true"){
 			alert("메일로 전송했습니다. 확인하세요");
 		}else if("${findResult}"=="false"){
