@@ -105,6 +105,16 @@ img{
 				var user_email= $('#email').val();
 				if(emailResult){
 					$.ajax({
+						url:'/kanemochi/member/emailDuplCheck'
+						, method: 'GET'
+						, data: 'user_email=' +user_email
+						, success: function(result) {
+							if(result){
+								
+							}
+						}
+					})
+					$.ajax({
 						url: '/kanemochi/member/emailCheck'
 						, method: 'GET'
 						, data: 'user_email=' +user_email
