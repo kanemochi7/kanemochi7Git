@@ -168,6 +168,6 @@ $(function() {
 		</tr>
 	</table>
 </c:if>
-<br>
+<a href="/kanemochi/test">김영현 전용실</a>
 </body>
 </html>
