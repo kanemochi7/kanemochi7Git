@@ -169,6 +169,5 @@ $(function() {
 	</table>
 </c:if>
 <br>
-<a href="/kanemochi/game/game">재훈이의 작업실</a><br>
 </body>
 </html>

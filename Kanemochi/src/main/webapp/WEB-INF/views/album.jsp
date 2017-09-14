@@ -41,9 +41,9 @@ function popupOpen(){
 	var popUrl = "screenshotForm";	//팝업창에 출력될 페이지 URL
 
 	var popOption = "width=600, height=500, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
-
+	var img_id = $(this).id+"";
+	alert(img_id);
 		window.open(popUrl,"",popOption);
-
 	}
 
 </script>
@@ -53,9 +53,16 @@ function popupOpen(){
 	<h1>Album</h1>
 	<table>
 		<tr>
-			<td><a href="javascript:popupOpen();"><img src="/kanemochi/resources/image/screenshot/one.png" class="rounded float-left" alt="left-img"></a></td>
-			<td><a href="#"><img src="/kanemochi/resources/image/screenshot/two.png" class="rounded float-center" alt="center-img"></a></td>
-			<td><a href="#"><img src="/kanemochi/resources/image/screenshot/three.png" class="rounded float-right" alt="right-img"></a></td>
+			<td><a href="javascript:popupOpen();" id ="one">
+			<img src="/kanemochi/resources/image/screenshot/one.png" class="rounded float-left" alt="left-img"></a></td>
+			<td><a href="javascript:popupOpen();" id ="two">
+			<img src="/kanemochi/resources/image/screenshot/two.png" class="rounded float-left" alt="left-img"></a></td>
+			<td><a href="javascript:popupOpen();" id ="three">
+			<img src="/kanemochi/resources/image/screenshot/three.png" class="rounded float-left" alt="left-img"></a></td>
+			
+			
+			<!-- <td><a href="#"><img src="/kanemochi/resources/image/screenshot/two.png" class="rounded float-center" alt="center-img"></a></td>
+			<td><a href="#"><img src="/kanemochi/resources/image/screenshot/three.png" class="rounded float-right" alt="right-img"></a></td> -->
 		</tr>
 		<tr>
 			<td>2017-09-27 80:50:00</td>
