@@ -31,34 +31,33 @@ public class RecordController {
 	@RequestMapping(value = "input", method = RequestMethod.POST)
 	@ResponseBody
 	public CountOneVO input(RecordVO vo, HttpSession session) {
-		String id = (String)session.getAttribute("loginID");
-		/* 1. record 입력*/
-		vo.setUser_id(id);
-		dao.input(vo);
-		/* 2. count 올리기 (id 일어->영어로 변환)*/
+		/* 0. 일어->영어로 변환 & 세션에서 loginID 가져오기 => set */
 		String category = change(vo.getCategory());
+		String id = (String)session.getAttribute("loginID");
+		vo.setUser_id(id);
 		vo.setCategory(category);
+		/* 1. record 입력 */
+		dao.input(vo);
+		/* 2. count 올리기 */
 		dao.upcount(vo);
-		/* 3. 변경된 count 가져오기*/
-		int count = dao.getcount(vo);
-		/* 4. 변경된 category, count 보내기*/
-		CountOneVO countVO = new CountOneVO(category, count);
-		return countVO;
+		/* 3. 변경된 count get & set */
+		CountOneVO countvo = new CountOneVO(id, category, 0);
+		countvo.setCount(dao.getcount(countvo));
+		/* 4. 변경된 category, count 보내기 */
+		return countvo;
 	}
 	
 	@RequestMapping(value = "downcount", method = RequestMethod.POST)
 	@ResponseBody
-	public CountOneVO downcount(String category) {
-		/* 1. count 내리기 (id 일어->영어로 변환)*/
-		CountOneVO countvo = new CountOneVO(category, 0);
-		dao.downcount(countvo);
-		/* 2. 변경된 count 가져오기*/
-		RecordVO vo = new RecordVO();
-		vo.setCategory(category);
-		int count = dao.getcount(vo);
-		/* 3. 변경된 category, count 보내기*/
-		CountOneVO countVO = new CountOneVO(category, count);
-		return countVO;
+	public CountOneVO downcount(String category, HttpSession session) {
+		/* 0. 세션에서 loginID 가져오기 => set */
+		String id = (String)session.getAttribute("loginID");
+		CountOneVO vo = new CountOneVO(id, category, 0);
+		/* 1. count down */
+		dao.downcount(vo);
+		/* 2. 변경된 count get & set */
+		vo.setCount(dao.getcount(vo));
+		return vo;
 	}
 	
 	public String change(String category_kanji) {

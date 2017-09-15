@@ -53,7 +53,7 @@
 		<if test="category == 'burger'">
 		burger = burger+1
 		</if>
-		where user_id = 'id'
+		where user_id = #{user_id}
 	</update>
 
 	<update id="downcount" parameterType="CountOneVO">
@@ -100,10 +100,10 @@
 		<if test="category == 'burger'">
 		burger = burger-1
 		</if>
-		where user_id = 'id'
+		where user_id = #{user_id}
 	</update>
 
-	<select id="getcount" parameterType="RecordVO" resultType="int">
+	<select id="getcount" parameterType="CountOneVO" resultType="int">
 		select
 		<if test="category == 'cafe'">
 		cafe
@@ -147,7 +147,7 @@
 		<if test="category == 'burger'">
 		burger
 		</if>
-		from count where user_id = 'id'
+		from count where user_id = #{user_id}
 	</select>
 
 </mapper>

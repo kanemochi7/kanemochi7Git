@@ -1,6 +1,7 @@
 package com.project.kanemochi.vo;
 
 public class CountOneVO {
+	private String user_id;
 	private String category;
 	private int count;
 	
@@ -8,10 +9,19 @@ public class CountOneVO {
 		super();
 	}
 
-	public CountOneVO(String category, int count) {
+	public CountOneVO(String user_id, String category, int count) {
 		super();
+		this.user_id = user_id;
 		this.category = category;
 		this.count = count;
+	}
+
+	public String getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
 
 	public String getCategory() {
@@ -32,7 +42,7 @@ public class CountOneVO {
 
 	@Override
 	public String toString() {
-		return "CountOneVO [category=" + category + ", count=" + count + "]";
+		return "CountOneVO [user_id=" + user_id + ", category=" + category + ", count=" + count + "]";
 	}
-	
+
 }

@@ -32,7 +32,7 @@ public class RecordDAOImpl implements RecordDAO {
 	}
 
 	@Override
-	public int getcount(RecordVO vo) {
+	public int getcount(CountOneVO vo) {
 		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);
 		return mapper.getcount(vo);
 	}
