@@ -5,26 +5,15 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 <title>풀캘린더</title>
-<style type="text/css">
-body {
-	margin: 40px 10px;
-	padding: 0;
-	font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
-	font-size: 14px;
-}
-
-#calendar {
-	max-width: 500px;
-	margin: 0 auto;
-}
-</style>
+<link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
+<link rel="icon" href="/kanemochi/resources/image/favicon.png">
 <link href="/kanemochi/resources/js/fullcalendar.css" rel="stylesheet" />
 <link href="/kanemochi/resources/js/fullcalendar.print.css"
 	rel="stylesheet" media="print" />
 <script type="text/javascript"
-	src="/kanemochi/resources/js/moment.min.js"></script>
-<script type="text/javascript"
 	src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript"
+	src="/kanemochi/resources/js/moment.min.js"></script>
 <script type="text/javascript"
 	src="/kanemochi/resources/js/fullcalendar.js"></script>
 <script type="text/javascript">
@@ -40,21 +29,19 @@ $(document).ready(function() {
 				     	alert("code : " + request.status + "\r\nmessage : " + request.reponseText);
 				   }
 	     , success : function(data) {
-	    	 console.log(data);
-	     	 setCalendar(data);
-	     }
+	     	 			setCalendar(data);
+	     			}
 	   });
 	  
 	 
 	 });
 	 
 	 function setCalendar( data ){
-		  var date = new Date();
+/* 		  var date = new Date();
 		  var d = date.getDate();
 		  var m = date.getMonth();
-		  var y = date.getFullYear();
+		  var y = date.getFullYear(); */
 		  
-		  console.log(data);
 		  
 		  $('#calendar').fullCalendar({
 		     editable : true
@@ -63,13 +50,28 @@ $(document).ready(function() {
 		  });
 		  
 		  $("#calendar a").click(function(){
-		   
-		   $(this).attr("href","javascript:goDetail('"+$(this).attr("href")+"')");
+		   	$(this).attr("href","javascript:goDetail('"+$(this).attr("href")+"')");
 		  });
 		 
 	  
 	 }
 </script>
+<style type="text/css">
+body {
+	margin: 40px 10px;
+	padding: 0;
+
+}
+
+#calendar {
+	max-width: 500px;
+	margin: 0 auto;
+}
+
+
+
+</style>
+</head>
 <body>
 	<div id="calendar"></div>
 </body>

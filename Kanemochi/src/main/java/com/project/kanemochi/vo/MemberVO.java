@@ -10,6 +10,7 @@ public class MemberVO {
 	private int user_authority;
 	private String img_id;
 	private String level_title;
+	private String img_url;
 	
 	public MemberVO () {
 		super();
@@ -17,7 +18,7 @@ public class MemberVO {
 	}
 
 	public MemberVO(String user_id, String user_pw, String user_name, String user_gender, String user_phone,
-			String user_email, int user_authority, String img_id, String level_title) {
+			String user_email, int user_authority, String img_id, String level_title, String img_url) {
 		super();
 		this.user_id = user_id;
 		this.user_pw = user_pw;
@@ -28,6 +29,7 @@ public class MemberVO {
 		this.user_authority = user_authority;
 		this.img_id = img_id;
 		this.level_title = level_title;
+		this.img_url = img_url;
 	}
 
 	public String getUser_id() {
@@ -102,13 +104,20 @@ public class MemberVO {
 		this.level_title = level_title;
 	}
 
+	public String getImg_url() {
+		return img_url;
+	}
+
+	public void setImg_url(String img_url) {
+		this.img_url = img_url;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberVO [user_id=" + user_id + ", user_pw=" + user_pw + ", user_name=" + user_name + ", user_gender="
 				+ user_gender + ", user_phone=" + user_phone + ", user_email=" + user_email + ", user_authority="
-				+ user_authority + ", img_id=" + img_id + ", level_title=" + level_title + "]";
+				+ user_authority + ", img_id=" + img_id + ", level_title=" + level_title + ", img_url=" + img_url + "]";
 	}
-	
 	
 	
 }

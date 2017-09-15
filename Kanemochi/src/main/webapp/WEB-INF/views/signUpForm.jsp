@@ -109,19 +109,22 @@ img{
 						, method: 'GET'
 						, data: 'user_email=' +user_email
 						, success: function(result) {
+							alert(result);
 							if(result){
-								
+								$.ajax({
+									url: '/kanemochi/member/emailCheck'
+									, method: 'GET'
+									, data: 'user_email=' +user_email
+									, success: function (number) {
+										var newWindow = window.open('/kanemochi/member/checkForm?num='+number+'&user_email='+user_email,'check','height=50,weight=50,resizalbe=yes');
+									}
+								})
+							}else{
+								alert("중복되는 이메일이 있습니다.");
 							}
 						}
 					})
-					$.ajax({
-						url: '/kanemochi/member/emailCheck'
-						, method: 'GET'
-						, data: 'user_email=' +user_email
-						, success: function (number) {
-							var newWindow = window.open('/kanemochi/member/checkForm?num='+number+'&user_email='+user_email,'check','height=50,weight=50,resizalbe=yes');
-						}
-					});
+					
 				}else{
 					alert("올바른 이메일 형식이 아닙니다.");
 				}
@@ -206,7 +209,7 @@ img{
 		        
 			    if(phone == ''){
 			    	document.getElementById("phoneMsg").innerHTML = "phoneを入力してください";
-			    }else if((!re.test(phone)) || (phone.length != 11)){
+			    }else if((!re.test(phone)) || (phone.length > 12) || (phone.length <10)){
 					document.getElementById("phoneMsg").innerHTML = "phone number is wrong!";
 				}else{
 					document.getElementById("phoneMsg").innerHTML = "phone ok";

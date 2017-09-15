@@ -24,31 +24,11 @@ public class MemberController {
 	@Autowired
 	private MemberDAO dao;
 	
-	@RequestMapping(value = "loginForm", method = RequestMethod.GET)
-	public String loginForm() {
-		return "loginForm";
-	}
-	
-	@RequestMapping(value = "signUpForm", method = RequestMethod.GET)
-	public String signUpForm() {
-		return "signUpForm";
-	}
-	
-	@RequestMapping(value = "screenshotForm", method = RequestMethod.GET)
-	public String screenshotForm() {
-		return "screenshotForm";
-	}
-	
-	@RequestMapping(value = "tempSignUp", method = RequestMethod.POST)
-	public String tempSignUp(MemberVO vo,Model model) {
-		model.addAttribute("memVO", vo);
-		return "characterSelect";
-	}
-	
+	//로직수행
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
 	public String signup(MemberVO vo, Model model) {
 		int result = dao.signUp(vo);
-		model.addAttribute("result", result);
+		model.addAttribute("signupResult", result);
 		return "loginForm";
 	}
 	
@@ -97,7 +77,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public String login(String user_id,String user_pw,HttpSession session) {
+	public String login(String user_id,String user_pw,HttpSession session,Model model) {
 		MemberVO vo = new MemberVO();
 		vo.setUser_id(user_id);
 		vo.setUser_pw(user_pw);
@@ -105,11 +85,15 @@ public class MemberController {
 		if(loginVO!=null){
 			session.setAttribute("loginID", loginVO.getUser_id());
 			session.setAttribute("loginName", loginVO.getUser_name());
+			model.addAttribute("loginResult", true);
 			if(loginVO.getUser_authority()!=0){
 				return "memberListForm";
 			}
+		}else{
+			model.addAttribute("loginResult", false);
 		}
-		return "loginForm";
+		
+		return "mainPage";
 	}
 	
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
@@ -120,55 +104,33 @@ public class MemberController {
 		return "loginForm";
 	}
 	
-	@RequestMapping(value = "album", method = RequestMethod.GET)
-	public String album() {
-		return "album";
-	}
 	
-	
-	@RequestMapping(value = "write", method = RequestMethod.GET)
-	public String write() {
-		return "write";
-	}
-	
-	@RequestMapping(value = "myPage", method = RequestMethod.GET)
+	@RequestMapping(value = "myPage")
 	public String myPage(HttpSession session,Model model) {
 		String loginId = (String) session.getAttribute("loginID");
-		MemberVO vo = dao.checkId(loginId);
+		MemberVO vo = dao.getMember(loginId);
+		System.out.println(vo);
 		model.addAttribute("vo", vo);
 		return "myPage";
 	}
+	
+	@RequestMapping(value = "updateMember", method = RequestMethod.POST)
+	public String updateMember(MemberVO vo,Model model) {
+		System.out.println("controller: "+vo);
+		int result = dao.updateMember(vo);
+		if(result==1){
+			model.addAttribute("updateResult", true);			
+		}else{
+			model.addAttribute("updateResult", false);
+		}
+		return "forward:/member/myPage";
+	}
 
-	@RequestMapping(value = "list", method = RequestMethod.GET)
-	public String list() {
-		return "list";
-	}
-	
-	@RequestMapping(value = "characterSelect", method = RequestMethod.GET)
-	public String characterSelect() {
-		return "characterSelect";
-	}
-	
-	@RequestMapping(value = "memberListForm", method = RequestMethod.GET)
-	public String memberListForm() {
-		return "memberListForm";
-	}
-	
 	@RequestMapping(value = "checkForm", method = RequestMethod.GET)
 	public String tempCheckForm(String num, String user_email,RedirectAttributes re) {
 		re.addFlashAttribute("user_email", user_email);
 		re.addFlashAttribute("checkNum", num);
 		return "redirect:/member/check";
-	}
-	
-	@RequestMapping(value = "check", method = RequestMethod.GET)
-	public String check() {
-		return "check";
-	}
-	
-	@RequestMapping(value = "reportForm", method = RequestMethod.GET)
-	public String reportForm() {
-		return "reportForm";
 	}
 	
 	@RequestMapping(value = "idDuplCheck", method = RequestMethod.GET)
@@ -181,6 +143,22 @@ public class MemberController {
 		return result;
 	}
 	
+	@RequestMapping(value = "emailDuplCheck", method = RequestMethod.GET)
+	@ResponseBody
+	public boolean emailDuplCheck(String user_email,Model model) {
+		boolean result = false;
+		if(dao.checkEmail(user_email)==null){
+			result = true;
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "tempSignUp", method = RequestMethod.POST)
+	public String tempSignUp(MemberVO vo,Model model) {
+		model.addAttribute("memVO", vo);
+		return "characterSelect";
+	}
+
 	@RequestMapping(value = "emailCheck", method = RequestMethod.GET)
 	@ResponseBody
 	public int emailCheck(String user_email) {
@@ -188,14 +166,57 @@ public class MemberController {
 		return number;
 	}
 	
-	@RequestMapping(value = "emailDuplCheck", method = RequestMethod.GET)
-	@ResponseBody
-	public boolean emailDuplCheck(String user_email,Model model) {
-		boolean result = false;
-		if(dao.checkId(user_email)==null){
-			result = true;
-		}
-		return result;
+	//페이지이동
+	
+	
+	@RequestMapping(value = "loginForm", method = RequestMethod.GET)
+	public String loginForm() {
+		return "loginForm";
+	}
+	
+	@RequestMapping(value = "signUpForm", method = RequestMethod.GET)
+	public String signUpForm() {
+		return "signUpForm";
+	}
+	
+	@RequestMapping(value = "screenshotForm", method = RequestMethod.GET)
+	public String screenshotForm() {
+		return "screenshotForm";
+	}	
+	
+	@RequestMapping(value = "list", method = RequestMethod.GET)
+	public String list() {
+		return "list";
+	}	
+	
+	@RequestMapping(value = "characterSelect", method = RequestMethod.GET)
+	public String characterSelect() {
+		return "characterSelect";
+	}
+	
+	@RequestMapping(value = "memberListForm", method = RequestMethod.GET)
+	public String memberListForm() {
+		return "memberListForm";
+	}	
+	
+	@RequestMapping(value = "album", method = RequestMethod.GET)
+	public String album() {
+		return "album";
+	}
+	
+	@RequestMapping(value = "write", method = RequestMethod.GET)
+	public String write() {
+		return "write";
+	}
+	
+	@RequestMapping(value = "check", method = RequestMethod.GET)
+	public String check() {
+		return "check";
+	}
+	
+	@RequestMapping(value = "reportForm", method = RequestMethod.GET)
+	public String reportForm() {
+		return "reportForm";
 	}
 	
 }

@@ -44,14 +44,34 @@ a > b{
 </style>
 <script>
 $(function() {
+	var loginResult = "${empty loginResult}";
+	var findResult = "${empty findResult}";
+	var signupResult = "${empty signupResult}";
 	
-	var result = "${empty findResult}";
-	if(result!="true"){
+	if(loginResult!="true"){
+		
+		if("${loginResult}"== "true"){
+			alert("로그인 성공");
+		}else if("${loginResult}"=="false"){
+			alert("로그인 실패");
+		}
+		
+	}else if(findResult!="true"){
+		
 		if("${findResult}"== "true"){
 			alert("메일로 전송했습니다. 확인하세요");
 		}else if("${findResult}"=="false"){
 			alert("전송오류.");
 		}
+		
+	}else if(signupResult!="true"){
+		
+		if("${signupResult}"== "true"){
+			alert("가입 완료되었습니다.");
+		}else if("${signupResult}"=="false"){
+			alert("가입 오류.");
+		}
+		
 	}
 	
 	$("#loginBtn").on('click', function() {

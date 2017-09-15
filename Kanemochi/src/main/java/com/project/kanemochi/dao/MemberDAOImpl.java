@@ -22,12 +22,6 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public int charUpdate(Map<String, String> map) {
-		MemberMapper mapper = sqlsession.getMapper(MemberMapper.class);
-		return mapper.charUpdate(map);
-	}
-
-	@Override
 	public MemberVO login(MemberVO vo) {
 		MemberMapper mapper = sqlsession.getMapper(MemberMapper.class);
 		return mapper.login(vo);
@@ -55,6 +49,24 @@ public class MemberDAOImpl implements MemberDAO {
 	public MemberVO findId(MemberVO vo) {
 		MemberMapper mapper = sqlsession.getMapper(MemberMapper.class);
 		return mapper.findId(vo);
+	}
+
+	@Override
+	public MemberVO checkEmail(String user_email) {
+		MemberMapper mapper = sqlsession.getMapper(MemberMapper.class);
+		return mapper.checkEmail(user_email);
+	}
+
+	@Override
+	public MemberVO getMember(String id) {
+		MemberMapper mapper = sqlsession.getMapper(MemberMapper.class);
+		return mapper.getMember(id);
+	}
+
+	@Override
+	public int updateMember(MemberVO vo) {
+		MemberMapper mapper = sqlsession.getMapper(MemberMapper.class);
+		return mapper.updateMember(vo);
 	}
 
 }
