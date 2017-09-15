@@ -22,16 +22,30 @@ function init() {
 		success: function(result) {
 			$(".table table-striped table-hover").empty();
 			var row = '<tr><th>id</th><th>お名前</th><th>性別</th><th>メール</th><th>電話番号</th></tr>';
+			var arr = ["info","success","danger","warning","acive","x"];
 			$("#listTable").append(row);
+			var addrow = "<tbody>";
 			$(result).each(function (index,item) {
-				var addrow  ="<tr class='danger'>"
-					+'<td>'+item.user_id+'</td>';
-				addrow += '<td>'+item.user_name+'</td>';
-				addrow += '<td>'+item.user_email+'</td>';
-				addrow += '<td>'+item.user_gender+'</td>';
-				addrow += '<td>'+item.user_phone+'</td>';
-				$("#listTable").append(addrow);
+				alert("hi")
+				console.log(index);
+				for(var i=0;i<6;i++){
+					if(i==5){
+						i=0;
+					}
+					addrow += "<tr class='"+arr[i]+"''>";
+					addrow += '<td>'+item.user_id+'</td>';
+					addrow += '<td>'+item.user_name+'</td>';
+					addrow += '<td>'+item.user_email+'</td>';
+					addrow += '<td>'+item.user_gender+'</td>';
+					addrow += '<td>'+item.user_phone+'</td></tr>';
+					if(Object.keys(result).length==index+1){
+						$("#listTable").append(addrow);
+						alert("bye");
+						break;
+					}
+				}
 			});
+			
 		}
 	})
 }
@@ -46,7 +60,7 @@ function home() {
 <div id="wrapper">
 	<h1>[　 メンバーリスト　]</h1>
 	
-	<table id="listTable" class="table table-striped table-hover">
+	<table id="listTable" class="table table-striped table-hover ">
 	</table>
 	<input type="button" id="home" value="첫 화면 으로" onclick="home()">
 </div>

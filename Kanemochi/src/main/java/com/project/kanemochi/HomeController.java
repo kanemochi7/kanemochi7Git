@@ -34,6 +34,11 @@ public class HomeController {
 		return "calenderTest";
 	}
 	
+	@RequestMapping(value = "list2", method = RequestMethod.GET)
+	public String list() {
+		return "list";
+	}
+	
 	@RequestMapping(value = "ajax.do", method = RequestMethod.POST)
 	@ResponseBody
 	public ArrayList<HashMap<String, Object>> calenderAjax(HttpServletRequest request,
