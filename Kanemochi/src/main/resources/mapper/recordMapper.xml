@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.kanemochi.dao.RecordMapper">
+	
+	<insert id="input" parameterType="RecordVO">
+		insert into record
+		values(seq_record.nextval, 'id',#{record_date},#{category},#{record_tag},#{record_price},#{record_unit},#{record_pay})
+	</insert>
+	
+	<update id="upcount" parameterType="RecordVO">
+		update count set
+		<if test="category == 'cafe'">
+		cafe = cafe+1
+		</if>
+		<if test="category == 'beer'">
+		beer = beer+1
+		</if>
+		<if test="category == 'ramen'">
+		ramen = ramen+1
+		</if>
+		<if test="category == 'cvs'">
+		cvs = cvs+1
+		</if>
+		<if test="category == 'sushi'">
+		sushi = sushi+1
+		</if>
+		<if test="category == 'dessert'">
+		dessert = dessert+1
+		</if>
+		<if test="category == 'bank'">
+		bank = bank+1
+		</if>
+		<if test="category == 'bus'">
+		bus = bus+1
+		</if>
+		<if test="category == 'movie'">
+		movie = movie+1
+		</if>
+		<if test="category == 'hospital'">
+		hospital = hospital+1
+		</if>
+		<if test="category == 'book'">
+		book = book+1
+		</if>
+		<if test="category == 'hair'">
+		hair = hair+1
+		</if>
+		<if test="category == 'clothes'">
+		clothes = clothes+1
+		</if>
+		<if test="category == 'burger'">
+		burger = burger+1
+		</if>
+		where user_id = 'id'
+	</update>
+
+	<update id="downcount" parameterType="CountOneVO">
+		update count set
+		<if test="category == 'cafe'">
+		cafe = cafe-1
+		</if>
+		<if test="category == 'beer'">
+		beer = beer-1
+		</if>
+		<if test="category == 'ramen'">
+		ramen = ramen-1
+		</if>
+		<if test="category == 'cvs'">
+		cvs = cvs-1
+		</if>
+		<if test="category == 'sushi'">
+		sushi = sushi-1
+		</if>
+		<if test="category == 'dessert'">
+		dessert = dessert-1
+		</if>
+		<if test="category == 'bank'">
+		bank = bank-1
+		</if>
+		<if test="category == 'bus'">
+		bus = bus-1
+		</if>
+		<if test="category == 'movie'">
+		movie = movie-1
+		</if>
+		<if test="category == 'hospital'">
+		hospital = hospital-1
+		</if>
+		<if test="category == 'book'">
+		book = book-1
+		</if>
+		<if test="category == 'hair'">
+		hair = hair-1
+		</if>
+		<if test="category == 'clothes'">
+		clothes = clothes-1
+		</if>
+		<if test="category == 'burger'">
+		burger = burger-1
+		</if>
+		where user_id = 'id'
+	</update>
+
+	<select id="getcount" parameterType="RecordVO" resultType="int">
+		select
+		<if test="category == 'cafe'">
+		cafe
+		</if>
+		<if test="category == 'beer'">
+		beer
+		</if>
+		<if test="category == 'ramen'">
+		ramen
+		</if>
+		<if test="category == 'cvs'">
+		cvs
+		</if>
+		<if test="category == 'sushi'">
+		sushi
+		</if>
+		<if test="category == 'dessert'">
+		dessert
+		</if>
+		<if test="category == 'bank'">
+		bank
+		</if>
+		<if test="category == 'bus'">
+		bus
+		</if>
+		<if test="category == 'movie'">
+		movie
+		</if>
+		<if test="category == 'hospital'">
+		hospital
+		</if>
+		<if test="category == 'book'">
+		book
+		</if>
+		<if test="category == 'hair'">
+		hair
+		</if>
+		<if test="category == 'clothes'">
+		clothes
+		</if>
+		<if test="category == 'burger'">
+		burger
+		</if>
+		from count where user_id = 'id'
+	</select>
+
+</mapper>

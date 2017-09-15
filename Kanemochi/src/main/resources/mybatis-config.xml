@@ -5,8 +5,12 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.project.kanemochi.vo.MemberVO" alias="MemberVO"/>
+		<typeAlias type="com.project.kanemochi.vo.RecordVO" alias="RecordVO"/>
+		<typeAlias type="com.project.kanemochi.vo.CountVO" alias="CountVO"/>
+		<typeAlias type="com.project.kanemochi.vo.CountOneVO" alias="CountOneVO"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mapper/memberMapper.xml"/>
+		<mapper resource="mapper/recordMapper.xml"/>
 	</mappers>
 </configuration>

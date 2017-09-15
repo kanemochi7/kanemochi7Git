@@ -5,13 +5,6 @@
 <html>
 <head>
 	<title>includeHeader</title>
-<!-- jquery -->
-	<script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
-<!-- bootstrap -->
-	<script src="/kanemochi/resources/js/bootstrap.js"></script>
-	<link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
-<!-- phaser -->
-	<script type="text/javascript" src="/kanemochi/resources/js/phaser.js"></script>
 <!-- CSS -->
 	<style type="text/css">
 	body{

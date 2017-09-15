@@ -10,8 +10,8 @@
 	<script src="/kanemochi/resources/js/jquery-ui.min.js"></script>
 	<link rel="stylesheet" href="/kanemochi/resources/css/jquery-ui.css">
 <!-- bootstrap -->
-	<script src="/kanemochi/resources/js/bootstrap.js"></script>
-	<link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
+	<!-- <script src="/kanemochi/resources/js/bootstrap.js"></script>
+	<link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css"> -->
 <!-- phaser -->
 	<script type="text/javascript" src="/kanemochi/resources/js/phaser.js"></script>
 <!-- favicon -->
@@ -30,7 +30,11 @@
 			text-align: left;
 		}
 	</style>
-	
+	<script>
+		$(function () {
+		    $('#datepicker').datepicker();
+		});
+</script>
 </head>
 <body>
 	<h1>支出</h1>
@@ -86,11 +90,8 @@
 	</table>
 	</fieldset>
 	</form>
+
 <script>
-		$(function () {
-		    $('#datepicker').datepicker();
-		});
-		
 		function itemChange(){
 			var food = ["バーがー","ラーメン","すし", "カフェ", "デザート", "ビール", "コンビニ"];
 			var culture = ["映画"];
