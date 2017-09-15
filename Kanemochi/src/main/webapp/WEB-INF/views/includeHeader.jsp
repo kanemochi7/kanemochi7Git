@@ -26,6 +26,7 @@
 	<%-- <c:if test="${loginID!=null}"> --%>
 		<p>
 			${loginName} 様　Welcome!
+			<a href="/kanemochi/" class="btn btn-info">home</a>
 			<a href="/kanemochi/member/logout" class="btn btn-info">ログアウト</a>
 			<a href="/kanemochi/member/myPage">
 				<input type="image" id="mypage" class="icon" data-toggle="tooltip" data-placement="bottom" title="マイページ" src="/kanemochi/resources/image/icon/mypage.png">

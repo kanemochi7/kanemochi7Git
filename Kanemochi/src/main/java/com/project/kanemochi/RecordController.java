@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.synth.SynthSeparatorUI;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,8 +30,10 @@ public class RecordController {
 
 	@RequestMapping(value = "input", method = RequestMethod.POST)
 	@ResponseBody
-	public CountOneVO input(RecordVO vo) {
+	public CountOneVO input(RecordVO vo, HttpSession session) {
+		String id = (String)session.getAttribute("loginID");
 		/* 1. record 입력*/
+		vo.setUser_id(id);
 		dao.input(vo);
 		/* 2. count 올리기 (id 일어->영어로 변환)*/
 		String category = change(vo.getCategory());
@@ -48,8 +49,6 @@ public class RecordController {
 	@RequestMapping(value = "downcount", method = RequestMethod.POST)
 	@ResponseBody
 	public CountOneVO downcount(String category) {
-		System.out.println("downcount");
-		System.out.println(category);
 		/* 1. count 내리기 (id 일어->영어로 변환)*/
 		CountOneVO countvo = new CountOneVO(category, 0);
 		dao.downcount(countvo);
@@ -118,10 +117,6 @@ public class RecordController {
 		}
 		return category_English;
 	}
-	
-	
-	
-	
 	
 
 }

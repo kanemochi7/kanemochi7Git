@@ -1,14 +1,10 @@
 package com.project.kanemochi.dao;
 
-import java.util.ArrayList;
-import java.util.Map;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.project.kanemochi.vo.CountOneVO;
-import com.project.kanemochi.vo.MemberVO;
 import com.project.kanemochi.vo.RecordVO;
 
 @Repository
@@ -40,6 +36,5 @@ public class RecordDAOImpl implements RecordDAO {
 		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);
 		return mapper.getcount(vo);
 	}
-
 
 }

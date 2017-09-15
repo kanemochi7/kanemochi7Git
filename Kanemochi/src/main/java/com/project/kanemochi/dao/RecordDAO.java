@@ -8,5 +8,4 @@ public interface RecordDAO {
 	public void upcount(RecordVO vo);
 	public void downcount(CountOneVO vo);
 	public int getcount(RecordVO vo);
-
 }
