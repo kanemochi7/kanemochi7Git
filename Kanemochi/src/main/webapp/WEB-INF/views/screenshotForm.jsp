@@ -58,14 +58,14 @@ a{
 				    data-layout="button_count">
 				  </div> -->
 				  
-				  <div class="fb-share-button" data-href="http://www.naver.com"
+<!-- 				  <div class="fb-share-button" data-href="http://localhost:8088/kanemochi/member/screenshotForm"
 				  data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" 
 				  target="_blank" 
 				  href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">
-				  </a></div>
+				  </a></div> -->
+				  <input type="button" id="test" value="test"><br>
 				  
-				  <!-- php로 사진 업로드 -->
-				  
+				
 			</td>
 		</tr>
 	</table>
@@ -79,6 +79,15 @@ a{
       version          : 'v2.10'
     });
     FB.AppEvents.logPageView();
+    
+    
+    document.getElementById("test").onclick = function() {
+    
+    FB.ui({
+    	  method: 'share',
+    	  href: 'localhost:8088/kanemochi/member/screenshotForm',
+    	}, function(response){});
+}
   };
 
   (function(d, s, id){
@@ -90,17 +99,14 @@ a{
    }(document, 'script', 'facebook-jssdk'));
 </script>
 
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.10";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
-
+<!-- <div id="fb-root"></div> -->
+<!-- <script>(function(d, s, id) { -->
+<!-- //   var js, fjs = d.getElementsByTagName(s)[0]; -->
+<!-- //   if (d.getElementById(id)) return; -->
+<!-- //   js = d.createElement(s); js.id = id; -->
+<!-- //   js.src = "//connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v2.10"; -->
+<!-- //   fjs.parentNode.insertBefore(js, fjs); -->
+<!-- }(document, 'script', 'facebook-jssdk'));</script> -->
 
 </body>
 </html>
