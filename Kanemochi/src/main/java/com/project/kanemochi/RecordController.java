@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.kanemochi.dao.RecordDAO;
 import com.project.kanemochi.vo.CountOneVO;
+import com.project.kanemochi.vo.CountVO;
 import com.project.kanemochi.vo.RecordVO;
 
 @Controller
@@ -117,5 +118,10 @@ public class RecordController {
 		return category_English;
 	}
 	
-
+	@RequestMapping(value = "getAllCount", method = RequestMethod.GET)
+	@ResponseBody
+	public CountVO getAllCount(HttpSession session){
+		String id = (String)session.getAttribute("loginID");
+		return dao.getAllCount(id);
+	}
 }

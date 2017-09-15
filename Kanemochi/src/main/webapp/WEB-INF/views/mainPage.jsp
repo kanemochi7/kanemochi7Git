@@ -153,12 +153,41 @@
 
 <script>
 $(function() {
-	$('#record_date').datepicker({
-		format: 'yyyy/mm/dd',
-	    autoclose: true,
-	    todayHighlight: true
-	});
+	datepicker();
+	countset();
 });
+
+	function datepicker() {
+		$('#record_date').datepicker({
+			format: 'yyyy/mm/dd',
+			autoclose: true,
+			todayHighlight: true
+		});
+	}
+	
+	function countset() {
+		$.ajax({
+			url : '/kanemochi/account/getAllCount',
+			method : 'get',
+			success: function(result) {
+				document.getElementById("cafe").textContent = result.cafe;
+				document.getElementById("beer").textContent = result.beer;
+				document.getElementById("ramen").textContent = result.ramen;
+				document.getElementById("cvs").textContent = result.cvs;
+				document.getElementById("sushi").textContent = result.sushi;
+				document.getElementById("dessert").textContent = result.dessert;
+				document.getElementById("bus").textContent = result.bus;
+				document.getElementById("movie").textContent = result.movie;
+				document.getElementById("hospital").textContent = result.hospital;
+				document.getElementById("book").textContent = result.book;
+				document.getElementById("hair").textContent = result.hair;
+				document.getElementById("clothes").textContent = result.clothes;
+				document.getElementById("burger").textContent = result.burger;
+			},
+			error: function() {}
+		});
+	}
+
 </script>
 </head>
 <body>

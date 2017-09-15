@@ -150,4 +150,7 @@
 		from count where user_id = #{user_id}
 	</select>
 
+	<select id="getAllCount" parameterType="String" resultType="CountVO">
+		select * from count where user_id = #{id}
+	</select>
 </mapper>

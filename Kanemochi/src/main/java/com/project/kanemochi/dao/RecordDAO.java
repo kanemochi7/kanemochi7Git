@@ -1,6 +1,7 @@
 package com.project.kanemochi.dao;
 
 import com.project.kanemochi.vo.CountOneVO;
+import com.project.kanemochi.vo.CountVO;
 import com.project.kanemochi.vo.RecordVO;
 
 public interface RecordDAO {
@@ -8,4 +9,5 @@ public interface RecordDAO {
 	public void upcount(RecordVO vo);
 	public void downcount(CountOneVO vo);
 	public int getcount(CountOneVO vo);
+	public CountVO getAllCount(String id);
 }

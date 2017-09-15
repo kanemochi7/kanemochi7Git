@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.project.kanemochi.vo.CountOneVO;
+import com.project.kanemochi.vo.CountVO;
 import com.project.kanemochi.vo.RecordVO;
 
 @Repository
@@ -35,6 +36,12 @@ public class RecordDAOImpl implements RecordDAO {
 	public int getcount(CountOneVO vo) {
 		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);
 		return mapper.getcount(vo);
+	}
+
+	@Override
+	public CountVO getAllCount(String id) {
+		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);
+		return mapper.getAllCount(id);
 	}
 
 }
