@@ -166,6 +166,12 @@ public class MemberController {
 		return number;
 	}
 	
+	@RequestMapping(value = "deleteMember", method = RequestMethod.GET)
+	public String deleteMember(String user_id) {
+		dao.deleteMember(user_id);
+		return "redirect:/member/memberListForm";
+	}
+	
 	//페이지이동
 	
 	
@@ -217,6 +223,11 @@ public class MemberController {
 	@RequestMapping(value = "reportForm", method = RequestMethod.GET)
 	public String reportForm() {
 		return "reportForm";
+	}
+	
+	@RequestMapping(value = "main", method = RequestMethod.GET)
+	public String main() {
+		return "mainPage";
 	}
 	
 }

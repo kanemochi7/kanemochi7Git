@@ -39,6 +39,12 @@
   		where user_id=#{user_id}
   	</update>
   	
+  	<delete id="deleteMember">
+  		delete 
+  		from users
+		where user_id=#{user_id}  		
+  	</delete>
+  	
   	<select id="memberList" resultType="MemberVO">
   		select * 
   		from users 

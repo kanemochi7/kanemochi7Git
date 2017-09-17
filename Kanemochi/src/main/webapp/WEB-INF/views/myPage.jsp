@@ -10,7 +10,6 @@
 <script src="/kanemochi/resources/js/bootstrap.js"></script>
 <script type="text/javascript">
 $(function () {
-	alert($('#id').val());
 	
 	var result = "${empty updateResult}";
 	if(result!="true"){
@@ -83,12 +82,14 @@ th, td {
 			<tr>
 				<td><label for="phone">電話番号</label></td>
 				<td>
-				<input type="tel" class="form-control input-sm" id="phone"  name="user_phone" value="${vo.user_phone}">
+					<input type="tel" class="form-control input-sm" id="phone" name="user_phone" value="${vo.user_phone}">
 				</td>
 			</tr>
 		
 			<tr>
-				<td><label>性別</label></td>
+				<td>
+					<label>性別</label>
+				</td>
 				<td>${vo.user_gender}</td>
 			</tr>
 			<tr>

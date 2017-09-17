@@ -69,4 +69,10 @@ public class MemberDAOImpl implements MemberDAO {
 		return mapper.updateMember(vo);
 	}
 
+	@Override
+	public int deleteMember(String user_id) {
+		MemberMapper mapper = sqlsession.getMapper(MemberMapper.class);
+		return mapper.deleteMember(user_id);
+	}
+
 }
