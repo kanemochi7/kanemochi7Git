@@ -40,212 +40,70 @@ input[type="text"] {
 	background: transparent;
 	border: none;
 }
-/* .chrOne:hover{
-	cursor:pointer; 
-    background:url('/kanemochi/resources/image/character/chineseGirl2.gif');
-} */
 </style>
 
 <script>
-	$(function() {
-		var joinid = $("#user_id").val();
-		var url = "";
-		var frontURL = "/kanemochi/resources/image/character/";
-		var chrName = "";
-		var pngName = "";
-		var gifName = "";
-		var clicks = true;
-		
-		//alert(joinid)
-		$("#joinBtn").on('click', join);
+$(function() {
+	//alert(joinid)
+	$("#joinBtn").on('click', join);
+	$("#backBtn").on('click', back);
+ 
+	function back(){
+		location.href ="/kanemochi/member/signUpForm";
+	}
+	function join() {
+		var img_id = $("#img_id").val();
 
-		function join() {
-			//var which = document.getElementsByClassName("chr")[0].id;
-			
-			var img_id = $("#img_id").val();
-
-			if (img_id != "") {
-				$('#joinform').submit();
-			} else {
-				alert("plz select your character!");
-				return false;
-			}
+		if (img_id != "") {
+			$('#joinform').submit();
+		} else {
+			alert("plz select your character!");
+			return false;
 		}
-		
- 		/*  $('.chr').click(function(event) {
-		     if(this.id == "chrOne") {
-		          pngName = "chineseGirl.png";  gifName= "chineseGirl2.gif"; chrEvent("#chrOne");
-		     }else if(this.id == "chrTwo"){
-		    	 pngName = "catGirl.png";  gifName= "catGirl2.gif"; chrEvent("#chrTwo");
-		     }else if(this.id == "chrThree"){
-		    	 pngName = "pinkGirl.png";  gifName= "pinkGirl2.gif"; chrEvent("#chrThree");
-		     }else if(this.id == "chrFour"){
-		    	 pngName = "englishBoy.png";  gifName= "englishBoy2.gif"; chrEvent("#chrFour");
-		     }else if(this.id == "chrFive"){
-		    	 pngName = "coolBoy.png";  gifName= "coolBoy2.gif"; chrEvent("#chrFive");
-		     }else if(this.id == "chrSix"){
-		    	 pngName = "usoku.png";  gifName= "usoku2.gif"; chrEvent("#chrSix");
-		     }
-		});  */
-		
-		function hideLine(){
-			$("#chrOne").css("outline", "none");
-			$("#chrTwo").css("outline", "none");
-			$("#chrThree").css("outline", "none");
-			$("#chrFour").css("outline", "none");
-			$("#chrFive").css("outline", "none");
-			$("#chrSix").css("outline", "none");
-		}
-		
-/*  		function chrEvent(chrName){
-			$(chrName).mouseenter(function() {
-				$(this).attr("src", frontURL + gifName);
-			}).mouseleave(function() {
-				$(this).attr("src", frontURL + pngName);
-			}).click (function(){
-				if(clicks){
-					hideLine();
-					$(this).css("outline", "5px dotted red");
-					clicks = false;
-				}else{
-					$(this).css("outline", "none");
-					clicks = true;
-				}
-			});
-		}  */
-		
-/*   		$("#chrOne").mouseenter(function() {
-			gifName = "chineseGirl2.gif";
-			$(this).attr("src", frontURL + gifName);
-		}).mouseleave(function() {
-			pngName = "chineseGirl.png";
-			$(this).attr("src", frontURL + pngName);
-		}).mouseup (function(){
-			if(clicks){
-				hideLine();
-				$(this).css("outline", "5px dotted red");
-				clicks = false;
-			}else{
-				hideLine();
-				$(this).attr("src", frontURL + gifName);
-				clicks = true;
-			}
-		});  */
-		
-		$("#chrOne").mouseenter(function() {
-			gifName = "chineseGirl2.gif";
-			$(this).attr("src", frontURL + gifName);
-		}).mouseleave(function() {
-			pngName = "chineseGirl.png";
-			$(this).attr("src", frontURL + pngName);
-		}).mousedown (function(){
-			if(clicks){
-				hideLine();
-				$(this).css("outline", "5px dotted red");
-				$("#imgURL").attr("value", "chineseGirl");
-				clicks = false;
-			}else{
-				hideLine();
-				$(this).attr("src", frontURL + gifName);
-				clicks = true;
-			}
-		}).mouseup(function(){
-			$(this).attr("src", frontURL + gifName);
-		})
-		
-		$("#chrTwo").mouseenter(function() {
-			gifName = "catGirl2.gif";
-			$(this).attr("src", frontURL + gifName);
-		}).mouseleave(function() {
-			pngName = "catGirl.png";
-			$(this).attr("src", frontURL + pngName);
-		}).click (function(){
-			if(clicks){
-				hideLine();
-				$(this).css("outline", "5px dotted red");
-				$("#imgURL").attr("value", "catGirl");
-				clicks = false;
-			}else{
-				$(this).css("outline", "none");
-				clicks = true;
-			}
-		});
-		
-		$("#chrThree").mouseenter(function() {
-			gifName = "pinkGirl2.gif";
-			$(this).attr("src", frontURL + gifName);
-		}).mouseleave(function() {
-			pngName = "pinkGirl.png";
-			$(this).attr("src", frontURL + pngName);
-		}).click (function(){
-			if(clicks){
-				hideLine();
-				$(this).css("outline", "5px dotted red");
-				$("#imgURL").attr("value", "pinkGirl");
-				clicks = false;
-			}else{
-				$(this).css("outline", "none");
-				$(this).attr("src", frontURL + gifName);
-				clicks = true;
-			}
-		});
-		
-		$("#chrFour").mouseenter(function() {
-			gifName = "englishBoy2.gif";
-			$(this).attr("src", frontURL + gifName);
-		}).mouseleave(function() {
-			pngName = "englishBoy.png";
-			$(this).attr("src", frontURL + pngName);
-		}).click (function(){
-			if(clicks){
-				hideLine();
-				$(this).css("outline", "5px dotted red");
-				$("#imgURL").attr("value", "englishBoy");
-				clicks = false;
-			}else{
-				$(this).css("outline", "none");
-				clicks = true;
-			}
-		});
-		
-		$("#chrFive").mouseenter(function() {
-			gifName = "coolBoy2.gif";
-			$(this).attr("src", frontURL + gifName);
-		}).mouseleave(function() {
-			pngName = "coolBoy.png";
-			$(this).attr("src", frontURL + pngName);
-		}).click (function(){
-			if(clicks){
-				hideLine();
-				$(this).css("outline", "5px dotted red");
-				$("#imgURL").attr("value", "coolBoy");
-				clicks = false;
-			}else{
-				$(this).css("outline", "none");
-				clicks = true;
-			}
-		});
-		
-		$("#chrSix").mouseenter(function() {
-			gifName = "usoku2.gif";
-			$(this).attr("src", frontURL + gifName);
-		}).mouseleave(function() {
-			pngName = "usoku.png";
-			$(this).attr("src", frontURL + pngName);
-		}).click (function(){
-			if(clicks){
-				hideLine();
-				$(this).css("outline", "5px dotted red");
-				$("#imgURL").attr("value", "usoku");
-				$(this).attr("src", frontURL + gifName);
-				clicks = false;
-			}else{
-				$(this).css("outline", "none");
-				clicks = true;
-			}
-		}); 
-	});
+	}
 	
+	
+	$("a").on("click", function(result) {
+		var id = $(this).attr("id");
+		var frontURL = "/kanemochi/resources/image/character/";
+		var gifName ="";
+		
+		if(id=="chr1"){
+			gifName = "chineseGirl.gif";
+			$("#imgURL").attr("value", "chineseGirl");
+		}else if (id =="chr2"){
+			gifName = "catGirl.gif";
+			$("#imgURL").attr("value", "catGirl");
+		}else if (id =="chr3"){
+			gifName = "pinkGirl.gif";
+			$("#imgURL").attr("value", "pinkGirl");
+		}else if (id =="chr4"){
+			gifName = "englishBoy.gif";
+			$("#imgURL").attr("value", "englishBoy");
+		}else if (id =="chr5"){
+			gifName = "coolBoy.gif";
+			$("#imgURL").attr("value", "coolBoy");
+		}else if (id =="chr6"){
+			gifName = "usoku.gif";
+			$("#imgURL").attr("value", "usoku");
+		}
+	
+		$("a").css("outline", "none");
+		init();
+		$(this).children().attr("src", frontURL + gifName);
+		$(this).css("outline", "5px dotted  #ff6666");
+		
+		function init(){
+			$("#chrOne").attr("src", frontURL + "chineseGirl.png");
+			$("#chrTwo").attr("src", frontURL + "catGirl.png");
+			$("#chrThree").attr("src", frontURL + "pinkGirl.png");
+			$("#chrFour").attr("src", frontURL + "englishBoy.png");
+			$("#chrFive").attr("src", frontURL + "coolBoy.png");
+			$("#chrSix").attr("src", frontURL + "usoku.png");
+		}
+	});
+});
+
 </script>
 </head>
 <body>
@@ -258,10 +116,9 @@ input[type="text"] {
 				<td><input type="text" id="user_id" name="user_id"
 					value="${memVO.user_id}" readonly="readonly" /></td>
 				<td rowspan="3">
-				<a href="#"><img src="/kanemochi/resources/image/character/chineseGirl.png" class="chr" alt="left-img" id="chrOne"></a>
-				<!-- <input type="image" src="/kanemochi/resources/image/character/chineseGirl.png" alt="chrOne" id ="chrOne" onclick="test(); return false"> -->
-				<a href="#"><img src="/kanemochi/resources/image/character/catGirl.png" class="chr"	alt="center-img" id="chrTwo"></a>
-				<a href="#"><img src="/kanemochi/resources/image/character/pinkGirl.png" class="chr" alt="right-img" id="chrThree"></a>
+				<a href="#" id="chr1"><img src="/kanemochi/resources/image/character/chineseGirl.png" class="chr" alt="left-img" id="chrOne"></a>
+				<a href="#" id="chr2"><img src="/kanemochi/resources/image/character/catGirl.png" class="chr"	alt="center-img" id="chrTwo"></a>
+				<a href="#" id="chr3"><img src="/kanemochi/resources/image/character/pinkGirl.png" class="chr" alt="right-img" id="chrThree"></a>
 				</td>
 			</tr>
 			<tr class="warning">
@@ -278,15 +135,11 @@ input[type="text"] {
 				<td>email</td>
 				<td><input type="text" id="user_email" name="user_email"
 					value="${memVO.user_email}" readonly="readonly" /></td>
-				<td rowspan="3"><a href="#"><img
-						src="/kanemochi/resources/image/character/englishBoy.png"
-						class="rounded float-left" alt="left-img" id="chrFour"></a> <a
-					href="#"><img
-						src="/kanemochi/resources/image/character/coolBoy.png"
-						class="rounded float-center" alt="center-img" id="chrFive"></a>
-					<a href="#"><img
-						src="/kanemochi/resources/image/character/usoku.png"
-						class="rounded float-right" alt="right-img" id="chrSix"></a></td>
+				<td rowspan="3">
+				<a href="#" id="chr4"><img src="/kanemochi/resources/image/character/englishBoy.png"class="rounded float-left" alt="left-img" id="chrFour"></a> 
+				<a href="#" id="chr5"><img src="/kanemochi/resources/image/character/coolBoy.png"	class="rounded float-center" alt="center-img" id="chrFive"></a>
+				<a href="#" id="chr6"><img src="/kanemochi/resources/image/character/usoku.png" class="rounded float-right" alt="right-img" id="chrSix"></a>
+				</td>
 			</tr>
 			<tr>
 				<td>phone</td>
@@ -299,12 +152,14 @@ input[type="text"] {
 					value="${memVO.user_gender}" readonly="readonly" /></td>
 			</tr>
 			<tr>
-				<td colspan="3"><a type="button"
-					href="/kanemochi/member/signUpForm" class="btn btn-success">back</a>
-					<button id="joinBtn" class="btn btn-warning">finish</button></td>
+				<td colspan="3">
+					<!-- <a type="button" href="/kanemochi/member/signUpForm" class="btn btn-success">back</a> -->
+					<button id="backBtn" class="btn btn-success">back</button>
+					<button id="joinBtn" class="btn btn-warning">finish</button>
+				</td>
 			</tr>
 			<tr>
-				<td><input type="hidden" name="img_id" value="" id="imgURL" />
+				<td><input type="hidden" name="img_id" value="none" id="imgURL" />
 				</td>
 			</tr>
 		</table>

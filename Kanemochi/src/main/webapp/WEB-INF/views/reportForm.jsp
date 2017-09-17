@@ -36,12 +36,12 @@ div {
 		var data = new google.visualization.DataTable();
 		data.addColumn('string', 'Topping');
 		data.addColumn('number', 'Slices');
-		data.addRows([ [ '식비', 3 ], [ '교통비', 1 ], [ '교육비', 1 ],
-				[ '문화생활', 1 ], [ '생활비', 2 ] ]);
+		data.addRows([ [ '#버거킹', 3 ], [ '#오크우드', 1 ], [ '#편의점', 1 ],
+				[ '#소노야', 1 ], [ '#신의주뼈해장국', 2 ] ]);
 
 		// Set chart options
 		var options = {
-			'title' : '어디에 돈을 썼나요?',
+			'title' : '식비',
 			//'is3D' : true,
 			'width' : 800,
 			'height' : 400,
