@@ -119,18 +119,33 @@ $(function() {
 			method : 'get',
 			success: function(result) {
 				document.getElementById("cafe").textContent = result.cafe;
+				buildingCounter[0] = result.cafe;
 				document.getElementById("beer").textContent = result.beer;
+				buildingcounter[1] = result.beer;
 				document.getElementById("ramen").textContent = result.ramen;
+				buildingcounter[2] = result.ramen;
 				document.getElementById("cvs").textContent = result.cvs;
+				buildingcounter[3] = result.cvs;
 				document.getElementById("sushi").textContent = result.sushi;
+				buildingcounter[4] = result.sushi;
 				document.getElementById("dessert").textContent = result.dessert;
+				buildingcounter[5] = result.dessert;
 				document.getElementById("bus").textContent = result.bus;
+				buildingcounter[6] = result.bus;
 				document.getElementById("movie").textContent = result.movie;
+				buildingcounter[7] = result.movie;
 				document.getElementById("hospital").textContent = result.hospital;
+				buildingcounter[8] = result.hospital;
 				document.getElementById("book").textContent = result.book;
+				buildingcounter[9] = result.book;
 				document.getElementById("hair").textContent = result.hair;
+				buildingcounter[10] = result.hair;
 				document.getElementById("clothes").textContent = result.clothes;
+				buildingcounter[11] = result.clothes;
 				document.getElementById("burger").textContent = result.burger;
+				buildingcounter[12] = result.burger;
+// 				document.getElementById("elevator").textContent = result.elevator;
+// 				buildingcounter[13] = result.elevator;
 			},
 			error: function() {}
 		});
@@ -190,7 +205,9 @@ $(function() {
 		</div>
 	</div>
 
-	<div id="game"></div>
+	<div id ="game">
+	<script src="/kanemochi/resources/js/game.js"></script>
+	</div>
 
 	<div id="footer">
 		<jsp:include page="includeFooter.jsp"></jsp:include>
@@ -224,15 +241,15 @@ $(function() {
 				method : 'post',
 				data : {'category':category},
 				success: function(result) {
-					GameState.game.add.image(0,0,category);
+					createBuilding(category);
 					document.getElementById(result.category).textContent = result.count.toString();
 				},
 				error: function() {}
 			});
 		}
 	}
-
 /* phaser */
+/* 
 	var GameState = {
 			preload: function() {
 				this.load.image('bg', '/kanemochi/resources/image/bg/bg.jpg');
@@ -250,7 +267,7 @@ $(function() {
 	var game = new Phaser.Game($("#game").width(), $("#game").height(), Phaser.AUTO ,"game");
 	game.state.add('GameState', GameState);
 	game.state.start('GameState');
-
+ */
 </script>
 </body>
 </html>
