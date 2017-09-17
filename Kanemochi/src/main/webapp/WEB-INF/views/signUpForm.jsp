@@ -23,13 +23,23 @@ table {
 	margin: auto;
 	text-align: center;
 	font-size:large;
+	height: 15px; 
 }
 
 th, td {
-	padding: 10px;
+	padding: 3px;
 }
 img{
 	width: 15%;
+}
+span{
+	white-space:pre;
+}
+#idMsg, #pwMsg, #nameMsg, #emailMsg, #phoneMsg, #genderMsg{
+	height: 2px;
+	color:  #ff6666; 
+	font-size: 15px;
+	font-weight: bold;
 }
 </style>
 
@@ -156,7 +166,7 @@ img{
 			    	if ((password.length < 5) || (password.length > 10)) {
 						document.getElementById("pwMsg").innerHTML = "passwordは5～ 10文字";
 					}else{
-						document.getElementById("pwMsg").innerHTML = "";
+						document.getElementById("pwMsg").innerHTML = "	";
 						pwResult = true;
 					}
 			    }	
@@ -210,7 +220,7 @@ img{
 			    if(phone == ''){
 			    	document.getElementById("phoneMsg").innerHTML = "phoneを入力してください";
 			    }else if((!re.test(phone)) || (phone.length > 12) || (phone.length <10)){
-					document.getElementById("phoneMsg").innerHTML = "phone number is wrong!";
+					document.getElementById("phoneMsg").innerHTML = "番号を確認してください";
 				}else{
 					document.getElementById("phoneMsg").innerHTML = "phone ok";
 					phoneResult = true;
@@ -232,14 +242,6 @@ img{
 </script>
 </head>
 <body>
-<!-- 	<a href="#" class="btn btn-default">Default</a>
-	<a href="#" class="btn btn-primary">Primary</a>
-	<a href="#" class="btn btn-success">Success</a>
-	<a href="#" class="btn btn-info">Info</a>
-	<a href="#" class="btn btn-warning">Warning</a>
-	<a href="#" class="btn btn-danger">Danger</a>
-	<a href="#" class="btn btn-link">Link</a>
-	<h1>[ KANEMOCHI ]</h1> -->
 	<h1>Join us!</h1>
 	<!-- <a href="#"><img src="/kanemochi/resources/image/logo-black.gif" class="rounded float-left" alt="left-img" id="logo"></a> -->
 	<form class="form-horizontal" id="joinForm"
@@ -249,12 +251,12 @@ img{
 			<table>
 				<tr>
 					<td><label for="id">ID</label></td>
-					<td><input type="text" id="id" name="user_id" placeholder="ID" class="form-control input-sm" autofocus /></td>
+					<td><input type="text" id="id" name="user_id" placeholder="ID" class="form-control input-sm" autofocus autocomplete="off"/></td>
 					<td><a id="idDuplCheck" class="btn btn-success">IDCHECK</a></td>
 				</tr>
 				<tr>
 					<td colspan="3"><p>
-							<span id="idMsg"></span>
+							<span id="idMsg">	</span>
 						</p></td>
 				</tr>
 				<tr>
@@ -267,7 +269,7 @@ img{
 				</tr>
 				<tr>
 					<td colspan="3"><p>
-							<span id="pwMsg"></span>
+							<span id="pwMsg">  </span>
 						</p></td>
 				</tr>
 				<tr>
@@ -276,7 +278,7 @@ img{
 				</tr>
 				<tr>
 					<td colspan="3"><p>
-							<span id="nameMsg"></span>
+							<span id="nameMsg">	</span>
 						</p></td>
 				</tr>
 				<tr>
@@ -285,14 +287,14 @@ img{
 					<td><a id ="emailDuplCheck" class="btn btn-success">email</a></td>
 				</tr>
 				<tr>
-					<td colspan="3"><p><span id="emailMsg"></span></p></td>
+					<td colspan="3"><p><span id="emailMsg">	</span></p></td>
 				</tr>
 				<tr>
 					<td><label for="phone">電話番号</label></td>
-					<td><input type="tel" id="phone" name="user_phone"  class="form-control input-sm" placeholder="電話番号"></td>
+					<td><input type="tel" id="phone" name="user_phone"  class="form-control input-sm" placeholder="電話番号" autocomplete="off"></td>
 				</tr>
 				<tr>
-					<td colspan="3"><p><span id="phoneMsg"></span></p></td>
+					<td colspan="3"><p><span id="phoneMsg">	</span></p></td>
 				</tr>
 				<tr>
 					<td><label>性別</label></td>
@@ -302,7 +304,7 @@ img{
 					</td>
 				</tr>
 				<tr>
-					<td colspan="3"><p><span id="genderMsg"></span></p></td>
+					<td colspan="3"><p><span id="genderMsg">	</span></p></td>
 				</tr>
 			</table>
 		</fieldset>
@@ -311,13 +313,6 @@ img{
 		<button type="reset" class="btn btn-info">キャンセル</button>
 
 	</form>
-	
-<!-- <a href ="/kanemochi/member/album">album으로</a><br>
-	<a href ="/kanemochi/member/write">write로</a><br>
-	<a href ="/kanemochi/member/myPage">myPage로</a><br>
-	<a href ="/kanemochi/member/list">list로</a><br>
-	<a href ="/kanemochi/member/memberListForm">memberListForm으로</a>
-	<a href ="/kanemochi/member/reportForm">report로</a><br> -->
 	<a href="/kanemochi/member/characterSelect" class="btn btn-warning">characterSelect</a>
 	<input type="hidden" id="smt">
 </body>
