@@ -11,7 +11,7 @@
 <script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
 <script src="/kanemochi/resources/js/bootstrap.js"></script>
 <script src="/kanemochi/resources/js/bootstrap-datepicker.min.js"></script>
-<script src="/kanemochi/resources/js/phaser.js"></script>
+<script src="/kanemochi/resources/js/phaser.min.js"></script>
 
 <!-- CSS -->
 <style type="text/css">
@@ -121,31 +121,31 @@ $(function() {
 				document.getElementById("cafe").textContent = result.cafe;
 				buildingCounter[0] = result.cafe;
 				document.getElementById("beer").textContent = result.beer;
-				buildingcounter[1] = result.beer;
+				buildingCounter[1] = result.beer;
 				document.getElementById("ramen").textContent = result.ramen;
-				buildingcounter[2] = result.ramen;
+				buildingCounter[2] = result.ramen;
 				document.getElementById("cvs").textContent = result.cvs;
-				buildingcounter[3] = result.cvs;
+				buildingCounter[3] = result.cvs;
 				document.getElementById("sushi").textContent = result.sushi;
-				buildingcounter[4] = result.sushi;
+				buildingCounter[4] = result.sushi;
 				document.getElementById("dessert").textContent = result.dessert;
-				buildingcounter[5] = result.dessert;
+				buildingCounter[5] = result.dessert;
 				document.getElementById("bus").textContent = result.bus;
-				buildingcounter[6] = result.bus;
+				buildingCounter[6] = result.bus;
 				document.getElementById("movie").textContent = result.movie;
-				buildingcounter[7] = result.movie;
+				buildingCounter[7] = result.movie;
 				document.getElementById("hospital").textContent = result.hospital;
-				buildingcounter[8] = result.hospital;
+				buildingCounter[8] = result.hospital;
 				document.getElementById("book").textContent = result.book;
-				buildingcounter[9] = result.book;
+				buildingCounter[9] = result.book;
 				document.getElementById("hair").textContent = result.hair;
-				buildingcounter[10] = result.hair;
+				buildingCounter[10] = result.hair;
 				document.getElementById("clothes").textContent = result.clothes;
-				buildingcounter[11] = result.clothes;
+				buildingCounter[11] = result.clothes;
 				document.getElementById("burger").textContent = result.burger;
-				buildingcounter[12] = result.burger;
+				buildingCounter[12] = result.burger;
 // 				document.getElementById("elevator").textContent = result.elevator;
-// 				buildingcounter[13] = result.elevator;
+// 				buildingCounter[13] = result.elevator;
 			},
 			error: function() {}
 		});
