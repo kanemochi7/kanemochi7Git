@@ -5,6 +5,8 @@
 <html>
 <head>
 	<title>includeHeader</title>
+<link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
+<script src="/kanemochi/resources/js/bootstrap.js"></script>
 <!-- CSS -->
 	<style type="text/css">
 	body{
