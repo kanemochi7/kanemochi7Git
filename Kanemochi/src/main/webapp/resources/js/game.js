@@ -3,8 +3,8 @@ function restLeng(length){
   var result = length + (10-temp);
   return result;
 }
-var width = restLeng($("#game").width())-10;
-var height = restLeng($("#game").height()-10);
+var width = restLeng($("#game").width());
+var height = restLeng($("#game").height());
 //----------------------------------
 npcCharacter = function (game) {
     this.buildLeftX =0;
@@ -18,13 +18,8 @@ npcCharacter = function (game) {
     var positionX = width2-(100);
     var positionY=0;
     var floor_rand = Math.floor(Math.random() * 2);
-    if(floor_rand == 0){
-        positionY = game.world.height - (200*0.35);
-    }
-    if(floor_rand == 1){
-        console.log(positionY);
-        positionY = game.world.height - (200*0.35) - 158;
-    }
+
+    positionY = game.world.height - (200*0.35);
 
     Phaser.Sprite.call(this, game, positionX, positionY, 'mainCharacter');
     this.scale.setTo(0.35);
@@ -164,6 +159,7 @@ var userCharacter;
 var userDirection ='right';
 var beforeLevel=1;
 var level =1;
+var cursors;
 //var deleteMode = false;
 var GameState = {
   preload:function(){
@@ -176,25 +172,35 @@ var GameState = {
     this.load.spritesheet('buildingWall','/kanemochi/resources/image/bg/wall.png',400,300);
     this.load.spritesheet('cafe','/kanemochi/resources/image/shop/complete/cafe.png',400,300);
     this.load.spritesheet('bus', '/kanemochi/resources/image/shop/complete/bus.png', 600, 300);
-    this.load.spritesheet('mainCharacter', '/kanemochi/resources/image/character/character_final/chineseGirl_final.png', 150, 200);
     this.load.spritesheet('elevator', '/kanemochi/resources/image/shop/complete/elevator.png',400, 300);
     this.load.spritesheet('onlySpeech','/kanemochi/resources/image/speech/speech_bubble2.png');
-    this.load.spritesheet('speechAndSprite','/kanemochi/resources/image/speech/speech_bubble2.png');
+    
+    this.load.spritesheet('mainCharacter', '/kanemochi/resources/image/character/character_final/chineseGirl_final.png', 150, 200);
+    this.load.spritesheet('npc1', '/kanemochi/resources/image/character/character_final/chineseGirl_final.png', 150, 200);
+    
     this.load.spritesheet('level_1','/kanemochi/resources/image/level/level1.png');
     this.load.spritesheet('level_2','/kanemochi/resources/image/level/level2.png');
     this.load.spritesheet('level_3','/kanemochi/resources/image/level/level3.png');
     this.load.spritesheet('level_4','/kanemochi/resources/image/level/level4.png');
+    this.load.spritesheet('level_5','/kanemochi/resources/image/level/level5.png');
+    this.load.spritesheet('level_6','/kanemochi/resources/image/level/level6.png');
+    this.load.spritesheet('level_7','/kanemochi/resources/image/level/level7.png');
+    this.load.spritesheet('level_8','/kanemochi/resources/image/level/level8.png');
+    this.load.spritesheet('level_9','/kanemochi/resources/image/level/level9.png');
+    this.load.spritesheet('level_10','/kanemochi/resources/image/level/level10.png');
 	this.load.spritesheet('beer','/kanemochi/resources/image/beer.png',400,300);
 	this.load.spritesheet('burger','/kanemochi/resources/image/burger.png',400,300);
 	this.load.spritesheet('dessert','/kanemochi/resources/image/dessert.png',400,300);
   },
   create:function(){
   //근본적인 생성로직들 = 배경
+  game.world.setBounds(0, 0, width*2, height*1.5);
   this.background = this.game.add.sprite(0,0,'background');
-  this.background.width = width;
-  this.background.height = height;
+  this.background.width = width*2;
+  this.background.height = height*1.5;
   //밑 바닥의 투명 배경
-  ground = this.add.sprite(0,height+5,'ground');
+  ground = this.add.sprite(0,(height*1.5)+5,'ground');
+  console.log(height);
   this.game.stage.disableVisibilityChange = true;
   //player character
   userCharacter = this.game.add.sprite(0,0,'mainCharacter');
@@ -218,7 +224,11 @@ var GameState = {
   elevatorTopGroup = game.add.group();
  //주의 : 폰트 안됨. 하얀거만 칠해진거임. //text 관련
  // 그리고 여기는 아마 html과 합치게 되면 없어지거나 다르게 변형해야 할 내용이라고 생각함.
-
+  
+  //카메라 임시
+  cursors = game.input.keyboard.createCursorKeys();
+  game.camera.y += height;
+  
   //physics
   this.game.physics.startSystem(Phaser.Physics.ARCADE);//game의 물리법칙을 Phaser.Physics.ARCADE로 한다는 뜻
   //캐릭터와 밑의 투명 배경의 충돌을 위해 작성한 내용. 1.캐릭터와 밑 배경에 arcade 물리 적용
@@ -234,8 +244,25 @@ var GameState = {
       this.game.physics.arcade.enable(buildingTopGroup);
       this.game.physics.arcade.collide(userCharacter,ground);
       this.game.world.bringToTop(userCharacter);
+      
       if(level != beforeLevel){
     	  userCharacterBehavior(userCharacter,'levelUP');
+      }
+      if (cursors.up.isDown)
+      {
+          game.camera.y -= 10;
+      }
+      else if (cursors.down.isDown)
+      {
+          game.camera.y += 10;
+      }
+      if (cursors.left.isDown)
+      {
+          game.camera.x -= 10;
+      }
+      else if (cursors.right.isDown)
+      {
+          game.camera.x += 10;
       }
 //      if(deleteMode == true){
 //    	  buildingDeleteMode();
@@ -299,7 +326,7 @@ function createBuilding(inputText){
   var topCheck;
   //건물 이미지(sprite)를 생성하면서 위에 설정한 Phaser Group에 넣습니다. 마우스 포인트 위치 기준으로 넣고
   //inputText에 해당하는 스프라이트를 위에서 (preload)찾아서 그 이미지를 불러옵니다.
-  var spriteTemp = game.add.sprite(game.input.mousePointer.x,game.input.mousePointer.y,inputText);
+  var spriteTemp = game.add.sprite(game.camera.x,game.camera.y,inputText);
   var elevatorTop = spriteTemp;
   var elevatorBottom;
   var elevatorComplete;
