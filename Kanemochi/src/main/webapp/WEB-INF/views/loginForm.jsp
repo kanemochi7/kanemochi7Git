@@ -167,10 +167,6 @@ $(function() {
 				<a href="/kanemochi/member/findIdPwdForm?menu=findpw"><b>pwd を探す</b></a>
 			</td>
 	 	</tr>
-	 	<tr>
-	 		<td>임시</td>
-	 		<td><a href="/kanemochi/account/main">게임 화면으로 가기</a></td>
-	 	</tr>
 	</table>
 </form>
 </c:if>

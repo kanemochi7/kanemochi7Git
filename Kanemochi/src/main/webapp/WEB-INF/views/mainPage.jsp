@@ -66,7 +66,7 @@
 		width: 1518px;
 		height: 59px;
 		margin: 0px;
-		padding: 0px;
+		padding: 5px;
 		text-align: left;
 		background-color: white;
 		border: 1px solid white;
@@ -96,7 +96,7 @@
 		margin-left: 5px;
 	}
 	button.accordion.active:after {
-		content: "\2212";
+		/* content: "\2212"; */
 	}
 	div.panel {
 		padding: 0 2px;
@@ -217,19 +217,28 @@ $(function() {
 <script>
 /* sidebar menu */
 	var acc = document.getElementsByClassName("accordion");
-	var i;	
+	var i;
 	for (i = 0; i < acc.length; i++) {
-		acc[i].onclick = function() {
+		acc[i].onclick = function() {			
 		this.classList.toggle("active");
 			var panel = this.nextElementSibling;
 			if (panel.style.maxHeight){
 				panel.style.maxHeight = null;
 			} else {
+				hideAll();
 				panel.style.maxHeight = panel.scrollHeight + "px";
 			}
 		}
 	}
 
+	function hideAll() {
+	    for (i = 0; i < acc.length; i++) {
+	        $(acc[i]).attr("class", "accordion");
+	        var panel = acc[i].nextElementSibling;
+	        panel.style.maxHeight = null;
+	    }
+	}
+	
 /* click->image */
 	function createItem(category) {
 		var num = document.getElementById(category).textContent;
@@ -248,26 +257,7 @@ $(function() {
 			});
 		}
 	}
-/* phaser */
-/* 
-	var GameState = {
-			preload: function() {
-				this.load.image('bg', '/kanemochi/resources/image/bg/bg.jpg');
-				this.load.image('beer','/kanemochi/resources/image/beer.png');
-				this.load.image('burger','/kanemochi/resources/image/burger.png');
-				this.load.image('dessert','/kanemochi/resources/image/dessert.png');
-			},
-			create: function() {
-				this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-				this.background = this.game.add.sprite(0,0,'bg');
-			},
-			update: function() {
-			}
-		}
-	var game = new Phaser.Game($("#game").width(), $("#game").height(), Phaser.AUTO ,"game");
-	game.state.add('GameState', GameState);
-	game.state.start('GameState');
- */
+
 </script>
 </body>
 </html>

@@ -6,6 +6,7 @@
 <head>
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap-datepicker.min.css">
+
 <script src="/kanemochi/resources/js/bootstrap.js"></script>
 <script src="/kanemochi/resources/js/bootstrap-datepicker.min.js"></script>
 
@@ -15,11 +16,16 @@
 		height: 100%;
 		width: 100%;
 	}
-	.level {
-		float: right;
-		height: 50px;
+	.pencil {
+		float: left;
+		height: 70px;
 		width: auto;
 	}
+	table {
+		 border: 1px solid black;
+		 margin: 20px;
+	}
+
 /* The Modal (background) */
 	.modal {
 		text-align: center;
@@ -48,6 +54,7 @@
 		background-color: #fefefe;
 		color: #aaaaaa;
 	}
+	
 /* The Close Button */
 	.close {
 	    color: #aaaaaa;
@@ -84,7 +91,6 @@ $(function() {
 			break;
 			}
 		}
-		
 		var param = $("#input-form").serialize();
 			$.ajax({
 			url : '/kanemochi/account/input',
@@ -94,6 +100,7 @@ $(function() {
 			success: function (result) {
 				document.getElementById(result.category).textContent = result.count.toString();
 				modal.style.display = "none";
+				document.getElementById("input-form").reset();
 			},
 			error: function() {
 				alert("ng")
@@ -104,82 +111,135 @@ $(function() {
 </script>
 </head>
 <body>
-	<img class="pencil" id="write" src="/kanemochi/resources/image/icon/pencil.png">
-	<div style="border: 1px solid black;">
-		<table><tr><td></td></tr></table>
+	<table>
+		<tr> <td rowspan="2"></td> <td>budget</td> <td>쓴 금액 / 전체 예산</td> <td>level</td> <td>쌓은 경험치 / 필요 경험치</td> </tr>
+		<tr> <td colspan="2"></td> <td colspan="2"></td> </tr>
+	</table>
+
+
+
+
+<!-- 
+
+	<table>
+		<tr>
+			<td><img class="pencil" id="write" src="/kanemochi/resources/image/icon/pencil.png"></td>
+			<td>budget</td>
+			<td>
+			<div class="progress">
+				<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
+					40% Complete (success)
+				</div>
+			</div>
+			</td>
+			<th><h3>exp</h3></th>
+			<td><img alt="level1" src="/kanemochi/resources/image/level/level1.png" style="height:50px; widgh:auto;"></td>
+			<td>
+			<div class="progress">
+				<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
+					40% Complete (success)
+				</div>
+			</div>
+			</td>
+		</tr>
+	</table> -->
+
+<!-- Modal_write -->
+<div id="modal_write" class="modal">
+	<div class="modal-content">
+	<span class="close">&times;</span>
+	<h3>支出</h3>
+	<h4>[今日はいくら使いましたか？]</h4>
+	<form id="input-form" name="input-form">
+	<table>
+		<tr>
+			<td>date</td>
+			<td><input type="text" id="record_date" name="record_date" placeholder="date"></td>
+		</tr>
+		<tr>
+			<td>category</td>
+			<td>
+			<select class="select" id="select-category" name="select-category" onchange="itemChange()">
+				<option>選択してください！</option>
+				<option value="食べ物">食べ物</option>
+				<option value="文化生活">文化生活</option>
+				<option value="ファッション">ファッション</option>
+				<option value="医慮">医慮</option>
+				<option value="教育">教育</option>
+				<option value="交通">交通</option>
+				<option value="貯金">貯金</option>
+			</select>
+			<select class="select" id="category" name="category">
+			</select>
+			</td>
+		</tr>
+		<tr>
+			<td>price</td>
+			<td>
+			<input type="text" id="record_price" name="record_price" placeholder="値">
+			<select class="select" id="record_unit" name="record_unit">
+				<option value="￦">￦</option>
+				<option value="￥">￥</option>
+				<option value="$">$</option>
+			</select>
+			</td>
+		</tr>
+		<tr>
+			<td>tag</td>
+			<td><textarea rows="3" id="record_tag" name="record_tag" placeholder="#item"></textarea></td>
+		</tr>
+		<tr>
+			<td>pay</td>
+			<td>
+			<input type="radio" name="record_pay" id="cash" value="cash" checked="checked">cash 
+			<input type="radio" name="record_pay" id="card" value="card" >card
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<input type="reset" value="reset">
+			<input type="button" value="ok" onclick="input()">
+			</td>
+		</tr>
+	</table>
+	</form>
 	</div>
-	<span style="border: 1px solid black;">
-	</span>
-	
-<!-- The Modal -->
-	<div id="myModal" class="modal">
-<!-- Modal content -->
-		<div class="modal-content">
+</div>
+
+<!-- Modal_budget -->
+<div id="modal_budget" class="modal">
+	<div class="modal-content">
 		<span class="close">&times;</span>
-		<h3>支出</h3>
-		<form id="input-form" name="input-form">
-		<fieldset>
-		<legend>[今日はいくら使いましたか？]</legend>
-		<table>
-			<tr>
-				<td>date</td>
-				<td><input type="text" id="record_date" name="record_date" placeholder="date"></td>
-			</tr>
-			<tr>
-				<td>category</td>
-				<td>
-				<select class="select" id="select-category" name="select-category" onchange="itemChange()">
-					<option>選択してください！</option>
-					<option value="食べ物">食べ物</option>
-					<option value="文化生活">文化生活</option>
-					<option value="ファッション">ファッション</option>
-					<option value="医慮">医慮</option>
-					<option value="教育">教育</option>
-					<option value="交通">交通</option>
-					<option value="貯金">貯金</option>
-				</select>
-				<select class="select" id="category" name="category">
-				</select>
-				</td>
-			</tr>
-			<tr>
-				<td>price</td>
-				<td>
-				<input type="text" id="record_price" name="record_price" placeholder="値">
-				<select class="select" id="record_unit" name="record_unit">
-					<option value="￦">￦</option>
-					<option value="￥">￥</option>
-					<option value="$">$</option>
-				</select>
-				</td>
-			</tr>
-			<tr>
-				<td>tag</td>
-				<td><textarea rows="3" id="record_tag" name="record_tag" placeholder="#item"></textarea></td>
-			</tr>
-			<tr>
-				<td>pay</td>
-				<td>
-				<input type="radio" name="record_pay" id="cash" value="cash" checked="checked">cash 
-				<input type="radio" name="record_pay" id="card" value="card" >card
-				</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td>
-				<input type="reset" value="reset">
-				<input type="button" value="ok" onclick="input()">
-				</td>
-			</tr>
-		</table>
-		</fieldset>
-		</form>
+		<h3>Budget</h3>
+		<input type="text" id="budget_month" placeholder="予算">
+		
+		
+	</div>
+</div>
+
+<!-- Modal_statistic -->
+<div id="modal_statistic" class="modal">
+	<div class="modal-content">
+		<span class="close">&times;</span>
+		<h3>通計</h3>
+		<div class="progress">
+			<div class="progress-bar progress-bar-info" style="width: 20%"></div>
+		</div>
+		<div class="progress">
+			<div class="progress-bar progress-bar-success" style="width: 40%"></div>
+		</div>
+		<div class="progress">
+			<div class="progress-bar progress-bar-warning" style="width: 60%"></div>
+		</div>
+		<div class="progress">
+			<div class="progress-bar progress-bar-danger" style="width: 80%"></div>
 		</div>
 	</div>
+</div>
 
 <script>
 /* modal */
-	var modal = document.getElementById('myModal');
+	var modal = document.getElementById('modal_write');
 	var btn = document.getElementById("write");
 	var span = document.getElementsByClassName("close")[0];
 	btn.onclick = function() {
@@ -234,7 +294,6 @@ function itemChange(){
 		$("#category").append(option);
 	}
 }
-
 </script>
 </body>
 </html>
