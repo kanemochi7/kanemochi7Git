@@ -9,6 +9,7 @@
 <script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
 <script src="/kanemochi/resources/js/bootstrap.js"></script>
+
 <style type="text/css">
 body {
 	margin: 50px;
@@ -34,6 +35,50 @@ a{
 #dog{
 	width: 10%;
 }
+
+/* modal */ 
+/* The Modal (background) */
+	.modal {
+		text-align: center;
+	    display: none; /* Hidden by default */
+	    position: fixed; /* Stay in place */
+	    z-index: 1; /* Sit on top */
+	    padding-top: 100px; /* Location of the box */
+	    left: 0;
+	    top: 0;
+	    width: 100%; /* Full width */
+	    height: 100%; /* Full height */
+	    overflow: auto; /* Enable scroll if needed */
+	    /*background-color: #ffffff;  /* Fallback color */
+	    background-color: rgba(255,255,255,0);  /*Black w/ opacity  */
+	}
+/* Modal Content */
+	.modal-content {
+		text-align: center;
+	    background-color: #aaaaaa;
+	    margin: auto;
+	    padding: 20px;
+	    border: 1px solid #888;
+	    width: 50%;
+	}
+	.select {
+		background-color: #fefefe;
+		color: #aaaaaa;
+	}
+/* The Close Button */
+	.close {
+	    color: #aaaaaa;
+	    float: right;
+	    font-size: 28px;
+	    font-weight: bold;
+	}
+	.close:hover,
+	.close:focus {
+	    color: #000;
+	    text-decoration: none;
+	    cursor: pointer;
+	}
+	
 </style>
 <script>
 function popupOpen(){
@@ -79,9 +124,30 @@ function popupOpen(){
 		</tr>
 		<tr>
 			<td>
+			<td><a href="#" data-toggle="modal" data-target="#myModal">
+			<img src="http://via.placeholder.com/300x200" class="rounded float-left" alt="left-img"></a>
 			</td>
 		</tr>
 	</table>
+		<!-- Modal -->
+		
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>This is a large modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 	<!-- <button type="button" class="btn btn-warning" onclick="location.href='/kanemochi/member/loginForm'">Back</button><br> -->
 	<a type="button" href="/kanemochi/member/signUpForm" class="btn btn-warning">back</a>
 		<ul class="pagination">

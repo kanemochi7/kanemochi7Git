@@ -86,6 +86,9 @@ $(function() {
 		}else if (id =="chr6"){
 			gifName = "usoku.gif";
 			$("#imgURL").attr("value", "usoku");
+		}else{
+			init();
+			$("#imgURL").attr("value", "");
 		}
 	
 		$("a").css("outline", "none");

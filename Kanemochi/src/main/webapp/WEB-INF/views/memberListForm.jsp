@@ -30,7 +30,6 @@
 	#logo{
 		width: 15%;
 	}
-
 </style>
 <script type="text/javascript">
 $(function() {

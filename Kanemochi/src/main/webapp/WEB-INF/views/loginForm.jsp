@@ -82,6 +82,14 @@ $(function() {
 		}
 		$("#login").submit();
 	})
+	
+	//enter 입력시 loginBtn 실행
+	$('#login').keypress(function (e){
+		  if(e.keyCode=='13'){ //Keycode for "Return"
+		     $('#loginBtn').click();
+		  }
+	});
+
 });
 /*  $(function(){
 	var header = $('body');

@@ -26,7 +26,7 @@ body {
 
 #calendar {
 	max-width: 700px;
-	max-height: 100px;
+	max-height: 0px;
 	margin: 0 auto;
 }
 .nav.nav-pills>li>a{
@@ -39,13 +39,17 @@ body {
 	 box-shadow: 10px 10px 10px #FFFFCC inset; */
 }
 
- #chart_div, #line_top_x{
+ #pieChart, #lineChart{
 	width: 50%;
 	display: inline-block;
-} 
-#menu1{
+	max-width: 700px;
+	max-height: 0px;
+	margin: 0 auto;
+	padding: 0 auto;
+}
+#menu1,#menu2 {
 	margin: 0px;
-	padding:0px;
+	padding: 0px;
 	display: table;
 	width: 100%;
 }
@@ -54,7 +58,7 @@ body {
 }
 
 </style>
-<script type="text/javascript">
+<script>
 $(document).ready(function() {
 
 	  $.ajax({
@@ -81,14 +85,12 @@ $(document).ready(function() {
 	
 	function drawChart() {
 		// [Pie Chart]
-		// Create the data table.
 		var data = new google.visualization.DataTable();
 		data.addColumn('string', 'Topping');
 		data.addColumn('number', 'Slices');
 		data.addRows([ [ '#버거킹', 3 ], [ '#오크우드', 1 ], [ '#편의점', 1 ],
 				[ '#소노야', 1 ], [ '#신의주국밥', 2 ] ]);
 	
-		// Set chart options
 		var options = {
 			'title' : '식비',
 			//'is3D' : true,
@@ -99,9 +101,8 @@ $(document).ready(function() {
 			'fontSize':20
 		};
 	
-		// Instantiate and draw our chart, passing in some options.
 		var chart = new google.visualization.PieChart(document
-				.getElementById('chart_div'));
+				.getElementById('pieChart'));
 		chart.draw(data, options);
 	
 		// [Line Chart]
@@ -140,8 +141,34 @@ $(document).ready(function() {
 		};
 	
 		var chart = new google.charts.Line(document
-				.getElementById('line_top_x'));
+				.getElementById('lineChart'));
 		chart.draw(data, google.charts.Line.convertOptions(options));
+		
+		//[Bubble Chart]
+		var data = google.visualization.arrayToDataTable([
+	          ['ID', '방문 횟수', '평균 가격', '카테고리', '월 총 소비액'],
+	          ['#버거킹',   20,  8000,      20*8000, 20*8000],
+	          ['#오크우드',   30,  4500,      30*4500, 30*4500],
+	          ['#소노야',   10,  8000,      10*8000,  10*8000],
+	          ['#신의주',   5,  7500,      5*7500, 5*7500],
+	          ['#편의점',   25,  5000,      25*5000, 25*5000],
+	          ['#경성면옥',   1,  7500,      1*7500, 1*7500],
+	          ['#하동관',   1,  13000,      1*13000, 1*13000],
+	          ['#제너럴반점',   10,  7500,      10*7500, 10*7500]
+	          ]);
+
+	        var options = {
+	          colorAxis: {colors: ['mistyrose', 'red']},
+	          width: 1200, 
+	          height: 450,
+	          sortBubblesBySize: true, 
+	          hAxis: {title: '방문 횟수'},
+	          vAxis: {title: '평균 가격'},
+	          backgroundColor: 'transparent'
+	        };
+
+	        var chart = new google.visualization.BubbleChart(document.getElementById('bubbleChart'));
+	        chart.draw(data, options);
 	}
 	 
 	 function setCalendar( data ){
@@ -179,13 +206,16 @@ $(document).ready(function() {
     </div>
     <div id="menu1" class="tab-pane fade">
       <h1>[Report]</h1>
-	  <div id="chart_div"></div>
-	  <div id="line_top_x"></div>
+	  <div id="pieChart"></div>
+	  <div id="lineChart"></div>
 	  <div id="buttons">
 		  <button type="button" class="btn btn-info" onclick="location.href='/kanemochi/member/loginForm'">home</button>
 		  <button type="button" class="btn btn-warning">export in excel</button>
 		  <button type="button" class="btn btn-success">export in pdf</button>
 	  </div>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      <div id="bubbleChart"></div> 
     </div>
   </div>
 </div>

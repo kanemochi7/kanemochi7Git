@@ -274,7 +274,7 @@ span{
 				</tr>
 				<tr>
 					<td><label for="name">お名前</label></td>
-					<td><input type="text" id="name" name="user_name"  class="form-control input-sm" placeholder="お名前"></td>
+					<td><input type="text" id="name" name="user_name"  class="form-control input-sm" placeholder="お名前" autocomplete="off"></td>
 				</tr>
 				<tr>
 					<td colspan="3"><p>
