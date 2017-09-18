@@ -13,6 +13,7 @@
 <script type="text/javascript" src="/kanemochi/resources/js/moment.min.js"></script>
 <script type="text/javascript" src="/kanemochi/resources/js/fullcalendar.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 
@@ -33,6 +34,78 @@ $(document).ready(function() {
 	  
 	 
 });
+	google.charts.load('current', {
+		'packages' : [ 'line' ]
+	});
+	google.charts.load('current', {
+		'packages' : [ 'corechart' ]
+	});
+	google.charts.setOnLoadCallback(drawChart);
+	
+	function drawChart() {
+		// [Pie Chart]
+		// Create the data table.
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Topping');
+		data.addColumn('number', 'Slices');
+		data.addRows([ [ '#버거킹', 3 ], [ '#오크우드', 1 ], [ '#편의점', 1 ],
+				[ '#소노야', 1 ], [ '#신의주뼈해장국', 2 ] ]);
+	
+		// Set chart options
+		var options = {
+			'title' : '식비',
+			//'is3D' : true,
+			'width' : 800,
+			'height' : 400,
+			'backgroundColor': 'transparent',
+			'colors': ['#91A8D0', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6'],
+			'fontSize':20
+		};
+	
+		// Instantiate and draw our chart, passing in some options.
+		var chart = new google.visualization.PieChart(document
+				.getElementById('chart_div'));
+		chart.draw(data, options);
+	
+		// [Line Chart]
+		var data = new google.visualization.DataTable();
+		data.addColumn('number', 'Day');
+		data.addColumn('number', '식비 변동');
+		data.addColumn('number', '문화비 변동');
+		data.addColumn('number', '교통비 변동');
+	
+		data.addRows([ [ 1, 37.8, 80.8, 41.8 ], [ 2, 30.9, 69.5, 32.4 ],
+				[ 3, 25.4, 57, 25.7 ], [ 4, 11.7, 18.8, 10.5 ],
+				[ 5, 11.9, 17.6, 10.4 ], [ 6, 8.8, 13.6, 7.7 ],
+				[ 7, 7.6, 12.3, 9.6 ], [ 8, 12.3, 29.2, 10.6 ],
+				[ 9, 16.9, 42.9, 14.8 ], [ 10, 12.8, 30.9, 11.6 ],
+				[ 11, 5.3, 7.9, 4.7 ], [ 12, 6.6, 8.4, 5.2 ],
+				[ 13, 4.8, 6.3, 3.6 ], [ 14, 4.2, 6.2, 3.4 ] ]);
+	
+		var options = {
+			chart : {
+				title : '월간 레포트',
+				subtitle : '카테고리별 변동'
+			},
+			width : 700,
+			height : 400,
+			axes : {
+				x : {
+					0 : {
+						side : 'top'
+					}
+				}
+			},
+			'backgroundColor': 'transparent',
+			'colors': ['#88B04B', '#578CA9', '#F3CF55'],
+			'fontSize':25
+			
+		};
+	
+		var chart = new google.charts.Line(document
+				.getElementById('line_top_x'));
+		chart.draw(data, google.charts.Line.convertOptions(options));
+	}
 	 
 	 function setCalendar( data ){
 /* 		  var date = new Date();
@@ -80,11 +153,14 @@ body {
 	 box-shadow: 10px 10px 10px #FFFFCC inset; */
 }
 
+
+
+
+
 </style>
 </head>
 <body>
 <div class="container">
-  
   <ul class="nav nav-pills">
     <li class="active"><a data-toggle="pill" href="#home">Home</a></li>
     <li><a data-toggle="pill" href="#menu1">Menu 1</a></li>
@@ -94,20 +170,17 @@ body {
   
   <div class="tab-content">
     <div id="home" class="tab-pane fade in active">
-      <div id="calendar"></div>	
+      	<div id="calendar"></div>	
     </div>
     <div id="menu1" class="tab-pane fade">
-      <h3>Menu 1</h3>
-      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      <h1>[Report]</h1>
+	  <div id="chart_div"></div>
+	  <div id="line_top_x"></div><br>
+	  <button type="button" class="btn btn-warning">export in excel</button>
+	  <button type="button" class="btn btn-success">export in pdf</button>
+	  <button type="button" class="btn btn-info" onclick="location.href='loginForm'">back</button>
     </div>
-    <div id="menu2" class="tab-pane fade">
-      <h3>Menu 2</h3>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
-    </div>
-    <div id="menu3" class="tab-pane fade">
-      <h3>Menu 3</h3>
-      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-    </div>
+   
   </div>
 </div>
 
