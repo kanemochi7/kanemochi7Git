@@ -77,6 +77,10 @@ function popupOpen(){
 			<td>2017-09-27 80:50:00</td>
 			<td>2017-09-27 80:50:00</td>
 		</tr>
+		<tr>
+			<td>
+			</td>
+		</tr>
 	</table>
 	<!-- <button type="button" class="btn btn-warning" onclick="location.href='/kanemochi/member/loginForm'">Back</button><br> -->
 	<a type="button" href="/kanemochi/member/signUpForm" class="btn btn-warning">back</a>

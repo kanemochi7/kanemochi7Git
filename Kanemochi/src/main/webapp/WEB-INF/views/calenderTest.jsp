@@ -14,6 +14,46 @@
 <script type="text/javascript" src="/kanemochi/resources/js/fullcalendar.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<style type="text/css">
+body {
+	margin: 40px 10px;
+	padding: 0;
+	background: #578CA9;
+	background-image:url(/kanemochi/resources/image/bg/bg3.gif);
+	background-size: 100% 100%;
+	color: navy;
+}
+
+#calendar {
+	max-width: 700px;
+	max-height: 100px;
+	margin: 0 auto;
+}
+.nav.nav-pills>li>a{
+	font-size: 25px;
+	padding: 10px;
+	color: white;
+	
+	/* background-color: yellow;
+	border-radius: 10em 0 5em 2em;
+	 box-shadow: 10px 10px 10px #FFFFCC inset; */
+}
+
+ #chart_div, #line_top_x{
+	width: 50%;
+	display: inline-block;
+} 
+#menu1{
+	margin: 0px;
+	padding:0px;
+	display: table;
+	width: 100%;
+}
+#buttons>button{
+	float: right;
+}
+
+</style>
 <script type="text/javascript">
 $(document).ready(function() {
 
@@ -30,9 +70,6 @@ $(document).ready(function() {
 	     	 			setCalendar(data);
 	     			}
 	   });
-	  
-	  
-	 
 });
 	google.charts.load('current', {
 		'packages' : [ 'line' ]
@@ -49,13 +86,13 @@ $(document).ready(function() {
 		data.addColumn('string', 'Topping');
 		data.addColumn('number', 'Slices');
 		data.addRows([ [ '#버거킹', 3 ], [ '#오크우드', 1 ], [ '#편의점', 1 ],
-				[ '#소노야', 1 ], [ '#신의주뼈해장국', 2 ] ]);
+				[ '#소노야', 1 ], [ '#신의주국밥', 2 ] ]);
 	
 		// Set chart options
 		var options = {
 			'title' : '식비',
 			//'is3D' : true,
-			'width' : 800,
+			'width' : 700,
 			'height' : 400,
 			'backgroundColor': 'transparent',
 			'colors': ['#91A8D0', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6'],
@@ -96,9 +133,9 @@ $(document).ready(function() {
 					}
 				}
 			},
-			'backgroundColor': 'transparent',
+			'backgroundColor': 'transparent', 
 			'colors': ['#88B04B', '#578CA9', '#F3CF55'],
-			'fontSize':25
+			'fontSize':20
 			
 		};
 	
@@ -113,7 +150,6 @@ $(document).ready(function() {
 		  var m = date.getMonth();
 		  var y = date.getFullYear(); */
 		  
-		  
 		  $('#calendar').fullCalendar({
 		     editable : true
 		     ,eventLimit : true
@@ -123,41 +159,10 @@ $(document).ready(function() {
 		  $("#calendar a").click(function(){
 		   	$(this).attr("href","javascript:goDetail('"+$(this).attr("href")+"')");
 		  });
-		 
-	  
 	 }
+	 
 </script>
-<style type="text/css">
-body {
-	margin: 40px 10px;
-	padding: 0;
-	background: #578CA9;
-	background-image:url(/kanemochi/resources/image/bg/bg3.gif);
-	background-size: 100% 100%;
-	color: navy;
-}
 
-#calendar {
-	max-width: 500px;
-	margin: 0 auto;
-}
-
-
-.nav.nav-pills>li>a{
-	font-size: 25px;
-	padding: 10px;
-	color: white;
-	
-	/* background-color: yellow;
-	border-radius: 10em 0 5em 2em;
-	 box-shadow: 10px 10px 10px #FFFFCC inset; */
-}
-
-
-
-
-
-</style>
 </head>
 <body>
 <div class="container">
@@ -168,19 +173,20 @@ body {
     <li><a data-toggle="pill" href="#menu3">Menu 3</a></li>
   </ul>
   
-  <div class="tab-content">
+  <div class="tab-content fade in active">
     <div id="home" class="tab-pane fade in active">
       	<div id="calendar"></div>	
     </div>
     <div id="menu1" class="tab-pane fade">
       <h1>[Report]</h1>
 	  <div id="chart_div"></div>
-	  <div id="line_top_x"></div><br>
-	  <button type="button" class="btn btn-warning">export in excel</button>
-	  <button type="button" class="btn btn-success">export in pdf</button>
-	  <button type="button" class="btn btn-info" onclick="location.href='loginForm'">back</button>
+	  <div id="line_top_x"></div>
+	  <div id="buttons">
+		  <button type="button" class="btn btn-info" onclick="location.href='/kanemochi/member/loginForm'">home</button>
+		  <button type="button" class="btn btn-warning">export in excel</button>
+		  <button type="button" class="btn btn-success">export in pdf</button>
+	  </div>
     </div>
-   
   </div>
 </div>
 
