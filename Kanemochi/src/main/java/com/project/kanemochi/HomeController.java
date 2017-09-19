@@ -29,35 +29,4 @@ public class HomeController {
 	}
 	
 	
-	@RequestMapping(value = "test", method = RequestMethod.GET)
-	public String calender() {
-		return "calenderTest";
-	}
-	
-	@RequestMapping(value = "list2", method = RequestMethod.GET)
-	public String list() {
-		return "list";
-	}
-	
-	@RequestMapping(value = "ajax.do", method = RequestMethod.POST)
-	@ResponseBody
-	public ArrayList<HashMap<String, Object>> calenderAjax(HttpServletRequest request,
-									ModelMap modelMap) {
-		HashMap<String,Object> resultMap = new HashMap<>();
-		resultMap.put("id", 999);
-		resultMap.put("title", "데헷!");
-		resultMap.put("start", "2017-09-14");
-		
-		HashMap<String,Object> resultMap1 = new HashMap<>();
-		resultMap1.put("id", 999);
-		resultMap1.put("title", "데헷111!");
-		resultMap1.put("start", "2017-09-16");
-		
-		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
-		list.add(resultMap);
-		list.add(resultMap1);
-	
-		return list;
-	}
-	
 }

@@ -33,7 +33,7 @@
 			<a href="/kanemochi/member/myPage">
 				<input type="image" id="mypage" class="icon" data-toggle="tooltip" data-placement="bottom" title="マイページ" src="/kanemochi/resources/image/icon/mypage.png">
 			</a>
-			<a href="/kanemochi/member/list">
+			<a href="/kanemochi/account/reportForm">
 				<input type="image" id="record" class="icon" data-toggle="tooltip" data-placement="bottom" title="今までの記録" src="/kanemochi/resources/image/icon/folder.png">
 			</a>
 			<a href="/kanemochi/member/screenshotForm">
