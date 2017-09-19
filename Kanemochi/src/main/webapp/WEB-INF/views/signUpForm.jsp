@@ -69,7 +69,7 @@ span{
 			$("#emailDuplCheck").on('click', emailDuplCheck);
 			
 			function join(){
-					alert("ok");
+					/* alert("ok");
 					alert(idResult)
 					alert(pwResult)
 					alert(pwResult2)
@@ -78,7 +78,7 @@ span{
 					alert(phoneResult)
 					alert(genderResult)
 					alert(idDuplResult)
-					alert(emailDuplResult)
+					alert(emailDuplResult) */
 				if(idResult && pwResult && pwResult2 && nameResult && emailResult && phoneResult && genderResult && idDuplResult && emailDuplResult) {
 					$('#joinForm').submit();
 				}else{

@@ -9,7 +9,6 @@
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
 <script src="/kanemochi/resources/js/bootstrap.js"></script>
 <script type="text/javascript">
-alert("${user_email}");
 function gotoParents() {
 	var authNum = ${checkNum};
 	var userNum = $('#userNum').val();
@@ -17,6 +16,7 @@ function gotoParents() {
 		alert("이메일 인증성공");
 		opener.document.getElementById("email").value = "${user_email}";
 		opener.emailDuplResult = true;
+		opener.document.getElementById("emailMsg").innerHTML = "email ok！";
 		window.close();
 	}else{
 		alert("이메일 인증 실패");
