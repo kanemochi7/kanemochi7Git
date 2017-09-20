@@ -41,6 +41,7 @@
 		height: 59px;
 		margin: 0px;
 		padding: 0px;
+		float: left;
 		text_align: right;
 		background-color: white;
 		border: 1px solid white;
@@ -68,6 +69,7 @@
 		margin: 0px;
 		padding: 5px;
 		text-align: left;
+		float: left;
 		background-color: white;
 		border: 1px solid white;
 	}
