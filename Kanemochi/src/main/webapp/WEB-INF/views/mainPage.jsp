@@ -258,7 +258,7 @@ $(function() {
 						if(res){
 							console.log(res);
 							$.ajax({
-								url : '/kanemochi/account/downcount',
+								url : '/kanemochi/record/downcount',
 								method : 'post',
 								data : {'category':category},
 								success: function(result) {
