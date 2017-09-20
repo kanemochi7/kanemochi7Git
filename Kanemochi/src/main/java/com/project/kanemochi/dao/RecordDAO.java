@@ -1,9 +1,12 @@
 package com.project.kanemochi.dao;
 
+import java.util.ArrayList;
+
 import com.project.kanemochi.vo.BudgetVO;
 import com.project.kanemochi.vo.CountOneVO;
 import com.project.kanemochi.vo.CountVO;
 import com.project.kanemochi.vo.RecordVO;
+import com.project.kanemochi.vo.ShopVO;
 
 public interface RecordDAO {
 	public void input(RecordVO vo);
@@ -12,4 +15,6 @@ public interface RecordDAO {
 	public int getcount(CountOneVO vo);
 	public CountVO getAllCount(String id);
 	public void setbudget(BudgetVO vo);
+	public boolean setStatus(ShopVO vo);
+	public ArrayList<ShopVO> getStatus(String id);
 }

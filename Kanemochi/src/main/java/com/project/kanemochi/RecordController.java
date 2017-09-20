@@ -1,5 +1,6 @@
 package com.project.kanemochi;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +22,7 @@ import com.project.kanemochi.vo.BudgetVO;
 import com.project.kanemochi.vo.CountOneVO;
 import com.project.kanemochi.vo.CountVO;
 import com.project.kanemochi.vo.RecordVO;
+import com.project.kanemochi.vo.ShopVO;
 
 @Controller
 @RequestMapping("/record")
@@ -122,7 +124,29 @@ public class RecordController {
 		}
 		return category_English;
 	}
+	@RequestMapping(value = "setStatus", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean setStatus(BigDecimal img_x, BigDecimal img_y,String img_id , HttpSession session) {
+		boolean result = false;
+		System.out.println(img_x);
+		System.out.println(img_y);
+		System.out.println(img_id);
+		String id = (String)session.getAttribute("loginID");
+		System.out.println(id);
+		ShopVO vo = new ShopVO(id, img_x,img_y,img_id);
+		result = dao.setStatus(vo);
+		return result;
+	}
 	
+	@RequestMapping(value = "getStatus", method = RequestMethod.POST)
+	@ResponseBody
+	public ArrayList<ShopVO> getStatus(HttpSession session) {
+		ArrayList<ShopVO> list = null;
+		String id = (String)session.getAttribute("loginID");
+		System.out.println(id);
+		list = dao.getStatus(id);
+		return list;
+	}
 	@RequestMapping(value = "getAllCount", method = RequestMethod.GET)
 	@ResponseBody
 	public CountVO getAllCount(HttpSession session){

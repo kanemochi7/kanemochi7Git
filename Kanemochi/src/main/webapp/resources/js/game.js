@@ -347,7 +347,231 @@ function comeUserCharacter(userCharacter,situation){
 		beforeLevel = level;
 	}
 }
+function stateBuilding(inputText,buildingX,buildingY){
+	//충돌 체크하기 위한 변수.
+	  var checkResult;
+	  var topCheck;
+	  var sprite2 = game.add.sprite(buildingX,buildingY,inputText);
+//	  var elevatorTop = spriteTemp;
+//	  var elevatorBottom;
+//	  var elevatorComplete;
+	  var result;
+		  	if(inputText != 'elevator')
+		  	{
+			  buildingGroup.add(sprite2);  
+			  sprite2.scale.setTo(0.5);
+			  game.physics.arcade.enable(sprite2);
+			  sprite2.body.allowGravity = false;
+			  sprite2.body.immovable = true;
+			  	switch (inputText) {
+			    	    case 'cafe':
+			    	      sprite2.name = inputText+'_'+(++buildingCounter[0]);
+			    	      break;
+			    	    case 'beer':
+			    	      sprite2.name = inputText+'_'+(++buildingCounter[1]);
+			    	      break;
+			    	    case 'ramen':
+			    	        sprite2.name = inputText+'_'+(++buildingCounter[2]);
+			    	        break;
+			    	    case 'cvs':
+			    	        sprite2.name = inputText+'_'+(++buildingCounter[3]);
+			    	        break;    
+			    	    case 'sushi':
+			    	    	sprite2.name = inputText+'_'+(++buildingCounter[4]);
+			    	    	break;
+			    	    case 'dessert':
+			    	    	sprite2.name = inputText+'_'+(++buildingCounter[5]);
+			    	    	break;
+			    	    case 'bus':
+			    	        sprite2.name = inputText+'_'+(++buildingCounter[6]);
+			    	        break;
+			    	    case 'movie':
+			    	    	sprite2.name = inputText+'_'+(++buildingCounter[7]);
+			    	    	break;
+			          case 'hospital':
+			              sprite2.name = inputText+'_'+(++buildingCounter[8]);
+			              break;
+			          case 'book':
+			              sprite2.name = inputText+'_'+(++buildingCounter[9]);
+			              break;    
+			          case 'hair':
+			          	sprite2.name = inputText+'_'+(++buildingCounter[10]);
+			          	break;
+			          case 'clothes':
+			          	sprite2.name = inputText+'_'+(++buildingCounter[11]);
+			          	break;
+			          case 'burger':
+			        	sprite2.name = inputText+'_'+(++buildingCounter[12]);
+			        	break;
+		//	          case 'elevator':
+		//	          	spriteTemp.name = inputText+'_'+(++buildingCounter[13]);
+		//	          	break;
+			          default:
+			        	  break;
+			 	}
+		    	   
+	    	      var wholeFloor=1;
+	    	      var buildingFloor =0;
+	    	      console.log(game.world.height);
+	    	      if((game.world.height - 150) == sprite2.y){
+	    	        buildingFloor = 1;
+	    	      }
+	    	      else{
+	    	        wholeFloor = Math.floor(((game.world.height - sprite2.height)/150));
+	    	        for(var i=1;i<=wholeFloor;i++){
+	    	          if((game.world.height-150)-(150*i) == sprite2.y){
+	    	            buildingFloor = i+1;
+	    	            break;
+	    	          }
+	    	        }
+	    	      }
+	    	      console.log(buildingFloor);
+	    	     
+	    	      sprite2.buildingFloor = buildingFloor;
+	    	      if(buildingFloor>1)
+		    	     {
+		    	    	  sprite2.y = sprite2.y-9;
+		    	     }
+	    	      var buildingTop;
 
+	    	    if(sprite2.width == 200){
+	    	      buildingTop =  game.add.sprite(sprite2.x, sprite2.y-8.9, 'buildingTopShort');
+	    	    }
+	    	    else if(sprite2.width == 300){
+	    	      buildingTop =  game.add.sprite(sprite2.x, sprite2.y-8.9, 'buildingTopLong');
+	    	    }
+
+	    	    buildingTopGroup.add(buildingTop);
+
+	    	    buildingTop.scale.setTo(0.5,0.3);
+	    	    this.game.physics.arcade.enable(buildingTop);
+	    	    buildingTop.body.allowGravity = false;
+	    	    buildingTop.body.immovable = true;
+	    	  //--------------------------------------------------------------------------
+	    	  /*//벽 만들기(아직 안됨)
+	    	   *  var leftWing;
+	    	    if(sprite2.width == 200){
+	    	    	leftWing =  game.add.sprite(sprite2.x - sprite2.width, sprite2.y+30, 'buildingTopCheck');
+	    	    }
+	    	    else if(sprite2.width == 300){
+	    	    	leftWing =  game.add.sprite(sprite2.x - sprite2.width +100, sprite2.y+30, 'buildingTopCheck');
+	    	    }
+	    		var rightWing =  game.add.sprite(sprite2.x + sprite2.width, sprite2.y+30, 'buildingTopCheck');
+
+	    		this.game.physics.arcade.enable([leftWing,rightWing]);
+	    		leftWing.scale.setTo(0.5,0.3);
+	    		rightWing.scale.setTo(0.5,0.3);
+	    		
+	    		var leftWall;
+	    		var rightWall;
+	    		var leftWallTop;
+	    		var rightWallTop;
+	    		
+	    		var leftCollision = game.physics.arcade.collide(leftWing,buildingGroup,function(left,test){
+//	    			console.log(test.name);
+//	    			console.log(sprite2.name);
+	    			 if(test.name != sprite2.name && (sprite2.x - (test.x+test.width)) < 200){
+	    				 console.log(test.name);
+	 	    			console.log(sprite2.name);
+	    				 leftWall = game.add.sprite(test.x+test.width, test.y, 'buildingWall');
+	    			    
+	    			      leftWall.scale.setTo(0.5,1);
+	    			      leftWall.width = (sprite2.x - test.x - test.width);
+	    			      leftWall.height = sprite2.height;
+	    			      wallGroup.add(leftWall);
+	    			      
+	    			      leftWallTop =  game.add.sprite(leftWall.x, leftWall.y-8.9, 'buildingTopShort');
+	    			      leftWallTop.scale.setTo(0.5,0.3);
+	    			      game.physics.arcade.enable(leftWallTop);
+	    			      leftWallTop.body.allowGravity = false;
+	    			      leftWallTop.body.immovable = true;
+	    			      buildingTopGroup.add(leftWallTop);
+	    			 }
+	    		      
+	    		 });
+	    		var rightCollision = game.physics.arcade.collide(rightWing,buildingGroup,function(right,test){
+//	    			console.log(test.name);
+//	    			console.log(sprite2.name);
+	    			 if(test.name != sprite2.name && (test.x - (sprite2.x+sprite2.width)) < 200){
+	    				 console.log(test.name);
+	 	    			console.log(sprite2.name);
+	    				 rightWall = game.add.sprite(sprite2.x+sprite2.width, sprite2.y, 'buildingWall');
+	    				 rightWall.scale.setTo(0.5,1);
+	    				 var temp = sprite2.x+sprite2.width;
+	    				
+	    				 rightWall.width = (test.x - temp);
+	    			      rightWall.height = test.height;
+	    			      wallGroup.add(rightWall);
+	    			      
+	    			      rightWallTop =  game.add.sprite(rightWall.x, rightWall.y-8.9, 'buildingTopShort');
+	    			      rightWallTop.scale.setTo(0.5,0.3);
+
+	    			      game.physics.arcade.enable(rightWallTop);
+	    			      rightWallTop.body.allowGravity = false;
+	    			      rightWallTop.body.immovable = true;
+	    			      buildingTopGroup.add(rightWallTop);
+	    			 } 
+	    		 });*/
+//	    		leftWing.destroy();
+//	    		rightWing.destroy();
+	    	    //------------------------------------------------------------------------
+	    	    numberOfNPC = getNumberOfNPC(numberOfNPC,buildingGroup.length,incOrDec);
+	    	    
+	    	    randomCreateNPC(numberOfNPC);
+	    	    for(var j=0;j<npcGroup.length;j++){
+	    	      var npcI = npcGroup.getAt(j);
+	    	    }
+	    	  }
+	    	  else{
+	    	    //충돌시 건물 삭제.
+	    	    switch (sprite2.key) {
+	    	      case 'cafe':
+	    	        buildingCounter[0]--;
+	    	        break;
+	    	      case 'beer':
+	    	        buildingCounter[1]--;
+	    	        break;
+	    	      case 'ramen':
+	    	          buildingCounter[2]--;
+	    	          break;
+	    	      case 'cvs':
+	    	          buildingCounter[3]--;
+	    	          break;
+	    	      case 'sushi':
+	    	          buildingCounter[4]--;
+	    	          break;
+	    	      case 'dessert':
+	    	          buildingCounter[5]--;
+	    	          break;
+	    	      case 'bus':
+	    	          buildingCounter[6]--;
+	    	          break;
+	    	      case 'movie':
+	    	          buildingCounter[7]--;
+	    	          break;
+	    	      case 'hospital':
+	    	          buildingCounter[8]--;
+	    	          break;
+	    	      case 'book':
+	    	          buildingCounter[9]--;
+	    	          break;
+	    	      case 'hair':
+	    	          buildingCounter[10]--;
+	    	          break;
+	    	      case 'clothes':
+	    	          buildingCounter[11]--;
+	    	          break;
+	    	      case 'burger':
+	    	          buildingCounter[12]--;
+	    	          break;
+//		    	      case 'elevator':
+//		    	          buildingCounter[13]--;
+//		    	          break;
+	    	      default:
+	    	      }
+	    	    buildingGroup.remove(sprite2);
+	    	  }
+}
 function createBuilding(inputText){
 	
   //충돌 체크하기 위한 변수.
@@ -494,14 +718,6 @@ function createBuilding(inputText){
 //	  			}
 //	  		},100);
 			
-			
-			
-			
-			
-			
-			
-			/* refreshIntervalId 중지 */
-		
   }
   
 }
@@ -513,6 +729,19 @@ function mouseUp(sprite,check,topCheck){
     sprite.alpha = 1;
     sprite.inputEnabled = false;
     sprite.input.draggable = false;
+    $.ajax({
+		url : '/kanemochi/record/setStatus',
+		method : 'post',
+		data : {'img_x':sprite.x,
+			    'img_y':sprite.y,
+			    'img_id':sprite.key},
+		success: function(result) {
+			alert("성공");
+		},
+		error: function() {
+			alert("실패");
+		}
+	});
     //---------------------------------------------------------------------------
     if(topCheck==true){
     	sprite.y = sprite.y-9;

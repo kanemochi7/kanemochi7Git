@@ -9,6 +9,7 @@
 		<typeAlias type="com.project.kanemochi.vo.CountVO" alias="CountVO"/>
 		<typeAlias type="com.project.kanemochi.vo.CountOneVO" alias="CountOneVO"/>
 		<typeAlias type="com.project.kanemochi.vo.BudgetVO" alias="BudgetVO"/>
+		<typeAlias type="com.project.kanemochi.vo.ShopVO" alias="ShopVO"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mapper/memberMapper.xml"/>
