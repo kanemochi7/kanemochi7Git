@@ -218,6 +218,7 @@ $(function() {
 /* sidebar menu */
 	var acc = document.getElementsByClassName("accordion");
 	var i;
+	var res;
 	for (i = 0; i < acc.length; i++) {
 		acc[i].onclick = function() {			
 		this.classList.toggle("active");
@@ -240,23 +241,39 @@ $(function() {
 	}
 	
 /* click->image */
-	function createItem(category) {
+   function createItem(category) {
 		var num = document.getElementById(category).textContent;
 		if (num == 0) {
-			
 		} else {
-			$.ajax({
-				url : '/kanemochi/account/downcount',
-				method : 'post',
-				data : {'category':category},
-				success: function(result) {
-					createBuilding(category);
-					document.getElementById(result.category).textContent = result.count.toString();
-				},
-				error: function() {}
-			});
+				createBuilding(category);
+				var timer2 = setTimeout(function(){
+					console.log(res);
+				}, 100000000);	
+				var myVar2=setInterval(function(){
+		  			console.log(res);
+		  			if(res == true || res == false){
+		  				clearTimeout(timer2);
+						clearInterval(myVar2);
+						console.log(res);
+						if(res){
+							console.log(res);
+							$.ajax({
+								url : '/kanemochi/account/downcount',
+								method : 'post',
+								data : {'category':category},
+								success: function(result) {
+									
+									document.getElementById(result.category).textContent = result.count.toString();
+								},
+								error: function() {}
+							});
+						}
+					  res = undefined;
+		  			}
+		  		},500);
 		}
 	}
+	
 
 </script>
 </body>

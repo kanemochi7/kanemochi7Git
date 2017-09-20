@@ -17,11 +17,19 @@ npcCharacter = function (game) {
     var width2 = (game.world.width - (150*0.35));
     var positionX = width2-(100);
     var positionY=0;
-    var floor_rand = Math.floor(Math.random() * 2);
 
     positionY = game.world.height - (200*0.35);
-
-    Phaser.Sprite.call(this, game, positionX, positionY, 'mainCharacter');
+    
+    var npcImage = Math.floor(Math.random() * 5)+1;
+    var randGender = Math.floor(Math.random() * 2);
+    var npcGender;
+    if(randGender == 0){
+    	npcGender = 'w';
+    }
+    else{
+    	npcGender = 'm';
+    }
+    Phaser.Sprite.call(this, game, positionX, positionY, 'npc_'+npcGender+npcImage);
     this.scale.setTo(0.35);
     game.physics.arcade.enable(this);
     var wink = this.animations.add('wink',[4,5],2,true);
@@ -176,7 +184,16 @@ var GameState = {
     this.load.spritesheet('onlySpeech','/kanemochi/resources/image/speech/speech_bubble2.png');
     
     this.load.spritesheet('mainCharacter', '/kanemochi/resources/image/character/character_final/chineseGirl_final.png', 150, 200);
-    this.load.spritesheet('npc1', '/kanemochi/resources/image/character/character_final/chineseGirl_final.png', 150, 200);
+    this.load.spritesheet('npc_w1', '/kanemochi/resources/image/npc/npc_w1.png', 150, 200);
+    this.load.spritesheet('npc_m1', '/kanemochi/resources/image/npc/npc_m1.png', 150, 200);
+    this.load.spritesheet('npc_w2', '/kanemochi/resources/image/npc/npc_w2.png', 150, 200);
+    this.load.spritesheet('npc_m2', '/kanemochi/resources/image/npc/npc_m2.png', 150, 200);
+    this.load.spritesheet('npc_w3', '/kanemochi/resources/image/npc/npc_w3.png', 150, 200);
+    this.load.spritesheet('npc_m3', '/kanemochi/resources/image/npc/npc_m3.png', 150, 200);
+    this.load.spritesheet('npc_w4', '/kanemochi/resources/image/npc/npc_w4.png', 150, 200);
+    this.load.spritesheet('npc_m4', '/kanemochi/resources/image/npc/npc_m4.png', 150, 200);
+    this.load.spritesheet('npc_w5', '/kanemochi/resources/image/npc/npc_w5.png', 150, 200);
+    this.load.spritesheet('npc_m5', '/kanemochi/resources/image/npc/npc_m5.png', 150, 200);
     
     this.load.spritesheet('level_1','/kanemochi/resources/image/level/level1.png');
     this.load.spritesheet('level_2','/kanemochi/resources/image/level/level2.png');
@@ -288,7 +305,7 @@ function comeUserCharacter(userCharacter,situation){
 	}
 	if(userCharacter.x ==300){
 		var ballon = this.game.add.sprite(300+(userCharacter.width*2),userCharacter.y-(userCharacter.height*1.2),'onlySpeech');
-//		var ballon = this.game.add.sprite(300,userCharacter.y-(userCharacter.height),'onlySpeech');
+
 		ballon.anchor.set(0.5);
 		ballon.scale.setTo(-0.3,0.3);
 		ballon.x -= userCharacter.width;
@@ -330,6 +347,7 @@ function createBuilding(inputText){
   var elevatorTop = spriteTemp;
   var elevatorBottom;
   var elevatorComplete;
+  var result;
 //  var spriteTemp = buildingGroup.create(game.input.mousePointer.x,game.input.mousePointer.y,inputText);
   if(inputText != 'elevator'){
 	  buildingGroup.add(spriteTemp);  
@@ -397,58 +415,86 @@ function createBuilding(inputText){
 	      checkResult = false;
 	    }
 	  }
-	  //마우스를 때면 일어나는 이벤트(바로 아래 함수)
-	    spriteTemp.events.onInputUp.add(function(){mouseUp(spriteTemp,checkResult,topCheck)},this);
+	  	var temp = spriteTemp.events.onInputUp.add(function(){
+	  		console.log(temp);
+	    	temp = mouseUp(spriteTemp,checkResult,topCheck);
+	    	console.log(temp);
+	    	 switch (inputText) {
+		    	    case 'cafe':
+		    	      spriteTemp.name = inputText+'_'+(++buildingCounter[0]);
+		    	      break;
+		    	    case 'beer':
+		    	      spriteTemp.name = inputText+'_'+(++buildingCounter[1]);
+		    	      break;
+		    	    case 'ramen':
+		    	        spriteTemp.name = inputText+'_'+(++buildingCounter[2]);
+		    	        break;
+		    	    case 'cvs':
+		    	        spriteTemp.name = inputText+'_'+(++buildingCounter[3]);
+		    	        break;    
+		    	    case 'sushi':
+		    	    	spriteTemp.name = inputText+'_'+(++buildingCounter[4]);
+		    	    	break;
+		    	    case 'dessert':
+		    	    	spriteTemp.name = inputText+'_'+(++buildingCounter[5]);
+		    	    	break;
+		    	    case 'bus':
+		    	        spriteTemp.name = inputText+'_'+(++buildingCounter[6]);
+		    	        break;
+		    	    case 'movie':
+		    	    	spriteTemp.name = inputText+'_'+(++buildingCounter[7]);
+		    	    	break;
+		          case 'hospital':
+		              spriteTemp.name = inputText+'_'+(++buildingCounter[8]);
+		              break;
+		          case 'book':
+		              spriteTemp.name = inputText+'_'+(++buildingCounter[9]);
+		              break;    
+		          case 'hair':
+		          	spriteTemp.name = inputText+'_'+(++buildingCounter[10]);
+		          	break;
+		          case 'clothes':
+		          	spriteTemp.name = inputText+'_'+(++buildingCounter[11]);
+		          	break;
+		          case 'burger':
+		        	spriteTemp.name = inputText+'_'+(++buildingCounter[12]);
+		        	break;
+	//	          case 'elevator':
+	//	          	spriteTemp.name = inputText+'_'+(++buildingCounter[13]);
+	//	          	break;
+		          default:
+		        	  break;
+			 }
+	    	 console.log(temp);
+	    	 res = temp; 
+	    	},this);
+//		  	var timer = setTimeout(function(){
+//				console.log("지연");
+//			}, 100000000);	
+//	  		var myVar=setInterval(function(){
+//	  			console.log("체크");
+//	  			if(result == true || result == false){
+//	  				clearTimeout(timer);
+//					clearInterval(myVar);
+//					res = result;
+//					console.log(res);
+//	  			}
+//	  		},100);
+			
+			
+			
+			
+			
+			
+			
+			/* refreshIntervalId 중지 */
+		
   }
   
-  switch (inputText) {
-	    case 'cafe':
-	      spriteTemp.name = inputText+'_'+(++buildingCounter[0]);
-	      break;
-	    case 'beer':
-	      spriteTemp.name = inputText+'_'+(++buildingCounter[1]);
-	      break;
-	    case 'ramen':
-	        spriteTemp.name = inputText+'_'+(++buildingCounter[2]);
-	        break;
-	    case 'cvs':
-	        spriteTemp.name = inputText+'_'+(++buildingCounter[3]);
-	        break;    
-	    case 'sushi':
-	    	spriteTemp.name = inputText+'_'+(++buildingCounter[4]);
-	    	break;
-	    case 'dessert':
-	    	spriteTemp.name = inputText+'_'+(++buildingCounter[5]);
-	    	break;
-	    case 'bus':
-	        spriteTemp.name = inputText+'_'+(++buildingCounter[6]);
-	        break;
-      case 'movie':
-        spriteTemp.name = inputText+'_'+(++buildingCounter[7]);
-        break;
-      case 'hospital':
-          spriteTemp.name = inputText+'_'+(++buildingCounter[8]);
-          break;
-      case 'book':
-          spriteTemp.name = inputText+'_'+(++buildingCounter[9]);
-          break;    
-      case 'hair':
-      	spriteTemp.name = inputText+'_'+(++buildingCounter[10]);
-      	break;
-      case 'clothes':
-      	spriteTemp.name = inputText+'_'+(++buildingCounter[11]);
-      	break;
-      case 'burger':
-    	spriteTemp.name = inputText+'_'+(++buildingCounter[12]);
-    	break;
-//      case 'elevator':
-//      	spriteTemp.name = inputText+'_'+(++buildingCounter[13]);
-//      	break;
-    default:
-  }
 }
 function mouseUp(sprite,check,topCheck){
   //check는 아까 위에서 했던 충돌여부임.
+	var result = true;
   if(check == false){
     //충돌안하면 설정하는 것들 / 투명도 복구 / 움직임, 드래그 방지 / 메인캐릭터를 제일 앞으로 오게 (건물에 가려지지않게)
     sprite.alpha = 1;
@@ -605,7 +651,9 @@ function mouseUp(sprite,check,topCheck){
       default:
     }
     buildingGroup.remove(sprite);
+    result=  false;
   }
+  return result;
 }
 
 function getNumberOfNPC(npc,nowBuildingCounter,incOrDec){
