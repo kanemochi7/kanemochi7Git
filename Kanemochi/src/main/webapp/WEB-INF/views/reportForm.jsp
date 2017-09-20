@@ -25,15 +25,35 @@ body {
 }
 
 #calendar{
+	color: navy;
 	max-width: 700px;
 	max-height: 0px;
 	margin: 0 auto;
 }
 
+td, tr {
+	color:black;
+	background-color: #ffffff;
+    background-color: rgba( 255, 255, 255, 0.25);
+}
 
-.fc-sun {color:#e31b23}
-.fc-sat {color:#007dc3}
+.fc-unthemed td.fc-today {
+	background: rgba(255, 207, 24, 0.43);
+}
 
+.fc-today {
+    border: none !important;
+    border-top: 1px solid #ddd !important;
+    font-weight: bold;
+}
+ 
+.fc-sun {
+	color:#e31b23;
+}
+
+.fc-sat {
+	color:#007dc3
+}
 
 .nav.nav-pills>li>a{
 	font-size: 25px;
@@ -62,7 +82,9 @@ body {
 #buttons>button{
 	float: right;
 }
-
+/* #calender {
+	float: left;
+} */
 </style>
 <script>
 $(document).ready(function() {
@@ -94,7 +116,6 @@ $(document).ready(function() {
 		   	$(this).attr("href","javascript:goDetail('"+$(this).attr("href")+"')");
 		  });
 		  
-		  alert($(".fc-day"));
 	 }
 	 
 //google Chart
@@ -212,9 +233,9 @@ $(document).ready(function() {
     <li><a data-toggle="pill" href="#menu3">Menu 3</a></li>
   </ul>
   
-  <div class="tab-content fade in active">
+  <div class="tab-content fade in active" >
     <div id="home" class="tab-pane fade in active">
-      	<div id="calendar"></div>	
+      	<div id="calendar" style="float:left;"></div>	
     </div>
     <div id="menu1" class="tab-pane fade">
       <h1>[Report]</h1>
