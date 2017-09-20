@@ -156,6 +156,9 @@ $(function() {
 <img class="icon_footer" id="write" src="/kanemochi/resources/image/icon/write.png">
 <img class="icon_footer" id="budget" src="/kanemochi/resources/image/icon/moneyPack.png">
 <img class="icon_footer" id="statistics" src="/kanemochi/resources/image/icon/pieGraph.png">
+<div class="progress">
+  <div class="progress-bar" style="width: 60%;"></div>
+</div>
 
 <!-- Modal_write -->
 <div id="modal_write" class="modal">
