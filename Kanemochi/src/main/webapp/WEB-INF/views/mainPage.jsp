@@ -115,7 +115,7 @@ $(function() {
 	
 	function countset() {
 		$.ajax({
-			url : '/kanemochi/account/getAllCount',
+			url : '/kanemochi/record/getAllCount',
 			method : 'get',
 			success: function(result) {
 				document.getElementById("cafe").textContent = result.cafe;
@@ -246,7 +246,7 @@ $(function() {
 			
 		} else {
 			$.ajax({
-				url : '/kanemochi/account/downcount',
+				url : '/kanemochi/record/downcount',
 				method : 'post',
 				data : {'category':category},
 				success: function(result) {

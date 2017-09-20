@@ -3,17 +3,15 @@ package com.project.kanemochi.vo;
 public class BudgetVO {
 	private int record_num;
 	private String user_id;
-	private int budget;
 	private int monthly;
 	private int weekly;
 	private int daily;
 	
 	public BudgetVO() {}
 
-	public BudgetVO(int record_num, String user_id, int budget, int monthly, int weekly, int daily) {
+	public BudgetVO(int record_num, String user_id, int monthly, int weekly, int daily) {
 		this.record_num = record_num;
 		this.user_id = user_id;
-		this.budget = budget;
 		this.monthly = monthly;
 		this.weekly = weekly;
 		this.daily = daily;
@@ -33,14 +31,6 @@ public class BudgetVO {
 
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
-	}
-
-	public int getBudget() {
-		return budget;
-	}
-
-	public void setBudget(int budget) {
-		this.budget = budget;
 	}
 
 	public int getMonthly() {
@@ -69,7 +59,6 @@ public class BudgetVO {
 
 	@Override
 	public String toString() {
-		return "BudgetVO [record_num=" + record_num + ", user_id=" + user_id + ", budget="
-				+ budget + ", monthly=" + monthly + ", weekly=" + weekly + ", daily=" + daily + "]";
+		return "BudgetVO [record_num=" + record_num + ", user_id=" + user_id + ", monthly=" + monthly + ", weekly=" + weekly + ", daily=" + daily + "]";
 	}
 }

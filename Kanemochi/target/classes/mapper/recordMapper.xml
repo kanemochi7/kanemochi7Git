@@ -153,4 +153,14 @@
 	<select id="getAllCount" parameterType="String" resultType="CountVO">
 		select * from count where user_id = #{id}
 	</select>
+
+	<insert id="setbudget" parameterType="BudgetVO">
+		insert into budget
+		values(seq_budget.nextval, #{user_id}, #{monthly}, #{weekly}, #{daily})
+	</insert>
+	
+	<select id="getAllbudget" parameterType="String" resultType="BudgetVO">
+		select * from budget where user_id = #{id}
+	</select>
+
 </mapper>

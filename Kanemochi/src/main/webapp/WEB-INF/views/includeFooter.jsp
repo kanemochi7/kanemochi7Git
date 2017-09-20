@@ -73,7 +73,7 @@
 <script>
 $(function() {
 	datepicker();
-	setbudget();
+	getbudget();
 });
 	function datepicker() {
 		$('#record_date').datepicker({
@@ -82,28 +82,12 @@ $(function() {
 			todayHighlight: true
 		});
 	}
-	
-	function setbudget() {
-		$.ajax({
-		url : '/kanemochi/account/setbudget',
-		method : 'get',
-		cache : false,
-		success: function (result) {
-		    document.getElementById("month_result").innerHTML = result.;
-		    document.getElementById("weekly_result").innerHTML = result.;
-		    document.getElementById("daily_result").innerHTML = result.;
-			},
-		error: function() {
-			alert("ng")
-			}
-		});
-	}
-	
+
 	function input() {
 		/* 유효성 검사 해야 함 */
 			var param = $("#input-form").serialize();
 			$.ajax({
-			url : '/kanemochi/account/input',
+			url : '/kanemochi/record/input',
 			method : 'post',
 			cache : false,
 			data : param,
@@ -129,27 +113,43 @@ $(function() {
 	
 	function numberWithCommas(x) { return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
 
-	function savebudget() {
+	function setbudget() {
 		var month = document.getElementById("month_result").innerHTML;
 		var week = document.getElementById("weekly_result").innerHTML;
 		var day =  document.getElementById("daily_result").innerHTML;
 		
 		$.ajax({
-		url : '/kanemochi/account/savebudget',
+		url : '/kanemochi/record/setbudget',
 		method : 'post',
 		cache : false,
-		data : {"month":month,"week":week, "day":day},
+		data : {"monthly":month,"weekly":week,"daily":day},
 		success: function (result) {
-			setbudget();
 			document.getElementById("budget_month").hide();
+		/* 	getbudget(); */
 			alert("ok")
 			},
 		error: function() {
 			alert("ng")
 			}
 		});
-		
 	}
+	
+	function getbudget() {
+		$.ajax({
+		url : '/kanemochi/record/getbudget',
+		method : 'get',
+		cache : false,
+		success: function (result) {
+		    document.getElementById("month_result").innerHTML = result.monthly;
+		    document.getElementById("weekly_result").innerHTML = result.weekly;
+		    document.getElementById("daily_result").innerHTML = result.daily;
+			},
+		error: function() {
+			alert("ng")
+			}
+		});
+	}
+	
 </script>
 </head>
 <body>
@@ -237,7 +237,7 @@ $(function() {
 		weekly budget : <span id="weekly_result"></span>￦<br>
 		daily_budget : <span id="daily_result"></span>￦<br>
 		</form>
-		<input type="button" value="save this plan" onclick="savebudget()">
+		<input type="button" value="save this plan" onclick="setbudget()">
 		
 	</div>
 </div>
@@ -315,6 +315,7 @@ function itemChange(){
 	var medical = ["病院"];
 	var education = ["本"];
 	var transportation = ["バス"];
+	var save = ["銀行"];
 	 
 	var selectItem = $("#select-category").val();
 	var changeItem;

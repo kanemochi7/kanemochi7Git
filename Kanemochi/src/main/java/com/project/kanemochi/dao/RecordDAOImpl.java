@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.project.kanemochi.vo.BudgetVO;
 import com.project.kanemochi.vo.CountOneVO;
 import com.project.kanemochi.vo.CountVO;
 import com.project.kanemochi.vo.RecordVO;
@@ -42,6 +43,12 @@ public class RecordDAOImpl implements RecordDAO {
 	public CountVO getAllCount(String id) {
 		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);
 		return mapper.getAllCount(id);
+	}
+
+	@Override
+	public void setbudget(BudgetVO vo) {
+		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);	
+		mapper.setbudget(vo);
 	}
 
 }

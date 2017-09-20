@@ -17,12 +17,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.kanemochi.dao.RecordDAO;
+import com.project.kanemochi.vo.BudgetVO;
 import com.project.kanemochi.vo.CountOneVO;
 import com.project.kanemochi.vo.CountVO;
 import com.project.kanemochi.vo.RecordVO;
 
 @Controller
-@RequestMapping("/account")
+@RequestMapping("/record")
 public class RecordController {
 	
 	@Autowired
@@ -154,4 +155,11 @@ public class RecordController {
 		return "reportForm";
 	}
 	
+	@RequestMapping(value = "setbudget", method = RequestMethod.POST)
+	@ResponseBody
+	public void setbudget(BudgetVO vo, HttpSession session) {
+		String id = (String)session.getAttribute("loginID");
+		vo.setUser_id(id);
+		dao.setbudget(vo);
+	}
 }
