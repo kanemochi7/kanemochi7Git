@@ -16,14 +16,15 @@
 		height: 100%;
 		width: 100%;
 	}
-	.pencil {
-		float: left;
-		height: 70px;
-		width: auto;
+	#p_footer {
+		text-align: center;
+		color: white;
 	}
-	table {
-		 border: 1px solid black;
-		 margin: 20px;
+	.icon_footer {
+		float: left;
+		height: 50px;
+		width: auto;
+		margin: 5px;
 	}
 
 /* The Modal (background) */
@@ -72,8 +73,8 @@
 <script>
 $(function() {
 	datepicker();
+	setbudget();
 });
-	
 	function datepicker() {
 		$('#record_date').datepicker({
 			format: 'yyyy/mm/dd',
@@ -81,17 +82,26 @@ $(function() {
 			todayHighlight: true
 		});
 	}
-
-	function input() {
-		var category = document.getElementById("category");
-		var val;
-		for(i=0; i<category.options.length; i++) {
-			if(category.options[i].selected == true) {
-				val = category.options[i].value;
-			break;
+	
+	function setbudget() {
+		$.ajax({
+		url : '/kanemochi/account/setbudget',
+		method : 'get',
+		cache : false,
+		success: function (result) {
+		    document.getElementById("month_result").innerHTML = result.;
+		    document.getElementById("weekly_result").innerHTML = result.;
+		    document.getElementById("daily_result").innerHTML = result.;
+			},
+		error: function() {
+			alert("ng")
 			}
-		}
-		var param = $("#input-form").serialize();
+		});
+	}
+	
+	function input() {
+		/* 유효성 검사 해야 함 */
+			var param = $("#input-form").serialize();
 			$.ajax({
 			url : '/kanemochi/account/input',
 			method : 'post',
@@ -101,53 +111,56 @@ $(function() {
 				document.getElementById(result.category).textContent = result.count.toString();
 				modal.style.display = "none";
 				document.getElementById("input-form").reset();
-			},
+				},
 			error: function() {
 				alert("ng")
-			}
-		});
+				}
+			});
 	}
 
+	function cal() {
+		var budget_Monthly = document.getElementById("budget_month").value;
+	    var budget_Weekly = budget_Monthly/4;
+	    var budget_Daily = budget_Monthly/30;
+	    document.getElementById("month_result").innerHTML = numberWithCommas(parseInt(budget_Monthly));
+	    document.getElementById("weekly_result").innerHTML = numberWithCommas(parseInt(budget_Weekly));
+	    document.getElementById("daily_result").innerHTML = numberWithCommas(parseInt(budget_Daily));
+	}
+	
+	function numberWithCommas(x) { return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+
+	function savebudget() {
+		var month = document.getElementById("month_result").innerHTML;
+		var week = document.getElementById("weekly_result").innerHTML;
+		var day =  document.getElementById("daily_result").innerHTML;
+		
+		$.ajax({
+		url : '/kanemochi/account/savebudget',
+		method : 'post',
+		cache : false,
+		data : {"month":month,"week":week, "day":day},
+		success: function (result) {
+			setbudget();
+			document.getElementById("budget_month").hide();
+			alert("ok")
+			},
+		error: function() {
+			alert("ng")
+			}
+		});
+		
+	}
 </script>
 </head>
 <body>
-	<table>
-		<tr> <td rowspan="2"></td> <td>budget</td> <td>쓴 금액 / 전체 예산</td> <td>level</td> <td>쌓은 경험치 / 필요 경험치</td> </tr>
-		<tr> <td colspan="2"></td> <td colspan="2"></td> </tr>
-	</table>
-
-
-
-
-<!-- 
-
-	<table>
-		<tr>
-			<td><img class="pencil" id="write" src="/kanemochi/resources/image/icon/pencil.png"></td>
-			<td>budget</td>
-			<td>
-			<div class="progress">
-				<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-					40% Complete (success)
-				</div>
-			</div>
-			</td>
-			<th><h3>exp</h3></th>
-			<td><img alt="level1" src="/kanemochi/resources/image/level/level1.png" style="height:50px; widgh:auto;"></td>
-			<td>
-			<div class="progress">
-				<div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-					40% Complete (success)
-				</div>
-			</div>
-			</td>
-		</tr>
-	</table> -->
+<img class="icon_footer" id="write" src="/kanemochi/resources/image/icon/write.png">
+<img class="icon_footer" id="budget" src="/kanemochi/resources/image/icon/moneyPack.png">
+<img class="icon_footer" id="statistics" src="/kanemochi/resources/image/icon/pieGraph.png">
 
 <!-- Modal_write -->
 <div id="modal_write" class="modal">
 	<div class="modal-content">
-	<span class="close">&times;</span>
+	<span class="close" id="close_modal_write">&times;</span>
 	<h3>支出</h3>
 	<h4>[今日はいくら使いましたか？]</h4>
 	<form id="input-form" name="input-form">
@@ -209,10 +222,22 @@ $(function() {
 <!-- Modal_budget -->
 <div id="modal_budget" class="modal">
 	<div class="modal-content">
-		<span class="close">&times;</span>
+		<span class="close" id="close_modal_budget">&times;</span>
 		<h3>Budget</h3>
-		<input type="text" id="budget_month" placeholder="予算">
-		
+		<p id="p_footer">
+		[<span id="today_year_budget"></span>年
+		<span id="today_month_budget"></span>月]
+		</p>
+		<form id="budget_form" name="budget_form">
+		一ヵ月の予算 : <input type="text" id="budget_month" placeholder="予算" onkeyup="cal()">￦<br>
+<!-- 	<input type="checkbox" name="plan" value="month">monthly
+		<input type="checkbox" name="plan" value="weekly">weekly
+		<input type="checkbox" name="plan" value="daily">daily -->		
+		monthly budget : <span id="month_result"></span>￦<br>
+		weekly budget : <span id="weekly_result"></span>￦<br>
+		daily_budget : <span id="daily_result"></span>￦<br>
+		</form>
+		<input type="button" value="save this plan" onclick="savebudget()">
 		
 	</div>
 </div>
@@ -220,7 +245,7 @@ $(function() {
 <!-- Modal_statistic -->
 <div id="modal_statistic" class="modal">
 	<div class="modal-content">
-		<span class="close">&times;</span>
+		<span class="close" id="close_modal_statistic">&times;</span>
 		<h3>通計</h3>
 		<div class="progress">
 			<div class="progress-bar progress-bar-info" style="width: 20%"></div>
@@ -236,25 +261,53 @@ $(function() {
 		</div>
 	</div>
 </div>
-
 <script>
-/* modal */
-	var modal = document.getElementById('modal_write');
-	var btn = document.getElementById("write");
-	var span = document.getElementsByClassName("close")[0];
-	btn.onclick = function() {
-		modal.style.display = "block";
-	}
-	span.onclick = function() {
-		modal.style.display = "none";
-	}
-	window.onclick = function(event) {
-		if (event.target == modal) {
-			modal.style.display = "none";
+/* modal_statistic */
+	var modal_statistic = document.getElementById('modal_statistic');
+	var btn_s = document.getElementById("statistics");
+	var span_s = document.getElementById("close_modal_statistic");
+	btn_s.onclick = function() {
+		modal_statistic.style.display = "block";
+		span_s.onclick = function() {
+			modal_statistic.style.display = "none";
+		}
+		window.onclick = function(event_s) {
+			if (event_s.target == modal_statistic) {
+				modal_statistic.style.display = "none";
+			}
 		}
 	}
-
-/* modal - category change */
+/* modal_budget */
+	var modal_budget = document.getElementById('modal_budget');
+	var btn_b = document.getElementById("budget");
+	var span_b = document.getElementById("close_modal_budget");
+	btn_b.onclick = function() {
+		modal_budget.style.display = "block";
+		span_b.onclick = function() {
+			modal_budget.style.display = "none";
+		}
+		window.onclick = function(event_b) {
+			if (event_b.target == modal_budget) {
+				modal_budget.style.display = "none";
+			}
+		}
+	}
+/* modal_write */
+	var modal_write = document.getElementById('modal_write');
+	var btn_w = document.getElementById("write");
+	var span_w = document.getElementsByClassName("close")[0];
+	btn_w.onclick = function() {
+		modal_write.style.display = "block";
+		span_w.onclick = function() {
+			modal_write.style.display = "none";
+		}
+		window.onclick = function(event_w) {
+			if (event.target == modal_write) {
+				modal_write.style.display = "none";
+			}
+		}
+	}
+/* modal_write - category change */
 function itemChange(){
 	var food = ["バーがー","ラーメン","すし", "カフェ", "デザート", "ビール", "コンビニ"];
 	var culture = ["映画"];

@@ -8,12 +8,28 @@
 		insert into users(user_id,user_pw,user_name,user_gender,user_phone,user_email,user_authority,img_id,level_title) 
 		values(#{user_id},#{user_pw},#{user_name},#{user_gender},#{user_phone},#{user_email},0,#{img_id},1)
 	</insert>
+	<!-- 가입시 가입자 정보 다른 테이블에 추가 -->
+	<insert id="insertCount" parameterType="MemberVO">
+		insert into count
+		values(seq_count.nextval, #{user_id}, sysdate, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+	</insert>	
+	<insert id="insertBudget" parameterType="MemberVO">
+		insert into budget
+		values(seq_budget.nextval, #{user_id}, 0,0,0,0)
+	</insert>
+	
 	<!--로그인-->
 	<select id="login" parameterType="MemberVO" resultType="MemberVO">
   		SELECT * 
   		FROM users 
   		WHERE user_id =#{user_id} AND user_pw=#{user_pw}
   	</select>
+  	<!-- 출석체크 => 나중에 count 함수로 갯수 세기 -->
+	<insert id="insertLogin" parameterType="MemberVO">
+		insert into login
+		values(seq_logincheck.nextval, #{user_id}, sysdate, 1)
+	</insert>
+  	
   	<!--아이디 중복체크  -->
   	<select id="checkId" parameterType="String" resultType="MemberVO">
   		SELECT * 

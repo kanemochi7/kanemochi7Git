@@ -18,7 +18,11 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public int signUp(MemberVO vo) {
 		MemberMapper mapper = sqlsession.getMapper(MemberMapper.class);
-		return mapper.signUp(vo);
+		int result = mapper.signUp(vo);
+		mapper.insertCount(vo);
+		mapper.insertBudget(vo);
+		mapper.insertLogin(vo);
+		return result;
 	}
 
 	@Override
