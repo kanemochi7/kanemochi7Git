@@ -7,8 +7,11 @@
 <title>album</title>
 <link rel="icon" href="/kanemochi/resources/image/favicon.png">
 <script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
-<link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
-<script src="/kanemochi/resources/js/bootstrap.js"></script>
+<!-- <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
+<script src="/kanemochi/resources/js/bootstrap.js"></script> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 
 <style type="text/css">
 body {
@@ -35,77 +38,93 @@ a{
 #dog{
 	width: 10%;
 }
-
-/* modal */ 
-/* The Modal (background) */
-	.modal {
-		text-align: center;
-	    display: none; /* Hidden by default */
-	    position: fixed; /* Stay in place */
-	    z-index: 1; /* Sit on top */
-	    padding-top: 100px; /* Location of the box */
-	    left: 0;
-	    top: 0;
-	    width: 100%; /* Full width */
-	    height: 100%; /* Full height */
-	    overflow: auto; /* Enable scroll if needed */
-	    /*background-color: #ffffff;  /* Fallback color */
-	    background-color: rgba(255,255,255,0);  /*Black w/ opacity  */
-	    opacity: 0.5;  
-	}
-/* Modal Content */
-	.modal-content {
-		text-align: center;
-	    background-color: #aaaaaa;
-	    margin: auto;
-	    padding: 20px;
-	    border: 1px solid #888;
-	    width: 50%;
-	}
-	.select {
-		background-color: #fefefe;
-		color: #aaaaaa;
-	}
-/* The Close Button */
-	.close {
-	    color: #aaaaaa;
-	    float: right;
-	    font-size: 28px;
-	    font-weight: bold;
-	}
-	.close:hover,
-	.close:focus {
-	    color: #000;
-	    text-decoration: none;
-	    cursor: pointer;
-	}
-	
 </style>
 <script>
-function popupOpen(){
+//facebook share
+window.fbAsyncInit = function() {
+	    FB.init({
+	      appId      : '291845884627852',
+	      xfbml      : true,
+	      version    : 'v2.10'
+	    });
+	    FB.AppEvents.logPageView();
+	  };
 
-	var popUrl = "screenshotForm";	//팝업창에 출력될 페이지 URL
-
-	var popOption = "width=600, height=500, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
-		window.open(popUrl,"",popOption);
-	}
-
+	  (function(d, s, id){
+	     var js, fjs = d.getElementsByTagName(s)[0];
+	     if (d.getElementById(id)) {return;}
+	     js = d.createElement(s); js.id = id;
+	     js.src = "//connect.facebook.net/en_US/sdk.js";
+	     fjs.parentNode.insertBefore(js, fjs);
+	   }(document, 'script', 'facebook-jssdk'));
+	  
+	  function fuckingFB(){
+	     var imgUrl = "/kanemochi/resources/image/screenshot/one.png";
+	     var canvas = document.createElement("canvas");
+	     canvas.width  = 900;
+	     canvas.height = 600;
+	     var context = canvas.getContext("2d");
+	     var img = new Image();
+	     img.src = imgUrl;
+	     context.drawImage(img,0,0);
+	     var data = canvas.toDataURL();
+	     var blob;
+	     try {
+	       var byteString = atob(data.split(',')[1]);
+	       var ab = new ArrayBuffer(byteString.length);
+	       var ia = new Uint8Array(ab);
+	       for (var i = 0; i < byteString.length; i++) {
+	         ia[i] = byteString.charCodeAt(i);
+	       }
+	       blob = new Blob([ab], {type: 'image/png'});
+	     } catch (e) {
+	       console.log(e);
+	     }
+	     var fd = new FormData();
+	     fd.append("source", blob);
+	     fd.append("message", "Photo Text");
+	     FB.login(function(){
+	       var auth = FB.getAuthResponse();
+	       console.log(auth.userID);
+	       console.log(auth.accessToken);
+	       $.ajax({
+	         url:"https://graph.facebook.com/"+auth.userID+"/photos?access_token="+auth.accessToken,
+	         type:"POST",
+	         data:fd,
+	         processData:false,
+	         contentType:false,
+	         cache:false,
+	         success:function(data){
+	           console.log("success " + data);
+	           alert("페이스북에 성공적으로 업로드 되었습니다.");
+	         },
+	         error:function(shr,status,data){
+	           console.log("error " + data + " Status " + shr.status);
+	         },
+	         complete:function(){
+	           console.log("Ajax Complete");
+	         }
+	       });
+	     }, {scope: 'publish_actions',
+	        auth_type: 'rerequest'});
+	     }
 </script>
 
 </head>
 <body>
-
+	<!-- myModal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
+          <h4 class="modal-title">Album</h4>
         </div>
         <div class="modal-body">
-          <p>This is a large modal.</p>
+          <canvas id="canvas" width="850" height="600"></canvas> <!-- 캔버스 크기 -->
         </div>
         <div class="modal-footer">
+          <button type="button" class="btn btn-default" onclick="fuckingFB()">facebookShare</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -115,16 +134,12 @@ function popupOpen(){
 	<h1>Album</h1>
 	<table>
 		<tr>
-			<td><a href="javascript:popupOpen();" id ="one" class="sc">
+			<td><a href="#" data-toggle="modal" data-target="#myModal">
 			<img src="/kanemochi/resources/image/screenshot/one.png" class="rounded float-left" alt="left-img"></a></td>
 			<td><a href="javascript:popupOpen();" id ="two" class="sc">
 			<img src="/kanemochi/resources/image/screenshot/two.png" class="rounded float-left" alt="left-img"></a></td>
 			<td><a href="javascript:popupOpen();" id ="three" class="sc">
 			<img src="/kanemochi/resources/image/screenshot/three.png" class="rounded float-left" alt="left-img"></a></td>
-			
-			
-			<!-- <td><a href="#"><img src="/kanemochi/resources/image/screenshot/two.png" class="rounded float-center" alt="center-img"></a></td>
-			<td><a href="#"><img src="/kanemochi/resources/image/screenshot/three.png" class="rounded float-right" alt="right-img"></a></td> -->
 		</tr>
 		<tr>
 			<td>2017-09-27 80:50:00</td>
@@ -143,11 +158,7 @@ function popupOpen(){
 			<td>2017-09-27 80:50:00</td>
 		</tr>
 	</table>
-		<!-- Modal -->
-		
-
   
-	<!-- <button type="button" class="btn btn-warning" onclick="location.href='/kanemochi/member/loginForm'">Back</button><br> -->
 	<a type="button" href="/kanemochi/member/loginForm" class="btn btn-warning">home</a>
 		<ul class="pagination">
 		  <li class="disabled"><a href="#">&laquo;</a></li>

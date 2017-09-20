@@ -138,6 +138,6 @@ a{
   
 //   'publish_actions'
 </script>
- <button onclick="fuckingFB()">fuckingFB</button>
+ <button onclick="fuckingFB()">facebookShare</button>
 </body>
 </html>

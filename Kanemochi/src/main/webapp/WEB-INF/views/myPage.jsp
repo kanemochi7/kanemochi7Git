@@ -41,6 +41,9 @@ $(function () {
 body {
 	margin: 50px;
 	text-align: center;
+	background-color:#fff5c3;
+	background-image:url(/kanemochi/resources/image/bg/pinkSky2.png);
+	background-repeat: repeat-x;
 }
 
 table {

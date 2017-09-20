@@ -1,83 +1,89 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="EUC-KR"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
+<title>ScreenshotTest</title>
 <script src="/kanemochi/resources/js/html2canvas.js"></script>
-<script>
-window.takeScreenShot = function() {
-    html2canvas(document.getElementById("target"), {
-        onrendered: function (canvas) {
-        	
-        	// child 창 
-        	var popUrl = "snapshot";	//팝업창에 출력될 페이지 URL
-			var popOption = "width=600, height=500, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
-			window.open(popUrl,"",popOption);
-        	
-            document.body.appendChild(canvas);
-        },
-        width:200,
-        height:300
-    });
-}
+<script type="text/javascript"
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript"
+	src="//cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-function popupOpen(){
-	var popUrl = "snapshot";	//팝업창에 출력될 페이지 URL
-	var popOption = "width=600, height=500, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
-		window.open(popUrl,"",popOption);
-	}
-
-/* html2canvas($my-div, {
-    height: myDivHeight,
-    width: 350,
-    useCORS: true,
-    allowTaint: true,
-    proxy: "your url",
-    onrendered: function (canvas) {
-      window.canvas2ImagePlugin.saveImageDataToLibrary(
-        function(msg){
-          console.log(msg) //path where image is saved
-        },
-        function(err){
-            console.log(err);
-        },
-        canvas // pass canvas as third parameter
-      );
-    }
-  }); */
-
-  $('#save_image_locally').click(function(){
-	    html2canvas($('#imagesave'), 
-	    {
-	      onrendered: function (canvas) {
-	        var a = document.createElement('a');
-	        // toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
-	        a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
-	        a.download = 'somefilename.jpg';
-	        a.click();
-	      }
-	    });
-	  }); 
-  
-</script>
 <style>
-button {
-	display: block;
-	height: 20px;
-	margin-top: 10px;
-	margin-bottom: 10px;
+canvas {
+    border:1px solid black;
+}
+img{
+	width:auto;
+}
+#cameraBtn{
+	height: 30px;
 }
 </style>
 </head>
-<body>S
+<body>
+	<!-- <a class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="takeScreenShot()">Take a Screenshot</a> -->
+	<a class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="takeScreenShot()">
+		<img src="/kanemochi/resources/image/icon/camera.png" id="cameraBtn"/>
+	</a>
 	<div id="target">
-		<!-- <a href="javascript:popupOpen();"> -->
-			<img src="/kanemochi/resources/image/character/pinkGirl.gif"/>
-		<!-- </a> -->
+		<img id ="img" src="/kanemochi/resources/image/screenshot/one.png"/>
 	</div>
-	<button onclick="takeScreenShot()">to image</button>
-	<button type ="button" id ="save_image_locally">save</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">ScreenShot</h4>
+        </div>
+        <div class="modal-body">
+			<canvas id="canvas" width="850" height="600"></canvas> <!-- 캔버스 크기 -->
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-default" id="download">Save</a>
+          <a class="btn btn-default" data-dismiss="modal">Close</a>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+<script>
+	var canvas = document.getElementById('canvas');
+	var ctx = canvas.getContext('2d');
+	var img = document.getElementById("img");
+	
+	function doCanvas() {
+		/* ctx.drawImage(img,0,0,400,600); */ // 내부 사진 크기
+		ctx.drawImage(img,0,0);
+	}
+	
+	function downloadCanvas(link, canvasId, filename) {
+	    link.href = document.getElementById(canvasId).toDataURL();
+	    link.download = filename;
+	}
+	
+	document.getElementById('download').addEventListener('click', function() {
+		downloadCanvas(this, 'canvas', 'test.png');
+	}, false);
+	
+	function takeScreenShot() {
+		html2canvas(document.getElementById("target"), {
+			onrendered : function(canvas) {
+				doCanvas();
+			}
+		});
+	}
+</script>
+
 </body>
 </html>
