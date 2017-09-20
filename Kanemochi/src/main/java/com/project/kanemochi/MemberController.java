@@ -230,4 +230,13 @@ public class MemberController {
 		return "mainPage";
 	}
 	
+	@RequestMapping(value = "snapshotTest", method = RequestMethod.GET)
+	public String snapshotTest() {
+		return "snapshotTest";
+	}
+	
+	@RequestMapping(value = "snapshot", method = RequestMethod.GET)
+	public String snapshot() {
+		return "snapshot";
+	}
 }

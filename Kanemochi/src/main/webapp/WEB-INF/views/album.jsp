@@ -51,6 +51,7 @@ a{
 	    overflow: auto; /* Enable scroll if needed */
 	    /*background-color: #ffffff;  /* Fallback color */
 	    background-color: rgba(255,255,255,0);  /*Black w/ opacity  */
+	    opacity: 0.5;  
 	}
 /* Modal Content */
 	.modal-content {
@@ -93,6 +94,24 @@ function popupOpen(){
 
 </head>
 <body>
+
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>This is a large modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 	<h1>Album</h1>
 	<table>
 		<tr>
@@ -113,7 +132,8 @@ function popupOpen(){
 			<td>2017-09-27 80:50:00</td>
 		</tr>
 		<tr>
-			<td><a href="#"><img src="http://via.placeholder.com/300x200" class="rounded float-left" alt="left-img"></a></td>
+			<td><a href="#" data-toggle="modal" data-target="#myModal">
+			<img src="http://via.placeholder.com/300x200" class="rounded float-left" alt="left-img"></a></td>
 			<td><a href="#"><img src="http://via.placeholder.com/300x200" class="rounded float-center" alt="center-img"></a></td>
 			<td><a href="#"><img src="http://via.placeholder.com/300x200" class="rounded float-right" alt="right-img"></a></td>
 		</tr>
@@ -122,34 +142,13 @@ function popupOpen(){
 			<td>2017-09-27 80:50:00</td>
 			<td>2017-09-27 80:50:00</td>
 		</tr>
-		<tr>
-			<td>
-			<td><a href="#" data-toggle="modal" data-target="#myModal">
-			<img src="http://via.placeholder.com/300x200" class="rounded float-left" alt="left-img"></a>
-			</td>
-		</tr>
 	</table>
 		<!-- Modal -->
 		
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
-        </div>
-        <div class="modal-body">
-          <p>This is a large modal.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
+
   
 	<!-- <button type="button" class="btn btn-warning" onclick="location.href='/kanemochi/member/loginForm'">Back</button><br> -->
-	<a type="button" href="/kanemochi/member/signUpForm" class="btn btn-warning">back</a>
+	<a type="button" href="/kanemochi/member/loginForm" class="btn btn-warning">home</a>
 		<ul class="pagination">
 		  <li class="disabled"><a href="#">&laquo;</a></li>
 		  <li class="active"><a href="#">1</a></li>
@@ -161,5 +160,26 @@ function popupOpen(){
 		</ul>
 		<br>
 	<img src="/kanemochi/resources/image/dog.gif" class="rounded float-left" alt="left-img" id="dog">
+	
+	<div class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <p>One fine body…</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+  
+</div>
+	
+	
 </body>
 </html>
