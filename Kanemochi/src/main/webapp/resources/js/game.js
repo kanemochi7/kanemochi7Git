@@ -174,13 +174,27 @@ var GameState = {
     //이미지 호출
 	  this.load.image('background', '/kanemochi/resources/image/bg/bg.jpg');
     this.load.spritesheet('ground','/kanemochi/resources/image/bg/ground.png');
+    
     this.load.spritesheet('buildingTopLong','/kanemochi/resources/image/bg/buildingTop.png',600,30);
     this.load.spritesheet('buildingTopShort','/kanemochi/resources/image/bg/buildingTop.png',400,30);
     this.load.spritesheet('buildingTopCheck','/kanemochi/resources/image/bg/buildingTop.png',400,30);
     this.load.spritesheet('buildingWall','/kanemochi/resources/image/bg/wall.png',400,300);
     this.load.spritesheet('cafe','/kanemochi/resources/image/shop/complete/cafe.png',400,300);
     this.load.spritesheet('bus', '/kanemochi/resources/image/shop/complete/bus.png', 600, 300);
+    this.load.spritesheet('bank', '/kanemochi/resources/image/shop/complete/bank.png', 600, 300);
+    this.load.spritesheet('movie', '/kanemochi/resources/image/shop/complete/movie.png', 600, 300);
+    this.load.spritesheet('hospital', '/kanemochi/resources/image/shop/complete/hospital.png', 600, 300);
+    this.load.spritesheet('beer', '/kanemochi/resources/image/shop/complete/beer.png', 400, 300);
+    this.load.spritesheet('book', '/kanemochi/resources/image/shop/complete/book.png', 400, 300);
+    this.load.spritesheet('clothes', '/kanemochi/resources/image/shop/complete/clothes.png', 400, 300);
+    this.load.spritesheet('cvs', '/kanemochi/resources/image/shop/complete/cvs.png', 400, 300);
+    this.load.spritesheet('dessert', '/kanemochi/resources/image/shop/complete/dessert.png', 400, 300);
+    this.load.spritesheet('hair', '/kanemochi/resources/image/shop/complete/hair.png', 400, 300);
+    this.load.spritesheet('ramen', '/kanemochi/resources/image/shop/complete/ramen.png', 400, 300);
+    this.load.spritesheet('sushi', '/kanemochi/resources/image/shop/complete/sushi.png', 400, 300);
+    
     this.load.spritesheet('elevator', '/kanemochi/resources/image/shop/complete/elevator.png',400, 300);
+    
     this.load.spritesheet('onlySpeech','/kanemochi/resources/image/speech/speech_bubble2.png');
     
     this.load.spritesheet('mainCharacter', '/kanemochi/resources/image/character/character_final/chineseGirl_final.png', 150, 200);
@@ -284,7 +298,6 @@ var GameState = {
 //      if(deleteMode == true){
 //    	  buildingDeleteMode();
 //      }
-     
       
     }
 };
