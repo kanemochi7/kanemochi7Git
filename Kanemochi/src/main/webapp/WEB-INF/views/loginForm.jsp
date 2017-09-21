@@ -186,7 +186,7 @@ $(function() {
 				<button type="button" class="btn btn-success" onclick="location.href='/kanemochi/member/myPage'">myPage</button>
 				<button type="button" class="btn btn-warning" onclick="location.href='/kanemochi/member/list'">list</button>
 				<button type="button" class="btn btn-success" onclick="location.href='/kanemochi/member/memberListForm'">memberListForm</button>
-				<button type="button" class="btn btn-warning" onclick="location.href='/kanemochi/account/reportForm'">report</button>
+				<button type="button" class="btn btn-warning" onclick="location.href='/kanemochi/record/reportForm'">report</button>
 				<button type="button" class="btn btn-success" onclick="location.href='/kanemochi/member/main'">mainPage</button>
 			</td>
 			<td></td>

@@ -154,7 +154,7 @@ public class RecordController {
 		return dao.getAllCount(id);
 	}
 	
-	@RequestMapping(value = "ajax.do", method = RequestMethod.POST)
+	@RequestMapping(value = "calendar", method = RequestMethod.POST)
 	@ResponseBody
 	public ArrayList<HashMap<String, Object>> calenderAjax(HttpServletRequest request,ModelMap modelMap) {
 		HashMap<String,Object> resultMap = new HashMap<>();

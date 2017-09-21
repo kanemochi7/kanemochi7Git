@@ -92,7 +92,7 @@ $(document).ready(function() {
 	  $.ajax({
 	   
 	     type : "POST" 
-	     , url : "/kanemochi/account/ajax.do" //Request URL
+	     , url : "/kanemochi/report/calendar" //Request URL
 	     , dataType : "json" //전송받을 데이터 타입
 	     , contentType: "application/x-www-form-urlencoded; charset=UTF-8"
 	     , error : function(request, status, error) {
@@ -115,7 +115,6 @@ $(document).ready(function() {
 		  $("#calendar a").click(function(){
 		   	$(this).attr("href","javascript:goDetail('"+$(this).attr("href")+"')");
 		  });
-		  
 	 }
 	 
 //google Chart

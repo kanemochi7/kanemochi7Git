@@ -64,7 +64,7 @@ img{
 	
 	function doCanvas() {
 		/* ctx.drawImage(img,0,0,400,600); */ // 내부 사진 크기
-		ctx.drawImage(img,0,0);
+		ctx.drawImage(img,0,0,600,400);
 	}
 	
 	function downloadCanvas(link, canvasId, filename) {
@@ -76,13 +76,14 @@ img{
 		downloadCanvas(this, 'canvas', 'test.png');
 	}, false);
 	
-	function takeScreenShot() {
+ 	function takeScreenShot() {
 		html2canvas(document.getElementById("target"), {
 			onrendered : function(canvas) {
 				doCanvas();
 			}
 		});
-	}
+	} 
+	
 </script>
 
 </body>
