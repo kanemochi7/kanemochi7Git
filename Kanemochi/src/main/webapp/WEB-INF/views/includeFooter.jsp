@@ -4,17 +4,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css"> -->
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap-datepicker.min.css">
 
-<script src="/kanemochi/resources/js/bootstrap.js"></script>
+<!-- <script src="/kanemochi/resources/js/bootstrap.js"></script> -->
 <script src="/kanemochi/resources/js/bootstrap-datepicker.min.js"></script>
 
 <!-- CSS -->
 <style type="text/css">
+* {
+font: "PixelMplus12-Regular";
+}
 	body {
 		height: 100%;
 		width: 100%;
+		font-family: "PixelMplus12-Regular";
 	}
 	#p_footer {
 		text-align: center;
@@ -26,9 +30,12 @@
 		width: auto;
 		margin: 5px;
 	}
-
+	#btn_setbudget, #btn_modifybudget{
+		display: none;
+	}
 /* The Modal (background) */
 	.modal {
+	font-family: PixelMplus12-Regular;
 		text-align: center;
 	    display: none; /* Hidden by default */
 	    position: fixed; /* Stay in place */
@@ -44,6 +51,7 @@
 	}
 /* Modal Content */
 	.modal-content {
+	font-family: "PixelMplus12-Regular";
 		text-align: center;
 	    background-color: #aaaaaa;
 	    margin: auto;
@@ -102,13 +110,46 @@ $(function() {
 			});
 	}
 
+	function f_leapyear(yy) {
+		if (yy%4==0 && yy%100!=0 || yy%400==0) return 1;
+		else return 0;
+	}
+	
+	function f_weekofmonth(year,month) {
+		var nowDate = new Date(year, month-1, 1);
+		var lastDate = new Date(year, month, 0).getDate();
+		var monthSWeek = nowDate.getDay();
+		var weekSeq = parseInt((parseInt(lastDate) + monthSWeek - 1)/7) + 1;
+		return weekSeq;
+	}
+
+	function f_dayofmonth(year,month) {
+		switch(month) {
+		case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+		return 31;
+		case 4: case 6: case 9: case 11:
+		return 30;
+		case 2:
+		return 28 + f_leapyear(year);
+		}
+	}
+	
 	function cal() {
+		var date = new Date();
+		var year = date.getFullYear();
+		var month = 1 + date.getMonth();
+		
+		var howmanyweeks = f_weekofmonth(year, month);
+		var howmanydays = f_dayofmonth(year, month);
+		
 		var budget_Monthly = document.getElementById("budget_month").value;
-	    var budget_Weekly = budget_Monthly/4;
-	    var budget_Daily = budget_Monthly/30;
-	    document.getElementById("month_result").innerHTML = numberWithCommas(parseInt(budget_Monthly));
-	    document.getElementById("weekly_result").innerHTML = numberWithCommas(parseInt(budget_Weekly));
-	    document.getElementById("daily_result").innerHTML = numberWithCommas(parseInt(budget_Daily));
+		var budget_Weekly = budget_Monthly/howmanyweeks;
+		var budget_Daily = budget_Monthly/howmanydays;
+		
+		document.getElementById("month_result").innerHTML = numberWithCommas(parseInt(budget_Monthly));
+		document.getElementById("weekly_result").innerHTML = numberWithCommas(parseInt(budget_Weekly));
+		document.getElementById("daily_result").innerHTML = numberWithCommas(parseInt(budget_Daily));
+		document.getElementById("btn_setbudget").style.display='block';
 	}
 	
 	function numberWithCommas(x) { return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
@@ -117,15 +158,16 @@ $(function() {
 		var month = document.getElementById("month_result").innerHTML;
 		var week = document.getElementById("weekly_result").innerHTML;
 		var day =  document.getElementById("daily_result").innerHTML;
-		
+		var monthly = Number(month.replace(/,/g, ""));
+		var weekly = Number(week.replace(/,/g, ""));
+		var daily = Number(day.replace(/,/g, ""));
 		$.ajax({
 		url : '/kanemochi/record/setbudget',
 		method : 'post',
 		cache : false,
-		data : {"monthly":month,"weekly":week,"daily":day},
+		data : {"monthly":monthly,"weekly":weekly,"daily":daily},
 		success: function (result) {
-			document.getElementById("budget_month").hide();
-		/* 	getbudget(); */
+			getbudget();
 			alert("ok")
 			},
 		error: function() {
@@ -133,23 +175,32 @@ $(function() {
 			}
 		});
 	}
-	
+
 	function getbudget() {
 		$.ajax({
 		url : '/kanemochi/record/getbudget',
 		method : 'get',
 		cache : false,
 		success: function (result) {
-		    document.getElementById("month_result").innerHTML = result.monthly;
-		    document.getElementById("weekly_result").innerHTML = result.weekly;
-		    document.getElementById("daily_result").innerHTML = result.daily;
+			if (result.monthly != null && result.monthly != 0) {
+				document.getElementById("budget_input").style.display = "none";
+				document.getElementById("btn_setbudget").style.display='none';
+				document.getElementById("btn_modifybudget").style.display='block';
+			} else {
+				document.getElementById("budget_input").style.display = "block";
+				document.getElementById("btn_setbudget").style.display='block';
+				document.getElementById("btn_modifybudget").style.display='none';
+			}
+		    document.getElementById("month_result").innerHTML = numberWithCommas(result.monthly);
+		    document.getElementById("weekly_result").innerHTML = numberWithCommas(result.weekly);
+		    document.getElementById("daily_result").innerHTML = numberWithCommas(result.daily);
 			},
 		error: function() {
 			alert("ng")
 			}
 		});
 	}
-	
+
 </script>
 </head>
 <body>
@@ -227,21 +278,37 @@ $(function() {
 	<div class="modal-content">
 		<span class="close" id="close_modal_budget">&times;</span>
 		<h3>Budget</h3>
-		<p id="p_footer">
-		[<span id="today_year_budget"></span>年
-		<span id="today_month_budget"></span>月]
-		</p>
-		<form id="budget_form" name="budget_form">
-		一ヵ月の予算 : <input type="text" id="budget_month" placeholder="予算" onkeyup="cal()">￦<br>
-<!-- 	<input type="checkbox" name="plan" value="month">monthly
-		<input type="checkbox" name="plan" value="weekly">weekly
-		<input type="checkbox" name="plan" value="daily">daily -->		
-		monthly budget : <span id="month_result"></span>￦<br>
-		weekly budget : <span id="weekly_result"></span>￦<br>
-		daily_budget : <span id="daily_result"></span>￦<br>
-		</form>
-		<input type="button" value="save this plan" onclick="setbudget()">
-		
+		<div style="float:left">
+			<p id="p_footer">
+			[<span id="today_year_budget"></span>年
+			<span id="today_month_budget"></span>月]
+			</p>
+			<form id="budget_form" name="budget_form">
+			<p id="budget_input">一ヵ月の予算 : <input type="text" id="budget_month" placeholder="予算" onkeyup="cal()">￦</p>
+	<!-- 	<input type="checkbox" name="plan" value="month">monthly
+			<input type="checkbox" name="plan" value="weekly">weekly
+			<input type="checkbox" name="plan" value="daily">daily -->
+			monthly budget : <span id="month_result"></span>￦<br>
+			weekly budget : <span id="weekly_result"></span>￦<br>
+			daily budget : <span id="daily_result"></span>￦<br>
+			</form>
+			<input type="button" id="btn_setbudget" value="save this plan" onclick="setbudget()"><br>
+			<input type="button" id="btn_modifybudget" value="change the plan" onclick=""><br>		
+		</div>
+		<div style="float:right">
+			<div class="progress">
+				<div class="progress-bar progress-bar-info" style="width: 20%"></div>
+			</div>
+			<div class="progress">
+				<div class="progress-bar progress-bar-success" style="width: 40%"></div>
+			</div>
+			<div class="progress">
+				<div class="progress-bar progress-bar-warning" style="width: 60%"></div>
+			</div>
+			<div class="progress">
+				<div class="progress-bar progress-bar-danger" style="width: 80%"></div>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -250,18 +317,7 @@ $(function() {
 	<div class="modal-content">
 		<span class="close" id="close_modal_statistic">&times;</span>
 		<h3>通計</h3>
-		<div class="progress">
-			<div class="progress-bar progress-bar-info" style="width: 20%"></div>
-		</div>
-		<div class="progress">
-			<div class="progress-bar progress-bar-success" style="width: 40%"></div>
-		</div>
-		<div class="progress">
-			<div class="progress-bar progress-bar-warning" style="width: 60%"></div>
-		</div>
-		<div class="progress">
-			<div class="progress-bar progress-bar-danger" style="width: 80%"></div>
-		</div>
+		
 	</div>
 </div>
 <script>

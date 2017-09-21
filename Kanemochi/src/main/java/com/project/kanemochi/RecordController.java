@@ -23,7 +23,7 @@ import com.project.kanemochi.vo.CountOneVO;
 import com.project.kanemochi.vo.CountVO;
 import com.project.kanemochi.vo.RecordVO;
 import com.project.kanemochi.vo.ShopVO;
-
+//push
 @Controller
 @RequestMapping("/record")
 public class RecordController {
@@ -185,5 +185,12 @@ public class RecordController {
 		String id = (String)session.getAttribute("loginID");
 		vo.setUser_id(id);
 		dao.setbudget(vo);
+	}
+
+	@RequestMapping(value = "getbudget", method = RequestMethod.GET)
+	@ResponseBody
+	public BudgetVO getbudget(HttpSession session){
+		String id = (String)session.getAttribute("loginID");
+		return dao.getbudget(id);
 	}
 }

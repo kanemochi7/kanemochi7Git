@@ -56,7 +56,6 @@ public class RecordDAOImpl implements RecordDAO {
 	@Override
 	public boolean setStatus(ShopVO vo) {
 		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);
-		System.out.println(vo);
 		mapper.setStatus(vo);
 		return true;
 		
@@ -67,5 +66,11 @@ public class RecordDAOImpl implements RecordDAO {
 		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);
 		ArrayList<ShopVO> result = mapper.getStatus(id);
 		return result;
+	}
+
+	@Override
+	public BudgetVO getbudget(String id) {
+		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);
+		return mapper.getbudget(id);
 	}
 }

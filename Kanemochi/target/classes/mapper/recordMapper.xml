@@ -165,7 +165,7 @@
 		values(seq_budget.nextval, #{user_id}, #{monthly}, #{weekly}, #{daily})
 	</insert>
 	
-	<select id="getAllbudget" parameterType="String" resultType="BudgetVO">
+	<select id="getbudget" parameterType="String" resultType="BudgetVO">
 		select * from budget where user_id = #{id}
 	</select>
 
