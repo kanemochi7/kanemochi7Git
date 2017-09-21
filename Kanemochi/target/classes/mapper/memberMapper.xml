@@ -15,7 +15,7 @@
 	</insert>	
 	<insert id="insertBudget" parameterType="MemberVO">
 		insert into budget
-		values(seq_budget.nextval, #{user_id}, 0,0,0,0)
+		values(seq_budget.nextval, #{user_id}, sysdate,0,0,0)
 	</insert>
 	
 	<!--로그인-->
