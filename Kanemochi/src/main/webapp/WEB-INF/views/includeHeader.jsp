@@ -4,9 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>includeHeader</title>
-<link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
-<script src="/kanemochi/resources/js/bootstrap.js"></script>
 <!-- CSS -->
 	<style type="text/css">
 	body{
@@ -29,11 +26,11 @@ $(function() {
 });
 	function getToday() {
 		var date = new Date();
-		var year = date.getFullYear();//yyyy
-		var month = (1 + date.getMonth());//M
-			month = month >= 10 ? month : '0' + month;// month 두자리로 저장
-		var day = date.getDate();//d
-			day = day >= 10 ? day : '0' + day;//day 두자리로 저장
+		var year = date.getFullYear();
+		var month = (1 + date.getMonth());
+			month = month >= 10 ? month : '0' + month;
+		var day = date.getDate();
+			day = day >= 10 ? day : '0' + day;
 		var week = new Array("日","月","火","水","木","金","土");
 			weekday = week[date.getDay()];
 			
@@ -41,7 +38,6 @@ $(function() {
 			document.getElementById("today_month").innerHTML = month;
 			document.getElementById("today_day").innerHTML = day;
 			document.getElementById("today_weekday").innerHTML = weekday;
-			
 			document.getElementById("today_year_budget").innerHTML = year;
 			document.getElementById("today_month_budget").innerHTML = month;
 	}
@@ -64,7 +60,7 @@ $(function() {
 			<a href="/kanemochi/member/myPage">
 				<input type="image" id="mypage" class="icon" data-toggle="tooltip" data-placement="bottom" title="マイページ" src="/kanemochi/resources/image/icon/mypage.png">
 			</a>
-			<a href="/kanemochi/account/reportForm">
+			<a href="/kanemochi/record/reportForm">
 				<input type="image" id="record" class="icon" data-toggle="tooltip" data-placement="bottom" title="今までの記録" src="/kanemochi/resources/image/icon/folder.png">
 			</a>
 			<a href="/kanemochi/member/screenshotForm">

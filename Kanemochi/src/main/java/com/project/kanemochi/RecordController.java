@@ -23,7 +23,6 @@ import com.project.kanemochi.vo.CountOneVO;
 import com.project.kanemochi.vo.CountVO;
 import com.project.kanemochi.vo.RecordVO;
 import com.project.kanemochi.vo.ShopVO;
-//push
 @Controller
 @RequestMapping("/record")
 public class RecordController {

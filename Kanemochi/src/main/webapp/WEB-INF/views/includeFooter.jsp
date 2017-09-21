@@ -4,60 +4,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css"> -->
-<link rel="stylesheet" href="/kanemochi/resources/css/bootstrap-datepicker.min.css">
-
-<!-- <script src="/kanemochi/resources/js/bootstrap.js"></script> -->
-<script src="/kanemochi/resources/js/bootstrap-datepicker.min.js"></script>
-
 <!-- CSS -->
 <style type="text/css">
-* {
-font: "PixelMplus12-Regular";
-}
 	body {
 		height: 100%;
 		width: 100%;
-		font-family: "PixelMplus12-Regular";
 	}
 	#p_footer {
-		text-align: center;
 		color: white;
+		text-align: center;
 	}
 	.icon_footer {
-		float: left;
-		height: 50px;
 		width: auto;
+		height: 50px;
 		margin: 5px;
+		float: left;
 	}
 	#btn_setbudget, #btn_modifybudget{
 		display: none;
 	}
 /* The Modal (background) */
 	.modal {
-	font-family: PixelMplus12-Regular;
+	    width: 100%; /* Full width */
+	    height: 100%; /* Full height */
+	    padding-top: 100px; /* Location of the box */
 		text-align: center;
 	    display: none; /* Hidden by default */
 	    position: fixed; /* Stay in place */
 	    z-index: 1; /* Sit on top */
-	    padding-top: 100px; /* Location of the box */
 	    left: 0;
 	    top: 0;
-	    width: 100%; /* Full width */
-	    height: 100%; /* Full height */
 	    overflow: auto; /* Enable scroll if needed */
 	    background-color: rgb(0,0,0); /* Fallback color */
 	    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 	}
 /* Modal Content */
 	.modal-content {
-	font-family: "PixelMplus12-Regular";
-		text-align: center;
-	    background-color: #aaaaaa;
+	    width: 50%;
 	    margin: auto;
 	    padding: 20px;
+		text-align: center;
 	    border: 1px solid #888;
-	    width: 50%;
+	    background-color: #aaaaaa;
 	}
 	.select {
 		background-color: #fefefe;

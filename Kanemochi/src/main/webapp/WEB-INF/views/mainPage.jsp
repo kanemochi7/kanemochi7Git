@@ -15,26 +15,29 @@
 
 <!-- CSS -->
 <style type="text/css">
+	* {
+		font-family: "GoodFont";
+	}
 	html{
 	    width:100%;
 	    height:100%;
 	}
 	body{
+		color: navy;
 		margin: 0px;
 		padding: 0px;
 		text-align: center;
 		background-color: white;
 		background-size: 100% 100%;
-		color: navy;
 	}
 
 /* div */
 	#container {
-		background-color: white;
 		width: 1538px;
 		height: 730px;
 		margin: 0px;
 		padding: 0px;
+		background-color: white;
 	}
 	#header {
 		width: 1518px;
@@ -47,12 +50,12 @@
 		border: 1px solid white;
 	}
 	#sidebar {
-		background-color: white;
 		width: 121px;
 		height: 600px;
 		margin: 0px;
 		padding: 0px;
 		float: left;
+		background-color: white;
 		border: 1px solid white;
 	}
 	#game {
@@ -68,24 +71,24 @@
 		height: 59px;
 		margin: 0px;
 		padding: 5px;
-		text-align: left;
 		float: left;
+		text-align: left;
 		background-color: white;
 		border: 1px solid white;
 	}
 
 /* sidebar */
 	button.accordion {
-		background-color: white;
-		color: #444;
-		cursor: pointer;
-		padding: 8px;
 		width: 100%;
+		color: #444;
+		padding: 8px;
 		border: none;
-		text-align: left;
 		outline: none;
 		font-size: 13px;
+		cursor: pointer;
+		text-align: left;
 		transition: 0.4s;
+		background-color: white;
 	}
 	button.accordion.active, button.accordion:hover {
 		background-color: #ddd;
@@ -101,11 +104,11 @@
 		/* content: "\2212"; */
 	}
 	div.panel {
-		padding: 0 2px;
-		background-color: white;
 		max-height: 0;
-		overflow: hidden;
+		padding: 0 2px;
 		font-size: 10px;
+		overflow: hidden;
+		background-color: white;
 		transition: max-height 0.2s ease-out;
 	}
 
@@ -198,10 +201,10 @@ $(function() {
 			<p><a href="javascript:createItem('bus')">バス  </a><span class="badge" id="bus">0</span></p>
 			<!-- <p>地下鉄  <span class="badge" id="bus">0</span></p> -->
 		</div>
-		<button class="accordion">貯金</button>
+<!-- 		<button class="accordion">貯金</button>
 		<div class="panel">
 			<p><a href="javascript:createItem('bank')">銀行  </a></p>
-		</div>
+		</div> -->
 		<button class="accordion">その他</button>
 		<div class="panel">
 			<p><a href="javascript:createItem('elevator')">エレベーター  </a></p>
@@ -209,7 +212,7 @@ $(function() {
 	</div>
 
 	<div id ="game">
-	<script src="/kanemochi/resources/js/game.js"></script>
+		<script src="/kanemochi/resources/js/game.js"></script>
 	</div>
 
 	<div id="footer">
@@ -293,7 +296,6 @@ $(function() {
 		  		},500);
 		}
 	}
-	
 
 </script>
 </body>
