@@ -1,0 +1,177 @@
+DROP TABLE	login;		
+DROP TABLE	budget;		
+DROP TABLE	count;		
+DROP TABLE	screenshot;		
+DROP TABLE	shop;		
+DROP TABLE	record;		
+DROP TABLE	users;		
+DROP TABLE	levels;		
+DROP TABLE	image;		
+DROP SEQUENCE	seq_budget;		
+DROP SEQUENCE	seq_count;		
+DROP SEQUENCE	seq_shop;		
+DROP SEQUENCE	seq_record;		
+DROP SEQUENCE	seq_screenshot;		
+DROP SEQUENCE	seq_logincheck;		
+			
+CREATE TABLE	IMAGE(		
+	img_id	VARCHAR2(100)	PRIMARY KEY,
+	img_url	VARCHAR2(100)	NOT NULL
+	);		
+CREATE TABLE	LEVELS(		
+	level_title	VARCHAR2(30)	PRIMARY KEY,
+	level_describe	VARCHAR2(300)	,
+	img_id	VARCHAR2(100)	,
+	CONSTRAINT fk_level_img FOREIGN KEY(img_id) REFERENCES IMAGE(img_id)		
+	);		
+CREATE TABLE	USERS(		
+	user_id	VARCHAR2(30)	PRIMARY KEY,
+	user_pw	VARCHAR2(30)	NOT NULL,
+	user_name	VARCHAR2(30)	NOT NULL,
+	user_gender	VARCHAR2(30)	NOT NULL,
+	user_phone	VARCHAR2(30)	NOT NULL,
+	user_email	VARCHAR2(100)	NOT NULL,
+	user_authority	NUMBER	NOT NULL,
+	img_id	VARCHAR2(100)	,
+	level_title	VARCHAR2(30)	,
+	user_score	NUMBER	,
+	CONSTRAINT fk_img FOREIGN KEY(img_id) REFERENCES IMAGE(img_id),		
+	CONSTRAINT fk_level FOREIGN KEY(level_title) REFERENCES LEVELS(level_title),		
+	CONSTRAINT ch_authority CHECK(user_authority IN (0, 1))		
+	);		
+CREATE TABLE	RECORD(		
+	record_num	NUMBER	PRIMARY KEY,
+	user_id	VARCHAR2(30)	NOT NULL,
+	record_date	DATE	DEFAULT SYSDATE,
+	category	VARCHAR2(100)	NOT NULL,
+	record_tag	VARCHAR2(100)	NOT NULL,
+	record_price	NUMBER	NOT NULL,
+	record_unit	VARCHAR2(30)	NOT NULL,
+	record_pay	VARCHAR2(30)	NOT NULL,
+	CONSTRAINT fk_record_user FOREIGN KEY(user_id) REFERENCES USERS(user_id)		
+	);		
+CREATE TABLE	SHOP(		
+	shop_num	NUMBER	PRIMARY KEY,
+	img_id	VARCHAR2(100)	NOT NULL,
+	user_id	VARCHAR2(30)	NOT NULL,
+	img_x	NUMBER	NOT NULL,
+	img_y	NUMBER	NOT NULL,
+	makedate	DATE	DEFAULT SYSDATE,
+	CONSTRAINT fk_shop_img FOREIGN KEY(img_id) REFERENCES IMAGE(img_id),		
+	CONSTRAINT fk_shop_user FOREIGN KEY(user_id) REFERENCES USERS(user_id)		
+	);		
+CREATE TABLE	SCREENSHOT(		
+	screenshot_num	NUMBER	PRIMARY KEY,
+	user_id	VARCHAR2(30)	NOT NULL,
+	shotdate	DATE	DEFAULT SYSDATE,
+	screenshot_url	varchar2(500)	,
+	CONSTRAINT fk_screenshot_user FOREIGN KEY(user_id) REFERENCES USERS(user_id)		
+	);		
+CREATE TABLE	COUNT(		
+	count_num	NUMBER	PRIMARY KEY,
+	user_id	VARCHAR2(30)	,
+	count_date	DATE	DEFAULT SYSDATE,
+	cafe	NUMBER	DEFAULT 0,
+	beer	NUMBER	DEFAULT 0,
+	ramen	NUMBER	DEFAULT 0,
+	cvs	NUMBER	DEFAULT 0,
+	sushi	NUMBER	DEFAULT 0,
+	dessert	NUMBER	DEFAULT 0,
+	bank	NUMBER	DEFAULT 0,
+	bus	NUMBER	DEFAULT 0,
+	movie	NUMBER	DEFAULT 0,
+	hospital	NUMBER	DEFAULT 0,
+	book	NUMBER	DEFAULT 0,
+	hair	NUMBER	DEFAULT 0,
+	clothes	NUMBER	DEFAULT 0,
+	burger	NUMBER	DEFAULT 0,
+	elevator	NUMBER	DEFAULT 0,
+	CONSTRAINT fk_count_user FOREIGN KEY(user_id) REFERENCES USERS(user_id)		
+	);		
+CREATE TABLE	BUDGET(		
+	budget_num	NUMBER	PRIMARY KEY,
+	user_id	VARCHAR2(30)	NOT NULL,
+	budget_date	DATE	DEFAULT SYSDATE,
+	monthly	NUMBER	,
+	weekly	NUMBER	,
+	daily	NUMBER	,
+	CONSTRAINT fk_budget_user FOREIGN KEY(user_id) REFERENCES USERS(user_id)		
+	);		
+CREATE TABLE	LOGIN(		
+	login_check_num	NUMBER	PRIMARY KEY,
+	user_id	VARCHAR2(30)	NOT NULL,
+	shotdate	DATE	DEFAULT SYSDATE,
+	login_check	NUMBER	,
+	CONSTRAINT fk_login_user FOREIGN KEY(user_id) REFERENCES USERS(user_id)		
+	);		
+			
+CREATE SEQUENCE	seq_shop;		
+CREATE SEQUENCE	seq_record;		
+CREATE SEQUENCE	seq_screenshot;		
+CREATE SEQUENCE	seq_count;		
+CREATE SEQUENCE	seq_budget;		
+CREATE SEQUENCE	seq_logincheck;		
+			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('chineseGirl', '/kanemochi/resources/image/character/chineseGirl.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('catGirl', '/kanemochi/resources/image/character/catGirl.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('pinkGirl', '/kanemochi/resources/image/character/pinkGirl.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('englishBoy', '/kanemochi/resources/image/character/englishBoy.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('coolBoy', '/kanemochi/resources/image/character/coolBoy.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('usoku', '/kanemochi/resources/image/character/usoku.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('buildingTopLong', '/kanemochi/resources/image/bg/buildingTop.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('buildingTopShort', '/kanemochi/resources/image/bg/buildingTop.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('buildingTopCheck', '/kanemochi/resources/image/bg/buildingTop.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('buildingTopWall', '/kanemochi/resources/image/bg/wall.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('bus', '/kanemochi/resources/image/shop/complete/bus.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('cafe', '/kanemochi/resources/image/shop/complete/cafe.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('beer', '/kanemochi/resources/image/shop/complete/beer.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('burger', '/kanemochi/resources/image/shop/complete/burger.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('clothes', '/kanemochi/resources/image/shop/complete/clothes.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('cvs', '/kanemochi/resources/image/shop/complete/cvs.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('dessert', '/kanemochi/resources/image/shop/complete/dessert.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('hair', '/kanemochi/resources/image/shop/complete/hair.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('hospital', '/kanemochi/resources/image/shop/complete/hospital.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('movie', '/kanemochi/resources/image/shop/complete/movie.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('ramen', '/kanemochi/resources/image/shop/complete/ramen.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('sushi', '/kanemochi/resources/image/shop/complete/sushi.png');			
+INSERT INTO "HR"."IMAGE" (IMG_ID, IMG_URL) VALUES ('book', '/kanemochi/resources/image/shop/complete/book.png');			
+			
+INSERT INTO "HR"."LEVELS" (LEVEL_TITLE) VALUES ('1');			
+INSERT INTO "HR"."LEVELS" (LEVEL_TITLE) VALUES ('2');			
+INSERT INTO "HR"."LEVELS" (LEVEL_TITLE) VALUES ('3');			
+INSERT INTO "HR"."LEVELS" (LEVEL_TITLE) VALUES ('4');			
+INSERT INTO "HR"."LEVELS" (LEVEL_TITLE) VALUES ('5');			
+INSERT INTO "HR"."LEVELS" (LEVEL_TITLE) VALUES ('6');			
+INSERT INTO "HR"."LEVELS" (LEVEL_TITLE) VALUES ('7');			
+INSERT INTO "HR"."LEVELS" (LEVEL_TITLE) VALUES ('8');			
+INSERT INTO "HR"."LEVELS" (LEVEL_TITLE) VALUES ('9');			
+INSERT INTO "HR"."LEVELS" (LEVEL_TITLE) VALUES ('10');			
+			
+INSERT INTO "HR"."USERS" (USER_ID, USER_PW, USER_NAME, USER_GENDER, USER_PHONE, USER_EMAIL, USER_AUTHORITY, IMG_ID, LEVEL_TITLE) VALUES ('a', 'a', 'a', 'woman', '1', 'b', '0', 'pinkGirl', '1');			
+INSERT INTO "HR"."USERS" (USER_ID, USER_PW, USER_NAME, USER_GENDER, USER_PHONE, USER_EMAIL, USER_AUTHORITY, IMG_ID, LEVEL_TITLE) VALUES ('b', 'b', 'b', 'man', '1', 'b', '0', 'usoku', '1');			
+INSERT INTO "HR"."USERS" (USER_ID, USER_PW, USER_NAME, USER_GENDER, USER_PHONE, USER_EMAIL, USER_AUTHORITY, IMG_ID, LEVEL_TITLE) VALUES ('c', 'c', 'c', 'man', '1', 'c', '0', 'usoku', '1');			
+INSERT INTO "HR"."USERS" (USER_ID, USER_PW, USER_NAME, USER_GENDER, USER_PHONE, USER_EMAIL, USER_AUTHORITY, IMG_ID, LEVEL_TITLE) VALUES ('d', 'd', 'd', 'man', '1', 'd', '0', 'usoku', '1');			
+INSERT INTO "HR"."USERS" (USER_ID, USER_PW, USER_NAME, USER_GENDER, USER_PHONE, USER_EMAIL, USER_AUTHORITY, IMG_ID, LEVEL_TITLE) VALUES ('e', 'e', 'e', 'man', '1', 'e', '0', 'usoku', '1');			
+INSERT INTO "HR"."USERS" (USER_ID, USER_PW, USER_NAME, USER_GENDER, USER_PHONE, USER_EMAIL, USER_AUTHORITY, IMG_ID, LEVEL_TITLE) VALUES ('f', 'f', 'f', 'man', '1', 'f', '0', 'usoku', '1');			
+INSERT INTO "HR"."USERS" (USER_ID, USER_PW, USER_NAME, USER_GENDER, USER_PHONE, USER_EMAIL, USER_AUTHORITY, IMG_ID, LEVEL_TITLE) VALUES ('g', 'g', 'g', 'man', '1', 'g', '0', 'usoku', '1');			
+INSERT INTO "HR"."USERS" (USER_ID, USER_PW, USER_NAME, USER_GENDER, USER_PHONE, USER_EMAIL, USER_AUTHORITY, IMG_ID, LEVEL_TITLE) VALUES ('h', 'h', 'h', 'man', '1', 'h', '0', 'usoku', '1');			
+			
+INSERT INTO "HR"."COUNT" (COUNT_NUM, USER_ID, COUNT_DATE, CAFE, BEER, RAMEN, CVS, SUSHI, DESSERT, BANK, BUS, MOVIE, HOSPITAL, BOOK, HAIR, CLOTHES, BURGER, ELEVATOR) VALUES ('1000', 'a', SYSDATE, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');			
+INSERT INTO "HR"."COUNT" (COUNT_NUM, USER_ID, COUNT_DATE, CAFE, BEER, RAMEN, CVS, SUSHI, DESSERT, BANK, BUS, MOVIE, HOSPITAL, BOOK, HAIR, CLOTHES, BURGER, ELEVATOR) VALUES ('1002', 'b', SYSDATE, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');			
+INSERT INTO "HR"."COUNT" (COUNT_NUM, USER_ID, COUNT_DATE, CAFE, BEER, RAMEN, CVS, SUSHI, DESSERT, BANK, BUS, MOVIE, HOSPITAL, BOOK, HAIR, CLOTHES, BURGER, ELEVATOR) VALUES ('1003', 'c', SYSDATE, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');			
+INSERT INTO "HR"."COUNT" (COUNT_NUM, USER_ID, COUNT_DATE, CAFE, BEER, RAMEN, CVS, SUSHI, DESSERT, BANK, BUS, MOVIE, HOSPITAL, BOOK, HAIR, CLOTHES, BURGER, ELEVATOR) VALUES ('1004', 'd', SYSDATE, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');			
+INSERT INTO "HR"."COUNT" (COUNT_NUM, USER_ID, COUNT_DATE, CAFE, BEER, RAMEN, CVS, SUSHI, DESSERT, BANK, BUS, MOVIE, HOSPITAL, BOOK, HAIR, CLOTHES, BURGER, ELEVATOR) VALUES ('1005', 'e', SYSDATE, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');			
+INSERT INTO "HR"."COUNT" (COUNT_NUM, USER_ID, COUNT_DATE, CAFE, BEER, RAMEN, CVS, SUSHI, DESSERT, BANK, BUS, MOVIE, HOSPITAL, BOOK, HAIR, CLOTHES, BURGER, ELEVATOR) VALUES ('1006', 'f', SYSDATE, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');			
+INSERT INTO "HR"."COUNT" (COUNT_NUM, USER_ID, COUNT_DATE, CAFE, BEER, RAMEN, CVS, SUSHI, DESSERT, BANK, BUS, MOVIE, HOSPITAL, BOOK, HAIR, CLOTHES, BURGER, ELEVATOR) VALUES ('1007', 'g', SYSDATE, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');			
+INSERT INTO "HR"."COUNT" (COUNT_NUM, USER_ID, COUNT_DATE, CAFE, BEER, RAMEN, CVS, SUSHI, DESSERT, BANK, BUS, MOVIE, HOSPITAL, BOOK, HAIR, CLOTHES, BURGER, ELEVATOR) VALUES ('1008', 'h', SYSDATE, '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');			
+			
+INSERT INTO "HR"."BUDGET" (BUDGET_NUM, USER_ID, BUDGET_DATE, MONTHLY, WEEKLY, DAILY) VALUES ('1000', 'a', sysdate, 0, 0, 0);			
+INSERT INTO "HR"."BUDGET" (BUDGET_NUM, USER_ID, BUDGET_DATE, MONTHLY, WEEKLY, DAILY) VALUES ('1001', 'b', sysdate, 0, 0, 0);			
+INSERT INTO "HR"."BUDGET" (BUDGET_NUM, USER_ID, BUDGET_DATE, MONTHLY, WEEKLY, DAILY) VALUES ('1002', 'c', sysdate, 0, 0, 0);			
+INSERT INTO "HR"."BUDGET" (BUDGET_NUM, USER_ID, BUDGET_DATE, MONTHLY, WEEKLY, DAILY) VALUES ('1003', 'd', sysdate, 0, 0, 0);			
+INSERT INTO "HR"."BUDGET" (BUDGET_NUM, USER_ID, BUDGET_DATE, MONTHLY, WEEKLY, DAILY) VALUES ('1004', 'e', sysdate, 0, 0, 0);			
+INSERT INTO "HR"."BUDGET" (BUDGET_NUM, USER_ID, BUDGET_DATE, MONTHLY, WEEKLY, DAILY) VALUES ('1005', 'f', sysdate, 0, 0, 0);			
+INSERT INTO "HR"."BUDGET" (BUDGET_NUM, USER_ID, BUDGET_DATE, MONTHLY, WEEKLY, DAILY) VALUES ('1006', 'g', sysdate, 0, 0, 0);			
+INSERT INTO "HR"."BUDGET" (BUDGET_NUM, USER_ID, BUDGET_DATE, MONTHLY, WEEKLY, DAILY) VALUES ('1007', 'h', sysdate, 0, 0, 0);			
+			
+COMMIT;			

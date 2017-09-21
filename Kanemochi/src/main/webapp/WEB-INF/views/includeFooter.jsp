@@ -18,8 +18,11 @@
 	.icon_footer {
 		width: auto;
 		height: 50px;
-		margin: 5px;
+		margin: 15px;
 		float: left;
+	}
+	#write {
+		margin-left: 30px;
 	}
 	#btn_setbudget, #btn_modifybudget{
 		display: none;
@@ -215,6 +218,13 @@ $(function() {
 				document.getElementById("month_result").innerHTML = numberWithCommas(result.monthly);
 				document.getElementById("weekly_result").innerHTML = numberWithCommas(result.weekly);
 				document.getElementById("daily_result").innerHTML = numberWithCommas(result.daily);
+				
+				
+				
+				
+				
+				
+				
 				},
 		error: function() {
 				}
@@ -233,10 +243,13 @@ $(function() {
 <body>
 <img class="icon_footer" id="write" src="/kanemochi/resources/image/icon/write.png">
 <img class="icon_footer" id="budget" src="/kanemochi/resources/image/icon/moneyPack.png">
-<img class="icon_footer" id="statistics" src="/kanemochi/resources/image/icon/pieGraph.png">
-<div class="progress">
-  <div class="progress-bar" style="width: 60%;"></div>
-</div>
+	<div class="progress progress-striped active">
+	  <div class="progress-bar" style="width: 45%"></div>
+	</div>
+<img class="icon_footer" id="exp" src="/kanemochi/resources/image/icon/exp.png">
+	<div class="progress progress-striped active">
+	  <div class="progress-bar" style="width: 45%"></div>
+	</div>
 
 <!-- Modal_write -->
 <div id="modal_write" class="modal">
@@ -344,30 +357,7 @@ $(function() {
 	</div>
 </div>
 
-<!-- Modal_statistic -->
-<div id="modal_statistic" class="modal">
-	<div class="modal-content">
-		<span class="close" id="close_modal_statistic">&times;</span>
-		<h3>通計</h3>
-		
-	</div>
-</div>
 <script>
-/* modal_statistic */
-	var modal_statistic = document.getElementById('modal_statistic');
-	var btn_s = document.getElementById("statistics");
-	var span_s = document.getElementById("close_modal_statistic");
-	btn_s.onclick = function() {
-		modal_statistic.style.display = "block";
-		span_s.onclick = function() {
-			modal_statistic.style.display = "none";
-		}
-		window.onclick = function(event_s) {
-			if (event_s.target == modal_statistic) {
-				modal_statistic.style.display = "none";
-			}
-		}
-	}
 /* modal_budget */
 	var modal_budget = document.getElementById('modal_budget');
 	var btn_b = document.getElementById("budget");
