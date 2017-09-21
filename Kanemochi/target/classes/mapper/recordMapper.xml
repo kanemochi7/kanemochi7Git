@@ -162,7 +162,7 @@
 
 	<insert id="setbudget" parameterType="BudgetVO">
 		insert into budget
-		values(seq_budget.nextval, #{user_id}, #{monthly}, #{weekly}, #{daily})
+		values(seq_budget.nextval, #{user_id}, sysdate, #{monthly}, #{weekly}, #{daily})
 	</insert>
 	
 	<select id="getbudget" parameterType="String" resultType="BudgetVO">
