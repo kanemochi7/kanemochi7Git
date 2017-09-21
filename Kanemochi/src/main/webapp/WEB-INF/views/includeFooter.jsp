@@ -13,6 +13,7 @@
 	#p_footer {
 		color: white;
 		text-align: center;
+		font-size: 15px;
 	}
 	.icon_footer {
 		width: auto;
@@ -23,12 +24,41 @@
 	#btn_setbudget, #btn_modifybudget{
 		display: none;
 	}
+	
+div.blueTable {
+  width: 500px;
+  height: 200px;
+  text-align: left;
+  float: center;
+}
+.divTable.blueTable .divTableCell, .divTable.blueTable .divTableHead {
+  padding: 3px 2px;
+  float: center;
+}
+.divTable.blueTable .divTableBody .divTableCell {
+	float: center;
+	font-size: 20px;
+}
+.blueTable .tableFootStyle {
+	float: center;  font-size: 20px;
+}
+/* DivTable.com */
+.divTable{ display: table; float: center;}
+.divTableRow { display: table-row; }
+.divTableHeading { display: table-header-group;}
+.divTableCell, .divTableHead { display: table-cell;}
+.divTableHeading { display: table-header-group;}
+.divTableFoot { display: table-footer-group;}
+.divTableBody { display: table-row-group;}
+
 /* The Modal (background) */
 	.modal {
+		text-align: center;
+		vertical-align: middle;
+
 	    width: 100%; /* Full width */
 	    height: 100%; /* Full height */
 	    padding-top: 100px; /* Location of the box */
-		text-align: center;
 	    display: none; /* Hidden by default */
 	    position: fixed; /* Stay in place */
 	    z-index: 1; /* Sit on top */
@@ -40,12 +70,14 @@
 	}
 /* Modal Content */
 	.modal-content {
+		text-align: center;
+	    vertical-align: middle;
+
 	    width: 50%;
+	    background-color: #aaaaaa;
 	    margin: auto;
 	    padding: 20px;
-		text-align: center;
 	    border: 1px solid #888;
-	    background-color: #aaaaaa;
 	}
 	.select {
 		background-color: #fefefe;
@@ -80,7 +112,7 @@ $(function() {
 	}
 
 	function input() {
-		/* 유효성 검사 해야 함 */
+			/* 유효성 검사 아직 안함 */
 			var param = $("#input-form").serialize();
 			$.ajax({
 			url : '/kanemochi/record/input',
@@ -89,11 +121,10 @@ $(function() {
 			data : param,
 			success: function (result) {
 				document.getElementById(result.category).textContent = result.count.toString();
-				modal.style.display = "none";
+				document.getElementById("modal_write").style.display = "none";
 				document.getElementById("input-form").reset();
 				},
 			error: function() {
-				alert("ng")
 				}
 			});
 	}
@@ -133,6 +164,10 @@ $(function() {
 		var budget_Monthly = document.getElementById("budget_month").value;
 		var budget_Weekly = budget_Monthly/howmanyweeks;
 		var budget_Daily = budget_Monthly/howmanydays;
+			if (budget_Monthly == "") {
+				budget_Monthly = '0';
+				budget_Monthly = Number(budget_Monthly);
+			}
 		
 		document.getElementById("month_result").innerHTML = numberWithCommas(parseInt(budget_Monthly));
 		document.getElementById("weekly_result").innerHTML = numberWithCommas(parseInt(budget_Weekly));
@@ -156,10 +191,8 @@ $(function() {
 		data : {"monthly":monthly,"weekly":weekly,"daily":daily},
 		success: function (result) {
 			getbudget();
-			alert("ok")
 			},
 		error: function() {
-			alert("ng")
 			}
 		});
 	}
@@ -170,23 +203,29 @@ $(function() {
 		method : 'get',
 		cache : false,
 		success: function (result) {
-			if (result.monthly != null && result.monthly != 0) {
-				document.getElementById("budget_input").style.display = "none";
-				document.getElementById("btn_setbudget").style.display='none';
-				document.getElementById("btn_modifybudget").style.display='block';
-			} else {
-				document.getElementById("budget_input").style.display = "block";
-				document.getElementById("btn_setbudget").style.display='block';
-				document.getElementById("btn_modifybudget").style.display='none';
-			}
-		    document.getElementById("month_result").innerHTML = numberWithCommas(result.monthly);
-		    document.getElementById("weekly_result").innerHTML = numberWithCommas(result.weekly);
-		    document.getElementById("daily_result").innerHTML = numberWithCommas(result.daily);
-			},
+				if (result.monthly != null || result.monthly != 0) {
+					document.getElementById("budget_input_text").style.display = "none";
+					document.getElementById("btn_setbudget").style.display='none';
+					document.getElementById("btn_changebudget").style.display='block';
+				} else {
+					document.getElementById("budget_input_text").style.display = "block";
+					document.getElementById("btn_setbudget").style.display='block';
+					document.getElementById("btn_changebudget").style.display='none';
+				}
+				document.getElementById("month_result").innerHTML = numberWithCommas(result.monthly);
+				document.getElementById("weekly_result").innerHTML = numberWithCommas(result.weekly);
+				document.getElementById("daily_result").innerHTML = numberWithCommas(result.daily);
+				},
 		error: function() {
-			alert("ng")
-			}
+				}
 		});
+	}
+	
+	function changebudget() {
+		document.getElementById("budget_input_text").style.display = "block";
+		document.getElementById("btn_setbudget").style.display='block';
+		document.getElementById("btn_changebudget").style.display='none';
+		cal();
 	}
 
 </script>
@@ -206,97 +245,102 @@ $(function() {
 	<h3>支出</h3>
 	<h4>[今日はいくら使いましたか？]</h4>
 	<form id="input-form" name="input-form">
-	<table>
-		<tr>
-			<td>date</td>
-			<td><input type="text" id="record_date" name="record_date" placeholder="date"></td>
-		</tr>
-		<tr>
-			<td>category</td>
-			<td>
-			<select class="select" id="select-category" name="select-category" onchange="itemChange()">
-				<option>選択してください！</option>
-				<option value="食べ物">食べ物</option>
-				<option value="文化生活">文化生活</option>
-				<option value="ファッション">ファッション</option>
-				<option value="医慮">医慮</option>
-				<option value="教育">教育</option>
-				<option value="交通">交通</option>
-				<option value="貯金">貯金</option>
-			</select>
-			<select class="select" id="category" name="category">
-			</select>
-			</td>
-		</tr>
-		<tr>
-			<td>price</td>
-			<td>
-			<input type="text" id="record_price" name="record_price" placeholder="値">
-			<select class="select" id="record_unit" name="record_unit">
-				<option value="￦">￦</option>
-				<option value="￥">￥</option>
-				<option value="$">$</option>
-			</select>
-			</td>
-		</tr>
-		<tr>
-			<td>tag</td>
-			<td><textarea rows="3" id="record_tag" name="record_tag" placeholder="#item"></textarea></td>
-		</tr>
-		<tr>
-			<td>pay</td>
-			<td>
-			<input type="radio" name="record_pay" id="cash" value="cash" checked="checked">cash 
-			<input type="radio" name="record_pay" id="card" value="card" >card
-			</td>
-		</tr>
-		<tr>
-			<td>
-			<input type="reset" value="reset">
-			<input type="button" value="ok" onclick="input()">
-			</td>
-		</tr>
-	</table>
+	<div class="divTable blueTable">
+		<div class="divTableBody">
+			<div class="divTableRow">
+				<div class="divTableCell">date</div>
+				<div class="divTableCell"><input type="text" id="record_date" name="record_date" placeholder="date"></div>
+			</div>
+			<div class="divTableRow">
+				<div class="divTableCell">category</div>
+				<div class="divTableCell">
+					<select class="select" id="select-category" name="select-category" onchange="itemChange()">
+						<option>選択してください！</option>
+						<option value="食べ物">食べ物</option>
+						<option value="文化生活">文化生活</option>
+						<option value="ファッション">ファッション</option>
+						<option value="医慮">医慮</option>
+						<option value="教育">教育</option>
+						<option value="交通">交通</option>
+					</select>
+					<select class="select" id="category" name="category">
+					</select>
+				</div>
+			</div>
+			<div class="divTableRow">
+				<div class="divTableCell">price</div>
+				<div class="divTableCell">
+					<input type="text" id="record_price" name="record_price" placeholder="値">
+					<select class="select" id="record_unit" name="record_unit">
+						<option value="￦">￦</option>
+						<option value="￥">￥</option>
+						<option value="$">$</option>
+					</select>
+				</div>
+			</div>
+			<div class="divTableRow">
+				<div class="divTableCell">tag</div>
+				<div class="divTableCell"><textarea rows="3" id="record_tag" name="record_tag" placeholder="#item"></textarea></div>
+			</div>
+			<div class="divTableRow">
+				<div class="divTableCell">pay</div>
+				<div class="divTableCell">
+					<input type="radio" name="record_pay" id="cash" value="cash" checked="checked">cash 
+					<input type="radio" name="record_pay" id="card" value="card" >card
+				</div>
+			</div>
+			<div class="divTableRow">
+				<div class="divTableCell"></div>
+				<div class="divTableCell">
+					<input type="button" value="ok" onclick="input()">
+					<input type="reset" value="reset">
+				</div>
+			</div>
+		</div>
+	</div>
 	</form>
 	</div>
-</div>
+</div>	
 
 <!-- Modal_budget -->
 <div id="modal_budget" class="modal">
 	<div class="modal-content">
 		<span class="close" id="close_modal_budget">&times;</span>
 		<h3>Budget</h3>
-		<div style="float:left">
-			<p id="p_footer">
-			[<span id="today_year_budget"></span>年
-			<span id="today_month_budget"></span>月]
-			</p>
-			<form id="budget_form" name="budget_form">
-			<p id="budget_input">一ヵ月の予算 : <input type="text" id="budget_month" placeholder="予算" onkeyup="cal()">￦</p>
-	<!-- 	<input type="checkbox" name="plan" value="month">monthly
-			<input type="checkbox" name="plan" value="weekly">weekly
-			<input type="checkbox" name="plan" value="daily">daily -->
-			monthly budget : <span id="month_result"></span>￦<br>
-			weekly budget : <span id="weekly_result"></span>￦<br>
-			daily budget : <span id="daily_result"></span>￦<br>
-			</form>
-			<input type="button" id="btn_setbudget" value="save this plan" onclick="setbudget()"><br>
-			<input type="button" id="btn_modifybudget" value="change the plan" onclick=""><br>		
+		<p id="p_footer">[<span id="today_year_budget"></span>年<span id="today_month_budget"></span>月]</p>
+		<form id="budget_form" name="budget_form">
+		<div class="divTable blueTable">
+			<div class="divTableBody">
+				<div class="divTableRow" id="budget_input_text">
+					<div class="divTableCell"></div>
+					<div class="divTableCell"><input type="text" id="budget_month" placeholder="一ヵ月の予算" onkeyup="cal()"></div>
+					<div class="divTableCell">￦</div>
+				</div>
+				<div class="divTableRow">
+					<div class="divTableCell">monthly budget</div>
+					<div class="divTableCell"><span id="month_result"></span></div>
+					<div class="divTableCell">￦</div>
+				</div>
+				<div class="divTableRow">
+					<div class="divTableCell">weekly budget</div>
+					<div class="divTableCell"><span id="weekly_result"></span></div>
+					<div class="divTableCell">￦</div>
+				</div>
+				<div class="divTableRow">
+					<div class="divTableCell">daily budget</div>
+					<div class="divTableCell"><span id="daily_result"></span></div>
+					<div class="divTableCell">￦</div>
+				</div>
+				<div class="divTableRow">
+					<div class="divTableCell"></div>
+					<div class="divTableCell">
+						<input type="button" id="btn_setbudget" value="save this plan" onclick="setbudget()">
+						<input type="button" id="btn_changebudget" value="change the plan" onclick="changebudget()">
+					</div>
+				</div>
+			</div>
 		</div>
-		<div style="float:right">
-			<div class="progress">
-				<div class="progress-bar progress-bar-info" style="width: 20%"></div>
-			</div>
-			<div class="progress">
-				<div class="progress-bar progress-bar-success" style="width: 40%"></div>
-			</div>
-			<div class="progress">
-				<div class="progress-bar progress-bar-warning" style="width: 60%"></div>
-			</div>
-			<div class="progress">
-				<div class="progress-bar progress-bar-danger" style="width: 80%"></div>
-			</div>
-		</div>
+		</form>
 	</div>
 </div>
 

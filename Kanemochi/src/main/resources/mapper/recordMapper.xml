@@ -160,10 +160,13 @@
 		select * from count where user_id = #{id}
 	</select>
 
-	<insert id="setbudget" parameterType="BudgetVO">
-		insert into budget
-		values(seq_budget.nextval, #{user_id}, sysdate, #{monthly}, #{weekly}, #{daily})
-	</insert>
+	<update id="setbudget" parameterType="BudgetVO">
+		update budget set
+		monthly = #{monthly},
+		weekly = #{weekly},
+		daily = #{daily}
+		where user_id = #{user_id}
+	</update>
 	
 	<select id="getbudget" parameterType="String" resultType="BudgetVO">
 		select * from budget where user_id = #{id}

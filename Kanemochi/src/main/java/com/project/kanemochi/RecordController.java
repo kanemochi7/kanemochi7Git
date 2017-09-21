@@ -1,9 +1,7 @@
 package com.project.kanemochi;
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,31 +36,23 @@ public class RecordController {
 	@RequestMapping(value = "input", method = RequestMethod.POST)
 	@ResponseBody
 	public CountOneVO input(RecordVO vo, HttpSession session) {
-		/* 0. 일어->영어로 변환 & 세션에서 loginID 가져오기 => set */
 		String category = change(vo.getCategory());
 		String id = (String)session.getAttribute("loginID");
 		vo.setUser_id(id);
 		vo.setCategory(category);
-		/* 1. record 입력 */
 		dao.input(vo);
-		/* 2. count 올리기 */
 		dao.upcount(vo);
-		/* 3. 변경된 count get & set */
 		CountOneVO countvo = new CountOneVO(id, category, 0);
 		countvo.setCount(dao.getcount(countvo));
-		/* 4. 변경된 category, count 보내기 */
 		return countvo;
 	}
 	
 	@RequestMapping(value = "downcount", method = RequestMethod.POST)
 	@ResponseBody
 	public CountOneVO downcount(String category, HttpSession session) {
-		/* 0. 세션에서 loginID 가져오기 => set */
 		String id = (String)session.getAttribute("loginID");
 		CountOneVO vo = new CountOneVO(id, category, 0);
-		/* 1. count down */
 		dao.downcount(vo);
-		/* 2. 변경된 count get & set */
 		vo.setCount(dao.getcount(vo));
 		return vo;
 	}
@@ -123,6 +113,7 @@ public class RecordController {
 		}
 		return category_English;
 	}
+	
 	@RequestMapping(value = "setStatus", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean setStatus(BigDecimal img_x, BigDecimal img_y,String img_id , HttpSession session) {
@@ -142,10 +133,10 @@ public class RecordController {
 	public ArrayList<ShopVO> getStatus(HttpSession session) {
 		ArrayList<ShopVO> list = null;
 		String id = (String)session.getAttribute("loginID");
-		System.out.println(id);
 		list = dao.getStatus(id);
 		return list;
 	}
+	
 	@RequestMapping(value = "getAllCount", method = RequestMethod.GET)
 	@ResponseBody
 	public CountVO getAllCount(HttpSession session){
@@ -155,7 +146,7 @@ public class RecordController {
 	
 	@RequestMapping(value = "calendar", method = RequestMethod.POST)
 	@ResponseBody
-	public ArrayList<HashMap<String, Object>> calenderAjax(HttpServletRequest request,ModelMap modelMap) {
+	public ArrayList<HashMap<String, Object>> calendarAjax(HttpServletRequest request,ModelMap modelMap) {
 		HashMap<String,Object> resultMap = new HashMap<>();
 		resultMap.put("id", 999);
 		resultMap.put("title", "데헷!");
