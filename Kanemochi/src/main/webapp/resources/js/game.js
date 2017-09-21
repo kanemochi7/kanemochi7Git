@@ -410,28 +410,29 @@ function stateBuilding(inputText,buildingX,buildingY){
 			        	  break;
 			 	}
 		    	   
+//	    	    
 	    	      var wholeFloor=1;
 	    	      var buildingFloor =0;
-	    	      console.log(game.world.height);
 	    	      if((game.world.height - 150) == sprite2.y){
 	    	        buildingFloor = 1;
 	    	      }
+	    	      if((game.world.height - 300) == sprite2.y){
+		    	        buildingFloor = 2;
+		    	      }
 	    	      else{
-	    	        wholeFloor = Math.floor(((game.world.height - sprite2.height)/150));
-	    	        for(var i=1;i<=wholeFloor;i++){
-	    	          if((game.world.height-150)-(150*i) == sprite2.y){
-	    	            buildingFloor = i+1;
+	    	        wholeFloor = Math.floor(((game.world.height - sprite2.height)/159))+1;
+	    	        for(var i=1;i<wholeFloor-1;i++){
+	    	          if((game.world.height-300)-(160*i) == sprite2.y){
+	    	            buildingFloor = i+2;
 	    	            break;
 	    	          }
 	    	        }
 	    	      }
 	    	      console.log(buildingFloor);
-	    	     
+	    	     if(buildingFloor>1){
+	    	    	 sprite2.y = sprite2.y-9;
+	    	     }
 	    	      sprite2.buildingFloor = buildingFloor;
-	    	      if(buildingFloor>1)
-		    	     {
-		    	    	  sprite2.y = sprite2.y-9;
-		    	     }
 	    	      var buildingTop;
 
 	    	    if(sprite2.width == 200){
@@ -448,13 +449,13 @@ function stateBuilding(inputText,buildingX,buildingY){
 	    	    buildingTop.body.allowGravity = false;
 	    	    buildingTop.body.immovable = true;
 	    	  //--------------------------------------------------------------------------
-	    	  /*//벽 만들기(아직 안됨)
-	    	   *  var leftWing;
+	    	  //벽 만들기(아직 안됨)
+	    	     var leftWing;
 	    	    if(sprite2.width == 200){
-	    	    	leftWing =  game.add.sprite(sprite2.x - sprite2.width, sprite2.y+30, 'buildingTopCheck');
+	    	    	leftWing =  game.add.sprite(sprite2.x - sprite2.width-0.5, sprite2.y+30, 'buildingTopCheck');
 	    	    }
 	    	    else if(sprite2.width == 300){
-	    	    	leftWing =  game.add.sprite(sprite2.x - sprite2.width +100, sprite2.y+30, 'buildingTopCheck');
+	    	    	leftWing =  game.add.sprite(sprite2.x - sprite2.width +99.5, sprite2.y+30, 'buildingTopCheck');
 	    	    }
 	    		var rightWing =  game.add.sprite(sprite2.x + sprite2.width, sprite2.y+30, 'buildingTopCheck');
 
@@ -466,54 +467,55 @@ function stateBuilding(inputText,buildingX,buildingY){
 	    		var rightWall;
 	    		var leftWallTop;
 	    		var rightWallTop;
-	    		
-	    		var leftCollision = game.physics.arcade.collide(leftWing,buildingGroup,function(left,test){
-//	    			console.log(test.name);
-//	    			console.log(sprite2.name);
-	    			 if(test.name != sprite2.name && (sprite2.x - (test.x+test.width)) < 200){
-	    				 console.log(test.name);
-	 	    			console.log(sprite2.name);
-	    				 leftWall = game.add.sprite(test.x+test.width, test.y, 'buildingWall');
-	    			    
-	    			      leftWall.scale.setTo(0.5,1);
-	    			      leftWall.width = (sprite2.x - test.x - test.width);
-	    			      leftWall.height = sprite2.height;
-	    			      wallGroup.add(leftWall);
-	    			      
-	    			      leftWallTop =  game.add.sprite(leftWall.x, leftWall.y-8.9, 'buildingTopShort');
-	    			      leftWallTop.scale.setTo(0.5,0.3);
-	    			      game.physics.arcade.enable(leftWallTop);
-	    			      leftWallTop.body.allowGravity = false;
-	    			      leftWallTop.body.immovable = true;
-	    			      buildingTopGroup.add(leftWallTop);
-	    			 }
-	    		      
-	    		 });
-	    		var rightCollision = game.physics.arcade.collide(rightWing,buildingGroup,function(right,test){
-//	    			console.log(test.name);
-//	    			console.log(sprite2.name);
-	    			 if(test.name != sprite2.name && (test.x - (sprite2.x+sprite2.width)) < 200){
-	    				 console.log(test.name);
-	 	    			console.log(sprite2.name);
-	    				 rightWall = game.add.sprite(sprite2.x+sprite2.width, sprite2.y, 'buildingWall');
-	    				 rightWall.scale.setTo(0.5,1);
-	    				 var temp = sprite2.x+sprite2.width;
-	    				
-	    				 rightWall.width = (test.x - temp);
-	    			      rightWall.height = test.height;
-	    			      wallGroup.add(rightWall);
-	    			      
-	    			      rightWallTop =  game.add.sprite(rightWall.x, rightWall.y-8.9, 'buildingTopShort');
-	    			      rightWallTop.scale.setTo(0.5,0.3);
+	    		var timer = setTimeout(function(){
+					console.log("지연"+sprite2.name);
+					var leftCollision = game.physics.arcade.collide(leftWing,buildingGroup,function(left,test){
+		    			console.log(test.name);
+		    			console.log(sprite2.name);
+		    			 if(test.name != sprite2.name && (sprite2.x - (test.x+test.width)) < 200){
+		    				 leftWall = game.add.sprite(test.x+test.width, test.y, 'buildingWall');
+		    			    
+		    			      leftWall.scale.setTo(0.5,1);
+		    			      leftWall.width = (sprite2.x - test.x - test.width);
+		    			      leftWall.height = sprite2.height;
+		    			      wallGroup.add(leftWall);
+		    			      
+		    			      leftWallTop =  game.add.sprite(leftWall.x, leftWall.y-8.9, 'buildingTopShort');
+		    			      leftWallTop.scale.setTo(0.5,0.3);
+		    			      game.physics.arcade.enable(leftWallTop);
+		    			      leftWallTop.body.allowGravity = false;
+		    			      leftWallTop.body.immovable = true;
+		    			      buildingTopGroup.add(leftWallTop);
+		    			 }
+		    		      
+		    		 });
+		    		var rightCollision = game.physics.arcade.collide(rightWing,buildingGroup,function(right,test){
+		    			 if(test.name != sprite2.name && (test.x - (sprite2.x+sprite2.width)) < 200){
+		    				 console.log(test.name);
+		 	    			console.log(sprite2.name);
+		    				 rightWall = game.add.sprite(sprite2.x+sprite2.width, sprite2.y, 'buildingWall');
+		    				 rightWall.scale.setTo(0.5,1);
+		    				 var temp = sprite2.x+sprite2.width;
+		    				
+		    				 rightWall.width = (test.x - temp);
+		    			      rightWall.height = test.height;
+		    			      wallGroup.add(rightWall);
+		    			      
+		    			      rightWallTop =  game.add.sprite(rightWall.x, rightWall.y-8.9, 'buildingTopShort');
+		    			      rightWallTop.scale.setTo(0.5,0.3);
 
-	    			      game.physics.arcade.enable(rightWallTop);
-	    			      rightWallTop.body.allowGravity = false;
-	    			      rightWallTop.body.immovable = true;
-	    			      buildingTopGroup.add(rightWallTop);
-	    			 } 
-	    		 });*/
-//	    		leftWing.destroy();
-//	    		rightWing.destroy();
+		    			      game.physics.arcade.enable(rightWallTop);
+		    			      rightWallTop.body.allowGravity = false;
+		    			      rightWallTop.body.immovable = true;
+		    			      buildingTopGroup.add(rightWallTop);
+		    			 } 
+		    		 });
+		    		leftWing.destroy();
+		    		rightWing.destroy();
+				}, 150);
+	    		
+	    			
+		  		
 	    	    //------------------------------------------------------------------------
 	    	    numberOfNPC = getNumberOfNPC(numberOfNPC,buildingGroup.length,incOrDec);
 	    	    
@@ -730,37 +732,37 @@ function mouseUp(sprite,check,topCheck){
     sprite.inputEnabled = false;
     sprite.input.draggable = false;
     $.ajax({
-		url : '/kanemochi/record/setStatus',
-		method : 'post',
-		data : {'img_x':sprite.x,
-			    'img_y':sprite.y,
-			    'img_id':sprite.key},
-		success: function(result) {
-			alert("성공");
-		},
-		error: function() {
-			alert("실패");
-		}
-	});
+        url : '/kanemochi/record/setStatus',
+        method : 'post',
+        data : {'img_x':sprite.x,
+               'img_y':sprite.y,
+               'img_id':sprite.key},
+        success: function(result) {
+           alert("성공");
+        },
+        error: function() {
+           alert("실패");
+        }
+     });
     //---------------------------------------------------------------------------
     if(topCheck==true){
     	sprite.y = sprite.y-9;
     }
-      var wholeFloor=1;
-      var buildingFloor =0;
-      if((game.world.height - 150) == sprite.y){
-        buildingFloor = 1;
-      }
-      else{
-        wholeFloor = Math.floor(((game.world.height - sprite.height)/159))+1;
-        for(var i=1;i<=wholeFloor;i++){
-          if((game.world.height-150)-(159*i) == sprite.y){
-            buildingFloor = i+1;
-            break;
-          }
+    var wholeFloor=1;
+    var buildingFloor =0;
+    if((game.world.height - 150) == sprite.y){
+      buildingFloor = 1;
+    }
+    else{
+      wholeFloor = Math.floor(((game.world.height - sprite.height)/159))+1;
+      for(var i=1;i<=wholeFloor;i++){
+        if((game.world.height-150)-(159*i) == sprite.y){
+          buildingFloor = i+1;
+          break;
         }
       }
-
+    }
+      
       sprite.buildingFloor = buildingFloor;
       var buildingTop;
 
