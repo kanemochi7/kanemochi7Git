@@ -9,6 +9,10 @@
 		height: 100%;
 		width: 100%;
 	}
+	.foot {
+		display: inline;
+		float: left;
+	}
 	#p_footer {
 		color: white;
 		text-align: center;
@@ -17,11 +21,12 @@
 	.icon_footer {
 		width: auto;
 		height: 50px;
-		margin: 15px;
+		/* margin: 15px; */
 		float: left;
 	}
 	#write {
 		margin-left: 30px;
+		margin-right: 30px;
 	}
 	#btn_setbudget, #btn_modifybudget{
 		display: none;
@@ -241,17 +246,22 @@ $(function() {
 </head>
 <body>
 <div>
-	<img class="icon_footer" id="write" src="/kanemochi/resources/image/icon/write.png">
-	<img class="icon_footer" id="budget" src="/kanemochi/resources/image/icon/moneyPack.png">
-		<div class="progress progress-striped active">
-		  <div class="progress-bar" style="width: 45%"></div>
+	<div class="foot">
+		<div class="foot"><img class="icon_footer" id="write" src="/kanemochi/resources/image/icon/write.png"></div>
+		<div class="foot"><img class="icon_footer" id="budget" src="/kanemochi/resources/image/icon/moneyPack.png"></div>
+		<div class="progress foot" style="width: 500px; height: 30px;">
+			<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">70%</div>
+		</div>	
+	</div>
+	<!-- <div style="width: 200px; display: inline; float: left;"></div> -->
+	<div class="foot" style="margin-left:220px;"> 
+		<div class="foot"><img class="icon_footer" id="exp" src="/kanemochi/resources/image/icon/exp.png"></div>
+		<div class="progress foot" style="width: 500px; height: 30px;">
+			<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">70%</div>
 		</div>
-	<img class="icon_footer" id="exp" src="/kanemochi/resources/image/icon/exp.png">
-		<div class="progress progress-striped active">
-		  <div class="progress-bar" style="width: 45%"></div>
+		<div class="foot"><img class="icon_footer" id="level" src="/kanemochi/resources/image/level/level1.png"></div>
 		</div>
-	<img class="icon_footer" id="level" src="/kanemochi/resources/image/level/level1.png">
-</div>
+	</div>
 
 <!-- Modal_write -->
 <div id="modal_write" class="modal">
