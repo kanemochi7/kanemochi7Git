@@ -487,7 +487,6 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    			      leftWallTop.body.immovable = true;
 		    			      buildingTopGroup.add(leftWallTop);
 		    			 }
-		    		      
 		    		 });
 		    		var rightCollision = game.physics.arcade.collide(rightWing,buildingGroup,function(right,test){
 		    			 if(test.name != sprite2.name && (test.x - (sprite2.x+sprite2.width)) < 200){

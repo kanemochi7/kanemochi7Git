@@ -11,7 +11,8 @@
 <script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
 <script src="/kanemochi/resources/js/bootstrap.js"></script>
 <script src="/kanemochi/resources/js/bootstrap-datepicker.min.js"></script>
-<script src="/kanemochi/resources/js/phaser.min.js"></script>
+<!-- <script src="/kanemochi/resources/js/phaser.min.js"></script> -->
+<script src="/kanemochi/resources/js/phaser_2.87.js"></script>
 
 <!-- CSS -->
 <style type="text/css">
@@ -19,7 +20,7 @@
 		font-family: "GoodFont";
 	}
 	html{
-	    width:100%;
+	    width:100%;	
 	    height:100%;
 	}
 	body{
@@ -221,6 +222,7 @@ $(function() {
 
 </div>
 <script>
+
 /* sidebar menu */
 	var acc = document.getElementsByClassName("accordion");
 	var i;
@@ -253,9 +255,7 @@ $(function() {
 			dataType : "json",
 			success: function(result) {
 				$(result).each(function(index,item){
-					console.log(index);
-					console.log(item);
-					setTimeout(stateBuilding(item.img_id,item.img_x,item.img_y),100);
+					setTimeout(stateBuilding(item.img_id,item.img_x,item.img_y),200);
 				});
 			},
 			error: function() {
