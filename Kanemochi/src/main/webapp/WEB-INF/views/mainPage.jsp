@@ -117,7 +117,7 @@
 <script>
 $(function() {
 	countset();
-	getStatus();
+	
 });
 	
 	function countset() {
@@ -248,21 +248,21 @@ $(function() {
 	    }
 	}
 	//상태 받아오는 로직.
-	function getStatus(){
-		$.ajax({
-			url : '/kanemochi/record/getStatus',
-			method : 'post',
-			dataType : "json",
-			success: function(result) {
-				$(result).each(function(index,item){
-					setTimeout(stateBuilding(item.img_id,item.img_x,item.img_y),200);
-				});
-			},
-			error: function() {
-				console.log("error");
-			}
-		});
-	}
+// 	function getStatus(){
+// 		$.ajax({
+// 			url : '/kanemochi/record/getStatus',
+// 			method : 'post',
+// 			dataType : "json",
+// 			success: function(result) {
+// 				$(result).each(function(index,item){
+// 					setTimeout(stateBuilding(item.img_id,item.img_x,item.img_y),200);
+// 				});
+// 			},
+// 			error: function() {
+// 				console.log("error");
+// 			}
+// 		});
+// 	}
 /* click->image */
    function createItem(category) {
 		var num = document.getElementById(category).textContent;

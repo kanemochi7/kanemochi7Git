@@ -277,6 +277,7 @@ var GameState = {
   //밑 바닥에 중력처리 안해서 안떨어지게(물리는 적용되게)
   ground.body.allowGravity = false;
   ground.body.immovable = true;
+  getStatus();
   },
     update:function(){
       this.game.world.bringToTop(GameState.npcGroup);
@@ -311,6 +312,9 @@ var GameState = {
       
     }
 };
+game.state.add('GameState',GameState);
+game.state.start('GameState');
+
 function userCharacterBehavior(userCharacter,situation){
 	var randBehavior = Math.floor(Math.random() * 2);
 		comeUserCharacter(userCharacter,situation);
@@ -355,6 +359,21 @@ function comeUserCharacter(userCharacter,situation){
 		userCharacter.play('wink');
 		beforeLevel = level;
 	}
+}
+function getStatus(){
+	$.ajax({
+		url : '/kanemochi/record/getStatus',
+		method : 'post',
+		dataType : "json",
+		success: function(result) {
+			$(result).each(function(index,item){
+				setTimeout(stateBuilding(item.img_id,item.img_x,item.img_y),200);
+			});
+		},
+		error: function() {
+			console.log("error");
+		}
+	});
 }
 function stateBuilding(inputText,buildingX,buildingY){
 	//충돌 체크하기 위한 변수.
@@ -930,6 +949,3 @@ function getNumberOfNPC(npc,nowBuildingCounter,incOrDec){
       }
   }
 
-game.state.add('GameState',GameState);
-
-game.state.start('GameState');
