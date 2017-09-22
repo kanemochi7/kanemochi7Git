@@ -42,10 +42,10 @@ npcCharacter.prototype = Object.create(Phaser.Sprite.prototype);
 npcCharacter.prototype.constructor = npcCharacter;
 npcCharacter.prototype.update = function() {
 	
-    var collideBuild = game.physics.arcade.collide(this,buildingGroup);
+    var collideBuild = game.physics.arcade.collide(this,GameState.buildingGroup);
     var behavior = Math.floor(Math.random() * 1000);
 
-    game.physics.arcade.collide(this,buildingTopGroup,function(main,test){
+    game.physics.arcade.collide(this,GameState.buildingTopGroup,function(main,test){
       main.npcLeftEnd = test.x;
       main.npcRightEnd = test.x+test.width-main.width+1;
     });
@@ -97,7 +97,7 @@ npcCharacter.prototype.move = function(){
   }
 
     if(this.npcFloor>1){
-        game.physics.arcade.collide(this,buildingTopGroup,function(main,test){
+        game.physics.arcade.collide(this,GameState.buildingTopGroup,function(main,test){
           if(main.npcLeftEnd == 0){
             main.npcLeftEnd = test.x;
           }
@@ -153,12 +153,12 @@ npcCharacter.prototype.turn = function(){
 //---------------------------------------------------
 var game = new Phaser.Game(width,height,Phaser.AUTO,"game");
 var ground; // 밑의 투명한 바닥 : 전역변수
-var buildingGroup; // 생성한 건물 스프라이트 담는 ArrayList 같은거(Phaser에서 제공해줌)
-var buildingTopGroup;
-var npcGroup;
-var wallGroup;
+/*var buildingGroup; // 생성한 건물 스프라이트 담는 ArrayList 같은거(Phaser에서 제공해줌)
+var GameState.buildingTopGroup;
+var GameState.npcGroup;
+var GameState.wallGroup;
 var elevatorGroup;
-var elevatorTopGroup;
+var elevatorTopGroup;*/
 var buildingCounter = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];//카테고리별 빌딩의 수를 담으려고 함. (여기서 쓰려고)
 var numberOfNPC=0;
 var incOrDec = true;
@@ -172,6 +172,20 @@ var cursors;
 var GameState = {
   preload:function(){
     //이미지 호출
+	  this.load.spritesheet('cafe','/kanemochi/resources/image/shop/complete/cafe.png',400,300);
+	    this.load.spritesheet('bus', '/kanemochi/resources/image/shop/complete/bus.png', 600, 300);
+	    this.load.spritesheet('bank', '/kanemochi/resources/image/shop/complete/bank.png', 600, 300);
+	    this.load.spritesheet('movie', '/kanemochi/resources/image/shop/complete/movie.png', 600, 300);
+	    this.load.spritesheet('hospital', '/kanemochi/resources/image/shop/complete/hospital.png', 600, 300);
+	    this.load.spritesheet('beer', '/kanemochi/resources/image/shop/complete/beer.png', 400, 300);
+	    this.load.spritesheet('book', '/kanemochi/resources/image/shop/complete/book.png', 400, 300);
+	    this.load.spritesheet('clothes', '/kanemochi/resources/image/shop/complete/clothes.png', 400, 300);
+	    this.load.spritesheet('cvs', '/kanemochi/resources/image/shop/complete/cvs.png', 400, 300);
+	    this.load.spritesheet('dessert', '/kanemochi/resources/image/shop/complete/dessert.png', 400, 300);
+	    this.load.spritesheet('hair', '/kanemochi/resources/image/shop/complete/hair.png', 400, 300);
+	    this.load.spritesheet('ramen', '/kanemochi/resources/image/shop/complete/ramen.png', 400, 300);
+	    this.load.spritesheet('sushi', '/kanemochi/resources/image/shop/complete/sushi.png', 400, 300);
+	    
 	  this.load.image('background', '/kanemochi/resources/image/bg/bg.jpg');
     this.load.spritesheet('ground','/kanemochi/resources/image/bg/ground.png');
     
@@ -179,19 +193,7 @@ var GameState = {
     this.load.spritesheet('buildingTopShort','/kanemochi/resources/image/bg/buildingTop.png',400,30);
     this.load.spritesheet('buildingTopCheck','/kanemochi/resources/image/bg/buildingTop.png',400,30);
     this.load.spritesheet('buildingWall','/kanemochi/resources/image/bg/wall.png',400,300);
-    this.load.spritesheet('cafe','/kanemochi/resources/image/shop/complete/cafe.png',400,300);
-    this.load.spritesheet('bus', '/kanemochi/resources/image/shop/complete/bus.png', 600, 300);
-    this.load.spritesheet('bank', '/kanemochi/resources/image/shop/complete/bank.png', 600, 300);
-    this.load.spritesheet('movie', '/kanemochi/resources/image/shop/complete/movie.png', 600, 300);
-    this.load.spritesheet('hospital', '/kanemochi/resources/image/shop/complete/hospital.png', 600, 300);
-    this.load.spritesheet('beer', '/kanemochi/resources/image/shop/complete/beer.png', 400, 300);
-    this.load.spritesheet('book', '/kanemochi/resources/image/shop/complete/book.png', 400, 300);
-    this.load.spritesheet('clothes', '/kanemochi/resources/image/shop/complete/clothes.png', 400, 300);
-    this.load.spritesheet('cvs', '/kanemochi/resources/image/shop/complete/cvs.png', 400, 300);
-    this.load.spritesheet('dessert', '/kanemochi/resources/image/shop/complete/dessert.png', 400, 300);
-    this.load.spritesheet('hair', '/kanemochi/resources/image/shop/complete/hair.png', 400, 300);
-    this.load.spritesheet('ramen', '/kanemochi/resources/image/shop/complete/ramen.png', 400, 300);
-    this.load.spritesheet('sushi', '/kanemochi/resources/image/shop/complete/sushi.png', 400, 300);
+    
     
     this.load.spritesheet('elevator', '/kanemochi/resources/image/shop/complete/elevator.png',400, 300);
     
@@ -222,6 +224,7 @@ var GameState = {
 	this.load.spritesheet('beer','/kanemochi/resources/image/beer.png',400,300);
 	this.load.spritesheet('burger','/kanemochi/resources/image/burger.png',400,300);
 	this.load.spritesheet('dessert','/kanemochi/resources/image/dessert.png',400,300);
+	
   },
   create:function(){
   //근본적인 생성로직들 = 배경
@@ -231,7 +234,6 @@ var GameState = {
   this.background.height = height*1.5;
   //밑 바닥의 투명 배경
   ground = this.add.sprite(0,(height*1.5)+5,'ground');
-  console.log(height);
   this.game.stage.disableVisibilityChange = true;
   //player character
   userCharacter = this.game.add.sprite(0,0,'mainCharacter');
@@ -244,15 +246,23 @@ var GameState = {
   var rightWalk = userCharacter.animations.add('rightWalk',[2,3],2,true);
   userCharacter.play('wink');
   //건물 배열같은거.(ArrayList처럼 생각하세요)
-  buildingGroup = game.add.group();
+ /* buildingGroup = game.add.group();
   buildingGroup.enableBody = true;
-  buildingTopGroup = game.add.group();
-  npcGroup = game.add.group();
-  wallGroup = game.add.group();
+  GameState.buildingTopGroup = game.add.group();
+  GameState.npcGroup = game.add.group();
+  GameState.wallGroup = game.add.group();
   elevatorGroup = game.add.group();
   elevatorGroup.enableBody = true;
-  
-  elevatorTopGroup = game.add.group();
+  elevatorTopGroup = game.add.group();*/
+  this.buildingGroup = game.add.group();
+  this.buildingGroup.enableBody = true;
+  this.buildingTopGroup = game.add.group();
+  this.npcGroup = game.add.group();
+  this.wallGroup = game.add.group();
+//  this.elevatorGroup = game.add.group();
+//  this.elevatorGroup.enableBody = true;
+//  this.elevatorTopGroup = game.add.group();
+  this.gameGroup = game.add.group();
  //주의 : 폰트 안됨. 하얀거만 칠해진거임. //text 관련
  // 그리고 여기는 아마 html과 합치게 되면 없어지거나 다르게 변형해야 할 내용이라고 생각함.
   
@@ -269,10 +279,10 @@ var GameState = {
   ground.body.immovable = true;
   },
     update:function(){
-      this.game.world.bringToTop(npcGroup);
-      this.game.physics.arcade.collide(npcGroup,ground);
-      this.game.physics.arcade.collide(npcGroup,buildingTopGroup);
-      this.game.physics.arcade.enable(buildingTopGroup);
+      this.game.world.bringToTop(GameState.npcGroup);
+      this.game.physics.arcade.collide(GameState.npcGroup,ground);
+      this.game.physics.arcade.collide(GameState.npcGroup,GameState.buildingTopGroup);
+      this.game.physics.arcade.enable(GameState.buildingTopGroup);
       this.game.physics.arcade.collide(userCharacter,ground);
       this.game.world.bringToTop(userCharacter);
       
@@ -307,7 +317,6 @@ function userCharacterBehavior(userCharacter,situation){
 }
 
 function comeUserCharacter(userCharacter,situation){
-	console.log(situation);
 	if(userCharacter.x < 300 && userDirection=='right'){
 		userCharacter.play('rightWalk');
 		userCharacter.x = userCharacter.x+1;
@@ -358,7 +367,7 @@ function stateBuilding(inputText,buildingX,buildingY){
 	  var result;
 		  	if(inputText != 'elevator')
 		  	{
-			  buildingGroup.add(sprite2);  
+			  GameState.buildingGroup.add(sprite2);  
 			  sprite2.scale.setTo(0.5);
 			  game.physics.arcade.enable(sprite2);
 			  sprite2.body.allowGravity = false;
@@ -428,7 +437,6 @@ function stateBuilding(inputText,buildingX,buildingY){
 	    	          }
 	    	        }
 	    	      }
-	    	      console.log(buildingFloor);
 	    	     if(buildingFloor>1){
 	    	    	 sprite2.y = sprite2.y-9;
 	    	     }
@@ -442,7 +450,7 @@ function stateBuilding(inputText,buildingX,buildingY){
 	    	      buildingTop =  game.add.sprite(sprite2.x, sprite2.y-8.9, 'buildingTopLong');
 	    	    }
 
-	    	    buildingTopGroup.add(buildingTop);
+	    	    GameState.buildingTopGroup.add(buildingTop);
 
 	    	    buildingTop.scale.setTo(0.5,0.3);
 	    	    this.game.physics.arcade.enable(buildingTop);
@@ -468,37 +476,32 @@ function stateBuilding(inputText,buildingX,buildingY){
 	    		var leftWallTop;
 	    		var rightWallTop;
 	    		var timer = setTimeout(function(){
-					console.log("지연"+sprite2.name);
-					var leftCollision = game.physics.arcade.collide(leftWing,buildingGroup,function(left,test){
-		    			console.log(test.name);
-		    			console.log(sprite2.name);
+					var leftCollision = game.physics.arcade.collide(leftWing,GameState.buildingGroup,function(left,test){
 		    			 if(test.name != sprite2.name && (sprite2.x - (test.x+test.width)) < 200){
 		    				 leftWall = game.add.sprite(test.x+test.width, test.y, 'buildingWall');
 		    			    
 		    			      leftWall.scale.setTo(0.5,1);
 		    			      leftWall.width = (sprite2.x - test.x - test.width);
 		    			      leftWall.height = sprite2.height;
-		    			      wallGroup.add(leftWall);
+		    			      GameState.wallGroup.add(leftWall);
 		    			      
 		    			      leftWallTop =  game.add.sprite(leftWall.x, leftWall.y-8.9, 'buildingTopShort');
 		    			      leftWallTop.scale.setTo(0.5,0.3);
 		    			      game.physics.arcade.enable(leftWallTop);
 		    			      leftWallTop.body.allowGravity = false;
 		    			      leftWallTop.body.immovable = true;
-		    			      buildingTopGroup.add(leftWallTop);
+		    			      GameState.buildingTopGroup.add(leftWallTop);
 		    			 }
 		    		 });
-		    		var rightCollision = game.physics.arcade.collide(rightWing,buildingGroup,function(right,test){
+		    		var rightCollision = game.physics.arcade.collide(rightWing,GameState.buildingGroup,function(right,test){
 		    			 if(test.name != sprite2.name && (test.x - (sprite2.x+sprite2.width)) < 200){
-		    				 console.log(test.name);
-		 	    			console.log(sprite2.name);
 		    				 rightWall = game.add.sprite(sprite2.x+sprite2.width, sprite2.y, 'buildingWall');
 		    				 rightWall.scale.setTo(0.5,1);
 		    				 var temp = sprite2.x+sprite2.width;
 		    				
 		    				 rightWall.width = (test.x - temp);
 		    			      rightWall.height = test.height;
-		    			      wallGroup.add(rightWall);
+		    			      GameState.wallGroup.add(rightWall);
 		    			      
 		    			      rightWallTop =  game.add.sprite(rightWall.x, rightWall.y-8.9, 'buildingTopShort');
 		    			      rightWallTop.scale.setTo(0.5,0.3);
@@ -506,7 +509,7 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    			      game.physics.arcade.enable(rightWallTop);
 		    			      rightWallTop.body.allowGravity = false;
 		    			      rightWallTop.body.immovable = true;
-		    			      buildingTopGroup.add(rightWallTop);
+		    			      GameState.buildingTopGroup.add(rightWallTop);
 		    			 } 
 		    		 });
 		    		leftWing.destroy();
@@ -516,11 +519,11 @@ function stateBuilding(inputText,buildingX,buildingY){
 	    			
 		  		
 	    	    //------------------------------------------------------------------------
-	    	    numberOfNPC = getNumberOfNPC(numberOfNPC,buildingGroup.length,incOrDec);
+	    	    numberOfNPC = getNumberOfNPC(numberOfNPC,GameState.buildingGroup.length,incOrDec);
 	    	    
 	    	    randomCreateNPC(numberOfNPC);
-	    	    for(var j=0;j<npcGroup.length;j++){
-	    	      var npcI = npcGroup.getAt(j);
+	    	    for(var j=0;j<GameState.npcGroup.length;j++){
+	    	      var npcI = GameState.npcGroup.getAt(j);
 	    	    }
 	    	  }
 	    	  else{
@@ -570,7 +573,7 @@ function stateBuilding(inputText,buildingX,buildingY){
 //		    	          break;
 	    	      default:
 	    	      }
-	    	    buildingGroup.remove(sprite2);
+	    	    GameState.buildingGroup.remove(sprite2);
 	    	  }
 }
 function createBuilding(inputText){
@@ -588,7 +591,7 @@ function createBuilding(inputText){
   var result;
 //  var spriteTemp = buildingGroup.create(game.input.mousePointer.x,game.input.mousePointer.y,inputText);
   if(inputText != 'elevator'){
-	  buildingGroup.add(spriteTemp);  
+	  GameState.buildingGroup.add(spriteTemp);  
 	  spriteTemp.scale.setTo(0.5);
 	  spriteTemp.alpha = 0.5;
 	  spriteTemp.inputEnabled = true;
@@ -599,7 +602,6 @@ function createBuilding(inputText){
 	  game.physics.arcade.enable(spriteTemp);
 	  spriteTemp.body.allowGravity = false;
 	  spriteTemp.body.immovable = true;
-	  console.log(spriteTemp);
 	  //해당 스프라이트에 대한 drag 이벤트 처리
 	  spriteTemp.events.onDragUpdate.add(checkCollide,spriteTemp);
 
@@ -618,21 +620,21 @@ function createBuilding(inputText){
 	      firstFloorCheck = false;
 	    }
 	    //건물 위에 하얀 바 닿았을때 확인
-	    topCheck = game.physics.arcade.collide(sprite,buildingTopGroup);
+	    topCheck = game.physics.arcade.collide(sprite,GameState.buildingTopGroup);
 	    //게임창을 안벗어나면서 1층일 경우 충돌을 체크해서 생성여부 정함
 	    if(windowCheck == true && firstFloorCheck == true && topCheck == false){
-	      check = game.physics.arcade.collide(sprite,buildingGroup);
+	      check = game.physics.arcade.collide(sprite,GameState.buildingGroup);
 	      // check = false;
 	    }
 	    //게임창 안벗어나고, 1층이 아니더라도, 위에 하얀바에 닿으면 충돌 체크해서 생성여부 정함
 	    else if(windowCheck == true && firstFloorCheck == false && topCheck==true){
 	      //만들어진 건물들을 담은 그룹에서 건물들 스프라이트를 배열로 뽑아옴
-	      var getBuilding = buildingGroup.getAll('exists', true);
+	      var getBuilding = GameState.buildingGroup.getAll('exists', true);
 	      for (var i in getBuilding) {
 	        //지금 드래그하는 건물의 x랑 만들어진 건물들과의 x좌표를 비교함 그런데
 	        //지금 드래그하는 건물 역시 그룹에 들어가있기 때문에 이름이 같은(자기자신)을 제외하고 검색.
 	        if(sprite.y<= (getBuilding[i].y-sprite.height) && sprite.name != getBuilding[i].name){
-	          check = game.physics.arcade.collide(sprite,buildingGroup);
+	          check = game.physics.arcade.collide(sprite,GameState.buildingGroup);
 	          break;
 	        }
 	        else{
@@ -654,9 +656,7 @@ function createBuilding(inputText){
 	    }
 	  }
 	  	var temp = spriteTemp.events.onInputUp.add(function(){
-	  		console.log(temp);
 	    	temp = mouseUp(spriteTemp,checkResult,topCheck);
-	    	console.log(temp);
 	    	 switch (inputText) {
 		    	    case 'cafe':
 		    	      spriteTemp.name = inputText+'_'+(++buildingCounter[0]);
@@ -703,7 +703,6 @@ function createBuilding(inputText){
 		          default:
 		        	  break;
 			 }
-	    	 console.log(temp);
 	    	 res = temp; 
 	    	},this);
 //		  	var timer = setTimeout(function(){
@@ -772,7 +771,7 @@ function mouseUp(sprite,check,topCheck){
       buildingTop =  game.add.sprite(sprite.x, sprite.y-8.9, 'buildingTopLong');
     }
 
-    buildingTopGroup.add(buildingTop);
+    GameState.buildingTopGroup.add(buildingTop);
     // buildingGroup.callAll('body.setSize','body',100,300,100,0);
 
     buildingTop.scale.setTo(0.5,0.3);
@@ -798,25 +797,25 @@ function mouseUp(sprite,check,topCheck){
 	var leftWallTop;
 	var rightWallTop;
 	
-	var leftCollision = game.physics.arcade.collide(leftWing,buildingGroup,function(left,test){
+	var leftCollision = game.physics.arcade.collide(leftWing,GameState.buildingGroup,function(left,test){
 		 if(test.name != sprite.name && (sprite.x - (test.x+test.width)) < 200){
 			 leftWall = game.add.sprite(test.x+test.width, test.y, 'buildingWall');
 		    
 		      leftWall.scale.setTo(0.5,1);
 		      leftWall.width = (sprite.x - test.x - test.width);
 		      leftWall.height = sprite.height;
-		      wallGroup.add(leftWall);
+		      GameState.wallGroup.add(leftWall);
 		      
 		      leftWallTop =  game.add.sprite(leftWall.x, leftWall.y-8.9, 'buildingTopShort');
 		      leftWallTop.scale.setTo(0.5,0.3);
 		      game.physics.arcade.enable(leftWallTop);
 		      leftWallTop.body.allowGravity = false;
 		      leftWallTop.body.immovable = true;
-		      buildingTopGroup.add(leftWallTop);
+		      GameState.buildingTopGroup.add(leftWallTop);
 		 }
 	      
 	 });
-	var rightCollision = game.physics.arcade.collide(rightWing,buildingGroup,function(right,test){
+	var rightCollision = game.physics.arcade.collide(rightWing,GameState.buildingGroup,function(right,test){
 		 if(test.name != sprite.name && (test.x - (sprite.x+sprite.width)) < 200){
 			 rightWall = game.add.sprite(sprite.x+sprite.width, sprite.y, 'buildingWall');
 			 rightWall.scale.setTo(0.5,1);
@@ -824,7 +823,7 @@ function mouseUp(sprite,check,topCheck){
 			
 			 rightWall.width = (test.x - temp);
 		      rightWall.height = test.height;
-		      wallGroup.add(rightWall);
+		      GameState.wallGroup.add(rightWall);
 		      
 		      rightWallTop =  game.add.sprite(rightWall.x, rightWall.y-8.9, 'buildingTopShort');
 		      rightWallTop.scale.setTo(0.5,0.3);
@@ -832,18 +831,18 @@ function mouseUp(sprite,check,topCheck){
 		      game.physics.arcade.enable(rightWallTop);
 		      rightWallTop.body.allowGravity = false;
 		      rightWallTop.body.immovable = true;
-		      buildingTopGroup.add(rightWallTop);
+		      GameState.buildingTopGroup.add(rightWallTop);
 		 } 
 	 });
 	
 	leftWing.destroy();
 	rightWing.destroy();
     //------------------------------------------------------------------------
-    numberOfNPC = getNumberOfNPC(numberOfNPC,buildingGroup.length,incOrDec);
+    numberOfNPC = getNumberOfNPC(numberOfNPC,GameState.buildingGroup.length,incOrDec);
     
     randomCreateNPC(numberOfNPC);
-    for(var j=0;j<npcGroup.length;j++){
-      var npcI = npcGroup.getAt(j);
+    for(var j=0;j<GameState.npcGroup.length;j++){
+      var npcI = GameState.npcGroup.getAt(j);
     }
   }
   else{
@@ -893,7 +892,7 @@ function mouseUp(sprite,check,topCheck){
 //          break;
       default:
     }
-    buildingGroup.remove(sprite);
+    GameState.buildingGroup.remove(sprite);
     result=  false;
   }
   return result;
@@ -923,13 +922,11 @@ function getNumberOfNPC(npc,nowBuildingCounter,incOrDec){
       for(var i=0; i<numberOfNPC-1;i++){
         
         randomTime = 5;
-        console.log(randomTime);
-        
         setTimeout(temp, randomTime*1000);
       }
       function temp(){
         var sprite =new npcCharacter(game);
-        npcGroup.add(sprite);
+        GameState.npcGroup.add(sprite);
       }
   }
 
