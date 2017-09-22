@@ -21,4 +21,5 @@ public interface RecordMapper {
 	
 	public void setStatus(ShopVO vo);
 	public ArrayList<ShopVO> getStatus(String id);
+	public int getsum(String id);
 }

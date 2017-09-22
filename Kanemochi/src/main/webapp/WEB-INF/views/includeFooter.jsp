@@ -219,16 +219,14 @@ $(function() {
 					document.getElementById("btn_setbudget").style.display='block';
 					document.getElementById("btn_changebudget").style.display='none';
 				}
-				document.getElementById("month_result").innerHTML = numberWithCommas(result.monthly);
-				document.getElementById("weekly_result").innerHTML = numberWithCommas(result.weekly);
-				document.getElementById("daily_result").innerHTML = numberWithCommas(result.daily);
+				var monthly = numberWithCommas(result.monthly);
+				var weekly = numberWithCommas(result.weekly);
+				var daily = numberWithCommas(result.daily);
 				
-				
-				
-				
-				
-				
-				
+				document.getElementById("month_result").innerHTML = monthly;
+				document.getElementById("weekly_result").innerHTML = weekly;
+				document.getElementById("daily_result").innerHTML = daily;
+				setprogressbar(monthly);
 				},
 		error: function() {
 				}
@@ -242,6 +240,25 @@ $(function() {
 		cal();
 	}
 
+	function setprogressbar(monthly) {
+		$.ajax({
+			url : '/kanemochi/record/getsum',
+			method : 'get',
+			cache : false,
+			success: function (result) {
+				alert(result)
+				alert(typeof result)
+				alert(Number(monthly))
+				alert(typeof Number(monthly))
+				alert(Number(result / Number(monthly)))
+					$("#budget_progress").value = parseFloat(result/Number(monthly)*100);
+					/* document.getElementById("budget_progress").value = parseFloat((result/Number(monthly))*100); */
+					},
+			error: function() {
+					}
+			});
+	}
+	
 </script>
 </head>
 <body>
@@ -249,16 +266,11 @@ $(function() {
 	<div class="foot">
 		<div class="foot"><img class="icon_footer" id="write" src="/kanemochi/resources/image/icon/write.png"></div>
 		<div class="foot"><img class="icon_footer" id="budget" src="/kanemochi/resources/image/icon/moneyPack.png"></div>
-		<div class="progress foot" style="width: 500px; height: 30px;">
-			<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">70%</div>
-		</div>	
+		<div class="foot" style="margin: 15px;"><progress id="budget_progress" value="" max="100"></progress></div>
 	</div>
-	<!-- <div style="width: 200px; display: inline; float: left;"></div> -->
-	<div class="foot" style="margin-left:220px;"> 
+	<div class="foot" style="margin-left:200px;"> 
 		<div class="foot"><img class="icon_footer" id="exp" src="/kanemochi/resources/image/icon/exp.png"></div>
-		<div class="progress foot" style="width: 500px; height: 30px;">
-			<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">70%</div>
-		</div>
+		<div class="foot" style="margin: 15px;"><progress id="myProgress" value="" max="100"></progress></div>
 		<div class="foot"><img class="icon_footer" id="level" src="/kanemochi/resources/image/level/level1.png"></div>
 		</div>
 	</div>
@@ -266,64 +278,64 @@ $(function() {
 <!-- Modal_write -->
 <div id="modal_write" class="modal">
 	<div class="modal-content">
-	<span class="close" id="close_modal_write">&times;</span>
-	<h3>支出</h3>
-	<h4>[今日はいくら使いましたか？]</h4>
-	<form id="input-form" name="input-form">
-	<div class="divTable blueTable">
-		<div class="divTableBody">
-			<div class="divTableRow">
-				<div class="divTableCell">date</div>
-				<div class="divTableCell"><input type="text" id="record_date" name="record_date" placeholder="date"></div>
-			</div>
-			<div class="divTableRow">
-				<div class="divTableCell">category</div>
-				<div class="divTableCell">
-					<select class="select" id="select-category" name="select-category" onchange="itemChange()">
-						<option>選択してください！</option>
-						<option value="食べ物">食べ物</option>
-						<option value="文化生活">文化生活</option>
-						<option value="ファッション">ファッション</option>
-						<option value="医慮">医慮</option>
-						<option value="教育">教育</option>
-						<option value="交通">交通</option>
-					</select>
-					<select class="select" id="category" name="category">
-					</select>
+		<span class="close" id="close_modal_write">&times;</span>
+		<h3>支出</h3>
+		<h4>[今日はいくら使いましたか？]</h4>
+			<form id="input-form" name="input-form">
+			<div class="divTable blueTable">
+				<div class="divTableBody">
+					<div class="divTableRow">
+						<div class="divTableCell">date</div>
+						<div class="divTableCell"><input type="text" id="record_date" name="record_date" placeholder="date"></div>
+					</div>
+					<div class="divTableRow">
+						<div class="divTableCell">category</div>
+						<div class="divTableCell">
+							<select class="select" id="select-category" name="select-category" onchange="itemChange()">
+								<option>選択してください！</option>
+								<option value="食べ物">食べ物</option>
+								<option value="文化生活">文化生活</option>
+								<option value="ファッション">ファッション</option>
+								<option value="医慮">医慮</option>
+								<option value="教育">教育</option>
+								<option value="交通">交通</option>
+							</select>
+							<select class="select" id="category" name="category">
+							</select>
+						</div>
+					</div>
+					<div class="divTableRow">
+						<div class="divTableCell">price</div>
+						<div class="divTableCell">
+							<input type="text" id="record_price" name="record_price" placeholder="値">
+							<select class="select" id="record_unit" name="record_unit">
+								<option value="￦">￦</option>
+								<option value="￥">￥</option>
+								<option value="$">$</option>
+							</select>
+						</div>
+					</div>
+					<div class="divTableRow">
+						<div class="divTableCell">tag</div>
+						<div class="divTableCell"><textarea rows="3" id="record_tag" name="record_tag" placeholder="#item"></textarea></div>
+					</div>
+					<div class="divTableRow">
+						<div class="divTableCell">pay</div>
+						<div class="divTableCell">
+							<input type="radio" name="record_pay" id="cash" value="cash" checked="checked">cash 
+							<input type="radio" name="record_pay" id="card" value="card" >card
+						</div>
+					</div>
+					<div class="divTableRow">
+						<div class="divTableCell"></div>
+						<div class="divTableCell">
+							<input type="button" value="ok" onclick="input()">
+							<input type="reset" value="reset">
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="divTableRow">
-				<div class="divTableCell">price</div>
-				<div class="divTableCell">
-					<input type="text" id="record_price" name="record_price" placeholder="値">
-					<select class="select" id="record_unit" name="record_unit">
-						<option value="￦">￦</option>
-						<option value="￥">￥</option>
-						<option value="$">$</option>
-					</select>
-				</div>
-			</div>
-			<div class="divTableRow">
-				<div class="divTableCell">tag</div>
-				<div class="divTableCell"><textarea rows="3" id="record_tag" name="record_tag" placeholder="#item"></textarea></div>
-			</div>
-			<div class="divTableRow">
-				<div class="divTableCell">pay</div>
-				<div class="divTableCell">
-					<input type="radio" name="record_pay" id="cash" value="cash" checked="checked">cash 
-					<input type="radio" name="record_pay" id="card" value="card" >card
-				</div>
-			</div>
-			<div class="divTableRow">
-				<div class="divTableCell"></div>
-				<div class="divTableCell">
-					<input type="button" value="ok" onclick="input()">
-					<input type="reset" value="reset">
-				</div>
-			</div>
-		</div>
-	</div>
-	</form>
+			</form>
 	</div>
 </div>	
 

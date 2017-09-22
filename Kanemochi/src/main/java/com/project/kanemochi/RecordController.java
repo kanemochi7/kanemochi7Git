@@ -183,4 +183,11 @@ public class RecordController {
 		String id = (String)session.getAttribute("loginID");
 		return dao.getbudget(id);
 	}
+
+	@RequestMapping(value = "getsum", method = RequestMethod.GET)
+	@ResponseBody
+	public int getsum(HttpSession session){
+		String id = (String)session.getAttribute("loginID");
+		return dao.getsum(id);
+	}
 }

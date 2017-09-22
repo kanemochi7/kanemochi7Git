@@ -21,4 +21,5 @@ public interface RecordDAO {
 	
 	public boolean setStatus(ShopVO vo);
 	public ArrayList<ShopVO> getStatus(String id);
+	public int getsum(String id);
 }

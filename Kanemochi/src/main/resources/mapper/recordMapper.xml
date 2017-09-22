@@ -8,13 +8,16 @@
 		insert into record
 		values(seq_record.nextval, #{user_id}, #{record_date}, #{category}, #{record_tag}, #{record_price}, #{record_unit}, #{record_pay})
 	</insert>
+	
 	<insert id="setStatus" parameterType="ShopVO">
 		insert into shop
 		values(seq_shop.nextval, #{img_id}, #{user_id}, #{img_x}, #{img_y}, sysdate)
 	</insert>
+	
 	<select id="getStatus" parameterType="String" resultType="ShopVO">
 		select user_id,img_x,img_y,img_id from shop where user_id = #{id}
 	</select>
+	
 	<update id="upcount" parameterType="RecordVO">
 		update count set
 		<if test="category == 'cafe'">
@@ -172,4 +175,11 @@
 		select * from budget where user_id = #{id}
 	</select>
 
+	<select id="getsum" parameterType="String" resultType="int">
+		select sum(record_price)
+		from record
+		where user_id = #{id}
+		and record_date between (SELECT TRUNC(SYSDATE,'MM') FROM DUAL) and (SELECT LAST_DAY(SYSDATE) FROM DUAL)
+	</select>
 </mapper>
+
