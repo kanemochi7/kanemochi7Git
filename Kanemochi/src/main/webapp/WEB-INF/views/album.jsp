@@ -18,12 +18,12 @@
 <style type="text/css">
 /*폰트 설정해보기   */
 body {
-	margin: 50px;
+	margin: 50px ;
 	text-align: center;
 	background-color:#fff5c3;
 	background-image:url(/kanemochi/resources/image/bg/pinkSky2.png);
 	background-repeat: repeat-x;
-	/* color: black; */
+	color: black;
 }
 table {
 	margin: auto;
@@ -41,35 +41,35 @@ a{
 #dog{
 	width: 10%;
 }
-div{
-	display: block;
-}
-.table.table{
-	/* background-color: transparent;  */
-	background-color: mistyrose;
-}
 .table{ 
 	display:table; 
-	/* display: inline-block; */
 	width: 100%;
+} 
+
+.table.table{
+	background-color: transparent;
+	text-align: center;
+	/* width: 100%; */
+	margin: 0 auto;
 }
 .table-row {
 	display:table-row;
-	padding: 20px;
-	/* float: right; */
- 	/* position: relative;
- 	left: 0;  */
+	/* padding: 10px; 
+ 	position: relative; */
 }
 .table-cell{
  	display: table-cell;
- 	display: 
- 	right: 50%;
+ 	text-align: center;
+    vertical-align: middle;
+    align-items: center;
 }
 
 .modal-content{
 	position: relative;
-	left: 50%;
-	background-color: #fff5c3;
+	left: 45%;
+	background-color:#fff5c3;
+	background-image:url(/kanemochi/resources/image/bg/pinkSky2.png);
+	background-repeat: repeat-x;
 	/* background-color: rgba(255,255,255,0.2); */
 }
 </style>
@@ -101,7 +101,7 @@ div{
 		<!-- first row -->
 		<div class="table-row">
 			<div class="table-cell">
-				<a href="" data-toggle="modal" data-target="#myModal">
+				<a href="#" data-toggle="modal" data-target="#myModal">
 					<img id="sc1" src="/kanemochi/resources/image/screenshot/one.png" class="screenshot"/>
 				</a>
 			</div>
@@ -213,7 +213,7 @@ window.fbAsyncInit = function() {
 	   }(document, 'script', 'facebook-jssdk'));
 	  
 	  function fbShare(){
-	     //var imgUrl = "/kanemochi/resources/image/screenshot/one.png";
+	     var imgUrl = "/kanemochi/resources/image/screenshot/one.png";
 	     var canvas = document.createElement("canvas");
 	     canvas.width  = 900;
 	     canvas.height = 600;
