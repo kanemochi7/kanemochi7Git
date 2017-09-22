@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- CSS -->
 <style type="text/css">
 	body {
 		height: 100%;
@@ -241,15 +240,18 @@ $(function() {
 </script>
 </head>
 <body>
-<img class="icon_footer" id="write" src="/kanemochi/resources/image/icon/write.png">
-<img class="icon_footer" id="budget" src="/kanemochi/resources/image/icon/moneyPack.png">
-	<div class="progress progress-striped active">
-	  <div class="progress-bar" style="width: 45%"></div>
-	</div>
-<img class="icon_footer" id="exp" src="/kanemochi/resources/image/icon/exp.png">
-	<div class="progress progress-striped active">
-	  <div class="progress-bar" style="width: 45%"></div>
-	</div>
+<div>
+	<img class="icon_footer" id="write" src="/kanemochi/resources/image/icon/write.png">
+	<img class="icon_footer" id="budget" src="/kanemochi/resources/image/icon/moneyPack.png">
+		<div class="progress progress-striped active">
+		  <div class="progress-bar" style="width: 45%"></div>
+		</div>
+	<img class="icon_footer" id="exp" src="/kanemochi/resources/image/icon/exp.png">
+		<div class="progress progress-striped active">
+		  <div class="progress-bar" style="width: 45%"></div>
+		</div>
+	<img class="icon_footer" id="level" src="/kanemochi/resources/image/level/level1.png">
+</div>
 
 <!-- Modal_write -->
 <div id="modal_write" class="modal">

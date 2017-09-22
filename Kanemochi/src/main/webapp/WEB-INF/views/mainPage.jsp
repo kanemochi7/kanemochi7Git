@@ -255,7 +255,7 @@ $(function() {
 				$(result).each(function(index,item){
 					console.log(index);
 					console.log(item);
-					setTimeout(stateBuilding(item.img_id,item.img_x,item.img_y),1000);
+					setTimeout(stateBuilding(item.img_id,item.img_x,item.img_y),100);
 				});
 			},
 			error: function() {
