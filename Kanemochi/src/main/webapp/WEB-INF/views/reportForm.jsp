@@ -92,7 +92,7 @@ $(document).ready(function() {
 	  $.ajax({
 	   
 	     type : "POST" 
-	     , url : "/kanemochi/report/calendar" //Request URL
+	     , url : "/kanemochi/ajax.do" //Request URL
 	     , dataType : "json" //전송받을 데이터 타입
 	     , contentType: "application/x-www-form-urlencoded; charset=UTF-8"
 	     , error : function(request, status, error) {
