@@ -119,7 +119,6 @@ $(function() {
 	countset();
 	
 });
-	
 	function countset() {
 		$.ajax({
 			url : '/kanemochi/record/getAllCount',

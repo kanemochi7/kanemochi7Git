@@ -5,12 +5,17 @@
 <html>
 <head>
 <style type="text/css">
+	* {
+		font-family: "GoodFont";
+	}
 	body {
 		height: 100%;
 		width: 100%;
 	}
 	.foot {
 		display: inline;
+		margin-left: 10px;
+		margin-right: 10px;
 		float: left;
 	}
 	#p_footer {
@@ -226,7 +231,7 @@ $(function() {
 				document.getElementById("month_result").innerHTML = monthly;
 				document.getElementById("weekly_result").innerHTML = weekly;
 				document.getElementById("daily_result").innerHTML = daily;
-				setprogressbar(monthly);
+				setprogressbar(result.monthly);
 				},
 		error: function() {
 				}
@@ -246,13 +251,19 @@ $(function() {
 			method : 'get',
 			cache : false,
 			success: function (result) {
-				alert(result)
-				alert(typeof result)
-				alert(Number(monthly))
-				alert(typeof Number(monthly))
-				alert(Number(result / Number(monthly)))
-					$("#budget_progress").value = parseFloat(result/Number(monthly)*100);
-					/* document.getElementById("budget_progress").value = parseFloat((result/Number(monthly))*100); */
+					var elem = document.getElementById("budget_progress");
+					var value = result/monthly*100;
+					var width = 0;
+					var id = setInterval(frame, 10);
+					function frame() {
+					if (width >= value-1) {
+				    	clearInterval(id);
+				    } else {
+				      width++; 
+				      elem.style.width = width*3 + 'px'; 
+				      elem.innerHTML = width*1  + '%';
+				    }
+				  }
 					},
 			error: function() {
 					}
@@ -263,16 +274,17 @@ $(function() {
 </head>
 <body>
 <div>
-	<div class="foot">
-		<div class="foot"><img class="icon_footer" id="write" src="/kanemochi/resources/image/icon/write.png"></div>
-		<div class="foot"><img class="icon_footer" id="budget" src="/kanemochi/resources/image/icon/moneyPack.png"></div>
-		<div class="foot" style="margin: 15px;"><progress id="budget_progress" value="" max="100"></progress></div>
+	<div class="foot"><img class="icon_footer" id="write" src="/kanemochi/resources/image/icon/write.png"></div>
+	<div class="foot"><img class="icon_footer" id="budget" src="/kanemochi/resources/image/icon/moneyPack.png"></div>
+	<div class="foot" style="width:300px; height:30px; margin-top:10px; background-color:#e8e8e8;">
+		<div id="budget_progress" style="width:0px; height: 30px; padding: 5px; background-color:#5f9e55;"></div>
 	</div>
-	<div class="foot" style="margin-left:200px;"> 
-		<div class="foot"><img class="icon_footer" id="exp" src="/kanemochi/resources/image/icon/exp.png"></div>
-		<div class="foot" style="margin: 15px;"><progress id="myProgress" value="" max="100"></progress></div>
-		<div class="foot"><img class="icon_footer" id="level" src="/kanemochi/resources/image/level/level1.png"></div>
-		</div>
+	
+	<div class="foot"><img class="icon_footer" id="exp" src="/kanemochi/resources/image/icon/exp.png"></div>
+	<div class="foot" style="width:300px; height:30px; margin-top:10px; background-color:#e8e8e8;">
+		<div id="exp_progress" style="width:0px; height: 30px; padding: 5px; background-color:#5f9e55;"></div>
+	</div>
+	<div class="foot"><img class="icon_footer" id="level" src="/kanemochi/resources/image/level/level1.png"></div>
 	</div>
 
 <!-- Modal_write -->
