@@ -14,5 +14,7 @@
 	<mappers>
 		<mapper resource="mapper/memberMapper.xml"/>
 		<mapper resource="mapper/recordMapper.xml"/>
+		<mapper resource="mapper/GKMapper.xml"/>
+		<mapper resource="mapper/GPMapper.xml"/>
 	</mappers>
 </configuration>

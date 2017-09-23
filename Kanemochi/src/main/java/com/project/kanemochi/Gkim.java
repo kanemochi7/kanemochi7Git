@@ -53,7 +53,7 @@ public class Gkim {
 		return result;
 	}
 	
-	@RequestMapping(value = "ajax.do", method = RequestMethod.GET)
+	@RequestMapping(value = "ajax2.do", method = RequestMethod.GET)
 	@ResponseBody
 	public ArrayList<RecordVO> getDayRecord(String id,String date){
 		ArrayList<RecordVO> dayRecord = dao.getDayRecord(id, date);

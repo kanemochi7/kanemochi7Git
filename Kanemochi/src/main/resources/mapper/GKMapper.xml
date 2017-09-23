@@ -4,12 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.kanemochi.dao.GKMapper">
 
-	<select id="getStatus" parameterType="String" resultType="RecordVO">
+	<select id="getRecord" parameterType="String" resultType="RecordVO">
 		select * from record where user_id = #{id}
 	</select>
 	
 	
-	<select id="getStatus" parameterType="String" resultType="RecordVO">
+	<select id="getDayRecord" parameterType="String" resultType="RecordVO">
 		select * from record where user_id = #{id} and record_date = #{date}
 	</select>
 	
