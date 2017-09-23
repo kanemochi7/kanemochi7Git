@@ -18,9 +18,16 @@ public class ExpDAOImpl implements ExpDAO {
 	@Autowired
 	private SqlSession sqlsession;
 
-/*	@Override
-	public int getsum(String id) {
+	@Override
+	public int login_days(String id) {
 		ExpMapper mapper = sqlsession.getMapper(ExpMapper.class);
-		return 0;
-	}*/
+		return mapper.login_days(id);
+	}
+
+	@Override
+	public void upExp(int exp, String id) {
+		ExpMapper mapper = sqlsession.getMapper(ExpMapper.class);
+		mapper.upExp(exp, id);
+	}
+
 }

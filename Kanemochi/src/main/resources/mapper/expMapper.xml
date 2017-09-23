@@ -3,13 +3,20 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.kanemochi.dao.ExpMapper">
-	
-<!-- 	<select id="input" parameterType="ExpVO">
-		select sum(login_check)
-		from login
+
+	<update id="login_days" parameterType="map">
+		update users
+		set user_score + #{exp}
 		where user_id = #{id}
-		group by login_date
-	</select> -->
+	</update>
+	
+	<select id="login_days" parameterType="String" resultType="Integer">
+		select count(c)
+		from (select count(login_date) c
+			  from login
+			  where user_id = #{id}
+			  group by login_date)
+	</select>
 
 </mapper>
 

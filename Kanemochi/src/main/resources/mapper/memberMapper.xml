@@ -5,21 +5,21 @@
 <mapper namespace="com.project.kanemochi.dao.MemberMapper">
 	<!--가입  -->
 	<insert id="signUp" parameterType="MemberVO">
-		insert into users(user_id,user_pw,user_name,user_gender,user_phone,user_email,user_authority,img_id,level_title) 
-		values(#{user_id},#{user_pw},#{user_name},#{user_gender},#{user_phone},#{user_email},0,#{img_id},1)
+		insert into users(user_id,user_pw,user_name,user_gender,user_phone,user_email,user_authority,img_id,level_title, user_score) 
+		values(#{user_id},#{user_pw},#{user_name},#{user_gender},#{user_phone},#{user_email},0,#{img_id},1,0)
 	</insert>
 	<!-- 가입시 가입자 정보 다른 테이블에 추가 -->
 	<insert id="insertCount" parameterType="MemberVO">
 		insert into count
-		values(seq_count.nextval, #{user_id}, sysdate, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+		values(seq_count.nextval, #{user_id}, to_char(sysdate, 'YYYY-MM-DD'), 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
 	</insert>	
 	<insert id="insertBudget" parameterType="MemberVO">
 		insert into budget
-		values(seq_budget.nextval, #{user_id}, sysdate,0,0,0)
+		values(seq_budget.nextval, #{user_id}, to_char(sysdate, 'YYYY-MM-DD'),0,0,0)
 	</insert>
 	<insert id="insertRecord" parameterType="MemberVO">
 		insert into record
-		values(seq_record.nextval, #{user_id}, sysdate, 'default', 'default', 0, 'default', 'default')
+		values(seq_record.nextval, #{user_id}, to_char(sysdate, 'YYYY-MM-DD'), 'default', 'default', 0, 'default', 'default')
 	</insert>
 	
 	<!--로그인-->

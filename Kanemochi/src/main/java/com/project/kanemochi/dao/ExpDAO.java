@@ -9,5 +9,9 @@ import com.project.kanemochi.vo.RecordVO;
 import com.project.kanemochi.vo.ShopVO;
 
 public interface ExpDAO {
+
+	public int login_days(String id);
+
+	public void upExp(int exp, String id);
 	
 }

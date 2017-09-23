@@ -114,6 +114,7 @@ div.blueTable {
 $(function() {
 	datepicker();
 	getbudget();
+	login_days();
 });
 	function datepicker() {
 		$('#record_date').datepicker({
@@ -121,6 +122,18 @@ $(function() {
 			autoclose: true,
 			todayHighlight: true
 		});
+	}
+	
+	function login_days() {
+		$.ajax({
+			url : '/kanemochi/exp/login_days',
+			method : 'get',
+			success: function (result) {
+				alert(result);
+				},
+			error: function() {
+				}
+			});
 	}
 
 	function input() {
