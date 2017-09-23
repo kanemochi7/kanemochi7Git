@@ -220,11 +220,6 @@ public class MemberController {
 		return "check";
 	}
 	
-	@RequestMapping(value = "reportForm", method = RequestMethod.GET)
-	public String reportForm() {
-		return "reportForm";
-	}
-	
 	@RequestMapping(value = "main", method = RequestMethod.GET)
 	public String main() {
 		return "mainPage";

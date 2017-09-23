@@ -110,9 +110,7 @@ td, tr {
 </style>
 <script>
 $(document).ready(function() {
-
 	  $.ajax({
-	   
 	     type : "POST" 
 	     , url : "/kanemochi/ajax.do" //Request URL
 	     , dataType : "json" //전송받을 데이터 타입
@@ -122,18 +120,16 @@ $(document).ready(function() {
 				   }
 	     , success : function(data) {
 	     	 			setCalendar(data);
-	     			}
+	     			 }
 	   });
 });
-	 function setCalendar( data ){
-		  
+	 function setCalendar( data ){		  
 		  $('#calendar').fullCalendar({
 		     editable : false
 		     ,color: "black"
 		     ,eventLimit : true
 		     ,events: data
 		     ,dayClick: function(date) {
-		    	 alert(date.format());
 				 $.ajax({
 					type: "POST"
 					, url: "/kanemochi/getOneRecord"
@@ -304,7 +300,9 @@ $(document).ready(function() {
       <div id="bubbleChart"></div> 
     </div>
     <div id="menu3" class="tab-pane fade">
-      <div id="allReport"></div> 
+      <h1>hi</h1>
+      <div id="allReport">
+      </div> 
     </div>
   </div>
 </div>
