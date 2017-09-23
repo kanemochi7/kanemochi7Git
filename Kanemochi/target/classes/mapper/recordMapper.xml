@@ -6,7 +6,7 @@
 	
 	<insert id="input" parameterType="RecordVO">
 		insert into record
-		values(seq_record.nextval, #{user_id}, #{record_date}, #{category}, #{record_tag}, #{record_price}, #{record_unit}, #{record_pay})
+		values(seq_record.nextval, #{user_id}, #{record_date}, #{category}, #{record_tag}, #{record_price}, '￥', #{record_pay})
 	</insert>
 	
 	<insert id="setStatus" parameterType="ShopVO">

@@ -21,7 +21,6 @@ public class MemberDAOImpl implements MemberDAO {
 		int result = mapper.signUp(vo);
 		mapper.insertCount(vo);
 		mapper.insertBudget(vo);
-		mapper.insertLogin(vo);
 		mapper.insertRecord(vo);
 		return result;
 	}
@@ -29,6 +28,7 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public MemberVO login(MemberVO vo) {
 		MemberMapper mapper = sqlsession.getMapper(MemberMapper.class);
+		mapper.insertLogin(vo);
 		return mapper.login(vo);
 	}
 

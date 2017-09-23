@@ -184,7 +184,6 @@ $(function() {
 				budget_Monthly = '0';
 				budget_Monthly = Number(budget_Monthly);
 			}
-		
 		document.getElementById("month_result").innerHTML = numberWithCommas(parseInt(budget_Monthly));
 		document.getElementById("weekly_result").innerHTML = numberWithCommas(parseInt(budget_Weekly));
 		document.getElementById("daily_result").innerHTML = numberWithCommas(parseInt(budget_Daily));
@@ -271,7 +270,6 @@ $(function() {
 			      width++; 
 			      elem.style.width = width*5 + 'px'; 
 			      elem.innerHTML = width*1  + '%';
-			      
 			      document.getElementById("show_spend").innerHTML = numberWithCommas(result);
 			      document.getElementById("show_budget").innerHTML = numberWithCommas(monthly);
 			    }
@@ -282,6 +280,16 @@ $(function() {
 		});
 	}
 	
+	function exp() {
+		$.ajax({
+			url : '/kanemochi/exp/loginCheck',
+			method : 'get',
+			success: function (result) {
+				},
+			error: function() {
+				}
+		});
+	}
 </script>
 </head>
 <body>
@@ -326,6 +334,7 @@ $(function() {
 								<option value="医慮">医慮</option>
 								<option value="教育">教育</option>
 								<option value="交通">交通</option>
+								<option value="貯金">貯金</option>
 							</select>
 							<select class="select" id="category" name="category">
 							</select>
@@ -334,12 +343,7 @@ $(function() {
 					<div class="divTableRow">
 						<div class="divTableCell">price</div>
 						<div class="divTableCell">
-							<input type="text" id="record_price" name="record_price" placeholder="値">
-							<select class="select" id="record_unit" name="record_unit">
-								<option value="￦">￦</option>
-								<option value="￥">￥</option>
-								<option value="$">$</option>
-							</select>
+							<input type="text" id="record_price" name="record_price" placeholder="値">￥
 						</div>
 					</div>
 					<div class="divTableRow">
@@ -378,22 +382,22 @@ $(function() {
 				<div class="divTableRow" id="budget_input_text">
 					<div class="divTableCell"></div>
 					<div class="divTableCell"><input type="text" id="budget_month" placeholder="一ヵ月の予算" onkeyup="cal()"></div>
-					<div class="divTableCell">￦</div>
+					<div class="divTableCell">￥</div>
 				</div>
 				<div class="divTableRow">
 					<div class="divTableCell">monthly budget</div>
 					<div class="divTableCell"><span id="month_result"></span></div>
-					<div class="divTableCell">￦</div>
+					<div class="divTableCell">￥</div>
 				</div>
 				<div class="divTableRow">
 					<div class="divTableCell">weekly budget</div>
 					<div class="divTableCell"><span id="weekly_result"></span></div>
-					<div class="divTableCell">￦</div>
+					<div class="divTableCell">￥</div>
 				</div>
 				<div class="divTableRow">
 					<div class="divTableCell">daily budget</div>
 					<div class="divTableCell"><span id="daily_result"></span></div>
-					<div class="divTableCell">￦</div>
+					<div class="divTableCell">￥</div>
 				</div>
 				<div class="divTableRow">
 					<div class="divTableCell"></div>

@@ -201,10 +201,10 @@ $(function() {
 			<p><a href="javascript:createItem('bus')">バス  </a><span class="badge" id="bus">0</span></p>
 			<!-- <p>地下鉄  <span class="badge" id="bus">0</span></p> -->
 		</div>
-<!-- 		<button class="accordion">貯金</button>
+		<button class="accordion">貯金</button>
 		<div class="panel">
-			<p><a href="javascript:createItem('bank')">銀行  </a></p>
-		</div> -->
+			<p><a href="javascript:createItem('bank')">銀行  </a><span class="badge" id="bank">0</span></p>
+		</div>
 		<button class="accordion">その他</button>
 		<div class="panel">
 			<p><a href="javascript:createItem('elevator')">エレベーター  </a></p>

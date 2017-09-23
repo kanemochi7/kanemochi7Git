@@ -31,7 +31,7 @@
   	<!-- 출석체크 => 나중에 count 함수로 갯수 세기 -->
 	<insert id="insertLogin" parameterType="MemberVO">
 		insert into login
-		values(seq_logincheck.nextval, #{user_id}, sysdate, 1)
+		values(seq_logincheck.nextval, #{user_id}, to_char(sysdate, 'YYYY-MM-DD'), 1)
 	</insert>
   	
   	<!--아이디 중복체크  -->
