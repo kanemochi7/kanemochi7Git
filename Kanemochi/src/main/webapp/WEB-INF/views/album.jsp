@@ -32,9 +32,6 @@ table {
 th, td {
 	padding: 10px;
 }
-a{
-	float:right;
-}
 .screenshot{
 	width: 300px;
 }
@@ -45,25 +42,29 @@ a{
 	display:table; 
 	width: 100%;
 } 
-
 .table.table{
 	background-color: transparent;
 	text-align: center;
-	/* width: 100%; */
 	margin: 0 auto;
 }
 .table-row {
 	display:table-row;
-	/* padding: 10px; 
- 	position: relative; */
+	padding: 10px; 
+ 	/* position: relative; */
 }
 .table-cell{
  	display: table-cell;
  	text-align: center;
     vertical-align: middle;
     align-items: center;
+    margin: 0 auto;
 }
-
+element.style {	
+	display: table-c;
+    text-align: center;
+    margin: 0 auto;
+    vertical-align: middle;
+}
 .modal-content{
 	position: relative;
 	left: 45%;
@@ -213,7 +214,7 @@ window.fbAsyncInit = function() {
 	   }(document, 'script', 'facebook-jssdk'));
 	  
 	  function fbShare(){
-	     var imgUrl = "/kanemochi/resources/image/screenshot/one.png";
+	     var imgUrl = "/kanemochi/resources/image/screenshot/one.png"; // 공유할 이미지 주소
 	     var canvas = document.createElement("canvas");
 	     canvas.width  = 900;
 	     canvas.height = 600;

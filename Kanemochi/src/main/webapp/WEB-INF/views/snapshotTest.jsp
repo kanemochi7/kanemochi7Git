@@ -26,6 +26,7 @@ img{
 	height: 30px;
 }
 </style>
+
 </head>
 <body>
 	<!-- <a class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="takeScreenShot()">Take a Screenshot</a> -->
@@ -52,6 +53,7 @@ img{
         <div class="modal-footer">
           <a class="btn btn-default" id="download">Save</a>
           <a class="btn btn-default" data-dismiss="modal">Close</a>
+          <a class="btn btn-warning" id="screenshotSave">screenshotSave</a>
         </div>
       </div>
       
@@ -83,7 +85,21 @@ img{
 			}
 		});
 	} 
+</script>
+
+<script>
+$("#screenshotSave").on("click", function(){
+	var screenshot_url= '/kanemochi/resources/image/screenshot/two.png';
 	
+	$.ajax({
+		url:'/kanemochi/screenshotSave'
+		, method: 'GET'
+		, data: 'screenshot_url=' + screenshot_url
+		, success: function() {
+			alert("저장 성공");
+		}
+	});
+});
 </script>
 
 </body>
