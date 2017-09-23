@@ -124,21 +124,25 @@ $(function() {
 	}
 
 	function input() {
-			/* 유효성 검사 아직 안함 */
-			var param = $("#input-form").serialize();
-			$.ajax({
-			url : '/kanemochi/record/input',
-			method : 'post',
-			cache : false,
-			data : param,
-			success: function (result) {
-				document.getElementById(result.category).textContent = result.count.toString();
-				document.getElementById("modal_write").style.display = "none";
-				document.getElementById("input-form").reset();
-				},
-			error: function() {
-				}
-			});
+		/* 유효성 검사 아직 안함 */
+		var param = $("#input-form").serialize();
+		$.ajax({
+		url : '/kanemochi/record/input',
+		method : 'post',
+		cache : false,
+		data : param,
+		success: function (result) {
+			document.getElementById(result.category).textContent = result.count.toString();
+			document.getElementById("modal_write").style.display = "none";
+			document.getElementById("input-form").reset();
+			
+			var month = document.getElementById("month_result").innerHTML;
+			var monthly = Number(month.replace(/,/g, ""));
+			setprogressbar(monthly);
+			},
+		error: function() {
+			}
+		});
 	}
 
 	function f_leapyear(yy) {
@@ -203,6 +207,8 @@ $(function() {
 		data : {"monthly":monthly,"weekly":weekly,"daily":daily},
 		success: function (result) {
 			getbudget();
+			var modal_budget = document.getElementById('modal_budget');
+			modal_budget.style.display = "none";
 			},
 		error: function() {
 			}
@@ -215,11 +221,11 @@ $(function() {
 		method : 'get',
 		cache : false,
 		success: function (result) {
-				if (result.monthly != null || result.monthly != 0) {
+				if (result.monthly != 0) {
 					document.getElementById("budget_input_text").style.display = "none";
 					document.getElementById("btn_setbudget").style.display='none';
 					document.getElementById("btn_changebudget").style.display='block';
-				} else {
+				} else if (result.monthly == 0) {
 					document.getElementById("budget_input_text").style.display = "block";
 					document.getElementById("btn_setbudget").style.display='block';
 					document.getElementById("btn_changebudget").style.display='none';
@@ -251,12 +257,15 @@ $(function() {
 			method : 'get',
 			cache : false,
 			success: function (result) {
+					if (monthly == 0) {
+						monthly = 1;
+					}
 					var elem = document.getElementById("budget_progress");
 					var value = result/monthly*100;
 					var width = 0;
 					var id = setInterval(frame, 10);
 					function frame() {
-					if (width >= value-1) {
+					if (width >= value) {
 				    	clearInterval(id);
 				    } else {
 				      width++; 
@@ -267,7 +276,7 @@ $(function() {
 					},
 			error: function() {
 					}
-			});
+		});
 	}
 	
 </script>
@@ -276,8 +285,11 @@ $(function() {
 <div>
 	<div class="foot"><img class="icon_footer" id="write" src="/kanemochi/resources/image/icon/write.png"></div>
 	<div class="foot"><img class="icon_footer" id="budget" src="/kanemochi/resources/image/icon/moneyPack.png"></div>
-	<div class="foot" style="width:300px; height:30px; margin-top:10px; background-color:#e8e8e8;">
-		<div id="budget_progress" style="width:0px; height: 30px; padding: 5px; background-color:#5f9e55;"></div>
+	<div class="foot">
+		<div style="width:300px; height:30px; margin-top:10px; background-color:#e8e8e8;">
+			<div id="budget_progress" style="width:0px; height: 30px; padding: 5px; background-color:#5f9e55;"></div>
+		</div>
+		<div>今まで使ったお金：<span></span>/ 全体予算：<span></span></div>	
 	</div>
 	
 	<div class="foot"><img class="icon_footer" id="exp" src="/kanemochi/resources/image/icon/exp.png"></div>
@@ -414,13 +426,27 @@ $(function() {
 	var btn_w = document.getElementById("write");
 	var span_w = document.getElementsByClassName("close")[0];
 	btn_w.onclick = function() {
-		modal_write.style.display = "block";
-		span_w.onclick = function() {
-			modal_write.style.display = "none";
-		}
-		window.onclick = function(event_w) {
-			if (event.target == modal_write) {
+		var check = document.getElementById("month_result").innerHTML;
+		if (check == 0) {
+			alert("budget first!");
+			modal_budget.style.display = "block";
+			span_b.onclick = function() {
+				modal_budget.style.display = "none";
+			}
+			window.onclick = function(event_b) {
+				if (event_b.target == modal_budget) {
+					modal_budget.style.display = "none";
+				}
+			}
+		} else {
+			modal_write.style.display = "block";
+			span_w.onclick = function() {
 				modal_write.style.display = "none";
+			}
+			window.onclick = function(event_w) {
+				if (event.target == modal_write) {
+					modal_write.style.display = "none";
+				}
 			}
 		}
 	}

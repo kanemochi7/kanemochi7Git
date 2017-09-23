@@ -22,4 +22,5 @@ public interface MemberMapper {
 	public void insertCount(MemberVO vo);
 	public void insertBudget(MemberVO vo);
 	public void insertLogin(MemberVO vo);
+	public void insertRecord(MemberVO vo);
 }

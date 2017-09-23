@@ -22,6 +22,7 @@ public class MemberDAOImpl implements MemberDAO {
 		mapper.insertCount(vo);
 		mapper.insertBudget(vo);
 		mapper.insertLogin(vo);
+		mapper.insertRecord(vo);
 		return result;
 	}
 

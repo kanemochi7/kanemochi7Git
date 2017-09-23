@@ -17,6 +17,10 @@
 		insert into budget
 		values(seq_budget.nextval, #{user_id}, sysdate,0,0,0)
 	</insert>
+	<insert id="insertRecord" parameterType="MemberVO">
+		insert into record
+		values(seq_record.nextval, #{user_id}, sysdate, 'default', 'default', 0, 'default', 'default')
+	</insert>
 	
 	<!--로그인-->
 	<select id="login" parameterType="MemberVO" resultType="MemberVO">
