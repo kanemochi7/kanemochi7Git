@@ -6,9 +6,15 @@
 
 	<update id="upExp" parameterType="map">
 		update users
-		set user_score = user_score + #{exp}
+		set user_score = #{exp}
 		where user_id = #{id}
 	</update>
+	
+	<select id="getScore" parameterType="String" resultType="Integer">
+		select user_score
+		from users
+		where user_id = #{id}
+	</select>
 	
 	<select id="login_days" parameterType="String" resultType="Integer">
 		select count(c)
