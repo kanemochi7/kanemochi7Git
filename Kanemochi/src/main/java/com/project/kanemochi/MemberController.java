@@ -91,6 +91,7 @@ public class MemberController {
 			}
 		}else{
 			model.addAttribute("loginResult", false);
+			return "loginForm";
 		}
 		
 		return "mainPage";

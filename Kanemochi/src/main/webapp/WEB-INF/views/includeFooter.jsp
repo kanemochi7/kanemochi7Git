@@ -125,6 +125,7 @@ $(function() {
 	}
 	
 	function login_days() {
+		alert("login day count")
 		$.ajax({
 			url : '/kanemochi/exp/login_days',
 			method : 'get',

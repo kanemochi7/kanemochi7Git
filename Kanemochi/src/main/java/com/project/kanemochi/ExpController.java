@@ -27,21 +27,20 @@ public class ExpController {
 	
 	@Autowired
 	private ExpDAO dao;
-	
+
 	@RequestMapping(value = "login_days", method = RequestMethod.GET)
 	@ResponseBody
 	public int login_days(HttpSession session) {
 		String id = (String)session.getAttribute("loginID");
 		int login_days = dao.login_days(id);
-		if (login_days == 10) {
-			//login 10회 경험치 100xp
-			upExp(login_days, id);
+		System.out.println(login_days);
+		if (login_days == 9) {
+			//login 9회 경험치 90xp
+			dao.upExp(90, id);
+			return login_days;
 		}
 		return login_days;
 	}
 
-	public void upExp(int exp, String id) {
-		dao.upExp(exp, id);
-	}
 
 }
