@@ -14,10 +14,12 @@ public class ExpDAOImpl implements ExpDAO {
 	private SqlSession sqlsession;
 
 	@Override
-	public void upExp(int exp, String id) {
-		System.out.println("upEXP"+","+exp+","+id);
+	public void upExp(ExpVO vo) {
 		ExpMapper mapper = sqlsession.getMapper(ExpMapper.class);
-		ExpVO vo = new ExpVO(id, exp);
+		int exp1 = mapper.getExp(vo.getId());
+		int exp2 = vo.getExp();
+		int exp3 = exp1+exp2;
+		vo.setExp(exp3);
 		mapper.upExp(vo);
 	}
 

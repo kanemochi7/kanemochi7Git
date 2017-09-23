@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.kanemochi.dao.ExpDAO;
+import com.project.kanemochi.vo.ExpVO;
 
 @Controller
 @RequestMapping("/exp")
@@ -22,14 +23,14 @@ public class ExpController {
 	public int login_days(HttpSession session) {
 		String id = (String)session.getAttribute("loginID");
 		int login_days = dao.login_days(id);
-		System.out.println(login_days);
 		if (login_days == 9) {
 			//login 9회 경험치 90xp
-			dao.upExp(90, id);
+			int exp = 90;
+			ExpVO vo = new ExpVO(id, exp);
+			dao.upExp(vo);
 			return login_days;
 		}
 		return login_days;
 	}
-
 
 }

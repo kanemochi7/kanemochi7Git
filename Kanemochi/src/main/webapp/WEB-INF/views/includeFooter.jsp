@@ -130,7 +130,7 @@ $(function() {
 			url : '/kanemochi/exp/login_days',
 			method : 'get',
 			success: function (result) {
-				alert(result);
+				alert("로그인"+result+"회! 경험치 추가!");
 				},
 			error: function() {
 				}
