@@ -245,6 +245,7 @@ var GameState = {
   var leftWalk = userCharacter.animations.add('leftWalk',[0,1],2,true);
   var rightWalk = userCharacter.animations.add('rightWalk',[2,3],2,true);
   userCharacter.play('wink');
+  var elevatorMove = elevator.animations.add('elevatorMove',[0,1,2,3,4,5,6],7,true);
   //건물 배열같은거.(ArrayList처럼 생각하세요)
  /* buildingGroup = game.add.group();
   buildingGroup.enableBody = true;
@@ -257,11 +258,11 @@ var GameState = {
   this.buildingGroup = game.add.group();
   this.buildingGroup.enableBody = true;
   this.buildingTopGroup = game.add.group();
+  this.elevatorGroup = game.add.group();
+  this.elevatorGroup.enableBody = true;
+  this.elevatorTopGroup = game.add.group();  
   this.npcGroup = game.add.group();
   this.wallGroup = game.add.group();
-//  this.elevatorGroup = game.add.group();
-//  this.elevatorGroup.enableBody = true;
-//  this.elevatorTopGroup = game.add.group();
   this.gameGroup = game.add.group();
  //주의 : 폰트 안됨. 하얀거만 칠해진거임. //text 관련
  // 그리고 여기는 아마 html과 합치게 되면 없어지거나 다르게 변형해야 할 내용이라고 생각함.
@@ -283,7 +284,9 @@ var GameState = {
       this.game.world.bringToTop(GameState.npcGroup);
       this.game.physics.arcade.collide(GameState.npcGroup,ground);
       this.game.physics.arcade.collide(GameState.npcGroup,GameState.buildingTopGroup);
+      this.game.physics.arcade.collide(GameState.npcGroup,GameState.elevatorTopGroup);
       this.game.physics.arcade.enable(GameState.buildingTopGroup);
+      this.game.physics.arcade.enable(GameState.elevatorTopGroup);
       this.game.physics.arcade.collide(userCharacter,ground);
       this.game.world.bringToTop(userCharacter);
       
@@ -309,6 +312,12 @@ var GameState = {
 //      if(deleteMode == true){
 //    	  buildingDeleteMode();
 //      }
+      
+      game.physics.arcade.collide(GameState.npcGroup,GameState.elevatorGroup,function(left,right){
+    	  if(right.getBounds().contains(right.x, right.y-15)){
+    		  
+    	  }
+      })
       
     }
 };
@@ -360,6 +369,7 @@ function comeUserCharacter(userCharacter,situation){
 		beforeLevel = level;
 	}
 }
+
 function getStatus(){
 	$.ajax({
 		url : '/kanemochi/record/getStatus',
@@ -375,14 +385,12 @@ function getStatus(){
 		}
 	});
 }
+
 function stateBuilding(inputText,buildingX,buildingY){
 	//충돌 체크하기 위한 변수.
 	  var checkResult;
 	  var topCheck;
 	  var sprite2 = game.add.sprite(buildingX,buildingY,inputText);
-//	  var elevatorTop = spriteTemp;
-//	  var elevatorBottom;
-//	  var elevatorComplete;
 	  var result;
 		  	if(inputText != 'elevator')
 		  	{
@@ -431,14 +439,14 @@ function stateBuilding(inputText,buildingX,buildingY){
 			          case 'burger':
 			        	sprite2.name = inputText+'_'+(++buildingCounter[12]);
 			        	break;
-		//	          case 'elevator':
-		//	          	spriteTemp.name = inputText+'_'+(++buildingCounter[13]);
-		//	          	break;
+			          case 'elevator':
+			          	spriteTemp.name = inputText+'_'+(++buildingCounter[13]);
+			          	break;
 			          default:
 			        	  break;
 			 	}
 		    	   
-//	    	    
+    	    
 	    	      var wholeFloor=1;
 	    	      var buildingFloor =0;
 	    	      if((game.world.height - 150) == sprite2.y){
@@ -475,8 +483,9 @@ function stateBuilding(inputText,buildingX,buildingY){
 	    	    this.game.physics.arcade.enable(buildingTop);
 	    	    buildingTop.body.allowGravity = false;
 	    	    buildingTop.body.immovable = true;
-	    	  //--------------------------------------------------------------------------
-	    	  //벽 만들기(아직 안됨)
+	    	 
+	    	    //--------------------------------------------------------------------------
+	    	  
 	    	     var leftWing;
 	    	    if(sprite2.width == 200){
 	    	    	leftWing =  game.add.sprite(sprite2.x - sprite2.width-0.5, sprite2.y+30, 'buildingTopCheck');
@@ -531,6 +540,42 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    			      GameState.buildingTopGroup.add(rightWallTop);
 		    			 } 
 		    		 });
+	    			var leftCollision1 = game.physics.arcade.collide(leftWing,GameState.elevatorGroup,function(left,test){
+		    			 if(test.name != sprite2.name && (sprite2.x - (test.x+test.width)) < 200){
+		    				 leftWall = game.add.sprite(test.x+test.width, test.y, 'buildingWall');
+		    			    
+		    			      leftWall.scale.setTo(0.5,1);
+		    			      leftWall.width = (sprite2.x - test.x - test.width);
+		    			      leftWall.height = sprite2.height;
+		    			      GameState.wallGroup.add(leftWall);
+		    			      
+		    			      leftWallTop =  game.add.sprite(leftWall.x, leftWall.y-8.9, 'buildingTopShort');
+		    			      leftWallTop.scale.setTo(0.5,0.3);
+		    			      game.physics.arcade.enable(leftWallTop);
+		    			      leftWallTop.body.allowGravity = false;
+		    			      leftWallTop.body.immovable = true;
+		    			      GameState.buildingTopGroup.add(leftWallTop);
+		    			 }
+		    		 });
+		    		var rightCollision1 = game.physics.arcade.collide(rightWing,GameState.elevatorGroup,function(right,test){
+		    			 if(test.name != sprite2.name && (test.x - (sprite2.x+sprite2.width)) < 200){
+		    				 rightWall = game.add.sprite(sprite2.x+sprite2.width, sprite2.y, 'buildingWall');
+		    				 rightWall.scale.setTo(0.5,1);
+		    				 var temp = sprite2.x+sprite2.width;
+		    				
+		    				 rightWall.width = (test.x - temp);
+		    			      rightWall.height = test.height;
+		    			      GameState.wallGroup.add(rightWall);
+		    			      
+		    			      rightWallTop =  game.add.sprite(rightWall.x, rightWall.y-8.9, 'buildingTopShort');
+		    			      rightWallTop.scale.setTo(0.5,0.3);
+
+		    			      game.physics.arcade.enable(rightWallTop);
+		    			      rightWallTop.body.allowGravity = false;
+		    			      rightWallTop.body.immovable = true;
+		    			      GameState.buildingTopGroup.add(rightWallTop);
+		    			 } 
+		    		 });
 		    		leftWing.destroy();
 		    		rightWing.destroy();
 				}, 150);
@@ -545,6 +590,203 @@ function stateBuilding(inputText,buildingX,buildingY){
 	    	      var npcI = GameState.npcGroup.getAt(j);
 	    	    }
 	    	  }
+		  	
+		  	else if(inputText == 'elevator'){
+		  		GameState.elevatorGroup.add(sprite2);  
+				  sprite2.scale.setTo(0.5);
+				  game.physics.arcade.enable(sprite2);
+				  sprite2.body.allowGravity = false;
+				  sprite2.body.immovable = true;
+				  	switch (inputText) {
+				    	    case 'cafe':
+				    	      sprite2.name = inputText+'_'+(++buildingCounter[0]);
+				    	      break;
+				    	    case 'beer':
+				    	      sprite2.name = inputText+'_'+(++buildingCounter[1]);
+				    	      break;
+				    	    case 'ramen':
+				    	        sprite2.name = inputText+'_'+(++buildingCounter[2]);
+				    	        break;
+				    	    case 'cvs':
+				    	        sprite2.name = inputText+'_'+(++buildingCounter[3]);
+				    	        break;    
+				    	    case 'sushi':
+				    	    	sprite2.name = inputText+'_'+(++buildingCounter[4]);
+				    	    	break;
+				    	    case 'dessert':
+				    	    	sprite2.name = inputText+'_'+(++buildingCounter[5]);
+				    	    	break;
+				    	    case 'bus':
+				    	        sprite2.name = inputText+'_'+(++buildingCounter[6]);
+				    	        break;
+				    	    case 'movie':
+				    	    	sprite2.name = inputText+'_'+(++buildingCounter[7]);
+				    	    	break;
+				          case 'hospital':
+				              sprite2.name = inputText+'_'+(++buildingCounter[8]);
+				              break;
+				          case 'book':
+				              sprite2.name = inputText+'_'+(++buildingCounter[9]);
+				              break;    
+				          case 'hair':
+				          	sprite2.name = inputText+'_'+(++buildingCounter[10]);
+				          	break;
+				          case 'clothes':
+				          	sprite2.name = inputText+'_'+(++buildingCounter[11]);
+				          	break;
+				          case 'burger':
+				        	sprite2.name = inputText+'_'+(++buildingCounter[12]);
+				        	break;
+				          case 'elevator':
+				          	spriteTemp.name = inputText+'_'+(++buildingCounter[13]);
+				          	break;
+				          default:
+				        	  break;
+				 	}
+			    	   
+//		    	    
+		    	      var wholeFloor=1;
+		    	      var buildingFloor =0;
+		    	      if((game.world.height - 150) == sprite2.y){
+		    	        buildingFloor = 1;
+		    	      }
+		    	      if((game.world.height - 300) == sprite2.y){
+			    	        buildingFloor = 2;
+			    	      }
+		    	      else{
+		    	        wholeFloor = Math.floor(((game.world.height - sprite2.height)/159))+1;
+		    	        for(var i=1;i<wholeFloor-1;i++){
+		    	          if((game.world.height-300)-(160*i) == sprite2.y){
+		    	            buildingFloor = i+2;
+		    	            break;
+		    	          }
+		    	        }
+		    	      }
+		    	     if(buildingFloor>1){
+		    	    	 sprite2.y = sprite2.y-9;
+		    	     }
+		    	      sprite2.buildingFloor = buildingFloor;
+		    	      var buildingTop;
+
+		    	    if(sprite2.width == 200){
+		    	      buildingTop =  game.add.sprite(sprite2.x, sprite2.y-8.9, 'buildingTopShort');
+		    	    }
+		    	    else if(sprite2.width == 300){
+		    	      buildingTop =  game.add.sprite(sprite2.x, sprite2.y-8.9, 'buildingTopLong');
+		    	    }
+
+		    	    GameState.elevatorTopGroup.add(buildingTop);
+
+		    	    buildingTop.scale.setTo(0.5,0.3);
+		    	    this.game.physics.arcade.enable(buildingTop);
+		    	    buildingTop.body.allowGravity = false;
+		    	    buildingTop.body.immovable = true;
+		    	  //--------------------------------------------------------------------------
+		    	  
+		    	     var leftWing;
+		    	    if(sprite2.width == 200){
+		    	    	leftWing =  game.add.sprite(sprite2.x - sprite2.width-0.5, sprite2.y+30, 'buildingTopCheck');
+		    	    }
+		    	    else if(sprite2.width == 300){
+		    	    	leftWing =  game.add.sprite(sprite2.x - sprite2.width +99.5, sprite2.y+30, 'buildingTopCheck');
+		    	    }
+		    		var rightWing =  game.add.sprite(sprite2.x + sprite2.width, sprite2.y+30, 'buildingTopCheck');
+
+		    		this.game.physics.arcade.enable([leftWing,rightWing]);
+		    		leftWing.scale.setTo(0.5,0.3);
+		    		rightWing.scale.setTo(0.5,0.3);
+		    		
+		    		var leftWall;
+		    		var rightWall;
+		    		var leftWallTop;
+		    		var rightWallTop;
+		    		var timer = setTimeout(function(){
+		    			var leftCollision = game.physics.arcade.collide(leftWing,GameState.buildingGroup,function(left,test){
+			    			 if(test.name != sprite2.name && (sprite2.x - (test.x+test.width)) < 200){
+			    				 leftWall = game.add.sprite(test.x+test.width, test.y, 'buildingWall');
+			    			    
+			    			      leftWall.scale.setTo(0.5,1);
+			    			      leftWall.width = (sprite2.x - test.x - test.width);
+			    			      leftWall.height = sprite2.height;
+			    			      GameState.wallGroup.add(leftWall);
+			    			      
+			    			      leftWallTop =  game.add.sprite(leftWall.x, leftWall.y-8.9, 'buildingTopShort');
+			    			      leftWallTop.scale.setTo(0.5,0.3);
+			    			      game.physics.arcade.enable(leftWallTop);
+			    			      leftWallTop.body.allowGravity = false;
+			    			      leftWallTop.body.immovable = true;
+			    			      GameState.buildingTopGroup.add(leftWallTop);
+			    			 }
+			    		 });
+			    		var rightCollision = game.physics.arcade.collide(rightWing,GameState.buildingGroup,function(right,test){
+			    			 if(test.name != sprite2.name && (test.x - (sprite2.x+sprite2.width)) < 200){
+			    				 rightWall = game.add.sprite(sprite2.x+sprite2.width, sprite2.y, 'buildingWall');
+			    				 rightWall.scale.setTo(0.5,1);
+			    				 var temp = sprite2.x+sprite2.width;
+			    				
+			    				 rightWall.width = (test.x - temp);
+			    			      rightWall.height = test.height;
+			    			      GameState.wallGroup.add(rightWall);
+			    			      
+			    			      rightWallTop =  game.add.sprite(rightWall.x, rightWall.y-8.9, 'buildingTopShort');
+			    			      rightWallTop.scale.setTo(0.5,0.3);
+
+			    			      game.physics.arcade.enable(rightWallTop);
+			    			      rightWallTop.body.allowGravity = false;
+			    			      rightWallTop.body.immovable = true;
+			    			      GameState.buildingTopGroup.add(rightWallTop);
+			    			 } 
+			    		 });
+		    			var leftCollision1 = game.physics.arcade.collide(leftWing,GameState.elevatorGroup,function(left,test){
+			    			 if(test.name != sprite2.name && (sprite2.x - (test.x+test.width)) < 200){
+			    				 leftWall = game.add.sprite(test.x+test.width, test.y, 'buildingWall');
+			    			    
+			    			      leftWall.scale.setTo(0.5,1);
+			    			      leftWall.width = (sprite2.x - test.x - test.width);
+			    			      leftWall.height = sprite2.height;
+			    			      GameState.wallGroup.add(leftWall);
+			    			      
+			    			      leftWallTop =  game.add.sprite(leftWall.x, leftWall.y-8.9, 'buildingTopShort');
+			    			      leftWallTop.scale.setTo(0.5,0.3);
+			    			      game.physics.arcade.enable(leftWallTop);
+			    			      leftWallTop.body.allowGravity = false;
+			    			      leftWallTop.body.immovable = true;
+			    			      GameState.buildingTopGroup.add(leftWallTop);
+			    			 }
+			    		 });
+			    		var rightCollision1 = game.physics.arcade.collide(rightWing,GameState.elevatorGroup,function(right,test){
+			    			 if(test.name != sprite2.name && (test.x - (sprite2.x+sprite2.width)) < 200){
+			    				 rightWall = game.add.sprite(sprite2.x+sprite2.width, sprite2.y, 'buildingWall');
+			    				 rightWall.scale.setTo(0.5,1);
+			    				 var temp = sprite2.x+sprite2.width;
+			    				
+			    				 rightWall.width = (test.x - temp);
+			    			      rightWall.height = test.height;
+			    			      GameState.wallGroup.add(rightWall);
+			    			      
+			    			      rightWallTop =  game.add.sprite(rightWall.x, rightWall.y-8.9, 'buildingTopShort');
+			    			      rightWallTop.scale.setTo(0.5,0.3);
+
+			    			      game.physics.arcade.enable(rightWallTop);
+			    			      rightWallTop.body.allowGravity = false;
+			    			      rightWallTop.body.immovable = true;
+			    			      GameState.buildingTopGroup.add(rightWallTop);
+			    			 } 
+			    		 });
+			    		leftWing.destroy();
+			    		rightWing.destroy();
+					}, 150);
+		    		
+		    			
+			  		
+		    	    //------------------------------------------------------------------------
+		    	    numberOfNPC = getNumberOfNPC(numberOfNPC,GameState.buildingGroup.length,incOrDec);
+		    	    
+		    	    randomCreateNPC(numberOfNPC);
+		    	    for(var j=0;j<GameState.npcGroup.length;j++){
+		    	      var npcI = GameState.npcGroup.getAt(j);
+		    	    }
+		  	}
 	    	  else{
 	    	    //충돌시 건물 삭제.
 	    	    switch (sprite2.key) {
@@ -587,14 +829,16 @@ function stateBuilding(inputText,buildingX,buildingY){
 	    	      case 'burger':
 	    	          buildingCounter[12]--;
 	    	          break;
-//		    	      case 'elevator':
-//		    	          buildingCounter[13]--;
-//		    	          break;
+	    	      case 'elevator':
+	    	          buildingCounter[13]--;
+		    	          break;
 	    	      default:
 	    	      }
 	    	    GameState.buildingGroup.remove(sprite2);
+	    	    GameState.elevatorGroup.remove(sprite2);
 	    	  }
 }
+
 function createBuilding(inputText){
 	
   //충돌 체크하기 위한 변수.
@@ -643,6 +887,7 @@ function createBuilding(inputText){
 	    //게임창을 안벗어나면서 1층일 경우 충돌을 체크해서 생성여부 정함
 	    if(windowCheck == true && firstFloorCheck == true && topCheck == false){
 	      check = game.physics.arcade.collide(sprite,GameState.buildingGroup);
+	      check1 = game.physics.arcade.collide(sprite,GameState.elevatorGroup);
 	      // check = false;
 	    }
 	    //게임창 안벗어나고, 1층이 아니더라도, 위에 하얀바에 닿으면 충돌 체크해서 생성여부 정함
@@ -654,18 +899,22 @@ function createBuilding(inputText){
 	        //지금 드래그하는 건물 역시 그룹에 들어가있기 때문에 이름이 같은(자기자신)을 제외하고 검색.
 	        if(sprite.y<= (getBuilding[i].y-sprite.height) && sprite.name != getBuilding[i].name){
 	          check = game.physics.arcade.collide(sprite,GameState.buildingGroup);
+	          check1 = game.physics.arcade.collide(sprite,GameState.elevatorGroup);
 	          break;
 	        }
 	        else{
 	          check = true;
+	          check1 =true;
 	        }
 	      }
 	    }
 	    else{
 	      check = true;
+	      check1= true;
+	      
 	    }
 	    //모든 충돌여부에 따른 건물 색깔 변화
-	    if(check == true){
+	    if(check == true && check1 == true){
 	      sprite.tint = 0xff0000;
 	      checkResult = true;
 	    }
@@ -739,7 +988,134 @@ function createBuilding(inputText){
 			
   }
   
+  else if(inputText == 'elevator'){
+	  GameState.elevatorGroup.add(spriteTemp);  
+	  spriteTemp.scale.setTo(0.5);
+	  spriteTemp.alpha = 0.5;
+	  spriteTemp.inputEnabled = true;
+	  spriteTemp.input.enableDrag();
+	  spriteTemp.input.enableSnap(10, 10, true, true);
+	  
+	  //그 건물 스프라이트에 대한 물리 처리
+	  game.physics.arcade.enable(spriteTemp);
+	  spriteTemp.body.allowGravity = false;
+	  spriteTemp.body.immovable = true;
+	  
+	  //해당 스프라이트에 대한 drag 이벤트 처리
+	  spriteTemp.events.onDragUpdate.add(checkCollide,spriteTemp);
+
+	  function checkCollide(sprite){//충돌처리 확인하는 내부함수
+	      //drag시 충돌하는지 안하는지 처리
+
+	      var check;//false 충돌 안남. / true 충돌남.
+	      var firstFloorCheck = true; // true면 1층인거
+	      var windowCheck = true; // false면 게임창 바깥 나간거
+	    //게임 나가냐 안나가냐
+	    if(sprite.x < 0 || sprite.x > game.world.width-(sprite.width) || sprite.y < 0 || sprite.y > game.world.height - (sprite.height)){
+	      windowCheck = false;
+	    }
+	    //1층처리
+	    if(sprite.y< game.world.height -(sprite.height) ){
+	      firstFloorCheck = false;
+	    }
+	    //건물 위에 하얀 바 닿았을때 확인
+	    topCheck = game.physics.arcade.collide(sprite,GameState.elevatorTopGroup);
+	    //게임창을 안벗어나면서 1층일 경우 충돌을 체크해서 생성여부 정함
+	    if(windowCheck == true && firstFloorCheck == true && topCheck == false){
+	      check = game.physics.arcade.collide(sprite,GameState.buildingGroup);
+	      check1 = game.physics.arcade.collide(sprite,GameState.elevatorGroup);
+	      // check = false;
+	    }
+	    //게임창 안벗어나고, 1층이 아니더라도, 위에 하얀바에 닿으면 충돌 체크해서 생성여부 정함
+	    else if(windowCheck == true && firstFloorCheck == false && topCheck==true){
+	      //만들어진 건물들을 담은 그룹에서 건물들 스프라이트를 배열로 뽑아옴
+	      var getBuilding = GameState.elevatorGroup.getAll('exists', true);
+	      for (var i in getBuilding) {
+	        //지금 드래그하는 건물의 x랑 만들어진 건물들과의 x좌표를 비교함 그런데
+	        //지금 드래그하는 건물 역시 그룹에 들어가있기 때문에 이름이 같은(자기자신)을 제외하고 검색.
+	        if(sprite.y<= (getBuilding[i].y-sprite.height) && sprite.name != getBuilding[i].name){
+	          check = game.physics.arcade.collide(sprite,GameState.buildingGroup);
+	          check1 = game.physics.arcade.collide(sprite,GameState.elevatorGroup);
+	          break;
+	        }
+	        else{
+	          check = true;
+	          check1 = true;
+	        }
+	      }
+	    }
+	    else{
+	      check = true;
+	      check1 = true;
+	    }
+	    //모든 충돌여부에 따른 건물 색깔 변화
+	    if(check == true && check1 == true){
+	      sprite.tint = 0xff0000;
+	      checkResult = true;
+	    }
+	    else{
+	      sprite.tint = 0xffffff;
+	      checkResult = false;
+	    }
+	  }
+	  	var temp = spriteTemp.events.onInputUp.add(function(){
+	    	temp = mouseUp1(spriteTemp,checkResult,topCheck);
+	    	 switch (inputText) {
+		    	    case 'cafe':
+		    	      spriteTemp.name = inputText+'_'+(++buildingCounter[0]);
+		    	      break;
+		    	    case 'beer':
+		    	      spriteTemp.name = inputText+'_'+(++buildingCounter[1]);
+		    	      break;
+		    	    case 'ramen':
+		    	        spriteTemp.name = inputText+'_'+(++buildingCounter[2]);
+		    	        break;
+		    	    case 'cvs':
+		    	        spriteTemp.name = inputText+'_'+(++buildingCounter[3]);
+		    	        break;    
+		    	    case 'sushi':
+		    	    	spriteTemp.name = inputText+'_'+(++buildingCounter[4]);
+		    	    	break;
+		    	    case 'dessert':
+		    	    	spriteTemp.name = inputText+'_'+(++buildingCounter[5]);
+		    	    	break;
+		    	    case 'bus':
+		    	        spriteTemp.name = inputText+'_'+(++buildingCounter[6]);
+		    	        break;
+		    	    case 'movie':
+		    	    	spriteTemp.name = inputText+'_'+(++buildingCounter[7]);
+		    	    	break;
+		          case 'hospital':
+		              spriteTemp.name = inputText+'_'+(++buildingCounter[8]);
+		              break;
+		          case 'book':
+		              spriteTemp.name = inputText+'_'+(++buildingCounter[9]);
+		              break;    
+		          case 'hair':
+		          	spriteTemp.name = inputText+'_'+(++buildingCounter[10]);
+		          	break;
+		          case 'clothes':
+		          	spriteTemp.name = inputText+'_'+(++buildingCounter[11]);
+		          	break;
+		          case 'burger':
+		        	spriteTemp.name = inputText+'_'+(++buildingCounter[12]);
+		        	break;
+		          case 'elevator':
+		          	spriteTemp.name = inputText+'_'+(++buildingCounter[13]);
+		          	break;
+		          default:
+		        	  break;
+			 }
+	    	 res = temp; 
+	    	},this);
+  }
+  
+  
 }
+
+
+//보통 빌딩을 마우스 버튼 뗐을 때 로직
+
 function mouseUp(sprite,check,topCheck){
   //check는 아까 위에서 했던 충돌여부임.
 	var result = true;
@@ -834,7 +1210,48 @@ function mouseUp(sprite,check,topCheck){
 		 }
 	      
 	 });
+	
 	var rightCollision = game.physics.arcade.collide(rightWing,GameState.buildingGroup,function(right,test){
+		 if(test.name != sprite.name && (test.x - (sprite.x+sprite.width)) < 200){
+			 rightWall = game.add.sprite(sprite.x+sprite.width, sprite.y, 'buildingWall');
+			 rightWall.scale.setTo(0.5,1);
+			 var temp = sprite.x+sprite.width;
+			
+			 rightWall.width = (test.x - temp);
+		      rightWall.height = test.height;
+		      GameState.wallGroup.add(rightWall);
+		      
+		      rightWallTop =  game.add.sprite(rightWall.x, rightWall.y-8.9, 'buildingTopShort');
+		      rightWallTop.scale.setTo(0.5,0.3);
+
+		      game.physics.arcade.enable(rightWallTop);
+		      rightWallTop.body.allowGravity = false;
+		      rightWallTop.body.immovable = true;
+		      GameState.buildingTopGroup.add(rightWallTop);
+		 } 
+	 });
+	
+	
+	var leftCollision1 = game.physics.arcade.collide(leftWing,GameState.elevatorGroup,function(left,test){
+		 if(test.name != sprite.name && (sprite.x - (test.x+test.width)) < 200){
+			 leftWall = game.add.sprite(test.x+test.width, test.y, 'buildingWall');
+		    
+		      leftWall.scale.setTo(0.5,1);
+		      leftWall.width = (sprite.x - test.x - test.width);
+		      leftWall.height = sprite.height;
+		      GameState.wallGroup.add(leftWall);
+		      
+		      leftWallTop =  game.add.sprite(leftWall.x, leftWall.y-8.9, 'buildingTopShort');
+		      leftWallTop.scale.setTo(0.5,0.3);
+		      game.physics.arcade.enable(leftWallTop);
+		      leftWallTop.body.allowGravity = false;
+		      leftWallTop.body.immovable = true;
+		      GameState.buildingTopGroup.add(leftWallTop);
+		 }
+	      
+	 });
+	
+	var rightCollision1 = game.physics.arcade.collide(rightWing,GameState.elevatorGroup,function(right,test){
 		 if(test.name != sprite.name && (test.x - (sprite.x+sprite.width)) < 200){
 			 rightWall = game.add.sprite(sprite.x+sprite.width, sprite.y, 'buildingWall');
 			 rightWall.scale.setTo(0.5,1);
@@ -906,9 +1323,9 @@ function mouseUp(sprite,check,topCheck){
       case 'burger':
           buildingCounter[12]--;
           break;
-//      case 'elevator':
-//          buildingCounter[13]--;
-//          break;
+      case 'elevator':
+          buildingCounter[13]--;
+          break;
       default:
     }
     GameState.buildingGroup.remove(sprite);
@@ -916,6 +1333,226 @@ function mouseUp(sprite,check,topCheck){
   }
   return result;
 }
+
+//엘레베이터에서 마우스를 뗐을때의 로직
+
+function mouseUp1(sprite,check,topCheck){
+	  //check는 아까 위에서 했던 충돌여부임.
+		var result = true;
+	  if(check == false){
+	    //충돌안하면 설정하는 것들 / 투명도 복구 / 움직임, 드래그 방지 / 메인캐릭터를 제일 앞으로 오게 (건물에 가려지지않게)
+	    sprite.alpha = 1;
+	    sprite.inputEnabled = false;
+	    sprite.input.draggable = false;
+	    $.ajax({
+	        url : '/kanemochi/record/setStatus',
+	        method : 'post',
+	        data : {'img_x':sprite.x,
+	               'img_y':sprite.y,
+	               'img_id':sprite.key},
+	        success: function(result) {
+	           alert("성공");
+	        },
+	        error: function() {
+	           alert("실패");
+	        }
+	     });
+	    //---------------------------------------------------------------------------
+	    if(topCheck==true){
+	    	sprite.y = sprite.y-9;
+	    }
+	    var wholeFloor=1;
+	    var buildingFloor =0;
+	    if((game.world.height - 150) == sprite.y){
+	      buildingFloor = 1;
+	    }
+	    else{
+	      wholeFloor = Math.floor(((game.world.height - sprite.height)/159))+1;
+	      for(var i=1;i<=wholeFloor;i++){
+	        if((game.world.height-150)-(159*i) == sprite.y){
+	          buildingFloor = i+1;
+	          break;
+	        }
+	      }
+	    }
+	      
+	      sprite.buildingFloor = buildingFloor;
+	      var buildingTop;
+
+	    if(sprite.width == 200){
+	      buildingTop =  game.add.sprite(sprite.x, sprite.y-8.9, 'buildingTopShort');
+	    }
+	    else if(sprite.width == 300){
+	      buildingTop =  game.add.sprite(sprite.x, sprite.y-8.9, 'buildingTopLong');
+	    }
+
+	    GameState.elevatorTopGroup.add(buildingTop);
+	    // buildingGroup.callAll('body.setSize','body',100,300,100,0);
+
+	    buildingTop.scale.setTo(0.5,0.3);
+	    this.game.physics.arcade.enable(buildingTop);
+	    buildingTop.body.allowGravity = false;
+	    buildingTop.body.immovable = true;
+	  //--------------------------------------------------------------------------
+	    var leftWing;
+	    if(sprite.width == 200){
+	    	leftWing =  game.add.sprite(sprite.x - sprite.width, sprite.y+30, 'buildingTopCheck');
+	    }
+	    else if(sprite.width == 300){
+	    	leftWing =  game.add.sprite(sprite.x - sprite.width +100, sprite.y+30, 'buildingTopCheck');
+	    }
+		var rightWing =  game.add.sprite(sprite.x + sprite.width, sprite.y+30, 'buildingTopCheck');
+
+		this.game.physics.arcade.enable([leftWing,rightWing]);
+		leftWing.scale.setTo(0.5,0.3);
+		rightWing.scale.setTo(0.5,0.3);
+		
+		var leftWall;
+		var rightWall;
+		var leftWallTop;
+		var rightWallTop;
+		
+		var leftCollision = game.physics.arcade.collide(leftWing,GameState.buildingGroup,function(left,test){
+			 if(test.name != sprite.name && (sprite.x - (test.x+test.width)) < 200){
+				 leftWall = game.add.sprite(test.x+test.width, test.y, 'buildingWall');
+			    
+			      leftWall.scale.setTo(0.5,1);
+			      leftWall.width = (sprite.x - test.x - test.width);
+			      leftWall.height = sprite.height;
+			      GameState.wallGroup.add(leftWall);
+			      
+			      leftWallTop =  game.add.sprite(leftWall.x, leftWall.y-8.9, 'buildingTopShort');
+			      leftWallTop.scale.setTo(0.5,0.3);
+			      game.physics.arcade.enable(leftWallTop);
+			      leftWallTop.body.allowGravity = false;
+			      leftWallTop.body.immovable = true;
+			      GameState.buildingTopGroup.add(leftWallTop);
+			 }
+		      
+		 });
+		var rightCollision = game.physics.arcade.collide(rightWing,GameState.buildingGroup,function(right,test){
+			 if(test.name != sprite.name && (test.x - (sprite.x+sprite.width)) < 200){
+				 rightWall = game.add.sprite(sprite.x+sprite.width, sprite.y, 'buildingWall');
+				 rightWall.scale.setTo(0.5,1);
+				 var temp = sprite.x+sprite.width;
+				
+				 rightWall.width = (test.x - temp);
+			      rightWall.height = test.height;
+			      GameState.wallGroup.add(rightWall);
+			      
+			      rightWallTop =  game.add.sprite(rightWall.x, rightWall.y-8.9, 'buildingTopShort');
+			      rightWallTop.scale.setTo(0.5,0.3);
+
+			      game.physics.arcade.enable(rightWallTop);
+			      rightWallTop.body.allowGravity = false;
+			      rightWallTop.body.immovable = true;
+			      GameState.buildingTopGroup.add(rightWallTop);
+			 } 
+		 });
+		
+		var leftCollision1 = game.physics.arcade.collide(leftWing,GameState.elevatorGroup,function(left,test){
+			 if(test.name != sprite.name && (sprite.x - (test.x+test.width)) < 200){
+				 leftWall = game.add.sprite(test.x+test.width, test.y, 'buildingWall');
+			    
+			      leftWall.scale.setTo(0.5,1);
+			      leftWall.width = (sprite.x - test.x - test.width);
+			      leftWall.height = sprite.height;
+			      GameState.wallGroup.add(leftWall);
+			      
+			      leftWallTop =  game.add.sprite(leftWall.x, leftWall.y-8.9, 'buildingTopShort');
+			      leftWallTop.scale.setTo(0.5,0.3);
+			      game.physics.arcade.enable(leftWallTop);
+			      leftWallTop.body.allowGravity = false;
+			      leftWallTop.body.immovable = true;
+			      GameState.buildingTopGroup.add(leftWallTop);
+			 }
+		      
+		 });
+		
+		var rightCollision1 = game.physics.arcade.collide(rightWing,GameState.elevatorGroup,function(right,test){
+			 if(test.name != sprite.name && (test.x - (sprite.x+sprite.width)) < 200){
+				 rightWall = game.add.sprite(sprite.x+sprite.width, sprite.y, 'buildingWall');
+				 rightWall.scale.setTo(0.5,1);
+				 var temp = sprite.x+sprite.width;
+				
+				 rightWall.width = (test.x - temp);
+			      rightWall.height = test.height;
+			      GameState.wallGroup.add(rightWall);
+			      
+			      rightWallTop =  game.add.sprite(rightWall.x, rightWall.y-8.9, 'buildingTopShort');
+			      rightWallTop.scale.setTo(0.5,0.3);
+
+			      game.physics.arcade.enable(rightWallTop);
+			      rightWallTop.body.allowGravity = false;
+			      rightWallTop.body.immovable = true;
+			      GameState.buildingTopGroup.add(rightWallTop);
+			 } 
+		 });		
+		
+		leftWing.destroy();
+		rightWing.destroy();
+	    //------------------------------------------------------------------------
+	    numberOfNPC = getNumberOfNPC(numberOfNPC,GameState.buildingGroup.length,incOrDec);
+	    
+	    randomCreateNPC(numberOfNPC);
+	    for(var j=0;j<GameState.npcGroup.length;j++){
+	      var npcI = GameState.npcGroup.getAt(j);
+	    }
+	  }
+	  else{
+	    //충돌시 건물 삭제.
+	    switch (sprite.key) {
+	      case 'cafe':
+	        buildingCounter[0]--;
+	        break;
+	      case 'beer':
+	        buildingCounter[1]--;
+	        break;
+	      case 'ramen':
+	          buildingCounter[2]--;
+	          break;
+	      case 'cvs':
+	          buildingCounter[3]--;
+	          break;
+	      case 'sushi':
+	          buildingCounter[4]--;
+	          break;
+	      case 'dessert':
+	          buildingCounter[5]--;
+	          break;
+	      case 'bus':
+	          buildingCounter[6]--;
+	          break;
+	      case 'movie':
+	          buildingCounter[7]--;
+	          break;
+	      case 'hospital':
+	          buildingCounter[8]--;
+	          break;
+	      case 'book':
+	          buildingCounter[9]--;
+	          break;
+	      case 'hair':
+	          buildingCounter[10]--;
+	          break;
+	      case 'clothes':
+	          buildingCounter[11]--;
+	          break;
+	      case 'burger':
+	          buildingCounter[12]--;
+	          break;
+	      case 'elevator':
+	          buildingCounter[13]--;
+	          break;
+	      default:
+	    }
+	    GameState.elevatorGroup.remove(sprite);
+	    result=  false;
+	  }
+	  return result;
+	}
+
+
 
 function getNumberOfNPC(npc,nowBuildingCounter,incOrDec){
     if(nowBuildingCounter<11 && nowBuildingCounter == 1){
