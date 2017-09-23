@@ -4,6 +4,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.project.kanemochi.vo.ExpVO;
+
 
 @Repository
 public class ExpDAOImpl implements ExpDAO {
@@ -15,11 +17,8 @@ public class ExpDAOImpl implements ExpDAO {
 	public void upExp(int exp, String id) {
 		System.out.println("upEXP"+","+exp+","+id);
 		ExpMapper mapper = sqlsession.getMapper(ExpMapper.class);
-		int s = mapper.getScore(id);
-		System.out.println(s);
-		s += 90;
-		System.out.println(s);
-		mapper.upExp(s, id);
+		ExpVO vo = new ExpVO(id, exp);
+		mapper.upExp(vo);
 	}
 
 	@Override

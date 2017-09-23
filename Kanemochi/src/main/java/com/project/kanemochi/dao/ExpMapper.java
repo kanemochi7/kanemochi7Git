@@ -1,11 +1,10 @@
 package com.project.kanemochi.dao;
 
-import org.apache.ibatis.annotations.Param;
+import com.project.kanemochi.vo.ExpVO;
 
 public interface ExpMapper {
 
-	public void upExp(@Param("exp") int exp, @Param("id") String id);
-	public int getScore(String id);
+	public void upExp(ExpVO vo);
 	public int login_days(String id);
 
 	
