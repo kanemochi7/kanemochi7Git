@@ -257,25 +257,28 @@ $(function() {
 			method : 'get',
 			cache : false,
 			success: function (result) {
-					if (monthly == 0) {
-						monthly = 1;
-					}
-					var elem = document.getElementById("budget_progress");
-					var value = result/monthly*100;
-					var width = 0;
-					var id = setInterval(frame, 10);
-					function frame() {
-					if (width >= value) {
-				    	clearInterval(id);
-				    } else {
-				      width++; 
-				      elem.style.width = width*3 + 'px'; 
-				      elem.innerHTML = width*1  + '%';
-				    }
-				  }
-					},
+				if (monthly == 0) {
+					monthly = 1;
+				}
+				var elem = document.getElementById("budget_progress");
+				var value = result/monthly*100;
+				var width = 0;
+				var id = setInterval(frame, 10);
+				function frame() {
+				if (width >= value) {
+			    	clearInterval(id);
+			    } else {
+			      width++; 
+			      elem.style.width = width*5 + 'px'; 
+			      elem.innerHTML = width*1  + '%';
+			      
+			      document.getElementById("show_spend").innerHTML = numberWithCommas(result);
+			      document.getElementById("show_budget").innerHTML = numberWithCommas(monthly);
+			    }
+			  }
+				},
 			error: function() {
-					}
+				}
 		});
 	}
 	
@@ -283,17 +286,17 @@ $(function() {
 </head>
 <body>
 <div>
-	<div class="foot"><img class="icon_footer" id="write" src="/kanemochi/resources/image/icon/write.png"></div>
-	<div class="foot"><img class="icon_footer" id="budget" src="/kanemochi/resources/image/icon/moneyPack.png"></div>
+	<div class="foot"><img class="icon_footer" data-toggle="tooltip" data-placement="top" title="記録" id="write" src="/kanemochi/resources/image/icon/write.png"></div>
+	<div class="foot"><img class="icon_footer" data-toggle="tooltip" data-placement="top" title="予算" id="budget" src="/kanemochi/resources/image/icon/moneyPack.png"></div>
 	<div class="foot">
-		<div style="width:300px; height:30px; margin-top:10px; background-color:#e8e8e8;">
+		<div style="width:500px; height:30px; margin-top:10px; background-color:#e8e8e8;">
 			<div id="budget_progress" style="width:0px; height: 30px; padding: 5px; background-color:#5f9e55;"></div>
 		</div>
-		<div>今まで使ったお金：<span></span>/ 全体予算：<span></span></div>	
+		<div style="color: black;">今まで使ったお金 ： <span id="show_spend"></span> / 全体予算 ： <span id="show_budget"></span></div>	
 	</div>
 	
-	<div class="foot"><img class="icon_footer" id="exp" src="/kanemochi/resources/image/icon/exp.png"></div>
-	<div class="foot" style="width:300px; height:30px; margin-top:10px; background-color:#e8e8e8;">
+	<div class="foot"><img class="icon_footer" data-toggle="tooltip" data-placement="top" title="ポイント" id="exp" src="/kanemochi/resources/image/icon/exp.png"></div>
+	<div class="foot" style="width:500px; height:30px; margin-top:10px; background-color:#e8e8e8;">
 		<div id="exp_progress" style="width:0px; height: 30px; padding: 5px; background-color:#5f9e55;"></div>
 	</div>
 	<div class="foot"><img class="icon_footer" id="level" src="/kanemochi/resources/image/level/level1.png"></div>
