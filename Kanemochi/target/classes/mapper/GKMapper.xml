@@ -5,11 +5,11 @@
 <mapper namespace="com.project.kanemochi.dao.GKMapper">
 
 	<select id="getRecord" parameterType="String" resultType="RecordVO">
-		select * from record where user_id = #{id}
+		select user_id,TO_CHAR(record_date,'YYYY-MM-DD')record_date,category from record where user_id = #{id}
 	</select>
 	
 	
-	<select id="getDayRecord" parameterType="String" resultType="RecordVO">
+	<select id="getDayRecord" parameterType="map" resultType="RecordVO">
 		select * from record where user_id = #{id} and record_date = #{date}
 	</select>
 	

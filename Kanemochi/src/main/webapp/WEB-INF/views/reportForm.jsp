@@ -100,6 +100,7 @@ $(document).ready(function() {
 				   }
 	     , success : function(data) {
 	     	 			setCalendar(data);
+	     	 			${list}
 	     			}
 	   });
 });
@@ -110,10 +111,6 @@ $(document).ready(function() {
 		     ,color: "black"
 		     ,eventLimit : true
 		     ,events: data
-		  });
-		  
-		  $("#calendar a").click(function(){
-		   	$(this).attr("href","javascript:goDetail('"+$(this).attr("href")+"')");
 		  });
 	 }
 	 
@@ -234,7 +231,7 @@ $(document).ready(function() {
   
   <div class="tab-content fade in active" >
     <div id="home" class="tab-pane fade in active">
-      	<div id="calendar" style="float:left;"></div>	
+      	<div id="calendar" style="float:left;"></div>
     </div>
     <div id="menu1" class="tab-pane fade">
       <h1>[Report]</h1>
