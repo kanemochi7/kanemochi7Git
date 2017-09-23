@@ -1,9 +1,12 @@
 package com.project.kanemochi.dao;
 
 
+import java.util.ArrayList;
+
 import com.project.kanemochi.vo.RecordVO;
 
 
-public interface GPGK_DAO {
-	public RecordVO getRecord();
+public interface GP_DAO {
+	
+	
 }
