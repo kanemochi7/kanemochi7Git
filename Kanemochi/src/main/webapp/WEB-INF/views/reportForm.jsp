@@ -79,12 +79,34 @@ td, tr {
 	display: table;
 	width: 100%;
 }
+
 #buttons>button{
 	float: right;
 }
-/* #calender {
-	float: left;
+
+/* #listTable>tbody>tr>td{
+	border-collapse:separate;
+    border-radius:12px;
+    -moz-border-radius:12px;
 } */
+
+#first{
+	font-weight: bold;
+	background-color: #FDF7F7;
+	
+}
+
+#listTable{
+	opacity: 0.85;
+}
+
+#recordWrapper{
+	margin-top: 50px;
+}
+
+
+
+
 </style>
 <script>
 $(document).ready(function() {
@@ -100,17 +122,49 @@ $(document).ready(function() {
 				   }
 	     , success : function(data) {
 	     	 			setCalendar(data);
-	     	 			${list}
 	     			}
 	   });
 });
 	 function setCalendar( data ){
 		  
 		  $('#calendar').fullCalendar({
-		     editable : true
+		     editable : false
 		     ,color: "black"
 		     ,eventLimit : true
 		     ,events: data
+		     ,dayClick: function(date) {
+		    	 alert(date.format());
+				 $.ajax({
+					type: "POST"
+					, url: "/kanemochi/getOneRecord"
+					, data: {"date":date.format()}
+					, dataType : "json" //전송받을 데이터 타입
+				    , contentType: "application/x-www-form-urlencoded; charset=UTF-8"
+				    , success : function(data) {
+				    	$("#listTable").empty();
+						var addrow = "<tbody>";
+						addrow += '<tr id="first"><td>日付</td><td>カテゴリー</td><td>価格</td><td>支払方法</td></tr>';
+						var arr = ["info","success","danger","warning","acive"];
+						var i = 0;
+						$(data).each(function (index,item) {
+							
+								addrow += "<tr class='"+arr[i]+"''>";
+								addrow += '<td>'+item.record_date+'</td>';
+								addrow += '<td>'+item.category+'</td>';
+								addrow += '<td>¥'+item.record_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")+'</td>';
+								addrow += '<td>'+item.record_pay+'</td></tr>';
+								if(Object.keys(data).length==index+1){
+									addrow += "</tbody>";
+									$("#listTable").append(addrow);
+								}
+							i++;
+							if(i==4){
+								i=0;
+							}
+						}); 
+	     			}
+				 })
+		     }
 		  });
 	 }
 	 
@@ -223,15 +277,18 @@ $(document).ready(function() {
 </div>
 <div class="container">
   <ul class="nav nav-pills">
-    <li class="active"><a data-toggle="pill" href="#home">Home</a></li>
-    <li><a data-toggle="pill" href="#menu1">Menu 1</a></li>
-    <li><a data-toggle="pill" href="#menu2">Menu 2</a></li>
-    <li><a data-toggle="pill" href="#menu3">Menu 3</a></li>
+    <li class="active"><a data-toggle="pill" href="#home"> カレンダー</a></li>
+    <li><a data-toggle="pill" href="#menu1">月別分析</a></li>
+    <li><a data-toggle="pill" href="#menu2">カテゴリー分析</a></li>
+    <li><a data-toggle="pill" href="#menu3">全体記録</a></li>
   </ul>
   
   <div class="tab-content fade in active" >
     <div id="home" class="tab-pane fade in active">
       	<div id="calendar" style="float:left;"></div>
+      	<div id="recordWrapper" style="float:right;">
+      		<table id="listTable" class="table table-striped table-hover "></table>
+      	</div>
     </div>
     <div id="menu1" class="tab-pane fade">
       <h1>[Report]</h1>
@@ -245,6 +302,9 @@ $(document).ready(function() {
     </div>
     <div id="menu2" class="tab-pane fade">
       <div id="bubbleChart"></div> 
+    </div>
+    <div id="menu3" class="tab-pane fade">
+      <div id="allReport"></div> 
     </div>
   </div>
 </div>

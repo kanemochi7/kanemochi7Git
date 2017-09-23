@@ -33,20 +33,20 @@ public class Gkim {
 		ArrayList<HashMap<String, Object>> result = new ArrayList<>();
 		for (RecordVO recordVO : allRecord) {
 			HashMap<String,Object> resultMap = new HashMap<>();
+			resultMap.put("id", recordVO.getRecord_num());
 			resultMap.put("title", recordVO.getCategory());
 			resultMap.put("start", recordVO.getRecord_date());
-			System.out.println("time: "+recordVO.getRecord_date());
-			resultMap.put("url", "/kanemochi/getOneRecord?id="+recordVO.getUser_id()+"&date="+recordVO.getRecord_date());
 			result.add(resultMap);
 		}
 		return result;
 	}
 	
-	@RequestMapping(value = "getOneRecord", method = RequestMethod.GET)
-	public String getDayRecord(String id,String date,Model model){
+	@RequestMapping(value = "getOneRecord", method = RequestMethod.POST)
+	@ResponseBody
+	public ArrayList<RecordVO> getDayRecord(String date,HttpSession session){
+		String id = (String) session.getAttribute("loginID");
 		ArrayList<RecordVO> dayRecord = dao.getDayRecord(id, date);
-		model.addAttribute("list", dayRecord);
-		return "redirect:/kanemochi/ajax.do";
+		return dayRecord;
 	}
 
 }
