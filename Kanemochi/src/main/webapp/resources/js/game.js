@@ -129,6 +129,7 @@ npcCharacter.prototype.move = function(){
           this.play('leftWalk');
         }
     }
+    
 }
 npcCharacter.prototype.out = function(){
   console.log('out');
@@ -245,7 +246,7 @@ var GameState = {
   var leftWalk = userCharacter.animations.add('leftWalk',[0,1],2,true);
   var rightWalk = userCharacter.animations.add('rightWalk',[2,3],2,true);
   userCharacter.play('wink');
-  var elevatorMove = elevator.animations.add('elevatorMove',[0,1,2,3,4,5,6],7,true);
+  //var elevatorMove = elevator.animations.add('elevatorMove',[0,1,2,3,4,5,6],7,true);
   //건물 배열같은거.(ArrayList처럼 생각하세요)
  /* buildingGroup = game.add.group();
   buildingGroup.enableBody = true;
@@ -676,6 +677,7 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    	    }
 
 		    	    GameState.elevatorTopGroup.add(buildingTop);
+		    	    GameState.buildingTopGroup.add(buildingTop);
 
 		    	    buildingTop.scale.setTo(0.5,0.3);
 		    	    this.game.physics.arcade.enable(buildingTop);
@@ -884,6 +886,7 @@ function createBuilding(inputText){
 	    }
 	    //건물 위에 하얀 바 닿았을때 확인
 	    topCheck = game.physics.arcade.collide(sprite,GameState.buildingTopGroup);
+	    topCheck1 = game.physics.arcade.collide(sprite,GameState.elevatorTopGroup);
 	    //게임창을 안벗어나면서 1층일 경우 충돌을 체크해서 생성여부 정함
 	    if(windowCheck == true && firstFloorCheck == true && topCheck == false){
 	      check = game.physics.arcade.collide(sprite,GameState.buildingGroup);
@@ -891,7 +894,7 @@ function createBuilding(inputText){
 	      // check = false;
 	    }
 	    //게임창 안벗어나고, 1층이 아니더라도, 위에 하얀바에 닿으면 충돌 체크해서 생성여부 정함
-	    else if(windowCheck == true && firstFloorCheck == false && topCheck==true){
+	    else if(windowCheck == true && firstFloorCheck == false && topCheck==true && topCheck1 == false){
 	      //만들어진 건물들을 담은 그룹에서 건물들 스프라이트를 배열로 뽑아옴
 	      var getBuilding = GameState.buildingGroup.getAll('exists', true);
 	      for (var i in getBuilding) {
@@ -1386,6 +1389,7 @@ function mouseUp1(sprite,check,topCheck){
 	      buildingTop =  game.add.sprite(sprite.x, sprite.y-8.9, 'buildingTopLong');
 	    }
 
+	    GameState.buildingTopGroup.add(buildingTop);
 	    GameState.elevatorTopGroup.add(buildingTop);
 	    // buildingGroup.callAll('body.setSize','body',100,300,100,0);
 
