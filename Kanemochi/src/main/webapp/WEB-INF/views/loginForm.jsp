@@ -193,8 +193,6 @@ $(function() {
 		</tr>
 	</table>
 </c:if>
-<a href="/kanemochi/test">김영현 전용실</a>
-<a href="/kanemochi/list2">김영현 전용실2</a>
-<a href="/kanemochi/member/snapshotTest">gpark 전용실</a>
+
 </body>
 </html>
