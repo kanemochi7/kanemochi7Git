@@ -69,7 +69,7 @@ td, tr {
 	 box-shadow: 10px 10px 10px #FFFFCC inset; */
 }
 
- #pieChart, #lineChart{
+ #pieChart, #lineChart, #columnChart{
 	width: 50%;
 	display: inline-block;
 	max-width: 700px;
@@ -229,6 +229,7 @@ $(document).ready(function() {
 	google.charts.load('current', {
 		'packages' : [ 'corechart' ]
 	});
+	google.charts.load('current', {'packages':['bar']});
 	google.charts.setOnLoadCallback(drawChart);
 	
 	function drawChart() {
@@ -252,6 +253,30 @@ $(document).ready(function() {
 		var chart = new google.visualization.PieChart(document
 				.getElementById('pieChart'));
 		chart.draw(data, options);
+		
+		//[Column Chart]
+        var data = google.visualization.arrayToDataTable([
+          ['Category', '2017/08', '2017/09'],
+          ['식비', 500000, 600000],
+          ['문화비', 12000, 50000],
+          ['교통비', 150000, 100000],
+          ['교육비', 45000, 17000]
+        ]);
+
+        var options = {
+          chart: {
+            title: '월별 분석',
+            subtitle: '지난달과 이번달 소비 비교'
+            },
+            width : 700,
+			height : 400,
+			'backgroundColor': 'transparent',
+			'fontSize':20
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnChart'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options)); 
 	
 		// [Line Chart]
 		var data = new google.visualization.DataTable();
@@ -347,7 +372,8 @@ $(document).ready(function() {
     <div id="menu1" class="tab-pane fade">
       <h1>[Report]</h1>
 	  <div id="pieChart"></div>
-	  <div id="lineChart"></div>
+	  <!-- <div id="lineChart"></div> -->
+	  <div id="columnChart"></div>
 	  <div id="buttons">
 		  <button type="button" class="btn btn-info" onclick="location.href='/kanemochi/member/loginForm'">home</button>
 		  <button type="button" class="btn btn-warning">export in excel</button>
