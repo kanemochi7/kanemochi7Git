@@ -114,6 +114,7 @@ div.blueTable {
 $(function() {
 	datepicker();
 	getbudget();
+	getExp();
 	login_days();
 });
 	function datepicker() {
@@ -122,6 +123,78 @@ $(function() {
 			autoclose: true,
 			todayHighlight: true
 		});
+	}
+	
+	function getExp() {
+		$.ajax({
+			url : '/kanemochi/exp/getExp',
+			method : 'get',
+			cache : false,
+			success: function (user_score) {
+				var level_img ="";
+				var full_score = 1;
+				if (user_score <= 300) {
+					level_img="level1";
+					full_score = 300;
+				} else if (user_score <= 700) {
+					level_img="level2";
+					user_score = user_score-300;
+					full_score = 700-300;
+				} else if (user_score <= 1240) {
+					level_img="level3";
+					user_score = user_score-700;
+					full_score = 1240-700;
+				} else if (user_score <= 2000) {
+					level_img="level4";
+					user_score = user_score-1240;
+					full_score = 2000-1240;
+				} else if (user_score <= 3120) {
+					level_img="level5";
+					user_score = user_score-2000;
+					full_score = 3120-2000;
+				} else if (user_score <= 4620) {
+					level_img="level6";
+					user_score = user_score-3120;
+					full_score = 4620-3120;
+				} else if (user_score <= 6600) {
+					level_img="level7";
+					user_score = user_score-4620;
+					full_score = 6600-4620;
+				} else if (user_score <= 9000) {
+					level_img="level8";
+					user_score = user_score-6600;
+					full_score = 9000-6600;
+				} else if (user_score <= 12000) {
+					level_img="level9";
+					user_score = user_score-9000;
+					full_score = 12000-9000;
+				} else if (user_score > 12000) {
+					level_img="level10";
+					user_score = user_score-12000;
+					full_score = result-12000;
+				}
+				var level_img_url = "/kanemochi/resources/image/level/"+level_img+".png";
+				$("#level").attr("src", level_img_url);
+
+				var elem = document.getElementById("exp_progress");
+				var value = user_score/full_score*100;
+				var width = 0;
+				var id = setInterval(frame, 10);
+					function frame() {
+						if (width >= value) {
+					    	clearInterval(id);
+					    } else {
+					      width++; 
+					      elem.style.width = width*5 + 'px'; 
+					      elem.innerHTML = width*1  + '%';
+					      document.getElementById("show_point").innerHTML = numberWithCommas(user_score)+"xp";
+					      document.getElementById("next_level").innerHTML = numberWithCommas(full_score)+"xp";
+					    }
+					}			
+				},
+			error: function() {
+					}
+			});		
 	}
 	
 	function login_days() {
@@ -312,17 +385,20 @@ $(function() {
 	<div class="foot"><img class="icon_footer" data-toggle="tooltip" data-placement="top" title="予算" id="budget" src="/kanemochi/resources/image/icon/moneyPack.png"></div>
 	<div class="foot">
 		<div style="width:500px; height:30px; margin-top:10px; background-color:#e8e8e8;">
-			<div id="budget_progress" style="width:0px; height: 30px; padding: 5px; background-color:#5f9e55;"></div>
+			<div id="budget_progress" style="width:0px; height:30px; padding:5px; background-color:#5f9e55; text-align:center;"></div>
 		</div>
 		<div style="color: black;">今まで使ったお金 ： <span id="show_spend"></span> / 全体予算 ： <span id="show_budget"></span></div>	
 	</div>
 	
 	<div class="foot"><img class="icon_footer" data-toggle="tooltip" data-placement="top" title="ポイント" id="exp" src="/kanemochi/resources/image/icon/exp.png"></div>
-	<div class="foot" style="width:500px; height:30px; margin-top:10px; background-color:#e8e8e8;">
-		<div id="exp_progress" style="width:0px; height: 30px; padding: 5px; background-color:#5f9e55;"></div>
+	<div class="foot">
+		<div style="width:500px; height:30px; margin-top:10px; background-color:#e8e8e8;">
+			<div id="exp_progress" style="width:0px; height:30px; padding:5px; background-color:#5f9e55; text-align:center;"></div>
+		</div>
+		<div style="color: black;">今までのポイント ： <span id="show_point"></span> / 次のレベルまでのポイント ： <span id="next_level"></span></div>	
 	</div>
 	<div class="foot"><img class="icon_footer" id="level" src="/kanemochi/resources/image/level/level1.png"></div>
-	</div>
+</div>
 
 <!-- Modal_write -->
 <div id="modal_write" class="modal">

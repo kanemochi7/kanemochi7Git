@@ -24,5 +24,6 @@
 			  group by login_date)
 	</select>
 
+
 </mapper>
 

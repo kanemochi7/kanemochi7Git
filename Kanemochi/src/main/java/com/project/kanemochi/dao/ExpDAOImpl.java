@@ -14,6 +14,12 @@ public class ExpDAOImpl implements ExpDAO {
 	private SqlSession sqlsession;
 
 	@Override
+	public int getExp(String id) {
+		ExpMapper mapper = sqlsession.getMapper(ExpMapper.class);
+		return mapper.getExp(id);
+	}
+
+	@Override
 	public void upExp(ExpVO vo) {
 		ExpMapper mapper = sqlsession.getMapper(ExpMapper.class);
 		int exp1 = mapper.getExp(vo.getId());
@@ -26,7 +32,7 @@ public class ExpDAOImpl implements ExpDAO {
 	@Override
 	public int login_days(String id) {
 		ExpMapper mapper = sqlsession.getMapper(ExpMapper.class);
-		return mapper.login_days(id);
+	return mapper.login_days(id);
 	}
 
 }

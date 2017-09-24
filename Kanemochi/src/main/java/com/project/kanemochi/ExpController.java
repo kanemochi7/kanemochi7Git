@@ -32,5 +32,13 @@ public class ExpController {
 		}
 		return login_days;
 	}
+	
+	@RequestMapping(value = "getExp", method = RequestMethod.GET)
+	@ResponseBody
+	public int getExp(HttpSession session) {
+		String id = (String)session.getAttribute("loginID");
+		return dao.getExp(id);
+	}
+
 
 }
