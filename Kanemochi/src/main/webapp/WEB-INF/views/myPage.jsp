@@ -9,8 +9,7 @@
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
 <script src="/kanemochi/resources/js/bootstrap.js"></script>
 <script type="text/javascript">
-$(function () {
-	
+$(function () {	
 	var result = "${empty updateResult}";
 	if(result!="true"){
 		if("${updateResult}"== "true"){
@@ -20,9 +19,8 @@ $(function () {
 		}
 	}
 
-	$("#dtnUpdate").on('click',function(){
+	$("#btnUpdate").on('click',function(){
 		var id = $('#id').val()
-		console.log(id);
 		var pw = $('#pw').val();
 		var name = $('#name').val();
 		var email = $('#email').val();
@@ -35,6 +33,12 @@ $(function () {
 		}
 		$("#updateForm").submit();
 	})
+	
+	$("#btnDelete").on('click',function(){
+		var id = $('#id').val();
+		location.href = "/kanemochi/member/deleteMember?user_id="+id;
+	})
+	
 })
 </script>
 <style type="text/css">
@@ -44,6 +48,7 @@ body {
 	background-color:#fff5c3;
 	background-image:url(/kanemochi/resources/image/bg/pinkSky2.png);
 	background-repeat: repeat-x;
+	color: black;
 }
 
 table {
@@ -64,7 +69,7 @@ th, td {
 				<td><label for="id">ID</label></td>
 				<td><input type="text" class="form-control input-sm" id="id" name="user_id" placeholder="ID"  value="${vo.user_id}" readonly="readonly"/></td>
 				<td rowspan ="6">
-					<img src="${vo.img_url}" class="rounded float-center" alt="avatar-img"><br><br>
+					<img src="${vo.img_url}" id="character" class="rounded float-center" alt="avatar-img"><br><br>
 					<img src="http://via.placeholder.com/150x50" class="rounded float-center" alt="level-img">
 				</td>
 			</tr>
@@ -87,8 +92,7 @@ th, td {
 				<td>
 					<input type="tel" class="form-control input-sm" id="phone" name="user_phone" value="${vo.user_phone}">
 				</td>
-			</tr>
-		
+			</tr>		
 			<tr>
 				<td>
 					<label>性別</label>
@@ -98,12 +102,12 @@ th, td {
 			<tr>
 				<td colspan="2">
 					<a href="/kanemochi/member/loginForm" class ="btn btn-success">back</a>
-					<button id="btnUpdate"class= "btn btn-success">ok</button>
-					
+					<button id="btnUpdate" class= "btn btn-success">Update</button>
 				</td>
 			</tr>
 	</table>
 	<input type="hidden" name="user_gender" value="${vo.user_gender}">
 </form>
+<button id="btnDelete" class= "btn btn-warning">Delete</button>
 </body>
 </html>

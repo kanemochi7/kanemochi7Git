@@ -54,8 +54,7 @@ public class Gkim {
 	public ArrayList<RecordVO> getMonthRecord(String month,String year,HttpSession session){
 		String id = (String) session.getAttribute("loginID");
 		String searchMonth = null;
-		switch (month) {
-		
+		switch (month) {		
 			case "January":
 				searchMonth = year+"-01";
 				break;
@@ -105,7 +104,7 @@ public class Gkim {
 				break;
 				
 			default:
-				System.out.println("switch case: "+month);
+				System.out.println("switch case ERROR: "+month);
 				break;
 		}
 		ArrayList<RecordVO> monthRecord = dao.getMonthRecord(id,searchMonth);

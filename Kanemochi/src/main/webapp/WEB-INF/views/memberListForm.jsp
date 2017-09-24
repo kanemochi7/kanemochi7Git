@@ -56,7 +56,7 @@ function init() {
 					addrow += '<td>'+item.user_email+'</td>';
 					addrow += '<td>'+item.user_gender+'</td>';
 					addrow += '<td>'+item.user_phone+'</td>';
-					addrow += '<td><a class="btnDelete" href="/kanemochi/member/deleteMember?user_id='+item.user_id+'">削除</a></td></tr>'
+					addrow += '<td><a class="btnDelete" href="/kanemochi/member/adminDeleteMember?user_id='+item.user_id+'">削除</a></td></tr>'
 					if(Object.keys(result).length==index+1){
 						addrow += "</tbody>";
 						$("#listTable").append(addrow);

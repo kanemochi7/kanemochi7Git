@@ -167,10 +167,16 @@ public class MemberController {
 		return number;
 	}
 	
+	@RequestMapping(value = "adminDeleteMember", method = RequestMethod.GET)
+	public String adminDeleteMember(String user_id) {
+		dao.deleteMember(user_id);
+		return "redirect:/member/memberListForm";
+	}
+	
 	@RequestMapping(value = "deleteMember", method = RequestMethod.GET)
 	public String deleteMember(String user_id) {
 		dao.deleteMember(user_id);
-		return "redirect:/member/memberListForm";
+		return "loginForm";
 	}
 	
 	//페이지이동
