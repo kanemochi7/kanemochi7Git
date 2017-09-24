@@ -6,6 +6,7 @@ function restLeng(length){
 var width = restLeng($("#game").width());
 var height = restLeng($("#game").height());
 //----------------------------------
+
 npcCharacter = function (game) {
     this.buildLeftX =0;
     this.buildRightX = game.world.width;
