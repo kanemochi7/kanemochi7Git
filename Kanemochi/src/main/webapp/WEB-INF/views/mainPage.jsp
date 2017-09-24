@@ -265,8 +265,24 @@ $(function() {
 /* click->image */
    function createItem(category) {
 		var num = document.getElementById(category).textContent;
-		if (num == 0) {
-		} else if(category == 'elevator' || num > 0 ) {
+		if (category == 'elevator') {
+			createBuilding(category);
+			var timer2 = setTimeout(function(){
+				console.log(res);
+			}, 100000000);	
+			var myVar2=setInterval(function(){
+	  			console.log(res);
+	  			if(res == true || res == false){
+	  				clearTimeout(timer2);
+					clearInterval(myVar2);
+					console.log(res);
+					if(res){
+						console.log(res);
+					}
+				  res = undefined;
+	  			}
+	  		},500);
+		} else if(category != 'elevator' && num>0){
 				createBuilding(category);
 				var timer2 = setTimeout(function(){
 					console.log(res);
