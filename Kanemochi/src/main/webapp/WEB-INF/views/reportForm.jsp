@@ -14,6 +14,10 @@
 <script type="text/javascript" src="/kanemochi/resources/js/fullcalendar.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="/kanemochi/resources/js/jquery.mtz.monthpicker.js"></script>
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css">
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/kanemochi/resources/js/jquery.techbytarun.excelexportjs.min.js"></script>
 <style type="text/css">
 body {
 	margin: 40px 10px;
@@ -104,12 +108,43 @@ td, tr {
 	margin-top: 50px;
 }
 
+#menu3{
+	position: absolute;
+	top: 200px;
+}
+
+/* #listTable>tbody{
+	background-color: rgba( 255, 255, 255, 0.25);
+} */
+
 
 
 
 </style>
 <script>
 $(document).ready(function() {
+	$.datepicker.regional['jp'] = {
+			closeText: '닫기',
+			prevText: '이전달',
+			nextText: '다음달',
+			currentText: '오늘',
+			monthNames: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+			monthNamesShort: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
+			weekHeader: 'Wk',
+			dateFormat: 'yy-mm',
+			firstDay: 0,
+			isRTL: false,
+			duration:200,
+			showAnim:'show',
+			showMonthAfterYear: true,
+			yearSuffix:'년'
+			};
+			$.datepicker.setDefaults($.datepicker.regional['jp']);
+			$('#input').datepicker({
+				changeMonth: false,
+				changeYear: false,
+			});
+	
 	  $.ajax({
 	     type : "POST" 
 	     , url : "/kanemochi/ajax.do" //Request URL
@@ -121,9 +156,15 @@ $(document).ready(function() {
 	     , success : function(data) {
 	     	 			setCalendar(data);
 	     			 }
-	   });
+	  });
+	  
+	 
+	  
+	  
 });
-	 function setCalendar( data ){		  
+	
+	
+	function setCalendar( data ){		  
 		  $('#calendar').fullCalendar({
 		     editable : false
 		     ,color: "black"
@@ -139,6 +180,8 @@ $(document).ready(function() {
 				    , success : function(data) {
 				    	$("#listTable").empty();
 						var addrow = "<tbody>";
+						addrow += '<tr><td><h4>レポート<h4></td></tr>';
+						addrow += '<tr><td><button id="btnExport" class="btn btn-warning" type="button">Export</button><td><tr>';
 						addrow += '<tr id="first"><td>日付</td><td>カテゴリー</td><td>価格</td><td>支払方法</td></tr>';
 						var arr = ["info","success","danger","warning","acive"];
 						var i = 0;
@@ -158,11 +201,20 @@ $(document).ready(function() {
 								i=0;
 							}
 						}); 
+						$("#btnExport").click(function () {
+				            $("#tblExport").excelexportjs({
+				                containerid: "listTable"
+				               , datatype: 'table'
+				            });
+				        });
 	     			}
 				 })
 		     }
 		  });
 	 }
+	
+	
+
 	 
 //google Chart
 	google.charts.load('current', {
@@ -279,7 +331,7 @@ $(document).ready(function() {
     <li><a data-toggle="pill" href="#menu3">全体記録</a></li>
   </ul>
   
-  <div class="tab-content fade in active" >
+  <div class="tab-content fade in fade" >
     <div id="home" class="tab-pane fade in active">
       	<div id="calendar" style="float:left;"></div>
       	<div id="recordWrapper" style="float:right;">
@@ -300,9 +352,7 @@ $(document).ready(function() {
       <div id="bubbleChart"></div> 
     </div>
     <div id="menu3" class="tab-pane fade">
-      <h1>hi</h1>
-      <div id="allReport">
-      </div> 
+    	<input class="input">
     </div>
   </div>
 </div>
