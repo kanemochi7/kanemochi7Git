@@ -16,6 +16,7 @@
 		where user_id = #{id}
 	</select>
 	
+	<!-- login 한 날짜 구하기 (하루에 여러번 와도 한 번 온 걸로 처리됨) -->
 	<select id="login_days" parameterType="String" resultType="Integer">
 		select count(c)
 		from (select count(login_date) c
@@ -23,7 +24,20 @@
 			  where user_id = #{id}
 			  group by login_date)
 	</select>
-
+	
+	<!-- login 한 횟수 구하기 (하루에 여러번 오면 여러번 처리됨) -->
+	<select id="login_times" parameterType="String" resultType="Integer">
+		select count(*)
+		from login
+		where user_id = #{id}
+	</select>
+	
+	<!-- record 개수 구하기 -->
+	<select id="record_count" parameterType="String" resultType="Integer">
+		select count(*)
+		from record
+		where user_id = #{id}
+	</select>
 
 </mapper>
 

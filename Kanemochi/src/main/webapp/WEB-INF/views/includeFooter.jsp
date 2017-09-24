@@ -182,15 +182,15 @@ $(function() {
 				var id = setInterval(frame, 10);
 					function frame() {
 						if (width >= value) {
-					    	clearInterval(id);
+							clearInterval(id);
 					    } else {
-					      width++; 
-					      elem.style.width = width*5 + 'px'; 
+					      width++;
+					      elem.style.width = width*5 + 'px';
 					      elem.innerHTML = width*1  + '%';
 					      document.getElementById("show_point").innerHTML = numberWithCommas(user_score)+"xp";
 					      document.getElementById("next_level").innerHTML = numberWithCommas(full_score)+"xp";
 					    }
-					}			
+					}
 				},
 			error: function() {
 					}
