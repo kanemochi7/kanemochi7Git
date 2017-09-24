@@ -115,7 +115,7 @@ $(function() {
 	datepicker();
 	
 	setProgressbar_budget();
-	setProgressbar_exp();
+	/* setProgressbar_exp(); */
 	
 	/* getbudget();
 	getExp(); */
@@ -130,28 +130,35 @@ $(function() {
 		});
 	}
 
-	function numberWithCommas(x) { return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+	function numberWithCommas(x) {
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
 	
 	function setProgressbar_budget() {
+alert("setProgressbar_budget");
 		var budget = getBudget();
 		var expense = getExpense();
-		
+alert("budget:"+typeof budget+budget);
+alert("expense:"+typeof expenxse+expense);
 		var elem = document.getElementById("budget_progress");
 		var value = expense/budget*100;
 		var width = 0;
 		var id = setInterval(frame, 10);
 		function frame() {
-		if (width >= value) {
-	    	clearInterval(id);
-	    } else {
-	      width++; 
-	      elem.style.width = width*5 + 'px'; 
-	      elem.innerHTML = width*1  + '%';
-	      document.getElementById("show_spend").innerHTML = numberWithCommas(expense);
-	      document.getElementById("show_budget").innerHTML = numberWithCommas(budget);
+			if (width >= value) {
+		    	clearInterval(id);
+		    } else {
+		      width++; 
+		      elem.style.width = width*5 + 'px'; 
+		      elem.innerHTML = width*1  + '%';
+		      document.getElementById("show_spend").innerHTML = numberWithCommas(Number(expense));
+		      document.getElementById("show_budget").innerHTML = numberWithCommas(Number(budget));
+			}
+		}
 	}
 	
 	function getBudget() {
+		alert("getBudget()");
 		$.ajax({
 			url : '/kanemochi/record/getbudget',
 			method : 'get',
@@ -173,24 +180,29 @@ $(function() {
 				document.getElementById("month_result").innerHTML = monthly;
 				document.getElementById("weekly_result").innerHTML = weekly;
 				document.getElementById("daily_result").innerHTML = daily;
-				
+	alert(result.monthly);
+	alert(monthly);
 				return result.monthly;
 			},
 			error: function() {
+				alert("fail-budget");
 				return 1;
 			}
 		});
 	}
 
 	function getExpense() {
+		alert("getExpense()");
 		$.ajax({
 			url : '/kanemochi/record/getExpense',
 			method : 'get',
 			cache : false,
 			success: function (result) {
+				alert(result);
 				return result;
 			},
 			error: function() {
+				alert("fail-expense");
 				return 0;
 			}
 		});
@@ -304,7 +316,6 @@ $(function() {
 			
 			var month = document.getElementById("month_result").innerHTML;
 			var monthly = Number(month.replace(/,/g, ""));
-			setprogressbar(monthly);
 			},
 		error: function() {
 			}
