@@ -43,6 +43,10 @@ a{
 </style>
 </head>
 <body>
+<div id="header">
+	<jsp:include page="includeHeader.jsp"></jsp:include>
+</div>
+<div id="container">
    <table>
       <tr>
          <td><img src="/kanemochi/resources/image/screenshot/one.png" class="rounded float-left" alt="scshotOne" id="scshot"></td>
@@ -63,10 +67,8 @@ a{
          </td>
       </tr>
    </table>
-   
+</div>   
 
-
-</a>
 <script>
   window.fbAsyncInit = function() {
     FB.init({
@@ -135,7 +137,6 @@ a{
      }, {scope: 'publish_actions',
         auth_type: 'rerequest'});
      }
-  
 //   'publish_actions'
 </script>
  <button onclick="fuckingFB()">facebookShare</button>

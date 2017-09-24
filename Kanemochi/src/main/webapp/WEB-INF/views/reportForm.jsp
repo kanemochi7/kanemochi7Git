@@ -118,9 +118,6 @@ td, tr {
 	background-color: rgba( 255, 255, 255, 0.25);
 } */
 
-
-
-
 </style>
 <script>
 $(document).ready(function() {
@@ -158,15 +155,11 @@ $(document).ready(function() {
 	     	 			setCalendar(data);
 	     			 }
 	});
-	
 	init();
-	
-	
 });
 
 	function init() {
 		var list = ${everyList};
-		
 		var arr = ["info","success","danger","warning","acive"];
 		var i = 0;
 		var addrow = "<tbody>";
@@ -175,22 +168,21 @@ $(document).ready(function() {
 		addrow += '<tr id="first"><td>日付</td><td>カテゴリー</td><td>価格</td><td>支払方法</td></tr>';
 		$(list).each(function (index,item) {
 			alert(item.category);
-				addrow += "<tr class='"+arr[i]+"''>";
-				addrow += '<td>'+item.record_date+'</td>';
-				addrow += '<td>'+item.category+'</td>';
-				addrow += '<td>¥'+item.record_price+'</td>';
-				addrow += '<td>'+item.record_pay+'</td></tr>';
-				if(Object.keys(list).length==index+1){
-					addrow += "</tbody>";
-					$("#everyList").append(addrow);
-				}
-				i++;
-				if(i==4){
-					i=0;
-				}
+			addrow += "<tr class='"+arr[i]+"''>";
+			addrow += '<td>'+item.record_date+'</td>';
+			addrow += '<td>'+item.category+'</td>';
+			addrow += '<td>¥'+item.record_price+'</td>';
+			addrow += '<td>'+item.record_pay+'</td></tr>';
+			if(Object.keys(list).length==index+1){
+				addrow += "</tbody>";
+				$("#everyList").append(addrow);
+			}
+			i++;
+			if(i==4){
+				i=0;
+			}
 		});
 	}
-	
 	
 	function setCalendar( data ){		  
 		  $('#calendar').fullCalendar({
@@ -279,9 +271,6 @@ $(document).ready(function() {
 		  });
 	 }
 	
-	
-
-	 
 //google Chart
 	google.charts.load('current', {
 		'packages' : [ 'line' ]
@@ -310,8 +299,7 @@ $(document).ready(function() {
 			'fontSize':20
 		};
 	
-		var chart = new google.visualization.PieChart(document
-				.getElementById('pieChart'));
+		var chart = new google.visualization.PieChart(document.getElementById('pieChart'));
 		chart.draw(data, options);
 		
 		//[Column Chart]
@@ -410,7 +398,7 @@ $(document).ready(function() {
 <div>
 </div>
 <div id="header">
-		<jsp:include page="includeHeader.jsp"></jsp:include>
+	<jsp:include page="includeHeader.jsp"></jsp:include>
 </div>
 <div class="container">
   <ul class="nav nav-pills">

@@ -77,6 +77,10 @@ element.style {
 
 </head>
 <body>
+<div id="header">
+	<jsp:include page="includeHeader.jsp"></jsp:include>
+</div>
+<div id="container">
 	<!-- myModal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -194,7 +198,9 @@ element.style {
 		</ul>
 		<br>
 	<img src="/kanemochi/resources/image/dog.gif" class="rounded float-left" alt="left-img" id="dog">
-	<script>
+</div>
+
+<script>
 //facebook share
 window.fbAsyncInit = function() {
 	    FB.init({
@@ -278,6 +284,5 @@ window.fbAsyncInit = function() {
 		});
 	});
 </script>
-	
 </body>
 </html>
