@@ -4,22 +4,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- <script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script> -->
 <!-- CSS -->
-	<style type="text/css">
-	body{
-		background-size: 100% 100%
-	    background-color:#DDD;
-		color: white;
-	}
-	#p_header {
-		color: black;
-		text-align: right;
-	}
-	.icon {
-		width: 30px;
-    	height: auto;
-	}
+<style type="text/css">
+body{
+	background-size: 100% 100%
+    background-color:#DDD;
+	color: white;
+}
+#p_header {
+	color: black;
+	text-align: right;
+}
+.icon {
+	width: 30px;
+   	height: auto;
+}
 </style>
 <script>
 $(function() {
@@ -43,7 +42,6 @@ function getToday() {
 		document.getElementById("today_year_budget").innerHTML = year;
 		document.getElementById("today_month_budget").innerHTML = month;
 }
-
 </script>
 </head>
 <body>

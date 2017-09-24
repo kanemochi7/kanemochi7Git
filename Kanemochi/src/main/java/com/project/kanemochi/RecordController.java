@@ -170,10 +170,10 @@ public class RecordController {
 		return dao.getbudget(id);
 	}
 
-	@RequestMapping(value = "getsum", method = RequestMethod.GET)
+	@RequestMapping(value = "getExpense", method = RequestMethod.GET)
 	@ResponseBody
-	public int getsum(HttpSession session){
+	public int getExpense(HttpSession session){
 		String id = (String)session.getAttribute("loginID");
-		return dao.getsum(id);
+		return dao.getExpense(id);
 	}
 }

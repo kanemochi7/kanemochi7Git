@@ -49,34 +49,32 @@ $(function() {
 	var signupResult = "${empty signupResult}";
 	
 	if(loginResult!="true"){
-		
 		if("${loginResult}"== "true"){
-			alert("로그인 성공");
+			alert("ログイン成功");
 		}else if("${loginResult}"=="false"){
-			alert("로그인 실패");
+			alert("ログイン失敗");
 		}
-		
 	}else if(findResult!="true"){
 		
 		if("${findResult}"== "true"){
-			alert("메일로 전송했습니다. 확인하세요");
+			alert("メールを確認してください。");
 		}else if("${findResult}"=="false"){
-			alert("전송오류.");
+			alert("転送失敗");
 		}
 		
 	}else if(signupResult!="true"){
 		
 		if("${signupResult}"== "true"){
-			alert("가입 완료되었습니다.");
+			alert("加入完了");
 		}else if("${signupResult}"=="false"){
-			alert("가입 오류.");
+			alert("加入失敗");
 		}
 		
 	}
 	
 	$("#loginBtn").on('click', function() {
 		if($("#id").val()=="" && $("#pwd").val()==""){
-			alert("아이디와 비밀번호를 입력해주세요.");
+			alert("IDとpasswordを入力してください。");
 			$("#id").focus();
 			return false;
 		}
@@ -158,7 +156,8 @@ $(function() {
 	 	</tr>
 	 	<tr>
 	 		<td colspan="2">
-				<a href="/kanemochi/member/signUpForm" class="btn btn-info">KANEMOCHI 会員登録</a>
+	 			<input type="button" id="joinBtn" class="btn btn-info" value="KANEMOCHI 会員登録" onclick="location.href='/kanemochi/member/signUpForm';">
+				<!-- <a href="/kanemochi/member/signUpForm" class="btn btn-info">KANEMOCHI 会員登録</a> -->
 	 		</td>
 	 	</tr>
 	 	<tr>
@@ -175,7 +174,7 @@ $(function() {
 	<table>
 		<tr>
 			<td>
-				<p>${loginName}님 로그인 중</p>
+				<p> LOGIN : ${loginName}</p>
 				<button type="button" class="btn btn-danger" onclick="location.href='/kanemochi/member/logout'">logout</button><br>
 			</td>
 		</tr>

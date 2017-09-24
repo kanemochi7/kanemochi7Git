@@ -190,7 +190,7 @@
 		select * from budget where user_id = #{id}
 	</select>
 
-	<select id="getsum" parameterType="String" resultType="Integer">
+	<select id="getExpense" parameterType="String" resultType="Object">
 		select sum(record_price)
 		from record
 		where user_id = #{id}

@@ -75,9 +75,13 @@ public class RecordDAOImpl implements RecordDAO {
 	}
 
 	@Override
-	public int getsum(String id) {
+	public int getExpense(String id) {
 		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);
-		return mapper.getsum(id);
+		int result = 0;
+		if (mapper.getExpense(id) != null) {
+			result = (int)mapper.getExpense(id);
+		}
+		return result;
 	}
 
 	@Override

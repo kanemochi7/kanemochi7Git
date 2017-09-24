@@ -93,7 +93,6 @@ public class MemberController {
 			model.addAttribute("loginResult", false);
 			return "loginForm";
 		}
-		
 		return "mainPage";
 	}
 	

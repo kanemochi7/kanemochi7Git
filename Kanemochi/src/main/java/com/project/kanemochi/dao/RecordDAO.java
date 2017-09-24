@@ -19,6 +19,6 @@ public interface RecordDAO {
 	public BudgetVO getbudget(String id);	
 	public boolean setStatus(ShopVO vo);
 	public ArrayList<ShopVO> getStatus(String id);
-	public int getsum(String id);
+	public int getExpense(String id);
 	public ArrayList<RecordVO> getEveryRecord(String id);
 }

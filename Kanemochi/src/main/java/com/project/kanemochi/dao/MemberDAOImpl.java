@@ -21,7 +21,7 @@ public class MemberDAOImpl implements MemberDAO {
 		int result = mapper.signUp(vo);
 		mapper.insertCount(vo);
 		mapper.insertBudget(vo);
-		mapper.insertRecord(vo);
+		/*mapper.insertRecord(vo);*/
 		return result;
 	}
 

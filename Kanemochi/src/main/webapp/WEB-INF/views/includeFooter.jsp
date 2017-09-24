@@ -113,10 +113,15 @@ div.blueTable {
 <script>
 $(function() {
 	datepicker();
-	getbudget();
-	getExp();
-	login_days();
+	
+	setProgressbar_budget();
+	setProgressbar_exp();
+	
+	/* getbudget();
+	getExp(); */
+	/* login_days(); */
 });
+
 	function datepicker() {
 		$('#record_date').datepicker({
 			format: 'yyyy/mm/dd',
@@ -124,6 +129,80 @@ $(function() {
 			todayHighlight: true
 		});
 	}
+
+	function numberWithCommas(x) { return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+	
+	function setProgressbar_budget() {
+		var budget = getBudget();
+		var expense = getExpense();
+		
+		var elem = document.getElementById("budget_progress");
+		var value = expense/budget*100;
+		var width = 0;
+		var id = setInterval(frame, 10);
+		function frame() {
+		if (width >= value) {
+	    	clearInterval(id);
+	    } else {
+	      width++; 
+	      elem.style.width = width*5 + 'px'; 
+	      elem.innerHTML = width*1  + '%';
+	      document.getElementById("show_spend").innerHTML = numberWithCommas(expense);
+	      document.getElementById("show_budget").innerHTML = numberWithCommas(budget);
+	}
+	
+	function getBudget() {
+		$.ajax({
+			url : '/kanemochi/record/getbudget',
+			method : 'get',
+			cache : false,
+			success: function (result) {
+				if (result.monthly != 0) {
+					document.getElementById("budget_input_text").style.display = "none";
+					document.getElementById("btn_setbudget").style.display='none';
+					document.getElementById("btn_changebudget").style.display='block';
+				} else if (result.monthly == 0) {
+					document.getElementById("budget_input_text").style.display = "block";
+					document.getElementById("btn_setbudget").style.display='block';
+					document.getElementById("btn_changebudget").style.display='none';
+				}
+				var monthly = numberWithCommas(result.monthly);
+				var weekly = numberWithCommas(result.weekly);
+				var daily = numberWithCommas(result.daily);
+				
+				document.getElementById("month_result").innerHTML = monthly;
+				document.getElementById("weekly_result").innerHTML = weekly;
+				document.getElementById("daily_result").innerHTML = daily;
+				
+				return result.monthly;
+			},
+			error: function() {
+				return 1;
+			}
+		});
+	}
+
+	function getExpense() {
+		$.ajax({
+			url : '/kanemochi/record/getExpense',
+			method : 'get',
+			cache : false,
+			success: function (result) {
+				return result;
+			},
+			error: function() {
+				return 0;
+			}
+		});
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	function getExp() {
 		$.ajax({
@@ -277,7 +356,6 @@ $(function() {
 		document.getElementById("btn_setbudget").style.display='block';
 	}
 	
-	function numberWithCommas(x) { return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
 
 	function setbudget() {
 		var month = document.getElementById("month_result").innerHTML;
@@ -301,34 +379,6 @@ $(function() {
 		});
 	}
 
-	function getbudget() {
-		$.ajax({
-		url : '/kanemochi/record/getbudget',
-		method : 'get',
-		cache : false,
-		success: function (result) {
-				if (result.monthly != 0) {
-					document.getElementById("budget_input_text").style.display = "none";
-					document.getElementById("btn_setbudget").style.display='none';
-					document.getElementById("btn_changebudget").style.display='block';
-				} else if (result.monthly == 0) {
-					document.getElementById("budget_input_text").style.display = "block";
-					document.getElementById("btn_setbudget").style.display='block';
-					document.getElementById("btn_changebudget").style.display='none';
-				}
-				var monthly = numberWithCommas(result.monthly);
-				var weekly = numberWithCommas(result.weekly);
-				var daily = numberWithCommas(result.daily);
-				
-				document.getElementById("month_result").innerHTML = monthly;
-				document.getElementById("weekly_result").innerHTML = weekly;
-				document.getElementById("daily_result").innerHTML = daily;
-				setprogressbar(result.monthly);
-				},
-		error: function() {
-				}
-		});
-	}
 	
 	function changebudget() {
 		document.getElementById("budget_input_text").style.display = "block";
@@ -337,35 +387,6 @@ $(function() {
 		cal();
 	}
 
-	function setprogressbar(monthly) {
-		$.ajax({
-			url : '/kanemochi/record/getsum',
-			method : 'get',
-			cache : false,
-			success: function (result) {
-				if (monthly == 0) {
-					monthly = 1;
-				}
-				var elem = document.getElementById("budget_progress");
-				var value = result/monthly*100;
-				var width = 0;
-				var id = setInterval(frame, 10);
-				function frame() {
-				if (width >= value) {
-			    	clearInterval(id);
-			    } else {
-			      width++; 
-			      elem.style.width = width*5 + 'px'; 
-			      elem.innerHTML = width*1  + '%';
-			      document.getElementById("show_spend").innerHTML = numberWithCommas(result);
-			      document.getElementById("show_budget").innerHTML = numberWithCommas(monthly);
-			    }
-			  }
-				},
-			error: function() {
-				}
-		});
-	}
 	
 	function exp() {
 		$.ajax({
@@ -546,7 +567,7 @@ $(function() {
 				}
 			}
 		}
-	}
+	};
 /* modal_write - category change */
 function itemChange(){
 	var food = ["バーがー","ラーメン","すし", "カフェ", "デザート", "ビール", "コンビニ"];
