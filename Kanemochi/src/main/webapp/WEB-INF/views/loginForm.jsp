@@ -138,7 +138,7 @@ $(function() {
 </head>
 <body>
 <!-- <h1>KANEMOCHI</h1> -->
-<a href="#"><img src="/kanemochi/resources/image/logo-white.gif" class="rounded float-left" alt="left-img" id="logo"></a>
+<a href="#"><img src="/kanemochi/resources/image/logo_white.gif" class="rounded float-left" alt="kanemochi" id="logo"></a>
 <c:if test="${loginID ==null}">
 <form id="login" action="/kanemochi/member/login" method="post">
 	<table>
