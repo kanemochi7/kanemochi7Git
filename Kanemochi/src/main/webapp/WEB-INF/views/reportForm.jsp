@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.project.kanemochi.vo.RecordVO" %>
 <!DOCTYPE html PUBLIC>
 <html>
 <head>
@@ -145,7 +146,7 @@ $(document).ready(function() {
 				changeYear: false,
 			}); */
 	
-	  $.ajax({
+	$.ajax({
 	     type : "POST" 
 	     , url : "/kanemochi/ajax.do" //Request URL
 	     , dataType : "json" //전송받을 데이터 타입
@@ -156,13 +157,39 @@ $(document).ready(function() {
 	     , success : function(data) {
 	     	 			setCalendar(data);
 	     			 }
-	  });
-	  
-	 
-	   
-	  
-	  
+	});
+	
+	init();
+	
+	
 });
+
+	function init() {
+		var list = ${everyList};
+		
+		var arr = ["info","success","danger","warning","acive"];
+		var i = 0;
+		var addrow = "<tbody>";
+		addrow += '<tr><td><h4>レポート<h4></td></tr>';
+		addrow += '<tr><td><button id="btnExport" class="btn btn-warning" type="button">Export</button><td><tr>';
+		addrow += '<tr id="first"><td>日付</td><td>カテゴリー</td><td>価格</td><td>支払方法</td></tr>';
+		$(list).each(function (index,item) {
+			alert(item.category);
+				addrow += "<tr class='"+arr[i]+"''>";
+				addrow += '<td>'+item.record_date+'</td>';
+				addrow += '<td>'+item.category+'</td>';
+				addrow += '<td>¥'+item.record_price+'</td>';
+				addrow += '<td>'+item.record_pay+'</td></tr>';
+				if(Object.keys(list).length==index+1){
+					addrow += "</tbody>";
+					$("#everyList").append(addrow);
+				}
+				i++;
+				if(i==4){
+					i=0;
+				}
+		});
+	}
 	
 	
 	function setCalendar( data ){		  
@@ -196,10 +223,10 @@ $(document).ready(function() {
 									addrow += "</tbody>";
 									$("#listTable").append(addrow);
 								}
-							i++;
-							if(i==4){
-								i=0;
-							}
+								i++;
+								if(i==4){
+									i=0;
+								}
 						}); 
 						
 						$("#btnExport").click(function () {
@@ -376,8 +403,6 @@ $(document).ready(function() {
 	        var chart = new google.visualization.BubbleChart(document.getElementById('bubbleChart'));
 	        chart.draw(data, options);
 	}
-	 
-	 
 </script>
 
 </head>
@@ -418,6 +443,9 @@ $(document).ready(function() {
     </div>
     <div id="menu3" class="tab-pane fade">
     	<!-- <input class="input"> -->
+    	<table id="everyList" class="table table-striped table-hover ">
+			
+    	</table>
     </div>
   </div>
 </div>

@@ -14,12 +14,11 @@ public interface RecordDAO {
 	public void upcount(RecordVO vo);
 	public void downcount(CountOneVO vo);
 	public int getcount(CountOneVO vo);
-	public CountVO getAllCount(String id);
-	
+	public CountVO getAllCount(String id);	
 	public void setbudget(BudgetVO vo);
-	public BudgetVO getbudget(String id);
-	
+	public BudgetVO getbudget(String id);	
 	public boolean setStatus(ShopVO vo);
 	public ArrayList<ShopVO> getStatus(String id);
 	public int getsum(String id);
+	public ArrayList<RecordVO> getEveryRecord(String id);
 }

@@ -79,4 +79,10 @@ public class RecordDAOImpl implements RecordDAO {
 		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);
 		return mapper.getsum(id);
 	}
+
+	@Override
+	public ArrayList<RecordVO> getEveryRecord(String id) {
+		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);
+		return mapper.getEveryRecord(id);
+	}
 }

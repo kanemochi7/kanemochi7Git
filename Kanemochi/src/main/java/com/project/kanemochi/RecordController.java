@@ -21,6 +21,8 @@ import com.project.kanemochi.vo.CountOneVO;
 import com.project.kanemochi.vo.CountVO;
 import com.project.kanemochi.vo.RecordVO;
 import com.project.kanemochi.vo.ShopVO;
+
+import net.sf.json.JSONArray;
 @Controller
 @RequestMapping("/record")
 public class RecordController {
@@ -144,28 +146,12 @@ public class RecordController {
 		return dao.getAllCount(id);
 	}
 	
-	@RequestMapping(value = "calendar", method = RequestMethod.POST)
-	@ResponseBody
-	public ArrayList<HashMap<String, Object>> calendarAjax(HttpServletRequest request,ModelMap modelMap) {
-		HashMap<String,Object> resultMap = new HashMap<>();
-		resultMap.put("id", 999);
-		resultMap.put("title", "데헷!");
-		resultMap.put("start", "2017-09-14");
-		
-		HashMap<String,Object> resultMap1 = new HashMap<>();
-		resultMap1.put("id", 999);
-		resultMap1.put("title", "데헷111!");
-		resultMap1.put("start", "2017-09-16");
-		
-		ArrayList<HashMap<String, Object>> list = new ArrayList<>();
-		list.add(resultMap);
-		list.add(resultMap1);
-	
-		return list;
-	}
-	
 	@RequestMapping(value = "reportForm", method = RequestMethod.GET)
-	public String reportForm() {
+	public String reportForm(Model model,HttpSession session) {
+		String id = (String)session.getAttribute("loginID");
+		ArrayList<RecordVO> list =dao.getEveryRecord(id);
+		JSONArray jsonArray = new JSONArray();
+		model.addAttribute("everyList", jsonArray.fromObject(list));
 		return "reportForm";
 	}
 	
