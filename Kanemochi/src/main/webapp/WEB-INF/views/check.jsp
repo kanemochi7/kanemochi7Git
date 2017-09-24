@@ -13,13 +13,13 @@ function gotoParents() {
 	var authNum = ${checkNum};
 	var userNum = $('#userNum').val();
 	if(userNum==authNum){
-		alert("이메일 인증성공");
+		alert("メール認証成功！");
 		opener.document.getElementById("email").value = "${user_email}";
 		opener.emailDuplResult = true;
 		opener.document.getElementById("emailMsg").innerHTML = "email ok！";
 		window.close();
 	}else{
-		alert("이메일 인증 실패");
+		alert("メール認証失敗");
 		opener.emailDuplResult = false;
 		opener.document.getElementById("email").value = "";
 	}

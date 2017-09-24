@@ -83,7 +83,7 @@ public class Mail extends Authenticator {
 		//보내는 서버 주소
 		String host ="smtp.naver.com";
 		//메일 제목 설정
-		String subject = "KANEMOCHI 인증번호! "; 
+		String subject = "KANEMOCHIのメール認証番号です! "; 
 		//보내는 사람 이메일 주소
 		String from = "kyh0975@naver.com"; 
 		//보내는사람 이름
@@ -94,7 +94,7 @@ public class Mail extends Authenticator {
 		StringBuffer content = new StringBuffer();
 		content.append("KANEMOCHI");
 		content.append("<br>");
-		content.append("인증번호는 ");
+		content.append("認証番号 : ");
 		content.append(ran);
 		
 		Properties props = new Properties();
