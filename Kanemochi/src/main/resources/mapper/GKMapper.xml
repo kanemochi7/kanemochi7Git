@@ -5,12 +5,23 @@
 <mapper namespace="com.project.kanemochi.dao.GKMapper">
 
 	<select id="getRecord" parameterType="String" resultType="RecordVO">
-		select user_id,TO_CHAR(record_date,'YYYY-MM-DD')record_date,category from record where user_id = #{id}
+		select user_id,TO_CHAR(record_date,'YYYY-MM-DD')record_date,category 
+		from record 
+		where user_id = #{id}
 	</select>
 	
 	
 	<select id="getDayRecord" parameterType="map" resultType="RecordVO">
-		select TO_CHAR(record_date,'YYYY-MM-DD')record_date,category,record_price,record_pay from record where user_id = #{id} and TO_CHAR(record_date,'YYYY-MM-DD') = #{date}
+		select TO_CHAR(record_date,'YYYY-MM-DD')record_date,category,record_price,record_pay 
+		from record 
+		where user_id = #{id} and TO_CHAR(record_date,'YYYY-MM-DD') = #{date}
+	</select>
+	
+	<select id="getMonthRecord" parameterType="map" resultType="RecordVO">
+		select TO_CHAR(record_date,'YYYY-MM-DD')record_date,category,record_price,record_pay 
+		from record 
+		where user_id = #{id} and TO_CHAR(record_date,'YYYY-MM') = #{month}
+		order by record_date
 	</select>
 	
 </mapper>

@@ -37,5 +37,14 @@ public class GK_DAOImpl implements GK_DAO {
 		return mapper.getDayRecord(map);
 	}
 
+	@Override
+	public ArrayList<RecordVO> getMonthRecord(String id, String searchMonth) {
+		GKMapper mapper = sqlsession.getMapper(GKMapper.class);
+		Map<String, String> map = new HashMap<>();
+		map.put("id", id);
+		map.put("month", searchMonth);
+		return mapper.getMonthRecord(map);
+	}
+
 	
 }
