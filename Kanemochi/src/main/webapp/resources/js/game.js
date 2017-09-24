@@ -253,6 +253,7 @@ var GameState = {
   this.buildingGroup = game.add.group();
   this.buildingGroup.enableBody = true;
   this.buildingTopGroup = game.add.group();
+  this.buildingTopGroup.enableBody = true;
   this.elevatorGroup = game.add.group();
   this.elevatorGroup.enableBody = true;
   this.elevatorTopGroup = game.add.group();  
@@ -518,13 +519,17 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    			      leftWall.scale.setTo(0.5,1);
 		    			      leftWall.width = (sprite2.x - test.x - test.width);
 		    			      leftWall.height = sprite2.height;
+		    			      console.log(leftWall);
 		    			      GameState.wallGroup.add(leftWall);
 		    			      
 		    			      leftWallTop =  game.add.sprite(leftWall.x, leftWall.y-8.9, 'buildingTopShort');
 		    			      leftWallTop.scale.setTo(0.5,0.3);
+		    			      leftWallTop.width = (sprite2.x - test.x - test.width);
+		    			      
 		    			      game.physics.arcade.enable(leftWallTop);
 		    			      leftWallTop.body.allowGravity = false;
 		    			      leftWallTop.body.immovable = true;
+		    			      leftWallTop.tint = 0xff0000;
 		    			      GameState.buildingTopGroup.add(leftWallTop);
 		    			 }
 		    		 });
@@ -536,14 +541,17 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    				
 		    				 rightWall.width = (test.x - temp);
 		    			      rightWall.height = test.height;
+		    			      console.log(rightWall);
 		    			      GameState.wallGroup.add(rightWall);
 		    			      
 		    			      rightWallTop =  game.add.sprite(rightWall.x, rightWall.y-8.9, 'buildingTopShort');
+		    			      
 		    			      rightWallTop.scale.setTo(0.5,0.3);
-
+		    			      rightWallTop.width = (test.x - temp);
 		    			      game.physics.arcade.enable(rightWallTop);
 		    			      rightWallTop.body.allowGravity = false;
 		    			      rightWallTop.body.immovable = true;
+		    			      rightWallTop.tint = 0x00ff00;
 		    			      GameState.buildingTopGroup.add(rightWallTop);
 		    			 } 
 		    		 });
@@ -555,12 +563,14 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    			      leftWall.width = (sprite2.x - test.x - test.width);
 		    			      leftWall.height = sprite2.height;
 		    			      GameState.wallGroup.add(leftWall);
-		    			      
+		    			      console.log(leftWall);
 		    			      leftWallTop =  game.add.sprite(leftWall.x, leftWall.y-8.9, 'buildingTopShort');
 		    			      leftWallTop.scale.setTo(0.5,0.3);
+		    			      leftWallTop.width = (sprite2.x - test.x - test.width);
 		    			      game.physics.arcade.enable(leftWallTop);
 		    			      leftWallTop.body.allowGravity = false;
 		    			      leftWallTop.body.immovable = true;
+		    			      leftWallTop.tint = 0xff0000;
 		    			      GameState.buildingTopGroup.add(leftWallTop);
 		    			 }
 		    		 });
@@ -573,13 +583,15 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    				 rightWall.width = (test.x - temp);
 		    			      rightWall.height = test.height;
 		    			      GameState.wallGroup.add(rightWall);
-		    			      
+		    			      console.log(rightWall);
 		    			      rightWallTop =  game.add.sprite(rightWall.x, rightWall.y-8.9, 'buildingTopShort');
+		    			     
 		    			      rightWallTop.scale.setTo(0.5,0.3);
-
+		    			      rightWallTop.width = (test.x - temp);
 		    			      game.physics.arcade.enable(rightWallTop);
 		    			      rightWallTop.body.allowGravity = false;
 		    			      rightWallTop.body.immovable = true;
+		    			      rightWallTop.tint = 0x0000ff;
 		    			      GameState.buildingTopGroup.add(rightWallTop);
 		    			 } 
 		    		 });
@@ -820,25 +832,25 @@ function deleteButtonOn(anywaySprite){
 		
 		var delete_result = confirm("삭제하시겠습니까?!");
 		if(delete_result){
-			 var leftWing;
+			 var leftWing2;
 			    if(anywaySprite.width == 200){
-			    	leftWing =  game.add.sprite(anywaySprite.x - anywaySprite.width, anywaySprite.y+30, 'buildingTopCheck');
+			    	leftWing2 =  game.add.sprite(anywaySprite.x - anywaySprite.width, anywaySprite.y+30, 'buildingTopCheck');
 			    }
 			    else if(anywaySprite.width == 300){
-			    	leftWing =  game.add.sprite(anywaySprite.x - anywaySprite.width +100, anywaySprite.y+30, 'buildingTopCheck');
+			    	leftWing2 =  game.add.sprite(anywaySprite.x - anywaySprite.width +100, anywaySprite.y+30, 'buildingTopCheck');
 			    }
-				var rightWing =  game.add.sprite(anywaySprite.x + anywaySprite.width, anywaySprite.y+30, 'buildingTopCheck');
+				var rightWing2 =  game.add.sprite(anywaySprite.x + anywaySprite.width, anywaySprite.y+30, 'buildingTopCheck');
 
-				this.game.physics.arcade.enable([leftWing,rightWing]);
-				leftWing.scale.setTo(0.5,0.3);
-				rightWing.scale.setTo(0.5,0.3);
+				this.game.physics.arcade.enable([leftWing2,rightWing2]);
+				leftWing2.scale.setTo(0.5,0.3);
+				rightWing2.scale.setTo(0.5,0.3);
 				
 				var leftWall;
 				var rightWall;
 				var leftWallTop;
 				var rightWallTop;
 				
-				setTimeout(game.physics.arcade.collide(leftWing,GameState.wallGroup,function(left,wall){
+				setTimeout(game.physics.arcade.collide(leftWing2,GameState.wallGroup,function(left,wall){
 					console.log("왼쪽 벽 충돌");
 					console.log(anywaySprite);
 					console.log(left);
@@ -853,7 +865,7 @@ function deleteButtonOn(anywaySprite){
 					      GameState.wallGroup.remove(wall);
 				      
 				 }),100);
-				setTimeout(game.physics.arcade.collide(rightWing,GameState.wallGroup,function(right,wall){
+				setTimeout(game.physics.arcade.collide(rightWing2,GameState.wallGroup,function(right,wall){
 					console.log("오른쪽 벽 충돌");
 					console.log(anywaySprite);
 					console.log(right);
@@ -874,8 +886,8 @@ function deleteButtonOn(anywaySprite){
 					GameState.buildingTopGroup.remove(top);
 				}),100);
 				GameState.buildingGroup.remove(anywaySprite);
-				leftWing.destroy();
-				rightWing.destroy();
+				leftWing2.destroy();
+				rightWing2.destroy();
 		}
 		else{ console.log("삭제 안한다 마!")};	
 	},this);
