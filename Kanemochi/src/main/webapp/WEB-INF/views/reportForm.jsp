@@ -202,17 +202,19 @@ $(document).ready(function() {
 								i=0;
 							}
 						}); 
+						
 						$("#btnExport").click(function () {
 				            $("#tblExport").excelexportjs({
 				                containerid: "listTable"
 				               , datatype: 'table'
 				            });
 				        });
-						 $("h2").click(function(){
-							  alert("hi");
-							  var month = $("h2").text();
-							    alert(month);
-						  });
+						
+						$("h2").click(function(){
+							alert("hi");
+							var month = $("h2").text();
+							alert(month);
+						});
 	     			}
 				 })
 		     }
@@ -312,11 +314,11 @@ $(document).ready(function() {
 			'fontSize':20
 			
 		};
-	
+	/* 
 		var chart = new google.charts.Line(document
 				.getElementById('lineChart'));
 		chart.draw(data, google.charts.Line.convertOptions(options));
-		
+		 */
 		//[Bubble Chart]
 		var data = google.visualization.arrayToDataTable([
 	          ['ID', '방문 횟수', '평균 가격', '카테고리', '월 총 소비액'],
