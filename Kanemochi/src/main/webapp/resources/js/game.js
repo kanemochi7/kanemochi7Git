@@ -441,7 +441,7 @@ function stateBuilding(inputText,buildingX,buildingY){
 			        	sprite2.name = inputText+'_'+(++buildingCounter[12]);
 			        	break;
 			          case 'elevator':
-			          	spriteTemp.name = inputText+'_'+(++buildingCounter[13]);
+			          	sprite2.name = inputText+'_'+(++buildingCounter[13]);
 			          	break;
 			          default:
 			        	  break;
@@ -593,7 +593,7 @@ function stateBuilding(inputText,buildingX,buildingY){
 	    	  }
 		  	
 		  	else if(inputText == 'elevator'){
-		  		GameState.elevatorGroup.add(sprite2);  
+		  		  GameState.elevatorGroup.add(sprite2);  
 				  sprite2.scale.setTo(0.5);
 				  game.physics.arcade.enable(sprite2);
 				  sprite2.body.allowGravity = false;
@@ -639,7 +639,7 @@ function stateBuilding(inputText,buildingX,buildingY){
 				        	sprite2.name = inputText+'_'+(++buildingCounter[12]);
 				        	break;
 				          case 'elevator':
-				          	spriteTemp.name = inputText+'_'+(++buildingCounter[13]);
+				          	sprite2.name = inputText+'_'+(++buildingCounter[13]);
 				          	break;
 				          default:
 				        	  break;
