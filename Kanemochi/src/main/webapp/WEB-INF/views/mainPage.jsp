@@ -207,7 +207,7 @@ $(function() {
 		</div>
 		<button class="accordion">その他</button>
 		<div class="panel">
-			<p><a href="javascript:createItem('elevator')">エレベーター  </a></p>
+			<p><a href="javascript:createItem('elevator')">エレベーター  </a><span class="badge" id="elevator">1</span></p>
 		</div>
 	</div>
 
@@ -266,7 +266,7 @@ $(function() {
    function createItem(category) {
 		var num = document.getElementById(category).textContent;
 		if (num == 0) {
-		} else {
+		} else if(category == 'elevator' || num > 0 ) {
 				createBuilding(category);
 				var timer2 = setTimeout(function(){
 					console.log(res);
