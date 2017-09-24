@@ -159,6 +159,7 @@ $(document).ready(function() {
 	  });
 	  
 	 
+	   
 	  
 	  
 });
@@ -207,6 +208,11 @@ $(document).ready(function() {
 				               , datatype: 'table'
 				            });
 				        });
+						 $("h2").click(function(){
+							  alert("hi");
+							  var month = $("h2").text();
+							    alert(month);
+						  });
 	     			}
 				 })
 		     }
