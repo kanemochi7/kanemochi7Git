@@ -112,10 +112,9 @@ div.blueTable {
 </style>
 <script>
 $(function() {
-	datepicker();
-	
-	/* setProgressbar_budget(); */
-	/* setProgressbar_exp(); */
+	datepicker();	
+	setProgressbar_budget();
+	setProgressbar_exp();
 	
 	/* getbudget();
 	getExp(); */
@@ -135,47 +134,15 @@ $(function() {
 	}
 	
 	function setProgressbar_budget() {
-alert("setProgressbar_budget");
-		var budget = getBudget();
-		var expense = getExpense();
-		var elem = document.getElementById("budget_progress");
-
-		var value = expense/budget*100;
-		var width = 0;
-		var id = setInterval(frame, 10);
-		function frame() {
-alert("budget:");
-alert(typeof budget);
-alert(budget);
-alert("expense:");
-alert(typeof expenxse);
-alert(expense);
-alert(value);
-alert(typeof value);
-alert(width);
-alert(typeof width);
-			if (width >= value) {
-		    	clearInterval(id);
-		    } else {
-		      width++; 
-		      elem.style.width = width*5 + 'px'; 
-		      elem.innerHTML = width*1  + '%';
-		      document.getElementById("show_spend").innerHTML = numberWithCommas(Number(expense));
-		      document.getElementById("show_budget").innerHTML = numberWithCommas(Number(budget));
-			}
-		}
-	}
-	
-	function getBudget() {
-alert("getBudget()");
+		var budget = 0;
+		var expense = 0;
+		
+		//budget
 		$.ajax({
 			url : '/kanemochi/record/getbudget',
 			method : 'get',
 			cache : false,
 			success: function (result) {
-alert("getBudget()-success");
-alert(result);//[object Object]
-alert(typeof result);//object
 				if (result.monthly != 0) {
 					document.getElementById("budget_input_text").style.display = "none";
 					document.getElementById("btn_setbudget").style.display='none';
@@ -192,52 +159,54 @@ alert(typeof result);//object
 				document.getElementById("month_result").innerHTML = monthly;
 				document.getElementById("weekly_result").innerHTML = weekly;
 				document.getElementById("daily_result").innerHTML = daily;
-alert(result.monthly);//500000
-alert(monthly);//500,000
-				return result.monthly;
+				budget = result.monthly;
+				document.getElementById("show_budget").innerHTML = "￥"+numberWithCommas(budget);
 			},
 			error: function() {
-alert("fail-budget");
-				return 1;
 			}
 		});
-	}
 
-	function getExpense() {
-alert("getExpense()");
+		//expense
 		$.ajax({
 			url : '/kanemochi/record/getExpense',
 			method : 'get',
 			cache : false,
 			success: function (result) {
-alert("getExpense()-success");
-alert(result);//0
-alert(typeof result);//number
-				return result;
+				expense = result;
+				document.getElementById("show_spend").innerHTML = "￥"+numberWithCommas(expense);
 			},
 			error: function() {
-alert("fail-expense");
-				return 0;
 			}
 		});
+
+		//progress set
+		var elem = document.getElementById("budget_progress");
+		var value = 0;
+		var width = 0;
+		if (expense != 0 && budget != 0) {
+			value = expense/budget*100;
+		}
+		var id = setInterval(frame, 10);
+		function frame() {
+			if (width >= value) {
+		    	clearInterval(id);
+		    } else {
+		      width++; 
+		      elem.style.width = width*5 + 'px'; 
+		      elem.innerHTML = width*1  + '%';
+			}
+		}
 	}
+
+	function setProgressbar_exp() {
+		var level_img ="";
+		var full_score = 0;
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	function getExp() {
 		$.ajax({
 			url : '/kanemochi/exp/getExp',
 			method : 'get',
 			cache : false,
 			success: function (user_score) {
-				var level_img ="";
-				var full_score = 1;
 				if (user_score <= 300) {
 					level_img="level1";
 					full_score = 300;
@@ -282,8 +251,11 @@ alert("fail-expense");
 				$("#level").attr("src", level_img_url);
 
 				var elem = document.getElementById("exp_progress");
-				var value = user_score/full_score*100;
+				var value = 0;
 				var width = 0;
+				if (user_score != 0 && full_score != 0) {
+					value = user_score/full_score*100;
+				}	
 				var id = setInterval(frame, 10);
 					function frame() {
 						if (width >= value) {
@@ -292,28 +264,16 @@ alert("fail-expense");
 					      width++;
 					      elem.style.width = width*5 + 'px';
 					      elem.innerHTML = width*1  + '%';
-					      document.getElementById("show_point").innerHTML = numberWithCommas(user_score)+"xp";
-					      document.getElementById("next_level").innerHTML = numberWithCommas(full_score)+"xp";
 					    }
 					}
+				document.getElementById("next_level").innerHTML = numberWithCommas(full_score)+"xp";
+				document.getElementById("show_point").innerHTML = numberWithCommas(user_score)+"xp";
 				},
 			error: function() {
 					}
-			});		
-	}
-	
-	function login_days() {
-		alert("login day count")
-		$.ajax({
-			url : '/kanemochi/exp/login_days',
-			method : 'get',
-			success: function (result) {
-				alert("로그인"+result+"회! 경험치 추가!");
-				},
-			error: function() {
-				}
 			});
 	}
+	
 
 	function input() {
 		/* 유효성 검사 아직 안함 */
@@ -330,6 +290,8 @@ alert("fail-expense");
 			
 			var month = document.getElementById("month_result").innerHTML;
 			var monthly = Number(month.replace(/,/g, ""));
+			
+			setProgressbar_budget();
 			},
 		error: function() {
 			}
@@ -423,6 +385,20 @@ alert("fail-expense");
 				}
 		});
 	}
+	
+	function login_days() {
+		alert("login day count")
+		$.ajax({
+			url : '/kanemochi/exp/login_days',
+			method : 'get',
+			success: function (result) {
+				alert("로그인"+result+"회! 경험치 추가!");
+				},
+			error: function() {
+				}
+			});
+	}
+
 </script>
 </head>
 <body>

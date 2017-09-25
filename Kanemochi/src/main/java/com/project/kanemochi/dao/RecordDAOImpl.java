@@ -78,12 +78,13 @@ public class RecordDAOImpl implements RecordDAO {
 	public int getExpense(String id) {
 		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);
 		int result = 0;
-		if (mapper.getExpense(id) != null) {
-			result = (int)mapper.getExpense(id);
+		String result_str = String.valueOf(mapper.getExpense(id)+"");
+		if (result_str != "") {
+			result = Integer.parseInt(result_str);
 		}
 		return result;
 	}
-
+	
 	@Override
 	public ArrayList<RecordVO> getEveryRecord(String id) {
 		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);

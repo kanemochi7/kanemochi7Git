@@ -21,6 +21,6 @@ public interface RecordMapper {
 	
 	public void setStatus(ShopVO vo);
 	public ArrayList<ShopVO> getStatus(String id);
-	public Object getExpense(String id);
+	public int getExpense(String id);
 	public ArrayList<RecordVO> getEveryRecord(String id);
 }
