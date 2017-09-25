@@ -154,12 +154,7 @@ npcCharacter.prototype.turn = function(){
 //---------------------------------------------------
 var game = new Phaser.Game(width,height,Phaser.AUTO,"game");
 var ground; // 밑의 투명한 바닥 : 전역변수
-/*var buildingGroup; // 생성한 건물 스프라이트 담는 ArrayList 같은거(Phaser에서 제공해줌)
-var GameState.buildingTopGroup;
-var GameState.npcGroup;
-var GameState.wallGroup;
-var elevatorGroup;
-var elevatorTopGroup;*/
+
 var buildingCounter = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];//카테고리별 빌딩의 수를 담으려고 함. (여기서 쓰려고)
 var numberOfNPC=0;
 var incOrDec = true;
@@ -259,6 +254,7 @@ var GameState = {
   this.elevatorTopGroup = game.add.group();  
   this.npcGroup = game.add.group();
   this.wallGroup = game.add.group();
+  this.wallGroup.enableBody = true;
   this.gameGroup = game.add.group();
  //주의 : 폰트 안됨. 하얀거만 칠해진거임. //text 관련
  // 그리고 여기는 아마 html과 합치게 되면 없어지거나 다르게 변형해야 할 내용이라고 생각함.
@@ -281,8 +277,10 @@ var GameState = {
       this.game.physics.arcade.collide(GameState.npcGroup,ground);
       this.game.physics.arcade.collide(GameState.npcGroup,GameState.buildingTopGroup);
       this.game.physics.arcade.collide(GameState.npcGroup,GameState.elevatorTopGroup);
+      
       this.game.physics.arcade.enable(GameState.buildingTopGroup);
       this.game.physics.arcade.enable(GameState.elevatorTopGroup);
+      this.game.physics.arcade.enable(GameState.wallGroup);
       this.game.physics.arcade.collide(userCharacter,ground);
       this.game.world.bringToTop(userCharacter);
       
@@ -513,6 +511,7 @@ function stateBuilding(inputText,buildingX,buildingY){
 	    		var rightWallTop;
 	    		var timer = setTimeout(function(){
 					var leftCollision = game.physics.arcade.collide(leftWing,GameState.buildingGroup,function(left,test){
+						if(!game.physics.arcade.collide(leftWing,GameState.wallGroup)){
 		    			 if(test.name != sprite2.name && (sprite2.x - (test.x+test.width)) < 200){
 		    				 leftWall = game.add.sprite(test.x+test.width, test.y, 'buildingWall');
 		    			    
@@ -532,8 +531,10 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    			      leftWallTop.tint = 0xff0000;
 		    			      GameState.buildingTopGroup.add(leftWallTop);
 		    			 }
+						}
 		    		 });
 		    		var rightCollision = game.physics.arcade.collide(rightWing,GameState.buildingGroup,function(right,test){
+		    			if(!game.physics.arcade.collide(right,GameState.wallGroup)){
 		    			 if(test.name != sprite2.name && (test.x - (sprite2.x+sprite2.width)) < 200){
 		    				 rightWall = game.add.sprite(sprite2.x+sprite2.width, sprite2.y, 'buildingWall');
 		    				 rightWall.scale.setTo(0.5,1);
@@ -554,8 +555,10 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    			      rightWallTop.tint = 0x00ff00;
 		    			      GameState.buildingTopGroup.add(rightWallTop);
 		    			 } 
+		    			}
 		    		 });
 	    			var leftCollision1 = game.physics.arcade.collide(leftWing,GameState.elevatorGroup,function(left,test){
+	    				if(!game.physics.arcade.collide(leftWing,GameState.wallGroup)){
 		    			 if(test.name != sprite2.name && (sprite2.x - (test.x+test.width)) < 200){
 		    				 leftWall = game.add.sprite(test.x+test.width, test.y, 'buildingWall');
 		    			    
@@ -573,8 +576,10 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    			      leftWallTop.tint = 0xff0000;
 		    			      GameState.buildingTopGroup.add(leftWallTop);
 		    			 }
+	    				}
 		    		 });
 		    		var rightCollision1 = game.physics.arcade.collide(rightWing,GameState.elevatorGroup,function(right,test){
+		    			if(!game.physics.arcade.collide(rightWing,GameState.wallGroup)){
 		    			 if(test.name != sprite2.name && (test.x - (sprite2.x+sprite2.width)) < 200){
 		    				 rightWall = game.add.sprite(sprite2.x+sprite2.width, sprite2.y, 'buildingWall');
 		    				 rightWall.scale.setTo(0.5,1);
@@ -593,7 +598,8 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    			      rightWallTop.body.immovable = true;
 		    			      rightWallTop.tint = 0x0000ff;
 		    			      GameState.buildingTopGroup.add(rightWallTop);
-		    			 } 
+		    			 }
+		    			}
 		    		 });
 		    		leftWing.destroy();
 		    		rightWing.destroy();
