@@ -252,6 +252,7 @@ var GameState = {
   this.elevatorGroup = game.add.group();
   this.elevatorGroup.enableBody = true;
   this.elevatorTopGroup = game.add.group();  
+  this.elevatorTopGroup.enableBody = true;
   this.npcGroup = game.add.group();
   this.wallGroup = game.add.group();
   this.wallGroup.enableBody = true;
@@ -867,9 +868,10 @@ function deleteButtonOn(anywaySprite){
 								console.log(wall2);
 								console.log(top);
 					    	  GameState.buildingTopGroup.remove(top);
+					    	  top.destroy();
 					      });
 					      GameState.wallGroup.remove(wall);
-				      
+					      wall.destroy();
 				 }),100);
 				setTimeout(game.physics.arcade.collide(rightWing2,GameState.wallGroup,function(right,wall){
 					console.log("오른쪽 벽 충돌");
@@ -882,16 +884,32 @@ function deleteButtonOn(anywaySprite){
 						console.log(wall2);
 						console.log(top);
 				    	  GameState.buildingTopGroup.remove(top);
+				    	  top.destroy();
 				      });
 				      GameState.wallGroup.remove(wall);
+				      wall.destroy();
 				 }),100);
 				
 				//여기에 그 Ajax 넣으시고
 				setTimeout(game.physics.arcade.collide(anywaySprite,GameState.buildingTopGroup,function(sprite,top){
 					console.log("건물 지붕 제거");
 					GameState.buildingTopGroup.remove(top);
+					console.log(top);
+					top.destroy();
 				}),100);
-				GameState.buildingGroup.remove(anywaySprite);
+				setTimeout(game.physics.arcade.collide(anywaySprite,GameState.elevatorTopGroup,function(sprite,top){
+					console.log("엘베 지붕 제거");
+					GameState.elevatorTopGroup.remove(top);
+					console.log(top);
+					top.destroy();
+				}),100);
+				if(anywaySprite.key == 'elevator'){
+					GameState.buildingGroup.remove(anywaySprite);
+				}
+				else if(anywaySprite.key == 'elevator'){
+					GameState.elevatorGroup.remove(anywaySprite);
+				}
+				anywaySprite.destroy();
 				leftWing2.destroy();
 				rightWing2.destroy();
 		}
