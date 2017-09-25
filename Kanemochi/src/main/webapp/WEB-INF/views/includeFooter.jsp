@@ -114,7 +114,7 @@ div.blueTable {
 $(function() {
 	datepicker();
 	
-	setProgressbar_budget();
+	/* setProgressbar_budget(); */
 	/* setProgressbar_exp(); */
 	
 	/* getbudget();
@@ -138,13 +138,22 @@ $(function() {
 alert("setProgressbar_budget");
 		var budget = getBudget();
 		var expense = getExpense();
-alert("budget:"+typeof budget+budget);
-alert("expense:"+typeof expenxse+expense);
 		var elem = document.getElementById("budget_progress");
+
 		var value = expense/budget*100;
 		var width = 0;
 		var id = setInterval(frame, 10);
 		function frame() {
+alert("budget:");
+alert(typeof budget);
+alert(budget);
+alert("expense:");
+alert(typeof expenxse);
+alert(expense);
+alert(value);
+alert(typeof value);
+alert(width);
+alert(typeof width);
 			if (width >= value) {
 		    	clearInterval(id);
 		    } else {
@@ -158,12 +167,15 @@ alert("expense:"+typeof expenxse+expense);
 	}
 	
 	function getBudget() {
-		alert("getBudget()");
+alert("getBudget()");
 		$.ajax({
 			url : '/kanemochi/record/getbudget',
 			method : 'get',
 			cache : false,
 			success: function (result) {
+alert("getBudget()-success");
+alert(result);//[object Object]
+alert(typeof result);//object
 				if (result.monthly != 0) {
 					document.getElementById("budget_input_text").style.display = "none";
 					document.getElementById("btn_setbudget").style.display='none';
@@ -180,29 +192,31 @@ alert("expense:"+typeof expenxse+expense);
 				document.getElementById("month_result").innerHTML = monthly;
 				document.getElementById("weekly_result").innerHTML = weekly;
 				document.getElementById("daily_result").innerHTML = daily;
-	alert(result.monthly);
-	alert(monthly);
+alert(result.monthly);//500000
+alert(monthly);//500,000
 				return result.monthly;
 			},
 			error: function() {
-				alert("fail-budget");
+alert("fail-budget");
 				return 1;
 			}
 		});
 	}
 
 	function getExpense() {
-		alert("getExpense()");
+alert("getExpense()");
 		$.ajax({
 			url : '/kanemochi/record/getExpense',
 			method : 'get',
 			cache : false,
 			success: function (result) {
-				alert(result);
+alert("getExpense()-success");
+alert(result);//0
+alert(typeof result);//number
 				return result;
 			},
 			error: function() {
-				alert("fail-expense");
+alert("fail-expense");
 				return 0;
 			}
 		});
