@@ -155,10 +155,10 @@ $(document).ready(function() {
 	     	 			setCalendar(data);
 	     			 }
 	});
-	init();
+	initTable();
 });
 
-	function init() {
+	function initTable() {
 		var list = ${everyList};
 		var arr = ["info","success","danger","warning","acive"];
 		var i = 0;
@@ -184,6 +184,38 @@ $(document).ready(function() {
 		});
 	}
 	
+	function makeTable(list) {
+		$("#listTable").empty();
+		var addrow = "<tbody>";
+		addrow += '<tr><td><h4>レポート<h4></td></tr>';
+		addrow += '<tr><td><button id="btnExport" class="btn btn-warning" type="button">Export</button><td><tr>';
+		addrow += '<tr id="first"><td>日付</td><td>カテゴリー</td><td>価格</td><td>支払方法</td></tr>';
+		var arr = ["info","success","danger","warning","acive"];
+		var i = 0;
+		$(list).each(function (index,item) {
+				addrow += "<tr class='"+arr[i]+"''>";
+				addrow += '<td>'+item.record_date+'</td>';
+				addrow += '<td>'+item.category+'</td>';
+				addrow += '<td>¥'+item.record_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")+'</td>';
+				addrow += '<td>'+item.record_pay+'</td></tr>';
+				if(Object.keys(list).length==index+1){
+					addrow += "</tbody>";
+					$("#listTable").append(addrow);
+				}
+				i++;
+				if(i==4){
+					i=0;
+				}
+		}); 
+		
+		$("#btnExport").click(function () {
+            $("#tblExport").excelexportjs({
+                containerid: "listTable"
+               , datatype: 'table'
+            });
+        });
+	}
+	
 	function setCalendar( data ){		  
 		  $('#calendar').fullCalendar({
 		     editable : false
@@ -197,36 +229,8 @@ $(document).ready(function() {
 					, data: {"date":date.format()}
 					, dataType : "json" //전송받을 데이터 타입
 				    , contentType: "application/x-www-form-urlencoded; charset=UTF-8"
-				    , success : function(data) {
-				    	$("#listTable").empty();
-						var addrow = "<tbody>";
-						addrow += '<tr><td><h4>レポート<h4></td></tr>';
-						addrow += '<tr><td><button id="btnExport" class="btn btn-warning" type="button">Export</button><td><tr>';
-						addrow += '<tr id="first"><td>日付</td><td>カテゴリー</td><td>価格</td><td>支払方法</td></tr>';
-						var arr = ["info","success","danger","warning","acive"];
-						var i = 0;
-						$(data).each(function (index,item) {
-								addrow += "<tr class='"+arr[i]+"''>";
-								addrow += '<td>'+item.record_date+'</td>';
-								addrow += '<td>'+item.category+'</td>';
-								addrow += '<td>¥'+item.record_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")+'</td>';
-								addrow += '<td>'+item.record_pay+'</td></tr>';
-								if(Object.keys(data).length==index+1){
-									addrow += "</tbody>";
-									$("#listTable").append(addrow);
-								}
-								i++;
-								if(i==4){
-									i=0;
-								}
-						}); 
-						
-						$("#btnExport").click(function () {
-				            $("#tblExport").excelexportjs({
-				                containerid: "listTable"
-				               , datatype: 'table'
-				            });
-				        });
+				    , success : function(list) {
+				    	makeTable(list)
 						
 						$("h2").click(function(){
 							var month = $("h2").text();
@@ -238,30 +242,8 @@ $(document).ready(function() {
 									, data: {"month":strArray[0],"year":strArray[1]}
 									, dataType : "json"
 								    , contentType: "application/x-www-form-urlencoded; charset=UTF-8"
-								    , success : function(data) {
-									    $("#listTable").empty();
-									    var addrow = "<tbody>";
-										addrow += '<tr><td><h4>レポート<h4></td></tr>';
-										addrow += '<tr><td><button id="btnExport" class="btn btn-warning" type="button">Export</button><td><tr>';
-										addrow += '<tr id="first"><td>月</td><td>カテゴリー</td><td>価格</td><td>支払方法</td></tr>';
-										var arr = ["info","success","danger","warning","acive"];
-										var i = 0;
-										$(data).each(function (index,item) {
-											addrow += "<tr class='"+arr[i]+"''>";
-											addrow += '<td>'+item.record_date+'</td>';
-											addrow += '<td>'+item.category+'</td>';
-											addrow += '<td>¥'+item.record_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")+'</td>';
-											addrow += '<td>'+item.record_pay+'</td></tr>';
-											if(Object.keys(data).length==index+1){
-												addrow += "</tbody>";
-												$("#listTable").append(addrow);
-											}
-											i++;
-											if(i==4){
-												i=0;
-											}
-							
-										});
+								    , success : function(list2) {
+									   makeTable(list2);
 								    }
 							}); 
 						});
