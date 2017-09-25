@@ -305,7 +305,7 @@ $(document).ready(function() {
 		//[Column Chart]
         var data = google.visualization.arrayToDataTable([
           ['Category', '2017/08', '2017/09'],
-          ['식비', 500000, 600000],
+          ['식비', 500000, 600000], 
           ['문화비', 12000, 50000],
           ['교통비', 150000, 100000],
           ['교육비', 45000, 17000]
