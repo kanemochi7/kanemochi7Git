@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css">
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/kanemochi/resources/js/jquery.techbytarun.excelexportjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
 <style type="text/css">
 body {
 	margin: 40px 10px;
@@ -121,6 +122,9 @@ td, tr {
 </style>
 <script>
 $(document).ready(function() {
+	  
+	
+	<!-- onclick="location.href='/kanemochi/member/loginForm'" -->
 	/* $.datepicker.regional['jp'] = {
 			closeText: '닫기',
 			prevText: '이전달',
@@ -155,7 +159,11 @@ $(document).ready(function() {
 	     	 			setCalendar(data);
 	     			 }
 	});
+			
 	initTable();
+	
+	
+
 });
 
 	function initTable() {
@@ -167,7 +175,7 @@ $(document).ready(function() {
 		addrow += '<tr><td><button id="btnExport" class="btn btn-warning" type="button">Export</button><td><tr>';
 		addrow += '<tr id="first"><td>日付</td><td>カテゴリー</td><td>価格</td><td>支払方法</td></tr>';
 		$(list).each(function (index,item) {
-			alert(item.category);
+			/* alert(item.category); */
 			addrow += "<tr class='"+arr[i]+"''>";
 			addrow += '<td>'+item.record_date+'</td>';
 			addrow += '<td>'+item.category+'</td>';
@@ -214,6 +222,7 @@ $(document).ready(function() {
                , datatype: 'table'
             });
         });
+		
 	}
 	
 	function setCalendar( data ){		  
@@ -373,6 +382,9 @@ $(document).ready(function() {
 	        var chart = new google.visualization.BubbleChart(document.getElementById('bubbleChart'));
 	        chart.draw(data, options);
 	}
+	
+	
+	
 </script>
 
 </head>
@@ -399,26 +411,41 @@ $(document).ready(function() {
     </div>
     <div id="menu1" class="tab-pane fade">
       <h1>[Report]</h1>
+      <hr>
+	  <button type="button" class="btn btn-warning">export in excel</button>
+	  <button type="button" id="exportPDF" class="btn btn-success">export in pdf</button>
+	  <br>
 	  <div id="pieChart"></div>
 	  <!-- <div id="lineChart"></div> -->
 	  <div id="columnChart"></div>
-	  <div id="buttons">
-		  <button type="button" class="btn btn-info" onclick="location.href='/kanemochi/member/loginForm'">home</button>
-		  <button type="button" class="btn btn-warning">export in excel</button>
-		  <button type="button" class="btn btn-success">export in pdf</button>
-	  </div>
+	  
     </div>
     <div id="menu2" class="tab-pane fade">
       <div id="bubbleChart"></div> 
     </div>
     <div id="menu3" class="tab-pane fade">
     	<!-- <input class="input"> -->
-    	<table id="everyList" class="table table-striped table-hover ">
-			
-    	</table>
+    	<table id="everyList" class="table table-striped table-hover "></table>
     </div>
   </div>
 </div>
+<script type="text/javascript">
+var doc = new jsPDF();
+var specialElementHandlers = {
+    '#buttons': function (element, renderer) {
+        return true;
+    }
+};
+
+$('#exportPDF').click(function () {
+	alert("hi");
+    doc.fromHTML($('#menu1').html(), 15, 15, {
+        'width': 170,
+            'elementHandlers': specialElementHandlers
+    });
+    doc.save('sample-file.pdf');
+});
+</script>
 
 
 </body>
