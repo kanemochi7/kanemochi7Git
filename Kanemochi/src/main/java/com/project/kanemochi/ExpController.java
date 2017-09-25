@@ -17,21 +17,6 @@ public class ExpController {
 	
 	@Autowired
 	private ExpDAO dao;
-
-	@RequestMapping(value = "login_days", method = RequestMethod.GET)
-	@ResponseBody
-	public int login_days(HttpSession session) {
-		String id = (String)session.getAttribute("loginID");
-		int login_days = dao.login_days(id);
-		if (login_days == 9) {
-			//login 9회 경험치 90xp
-			int exp = 90;
-			ExpVO vo = new ExpVO(id, exp);
-			dao.upExp(vo);
-			return login_days;
-		}
-		return login_days;
-	}
 	
 	@RequestMapping(value = "getExp", method = RequestMethod.GET)
 	@ResponseBody
@@ -39,6 +24,22 @@ public class ExpController {
 		String id = (String)session.getAttribute("loginID");
 		return dao.getExp(id);
 	}
+	
+	@RequestMapping(value = "upExp", method = RequestMethod.GET)
+	@ResponseBody
+	public void upExp(int exp, HttpSession session) {
+		System.out.println("upExp");
+		System.out.println(exp);
+		String id = (String)session.getAttribute("loginID");
+		int expsum = dao.getExp(id)+exp;
+		dao.upExp(new ExpVO(id, expsum));
+	}
 
+	@RequestMapping(value = "login_times", method = RequestMethod.GET)
+	@ResponseBody
+	public int login_times(HttpSession session) {
+		String id = (String)session.getAttribute("loginID");
+		return dao.login_times(id);
+	}
 
 }

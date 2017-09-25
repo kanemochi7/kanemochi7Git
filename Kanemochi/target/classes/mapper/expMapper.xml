@@ -3,18 +3,18 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.kanemochi.dao.ExpMapper">
-
-	<update id="upExp" parameterType="ExpVO">
-		update users
-		set user_score = #{exp}
-		where user_id = #{id}
-	</update>
 	
 	<select id="getExp" parameterType="String" resultType="Integer">
 		select user_score
 		from users
 		where user_id = #{id}
 	</select>
+
+	<update id="upExp" parameterType="ExpVO">
+		update users
+		set user_score = #{exp}
+		where user_id = #{id}
+	</update>
 	
 	<!-- login 한 날짜 구하기 (하루에 여러번 와도 한 번 온 걸로 처리됨) -->
 	<select id="login_days" parameterType="String" resultType="Integer">

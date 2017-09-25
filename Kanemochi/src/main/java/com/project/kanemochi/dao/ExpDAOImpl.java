@@ -22,17 +22,13 @@ public class ExpDAOImpl implements ExpDAO {
 	@Override
 	public void upExp(ExpVO vo) {
 		ExpMapper mapper = sqlsession.getMapper(ExpMapper.class);
-		int exp1 = mapper.getExp(vo.getId());
-		int exp2 = vo.getExp();
-		int exp3 = exp1+exp2;
-		vo.setExp(exp3);
 		mapper.upExp(vo);
 	}
 
 	@Override
-	public int login_days(String id) {
+	public int login_times(String id) {
 		ExpMapper mapper = sqlsession.getMapper(ExpMapper.class);
-	return mapper.login_days(id);
+		return mapper.login_times(id);
 	}
 
 }

@@ -6,6 +6,6 @@ public interface ExpDAO {
 
 	public int getExp(String id);
 	public void upExp(ExpVO vo);
-	public int login_days(String id);
+	public int login_times(String id);
 	
 }
