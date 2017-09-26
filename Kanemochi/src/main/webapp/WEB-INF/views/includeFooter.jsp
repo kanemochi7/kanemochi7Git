@@ -116,9 +116,9 @@ div.blueTable {
 <script>
 $(function() {
 	datepicker();
-	login_times();
+	login_times(); //로그인횟수 체크 + 초기프로그레스바 설정
 	setModal_budget();
-	setProgressbar_exp();
+	/* setProgressbar_exp(); */
 	setProgressbar_budget();
 });
 
@@ -209,7 +209,7 @@ $(function() {
 			method : 'get',
 			cache : false,
 			success: function (user_score) {
-				console.log("setProgressbar_exp() - ajax : /kanemochi/record/getExp -> result :"+user_score);
+				console.log("setProgressbar_exp() - ajax : /kanemochi/record/getExp -> 현재 사용자 점수 :"+user_score);
 				if (user_score < 300) {
 					level_img="level1";
 					full_score = 300;
@@ -259,13 +259,13 @@ $(function() {
 				var width = 0;
 				console.log("user_score -> " + user_score);
 				console.log("full_score -> " + full_score);
-				if (user_score != 0 && full_score != 0) {
-					value = user_score/full_score*100;
-				}
+				if (user_score != 0 && full_score != 0) { value = user_score/full_score*100; }
+				console.log("value_frame 전 -> " + value);
+				console.log("width_frame 전 -> " + width);
 				var id = setInterval(frame, 10);
 					function frame() {
-				console.log("value -> " + value);
-				console.log("width -> " + width);
+				console.log("value_frame 후 -> " + value);
+				console.log("width_frame 후 -> " + width);
 						if (width >= value) {
 							clearInterval(id);
 					    } else {
@@ -384,15 +384,14 @@ $(function() {
 	}
 	
 	function login_times() {
-		console.log("login_times");
+		console.log("function login_times");
 		var exp = 0;
 		$.ajax({
 			url : '/kanemochi/exp/login_times',
 			method : 'get',
 			success: function (result) {
-				console.log("login_times - ajax : /kanemochi/exp/login_times, result ->"+result);
 				//임시
-				alert("ログイン"+result+"回! ＋"+result*5+"px");
+				console.log("exp : 200씩 추가");
 				exp = 200;
 /* 				if (result == 5) {
 					alert("ログイン"+result+"回! ＋"+result*2+"px");
@@ -429,19 +428,19 @@ $(function() {
 	}
 	
 	function upExp(exp) {
-		console.log("upExp(exp) :"+exp);
+		console.log("function upExp(exp) 올라가는 경험치:"+exp);
 		$.ajax({
 			url : '/kanemochi/exp/getExp',
 			method : 'get',
 			cache : false,
 			success: function (user_score) {
-				console.log("upExp - ajax : /kanemochi/exp/getExp, result ->"+user_score);
+				console.log("upExp - ajax : /kanemochi/exp/getExp, 기존에 있는 포인트 ->"+user_score);
 				$.ajax({
 					url : '/kanemochi/exp/upExp',
 					method : 'get',
 					data : {"exp":exp},
 					success: function () {
-						console.log("upExp - ajax : /kanemochi/exp:"+exp);
+						console.log("upExp - ajax : /kanemochi/exp 올라가는 경험치 :"+exp);
 				var pre_point = user_score;
 				var post_point = Number(exp) + Number(user_score);
 				var level_img = "";
@@ -467,10 +466,9 @@ $(function() {
 				} else {
 					level_img="no change";
 				}
-				
-				alert("경험치 오르기 전 :"+pre_point);
-				alert("경험치 오르고 난 후 :"+post_point);
-				alert("next level:"+level_img);
+				console.log("경험치 오르기 전 :"+pre_point);
+				console.log("경험치 오르고 난 후 :"+post_point);
+				console.log("next level:"+level_img);
 				var level_img_url = "/kanemochi/resources/image/level/"+level_img+".png";
 				/* $("#level").attr("src", level_img_url); */
 				

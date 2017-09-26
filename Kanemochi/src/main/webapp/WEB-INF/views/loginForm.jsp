@@ -71,8 +71,14 @@ $(function() {
 		}
 		
 	}
-	
-	$("#loginBtn").on('click', function() {
+
+	$(".btn").on('click', function() {
+		var audio = new Audio("/kanemochi/resources/sound/ClickOn.wav");
+		audio.volume = 1;
+		audio.play();
+	})
+		
+	$("#loginBtn").on('click', function() {		
 		if($("#id").val()=="" && $("#pwd").val()==""){
 			alert("IDとpasswordを入力してください。");
 			$("#id").focus();
