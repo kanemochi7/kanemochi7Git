@@ -181,7 +181,7 @@ var GameState = {
 	    this.load.spritesheet('hair', '/kanemochi/resources/image/shop/complete/hair.png', 400, 300);
 	    this.load.spritesheet('ramen', '/kanemochi/resources/image/shop/complete/ramen.png', 400, 300);
 	    this.load.spritesheet('sushi', '/kanemochi/resources/image/shop/complete/sushi.png', 400, 300);
-	    
+		this.load.spritesheet('burger','/kanemochi/resources/image/burger.png',400,300);
 	  this.load.image('background', '/kanemochi/resources/image/bg/bg.jpg');
     this.load.spritesheet('ground','/kanemochi/resources/image/bg/ground.png');
     
@@ -223,9 +223,7 @@ var GameState = {
     this.load.spritesheet('level_8','/kanemochi/resources/image/level/level8.png');
     this.load.spritesheet('level_9','/kanemochi/resources/image/level/level9.png');
     this.load.spritesheet('level_10','/kanemochi/resources/image/level/level10.png');
-	this.load.spritesheet('beer','/kanemochi/resources/image/beer.png',400,300);
-	this.load.spritesheet('burger','/kanemochi/resources/image/burger.png',400,300);
-	this.load.spritesheet('dessert','/kanemochi/resources/image/dessert.png',400,300);
+	
   },
   create:function(){
   //근본적인 생성로직들 = 배경
@@ -279,7 +277,11 @@ var GameState = {
   getStatus();
   },
     update:function(){
+      this.game.world.bringToTop(GameState.buildingGroup);
+      this.game.world.bringToTop(GameState.elevatorGroup);
+      this.game.world.bringToTop(GameState.wallGroup);
       this.game.world.bringToTop(GameState.npcGroup);
+      
       this.game.physics.arcade.collide(GameState.npcGroup,ground);
       this.game.physics.arcade.collide(GameState.npcGroup,GameState.buildingTopGroup);
       this.game.physics.arcade.collide(GameState.npcGroup,GameState.elevatorTopGroup);
@@ -487,10 +489,11 @@ function stateBuilding(inputText,buildingX,buildingY){
 	    	      buildingTop =  game.add.sprite(sprite2.x, sprite2.y-8.9, 'buildingTopLong');
 	    	    }
 
-	    	    GameState.buildingTopGroup.add(buildingTop);
+	    	   
 	    	    if(sprite2.key =='elevator'){
 	    	    	GameState.elevatorTopGroup.add(buildingTop);
 	    	    }
+	    	    GameState.buildingTopGroup.add(buildingTop);
 	    	    buildingTop.scale.setTo(0.5,0.3);
 	    	    this.game.physics.arcade.enable(buildingTop);
 	    	    buildingTop.body.allowGravity = false;
@@ -690,12 +693,12 @@ function createBuilding(inputText){
   var elevatorComplete;
   var result;
 //  var spriteTemp = buildingGroup.create(game.input.mousePointer.x,game.input.mousePointer.y,inputText);
-	  if(inputText != 'elevator'){
-		  GameState.buildingGroup.add(spriteTemp);  
-	  }
-	  else if(inputText == 'elevator'){
-		  GameState.elevatorGroup.add(spriteTemp);  
-	  }
+//	  if(inputText != 'elevator'){
+////		  GameState.buildingGroup.add(spriteTemp);  
+//	  }
+//	  else if(inputText == 'elevator'){
+////		  GameState.elevatorGroup.add(spriteTemp);  
+//	  }
 	  spriteTemp.scale.setTo(0.5);
 	  spriteTemp.alpha = 0.5;
 	  spriteTemp.inputEnabled = true;
@@ -917,12 +920,6 @@ function deleteButtonOn(anywaySprite){
 					console.log(top);
 					top.destroy();
 				}),100);
-				if(anywaySprite.key == 'elevator'){
-					GameState.buildingGroup.remove(anywaySprite);
-				}
-				else if(anywaySprite.key == 'elevator'){
-					GameState.elevatorGroup.remove(anywaySprite);
-				}
 				$.ajax({
 			        url : '/kanemochi/record/deleteStatus',
 			        method : 'post',
@@ -937,19 +934,27 @@ function deleteButtonOn(anywaySprite){
 			        	console.log("삭제 실패");
 			        }
 			     });
-				$.ajax({
-			        url : '/kanemochi/record/upcount',
-			        method : 'post',
-			        data : { 'category':anywaySprite.key
-			        },
-			        success: function(result) {
-			        	console.log("카운트 추가 성공");
-			        	document.getElementById(result.category).textContent = result.count.toString();
-			        },
-			        error: function() {
-			        	console.log("카운트 추가 실패");
-			        }
-			     });
+				if(anywaySprite.key != 'elevator'){
+					GameState.buildingGroup.remove(anywaySprite);
+					$.ajax({
+				        url : '/kanemochi/record/upcount',
+				        method : 'post',
+				        data : { 'category':anywaySprite.key
+				        },
+				        success: function(result) {
+				        	console.log("카운트 추가 성공");
+				        	document.getElementById(result.category).textContent = result.count.toString();
+				        },
+				        error: function() {
+				        	console.log("카운트 추가 실패");
+				        }
+				     });
+				}
+				else if(anywaySprite.key == 'elevator'){
+					GameState.elevatorGroup.remove(anywaySprite);
+				}
+				
+				
 				canBuildWall = game.add.sprite(canBuildWallLeftEnd,anywaySprite.y,'canBuildingWall');
 				game.world.moveDown(canBuildWall);
 				canBuildWall.width = canBuildWallRightEnd - canBuildWallLeftEnd;
