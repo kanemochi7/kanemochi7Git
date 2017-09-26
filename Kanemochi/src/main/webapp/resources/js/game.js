@@ -173,11 +173,11 @@ var GameState = {
 	    this.load.spritesheet('bank', '/kanemochi/resources/image/shop/complete/bank.png', 600, 300);
 	    this.load.spritesheet('movie', '/kanemochi/resources/image/shop/complete/movie.png', 600, 300);
 	    this.load.spritesheet('hospital', '/kanemochi/resources/image/shop/complete/hospital.png', 600, 300);
-//	    this.load.spritesheet('beer', '/kanemochi/resources/image/shop/complete/beer.png', 400, 300);
+	    this.load.spritesheet('beer', '/kanemochi/resources/image/shop/complete/beer.png', 400, 300);
 	    this.load.spritesheet('book', '/kanemochi/resources/image/shop/complete/book.png', 400, 300);
 	    this.load.spritesheet('clothes', '/kanemochi/resources/image/shop/complete/clothes.png', 400, 300);
 	    this.load.spritesheet('cvs', '/kanemochi/resources/image/shop/complete/cvs.png', 400, 300);
-//	    this.load.spritesheet('dessert', '/kanemochi/resources/image/shop/complete/dessert.png', 400, 300);
+	    this.load.spritesheet('dessert', '/kanemochi/resources/image/shop/complete/dessert.png', 400, 300);
 	    this.load.spritesheet('hair', '/kanemochi/resources/image/shop/complete/hair.png', 400, 300);
 	    this.load.spritesheet('ramen', '/kanemochi/resources/image/shop/complete/ramen.png', 400, 300);
 	    this.load.spritesheet('sushi', '/kanemochi/resources/image/shop/complete/sushi.png', 400, 300);
@@ -189,9 +189,11 @@ var GameState = {
     this.load.spritesheet('canBuildingTop','/kanemochi/resources/image/bg/buildingTop.png',1400,30);
     this.load.spritesheet('buildingTopShort','/kanemochi/resources/image/bg/buildingTop.png',400,30);
     this.load.spritesheet('buildingTopCheck','/kanemochi/resources/image/bg/buildingTop.png',400,30);
-    
+//    this.load.spritesheet('canBuildingWall','/kanemochi/resources/image/bg/wall4_2.png',1600,300);
     this.load.spritesheet('canBuildingWall','/kanemochi/resources/image/bg/wall3_2.png',1600,300);
     this.load.spritesheet('buildingWall','/kanemochi/resources/image/bg/wall2.png',400,300);
+//    this.load.spritesheet('buildingWall','/kanemochi/resources/image/bg/wall2.png',400,300);
+    
     
     this.load.spritesheet('elevator', '/kanemochi/resources/image/shop/complete/elevator.png',400, 300);
     
@@ -221,11 +223,9 @@ var GameState = {
     this.load.spritesheet('level_8','/kanemochi/resources/image/level/level8.png');
     this.load.spritesheet('level_9','/kanemochi/resources/image/level/level9.png');
     this.load.spritesheet('level_10','/kanemochi/resources/image/level/level10.png');
-    this.load.spritesheet('burger','/kanemochi/resources/image/burger.png',400,300);
 	this.load.spritesheet('beer','/kanemochi/resources/image/beer.png',400,300);
 	this.load.spritesheet('burger','/kanemochi/resources/image/burger.png',400,300);
 	this.load.spritesheet('dessert','/kanemochi/resources/image/dessert.png',400,300);
-	
   },
   create:function(){
   //근본적인 생성로직들 = 배경
@@ -261,6 +261,7 @@ var GameState = {
   this.wallGroup.enableBody = true;
   this.canBuildGroup = game.add.group();
   this.canBuildGroup.enableBody = true;
+  
  //주의 : 폰트 안됨. 하얀거만 칠해진거임. //text 관련
  // 그리고 여기는 아마 html과 합치게 되면 없어지거나 다르게 변형해야 할 내용이라고 생각함.
   
@@ -494,7 +495,7 @@ function stateBuilding(inputText,buildingX,buildingY){
 	    	    this.game.physics.arcade.enable(buildingTop);
 	    	    buildingTop.body.allowGravity = false;
 	    	    buildingTop.body.immovable = true;
-	    	 
+	    	    
 	    	    //--------------------------------------------------------------------------
 	    	  
 	    	     var leftWing;
@@ -510,7 +511,7 @@ function stateBuilding(inputText,buildingX,buildingY){
 	    		leftWing.scale.setTo(0.5,0.3);
 	    		leftWing.alpha = 0;
 	    		rightWing.scale.setTo(0.5,0.3);
-	    		rightWing.alpha =0;
+	    		rightWing.alpha = 0;
 	    		var leftWall;
 	    		var rightWall;
 	    		var leftWallTop;
@@ -520,7 +521,7 @@ function stateBuilding(inputText,buildingX,buildingY){
 						if(!game.physics.arcade.collide(leftWing,GameState.wallGroup)){
 		    			 if(test.name != sprite2.name && (sprite2.x - (test.x+test.width)) < 200){
 		    				 leftWall = game.add.sprite(test.x+test.width, test.y, 'buildingWall');
-		    			    
+		    			      game.world.moveDown(leftWall);
 		    			      leftWall.scale.setTo(0.5,1);
 		    			      leftWall.width = (sprite2.x - test.x - test.width);
 		    			      leftWall.height = sprite2.height;
@@ -543,6 +544,7 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    			if(!game.physics.arcade.collide(right,GameState.wallGroup)){
 		    			 if(test.name != sprite2.name && (test.x - (sprite2.x+sprite2.width)) < 200){
 		    				 rightWall = game.add.sprite(sprite2.x+sprite2.width, sprite2.y, 'buildingWall');
+		    				 game.world.moveDown(rightWall);
 		    				 rightWall.scale.setTo(0.5,1);
 		    				 var temp = sprite2.x+sprite2.width;
 		    				
@@ -567,7 +569,7 @@ function stateBuilding(inputText,buildingX,buildingY){
 	    				if(!game.physics.arcade.collide(leftWing,GameState.wallGroup)){
 		    			 if(test.name != sprite2.name && (sprite2.x - (test.x+test.width)) < 200){
 		    				 leftWall = game.add.sprite(test.x+test.width, test.y, 'buildingWall');
-		    			    
+		    				 game.world.moveDown(leftWall);
 		    			      leftWall.scale.setTo(0.5,1);
 		    			      leftWall.width = (sprite2.x - test.x - test.width);
 		    			      leftWall.height = sprite2.height;
@@ -588,6 +590,7 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    			if(!game.physics.arcade.collide(rightWing,GameState.wallGroup)){
 		    			 if(test.name != sprite2.name && (test.x - (sprite2.x+sprite2.width)) < 200){
 		    				 rightWall = game.add.sprite(sprite2.x+sprite2.width, sprite2.y, 'buildingWall');
+		    				 game.world.moveDown(rightWall);
 		    				 rightWall.scale.setTo(0.5,1);
 		    				 var temp = sprite2.x+sprite2.width;
 		    				
@@ -704,11 +707,14 @@ function createBuilding(inputText){
 	  spriteTemp.body.allowGravity = false;
 	  spriteTemp.body.immovable = true;
 	  //해당 스프라이트에 대한 drag 이벤트 처리
-	  spriteTemp.events.onDragUpdate.add(checkCollide,spriteTemp);
-
+	  spriteTemp.events.onDragUpdate.add(function(){
+		  game.world.bringToTop(spriteTemp);
+		  checkCollide(spriteTemp);
+	  },spriteTemp);
+	  
 	  function checkCollide(sprite){//충돌처리 확인하는 내부함수
 	      //drag시 충돌하는지 안하는지 처리
-
+//		  game.world.bringToTop(sprite);
 	      var check;//false 충돌 안남. / true 충돌남.
 	      var firstFloorCheck = true; // true면 1층인거
 	      var windowCheck = true; // false면 게임창 바깥 나간거
@@ -793,6 +799,7 @@ function createBuilding(inputText){
 	      checkResult = false;
 	    }
 	  }
+	  
 	  	spriteTemp.events.onInputUp.add(function(){
 		var temp;
 		temp = mouseUp(spriteTemp,checkResult,topCheck);
@@ -806,7 +813,7 @@ function mouseUp(sprite,check,topCheck){
 	var result = true;
   if(check == false){
     //충돌안하면 설정하는 것들 / 투명도 복구 / 움직임, 드래그 방지 / 메인캐릭터를 제일 앞으로 오게 (건물에 가려지지않게)
-    var tempSprite =stateBuilding(sprite.key,sprite.x,sprite.y);
+    var tempSprite = stateBuilding(sprite.key,sprite.x,sprite.y);
     $.ajax({
         url : '/kanemochi/record/setStatus',
         method : 'post',
@@ -817,7 +824,7 @@ function mouseUp(sprite,check,topCheck){
         	console.log("성공");
         },
         error: function() {
-        	console.log("성공");
+        	console.log("실패");
         }
      });
   }
@@ -874,7 +881,7 @@ function deleteButtonOn(anywaySprite){
 					canBuildWallRightEnd = anywaySprite.x+anywaySprite.width;
 					      game.physics.arcade.collide(wall,GameState.buildingTopGroup,function(wall2,top){
 					    	  console.log("왼쪽 벽과 벽 지붕 충돌");
-					    	  
+					    	 
 					    	  GameState.buildingTopGroup.remove(top);
 					    	  top.destroy();
 					      });
@@ -889,7 +896,7 @@ function deleteButtonOn(anywaySprite){
 					canBuildWallRightEnd = wall.x+wall.width;
 					game.physics.arcade.collide(wall,GameState.buildingTopGroup,function(wall2,top){
 						console.log("오른쪽 벽과 벽 지붕 충돌");
-						
+						  
 				    	  GameState.buildingTopGroup.remove(top);
 				    	  top.destroy();
 				      });
