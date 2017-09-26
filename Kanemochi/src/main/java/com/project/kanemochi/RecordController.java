@@ -59,7 +59,18 @@ public class RecordController {
 		vo.setCount(dao.getcount(vo));
 		return vo;
 	}
-	
+	@RequestMapping(value = "upcount", method = RequestMethod.POST)
+	@ResponseBody
+	public CountOneVO upcount(String category, HttpSession session) {
+		RecordVO vo = new RecordVO();
+		vo.setCategory(category);
+		String id = (String)session.getAttribute("loginID");
+		vo.setUser_id(id);
+		dao.upcount(vo);
+		CountOneVO countvo = new CountOneVO(id, category, 0);
+		countvo.setCount(dao.getcount(countvo));
+		return countvo;
+	}
 	public String change(String category_kanji) {
 		String category_English="";
 		switch (category_kanji) {
@@ -133,7 +144,17 @@ public class RecordController {
 		result = dao.setStatus(vo);
 		return result;
 	}
-	
+	@RequestMapping(value = "deleteStatus", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean deleteStatus(ShopVO vo, HttpSession session) {
+		boolean result = false;
+		String id = (String)session.getAttribute("loginID");
+		System.out.println(id);
+		vo.setUser_id(id);
+		System.out.println(vo);
+		result = dao.deleteStatus(vo);
+		return result;
+	}
 	@RequestMapping(value = "getStatus", method = RequestMethod.POST)
 	@ResponseBody
 	public ArrayList<ShopVO> getStatus(HttpSession session) {

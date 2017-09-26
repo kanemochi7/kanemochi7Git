@@ -24,4 +24,5 @@ public interface RecordMapper {
 	public ArrayList<ShopVO> getStatus(String id);
 	public SumVO getExpense(String id);
 	public ArrayList<RecordVO> getEveryRecord(String id);
+	public boolean deleteStatus(ShopVO vo);
 }

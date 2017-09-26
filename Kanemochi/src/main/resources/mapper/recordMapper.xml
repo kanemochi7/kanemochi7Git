@@ -18,6 +18,12 @@
 		select user_id,img_x,img_y,img_id from shop where user_id = #{id} order by makedate asc
 	</select>
 	
+	<delete id="deleteStatus" parameterType="ShopVO">
+  		delete 
+  		from shop
+		where img_id=#{img_id} and user_id=#{user_id} and img_x=#{img_x} and img_y=#{img_y}  		
+  	</delete>
+	
 	<update id="upcount" parameterType="RecordVO">
 		update count set
 		<if test="category == 'cafe'">

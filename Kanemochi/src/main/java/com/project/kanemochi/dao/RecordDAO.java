@@ -21,4 +21,5 @@ public interface RecordDAO {
 	public ArrayList<ShopVO> getStatus(String id);
 	public int getExpense(String id);
 	public ArrayList<RecordVO> getEveryRecord(String id);
+	public boolean deleteStatus(ShopVO vo);
 }

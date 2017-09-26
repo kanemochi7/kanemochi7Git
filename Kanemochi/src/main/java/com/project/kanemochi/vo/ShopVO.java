@@ -8,6 +8,10 @@ public class ShopVO {
 	private BigDecimal img_y;
 	private String img_id;
 	
+	public ShopVO() {
+		super();
+	}
+	
 	public ShopVO(String user_id, BigDecimal img_x, BigDecimal img_y, String img_id) {
 		super();
 		this.user_id = user_id;

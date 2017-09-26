@@ -173,11 +173,11 @@ var GameState = {
 	    this.load.spritesheet('bank', '/kanemochi/resources/image/shop/complete/bank.png', 600, 300);
 	    this.load.spritesheet('movie', '/kanemochi/resources/image/shop/complete/movie.png', 600, 300);
 	    this.load.spritesheet('hospital', '/kanemochi/resources/image/shop/complete/hospital.png', 600, 300);
-	    this.load.spritesheet('beer', '/kanemochi/resources/image/shop/complete/beer.png', 400, 300);
+//	    this.load.spritesheet('beer', '/kanemochi/resources/image/shop/complete/beer.png', 400, 300);
 	    this.load.spritesheet('book', '/kanemochi/resources/image/shop/complete/book.png', 400, 300);
 	    this.load.spritesheet('clothes', '/kanemochi/resources/image/shop/complete/clothes.png', 400, 300);
 	    this.load.spritesheet('cvs', '/kanemochi/resources/image/shop/complete/cvs.png', 400, 300);
-	    this.load.spritesheet('dessert', '/kanemochi/resources/image/shop/complete/dessert.png', 400, 300);
+//	    this.load.spritesheet('dessert', '/kanemochi/resources/image/shop/complete/dessert.png', 400, 300);
 	    this.load.spritesheet('hair', '/kanemochi/resources/image/shop/complete/hair.png', 400, 300);
 	    this.load.spritesheet('ramen', '/kanemochi/resources/image/shop/complete/ramen.png', 400, 300);
 	    this.load.spritesheet('sushi', '/kanemochi/resources/image/shop/complete/sushi.png', 400, 300);
@@ -186,10 +186,12 @@ var GameState = {
     this.load.spritesheet('ground','/kanemochi/resources/image/bg/ground.png');
     
     this.load.spritesheet('buildingTopLong','/kanemochi/resources/image/bg/buildingTop.png',600,30);
+    this.load.spritesheet('canBuildingTop','/kanemochi/resources/image/bg/buildingTop.png',1400,30);
     this.load.spritesheet('buildingTopShort','/kanemochi/resources/image/bg/buildingTop.png',400,30);
     this.load.spritesheet('buildingTopCheck','/kanemochi/resources/image/bg/buildingTop.png',400,30);
-    this.load.spritesheet('buildingWall','/kanemochi/resources/image/bg/wall.png',400,300);
     
+    this.load.spritesheet('canBuildingWall','/kanemochi/resources/image/bg/wall3_2.png',1600,300);
+    this.load.spritesheet('buildingWall','/kanemochi/resources/image/bg/wall2.png',400,300);
     
     this.load.spritesheet('elevator', '/kanemochi/resources/image/shop/complete/elevator.png',400, 300);
     
@@ -219,6 +221,7 @@ var GameState = {
     this.load.spritesheet('level_8','/kanemochi/resources/image/level/level8.png');
     this.load.spritesheet('level_9','/kanemochi/resources/image/level/level9.png');
     this.load.spritesheet('level_10','/kanemochi/resources/image/level/level10.png');
+    this.load.spritesheet('burger','/kanemochi/resources/image/burger.png',400,300);
 	this.load.spritesheet('beer','/kanemochi/resources/image/beer.png',400,300);
 	this.load.spritesheet('burger','/kanemochi/resources/image/burger.png',400,300);
 	this.load.spritesheet('dessert','/kanemochi/resources/image/dessert.png',400,300);
@@ -256,7 +259,8 @@ var GameState = {
   this.npcGroup = game.add.group();
   this.wallGroup = game.add.group();
   this.wallGroup.enableBody = true;
-  this.gameGroup = game.add.group();
+  this.canBuildGroup = game.add.group();
+  this.canBuildGroup.enableBody = true;
  //주의 : 폰트 안됨. 하얀거만 칠해진거임. //text 관련
  // 그리고 여기는 아마 html과 합치게 되면 없어지거나 다르게 변형해야 할 내용이라고 생각함.
   
@@ -370,7 +374,7 @@ function getStatus(){
 		dataType : "json",
 		success: function(result) {
 			$(result).each(function(index,item){
-				setTimeout(stateBuilding(item.img_id,item.img_x,item.img_y),200);
+				setTimeout(function(){stateBuilding(item.img_id,item.img_x,item.img_y)},200);
 			});
 		},
 		error: function() {
@@ -504,8 +508,9 @@ function stateBuilding(inputText,buildingX,buildingY){
 
 	    		this.game.physics.arcade.enable([leftWing,rightWing]);
 	    		leftWing.scale.setTo(0.5,0.3);
+	    		leftWing.alpha = 0;
 	    		rightWing.scale.setTo(0.5,0.3);
-	    		
+	    		rightWing.alpha =0;
 	    		var leftWall;
 	    		var rightWall;
 	    		var leftWallTop;
@@ -613,6 +618,7 @@ function stateBuilding(inputText,buildingX,buildingY){
 	    	    for(var j=0;j<GameState.npcGroup.length;j++){
 	    	      var npcI = GameState.npcGroup.getAt(j);
 	    	    }
+	    	    return sprite2;
 	  		}
 	    	  else{
 	    	    //충돌시 건물 삭제.
@@ -664,6 +670,7 @@ function stateBuilding(inputText,buildingX,buildingY){
 	    	    GameState.buildingGroup.remove(sprite2);
 	    	    GameState.elevatorGroup.remove(sprite2);
 	    	  }
+	  return null;
 }
 
 function createBuilding(inputText){
@@ -799,13 +806,13 @@ function mouseUp(sprite,check,topCheck){
 	var result = true;
   if(check == false){
     //충돌안하면 설정하는 것들 / 투명도 복구 / 움직임, 드래그 방지 / 메인캐릭터를 제일 앞으로 오게 (건물에 가려지지않게)
-    stateBuilding(sprite.key,sprite.x,sprite.y);
+    var tempSprite =stateBuilding(sprite.key,sprite.x,sprite.y);
     $.ajax({
         url : '/kanemochi/record/setStatus',
         method : 'post',
-        data : {'img_x':sprite.x,
-               'img_y':sprite.y,
-               'img_id':sprite.key},
+        data : {'img_x':tempSprite.x,
+               'img_y':tempSprite.y,
+               'img_id':tempSprite.key},
         success: function(result) {
         	console.log("성공");
         },
@@ -829,7 +836,10 @@ function mouseUp(sprite,check,topCheck){
   return result;
 }
 function deleteButtonOn(anywaySprite){
-	
+	var canBuildWall;
+	var canBuildWallLeftEnd = anywaySprite.x;
+	var canBuildWallRightEnd = anywaySprite.x+anywaySprite.width;
+	var canBuildWallTop;
 	var delete_button = game.add.sprite(0+(anywaySprite.width*1.8) - 10,20,'delete_button');
 	delete_button.inputEnabled = true;
 	
@@ -841,6 +851,7 @@ function deleteButtonOn(anywaySprite){
 		if(delete_result){
 			 var leftWing2;
 			    if(anywaySprite.width == 200){
+			    	
 			    	leftWing2 =  game.add.sprite(anywaySprite.x - anywaySprite.width, anywaySprite.y+30, 'buildingTopCheck');
 			    }
 			    else if(anywaySprite.width == 300){
@@ -859,14 +870,11 @@ function deleteButtonOn(anywaySprite){
 				
 				setTimeout(game.physics.arcade.collide(leftWing2,GameState.wallGroup,function(left,wall){
 					console.log("왼쪽 벽 충돌");
-					console.log(anywaySprite);
-					console.log(left);
-					console.log(wall);
+					canBuildWallLeftEnd = wall.x;
+					canBuildWallRightEnd = anywaySprite.x+anywaySprite.width;
 					      game.physics.arcade.collide(wall,GameState.buildingTopGroup,function(wall2,top){
 					    	  console.log("왼쪽 벽과 벽 지붕 충돌");
-					    	  console.log(anywaySprite);
-								console.log(wall2);
-								console.log(top);
+					    	  
 					    	  GameState.buildingTopGroup.remove(top);
 					    	  top.destroy();
 					      });
@@ -875,14 +883,13 @@ function deleteButtonOn(anywaySprite){
 				 }),100);
 				setTimeout(game.physics.arcade.collide(rightWing2,GameState.wallGroup,function(right,wall){
 					console.log("오른쪽 벽 충돌");
-					console.log(anywaySprite);
-					console.log(right);
-					console.log(wall);
+					if(canBuildWallLeftEnd == undefined){
+						canBuildWallLeftEnd = anywaySprite.x;
+					}
+					canBuildWallRightEnd = wall.x+wall.width;
 					game.physics.arcade.collide(wall,GameState.buildingTopGroup,function(wall2,top){
 						console.log("오른쪽 벽과 벽 지붕 충돌");
-						console.log(anywaySprite);
-						console.log(wall2);
-						console.log(top);
+						
 				    	  GameState.buildingTopGroup.remove(top);
 				    	  top.destroy();
 				      });
@@ -909,6 +916,45 @@ function deleteButtonOn(anywaySprite){
 				else if(anywaySprite.key == 'elevator'){
 					GameState.elevatorGroup.remove(anywaySprite);
 				}
+				$.ajax({
+			        url : '/kanemochi/record/deleteStatus',
+			        method : 'post',
+			        data : { 'img_id':anywaySprite.key,
+			        	'img_x' : anywaySprite.x,
+			        	'img_y' : anywaySprite.y
+			        },
+			        success: function(result) {
+			        	console.log("삭제 성공");
+			        },
+			        error: function() {
+			        	console.log("삭제 실패");
+			        }
+			     });
+				$.ajax({
+			        url : '/kanemochi/record/upcount',
+			        method : 'post',
+			        data : { 'category':anywaySprite.key
+			        },
+			        success: function(result) {
+			        	console.log("카운트 추가 성공");
+			        	document.getElementById(result.category).textContent = result.count.toString();
+			        },
+			        error: function() {
+			        	console.log("카운트 추가 실패");
+			        }
+			     });
+				canBuildWall = game.add.sprite(canBuildWallLeftEnd,anywaySprite.y,'canBuildingWall');
+				game.world.moveDown(canBuildWall);
+				canBuildWall.width = canBuildWallRightEnd - canBuildWallLeftEnd;
+				canBuildWall.height = 150;
+				console.log(canBuildWall);
+				console.log(canBuildWall.x);
+				
+				canBuildWallTop = game.add.sprite(canBuildWallLeftEnd,anywaySprite.y,'canBuildingTop');
+				canBuildWallTop.scale.setTo(0.5,0.3);
+				canBuildWallTop.y -= 8.9;
+				canBuildWallTop.width = canBuildWallRightEnd - canBuildWallLeftEnd;
+				GameState.buildingTopGroup.add(canBuildWallTop);
 				anywaySprite.destroy();
 				leftWing2.destroy();
 				rightWing2.destroy();
