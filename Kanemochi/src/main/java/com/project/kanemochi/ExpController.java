@@ -28,8 +28,6 @@ public class ExpController {
 	@RequestMapping(value = "upExp", method = RequestMethod.GET)
 	@ResponseBody
 	public void upExp(int exp, HttpSession session) {
-		System.out.println("upExp");
-		System.out.println(exp);
 		String id = (String)session.getAttribute("loginID");
 		int expsum = dao.getExp(id)+exp;
 		dao.upExp(new ExpVO(id, expsum));

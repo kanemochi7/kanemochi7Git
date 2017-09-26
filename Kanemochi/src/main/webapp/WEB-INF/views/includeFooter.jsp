@@ -209,38 +209,39 @@ $(function() {
 			method : 'get',
 			cache : false,
 			success: function (user_score) {
-				if (user_score <= 300) {
+				console.log("setProgressbar_exp() - ajax : /kanemochi/record/getExp -> result :"+user_score);
+				if (user_score < 300) {
 					level_img="level1";
 					full_score = 300;
-				} else if (user_score <= 700) {
+				} else if (user_score < 700) {
 					level_img="level2";
 					user_score = user_score-300;
 					full_score = 700-300;
-				} else if (user_score <= 1240) {
+				} else if (user_score < 1240) {
 					level_img="level3";
 					user_score = user_score-700;
 					full_score = 1240-700;
-				} else if (user_score <= 2000) {
+				} else if (user_score < 2000) {
 					level_img="level4";
 					user_score = user_score-1240;
 					full_score = 2000-1240;
-				} else if (user_score <= 3120) {
+				} else if (user_score < 3120) {
 					level_img="level5";
 					user_score = user_score-2000;
 					full_score = 3120-2000;
-				} else if (user_score <= 4620) {
+				} else if (user_score < 4620) {
 					level_img="level6";
 					user_score = user_score-3120;
 					full_score = 4620-3120;
-				} else if (user_score <= 6600) {
+				} else if (user_score < 6600) {
 					level_img="level7";
 					user_score = user_score-4620;
 					full_score = 6600-4620;
-				} else if (user_score <= 9000) {
+				} else if (user_score < 9000) {
 					level_img="level8";
 					user_score = user_score-6600;
 					full_score = 9000-6600;
-				} else if (user_score <= 12000) {
+				} else if (user_score < 12000) {
 					level_img="level9";
 					user_score = user_score-9000;
 					full_score = 12000-9000;
@@ -256,11 +257,15 @@ $(function() {
 				var elem = document.getElementById("exp_progress");
 				var value = 0;
 				var width = 0;
+				console.log("user_score -> " + user_score);
+				console.log("full_score -> " + full_score);
 				if (user_score != 0 && full_score != 0) {
 					value = user_score/full_score*100;
-				}	
+				}
 				var id = setInterval(frame, 10);
 					function frame() {
+				console.log("value -> " + value);
+				console.log("width -> " + width);
 						if (width >= value) {
 							clearInterval(id);
 					    } else {
@@ -379,12 +384,17 @@ $(function() {
 	}
 	
 	function login_times() {
+		console.log("login_times");
 		var exp = 0;
 		$.ajax({
 			url : '/kanemochi/exp/login_times',
 			method : 'get',
 			success: function (result) {
-				if (result == 5) {
+				console.log("login_times - ajax : /kanemochi/exp/login_times, result ->"+result);
+				//임시
+				alert("ログイン"+result+"回! ＋"+result*5+"px");
+				exp = 200;
+/* 				if (result == 5) {
 					alert("ログイン"+result+"回! ＋"+result*2+"px");
 					exp = result*2;
 				} else if (result == 10) {
@@ -411,7 +421,7 @@ $(function() {
 				} else {
 					
 				}
-				upExp(exp);
+ */				upExp(exp);
 			},
 			error: function() {
 				}
@@ -419,12 +429,57 @@ $(function() {
 	}
 	
 	function upExp(exp) {
+		console.log("upExp(exp) :"+exp);
 		$.ajax({
-			url : '/kanemochi/exp/upExp',
+			url : '/kanemochi/exp/getExp',
 			method : 'get',
-			data : {"exp":exp},
-			success: function () {
+			cache : false,
+			success: function (user_score) {
+				console.log("upExp - ajax : /kanemochi/exp/getExp, result ->"+user_score);
+				$.ajax({
+					url : '/kanemochi/exp/upExp',
+					method : 'get',
+					data : {"exp":exp},
+					success: function () {
+						console.log("upExp - ajax : /kanemochi/exp:"+exp);
+				var pre_point = user_score;
+				var post_point = Number(exp) + Number(user_score);
+				var level_img = "";
+
+				if (pre_point < 300 && post_point >= 300) {
+					level_img="level2";
+				} else if (pre_point < 700 && post_point >= 700) {
+					level_img="level3";
+				} else if (pre_point < 1240 && post_point >= 1240) {
+					level_img="level4";
+				} else if (pre_point < 2000 && post_point >= 2000) {
+					level_img="level5";
+				} else if (pre_point < 3120 && post_point >= 3120) {
+					level_img="level6";
+				} else if (pre_point < 4620 && post_point >= 4620) {
+					level_img="level7";
+				} else if (pre_point < 6600 && post_point >= 6600) {
+					level_img="level8";
+				} else if (pre_point < 9000 && post_point >= 9000) {
+					level_img="level9";
+				} else if (pre_point < 12000 && post_point >= 12000) {
+					level_img="level10";
+				} else {
+					level_img="no change";
+				}
+				
+				alert("경험치 오르기 전 :"+pre_point);
+				alert("경험치 오르고 난 후 :"+post_point);
+				alert("next level:"+level_img);
+				var level_img_url = "/kanemochi/resources/image/level/"+level_img+".png";
+				/* $("#level").attr("src", level_img_url); */
+				
 				setProgressbar_exp();
+					},
+					error: function() {
+							}
+					});
+
 				},
 			error: function() {
 					}
@@ -456,13 +511,12 @@ $(function() {
 
 <!-- Modal_write -->
 <div id="modal_write" class="modal">
-	<div class="modal-content" style="text-align: center;">
+	<div class="modal-content">
 		<span class="close" id="close_modal_write">&times;</span>
 		<h3>支出</h3>
 		<h4>[今日はいくら使いましたか？]</h4>
-		<div style="text-align: center;">
 			<form id="input-form" name="input-form">
-			<div class="divTable blueTable">
+			<div class="divTable blueTable" style="text-align: center; position: relative; left: 15%;">
 				<div class="divTableBody">
 					<div class="divTableRow">
 						<div class="divTableCell">date</div>
@@ -505,16 +559,15 @@ $(function() {
 					<div class="divTableRow">
 						<div class="divTableCell"></div>
 						<div class="divTableCell">
-							<input type="button" class="btn btn-primary" value="  ok  " onclick="input()">
+							<input type="button" class="btn btn-primary" value=" ok " onclick="input()">
 							<input type="reset" class="btn btn-success" value="reset">
 						</div>
 					</div>
 				</div>
 			</div>
 			</form>
-		</div>
 	</div>
-</div>	
+</div>
 
 <!-- Modal_budget -->
 <div id="modal_budget" class="modal">
@@ -523,31 +576,31 @@ $(function() {
 		<h3>Budget</h3>
 		<p id="p_footer">[<span id="today_year_budget"></span>年<span id="today_month_budget"></span>月]</p>
 		<form id="budget_form" name="budget_form">
-		<div class="divTable blueTable" style="float: center;">
+		<div class="divTable blueTable" style="text-align: center; position: relative; left: 10%;">
 			<div class="divTableBody">
 				<div class="divTableRow" id="budget_input_text">
 					<div class="divTableCell"></div>
 					<div class="divTableCell"><input type="text" id="budget_month" placeholder="一ヵ月の予算" onkeyup="cal()"></div>
-					<div class="divTableCell" style="width: 10px">￥</div>
+					<div class="divTableCell">￥</div>
 				</div>
 				<div class="divTableRow">
-					<div class="divTableCell" style="width: 150px">monthly budget</div>
-					<div class="divTableCell" style="width: 100px"><span id="month_result"></span></div>
-					<div class="divTableCell" style="width: 10px">￥</div>
+					<div class="divTableCell">monthly budget</div>
+					<div class="divTableCell"><span id="month_result"></span></div>
+					<div class="divTableCell">￥</div>
 				</div>
 				<div class="divTableRow">
-					<div class="divTableCell" style="width: 150px">weekly budget</div>
-					<div class="divTableCell" style="width: 100px"><span id="weekly_result"></span></div>
-					<div class="divTableCell" style="width: 10px">￥</div>
+					<div class="divTableCell">weekly budget</div>
+					<div class="divTableCell"><span id="weekly_result"></span></div>
+					<div class="divTableCell">￥</div>
 				</div>
 				<div class="divTableRow">
-					<div class="divTableCell" style="width: 150px">daily budget</div>
-					<div class="divTableCell" style="width: 100px"><span id="daily_result"></span></div>
-					<div class="divTableCell" style="width: 10px">￥</div>
+					<div class="divTableCell">daily budget</div>
+					<div class="divTableCell"><span id="daily_result"></span></div>
+					<div class="divTableCell">￥</div>
 				</div>
 				<div class="divTableRow">
-					<div class="divTableCell" style="width: 150px"></div>
-					<div class="divTableCell" style="width: 110px">
+					<div class="divTableCell"></div>
+					<div class="divTableCell">
 						<input type="button" id="btn_setbudget" class="btn btn-primary" value="save this plan" onclick="setbudget()">
 						<input type="button" id="btn_changebudget" class="btn btn-success" value="change the plan" onclick="changebudget()">
 					</div>
@@ -573,7 +626,7 @@ $(function() {
 				modal_budget.style.display = "none";
 			}
 		}
-	}
+	};
 /* modal_write */
 	var modal_write = document.getElementById('modal_write');
 	var btn_w = document.getElementById("write");
@@ -643,7 +696,7 @@ function itemChange(){
 		var option = "<option value='"+changeItem[count]+"'>"+changeItem[count]+"</option>";
 		$("#category").append(option);
 	}
-}
+};
 </script>
 </body>
 </html>
