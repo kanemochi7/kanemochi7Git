@@ -13,7 +13,7 @@ npcCharacter = function (game) {
     this.direction = 'left';
     this.npcLeftEnd = 0;
     this.npcRightEnd = game.world.width;
-    
+    this.beforeTop;
     var width2 = (game.world.width - (150*0.35));
     var positionX = width2-(100);
     var positionY=0;
@@ -46,9 +46,14 @@ npcCharacter.prototype.update = function() {
     var behavior = Math.floor(Math.random() * 1000);
 
     game.physics.arcade.collide(this,GameState.buildingTopGroup,function(main,test){
-      main.npcLeftEnd = test.x;
+//      main.npcLeftEnd = test.x;
       main.npcRightEnd = test.x+test.width-main.width+1;
     });
+    game.physics.arcade.collide(this,GameState.elevatorTopGroup,function(main,test){
+//      main.npcLeftEnd = test.x;
+      main.npcRightEnd = test.x+test.width-main.width+1;
+    });
+    
     if(behavior >=0 && behavior < 1){
       // this.turn();
     }
@@ -58,12 +63,12 @@ npcCharacter.prototype.update = function() {
     if((collideBuild == true) && behavior >=2 && behavior <3){
       // this.out();
     }
-    if(behavior >=3 && behavior <1000){
+//    if(behavior >=3 && behavior <1000){
       this.move();
-    }
+//    }
 };
 npcCharacter.prototype.move = function(){
-	
+  
   var wholeFloor=1;
   if((game.world.height - this.height) == this.y){
     this.npcFloor = 1;
@@ -95,38 +100,79 @@ npcCharacter.prototype.move = function(){
       this.play('leftWalk');
     }
   }
-
+ 
     if(this.npcFloor>1){
         game.physics.arcade.collide(this,GameState.buildingTopGroup,function(main,test){
           if(main.npcLeftEnd == 0){
+        	 console.log("층올라옴");
             main.npcLeftEnd = test.x;
           }
           if(main.npcRightEnd == game.world.width){
+        	  console.log("층올라옴 2");
             main.npcRightEnd = test.x+test.width-main.width+1;
           }
-          if(test.x < main.npcLeftEnd){
-            //이동을 하겠지..
-              main.npcLeftEnd = test.x;
+    	  if(test.x < main.npcLeftEnd){
+              //이동을 하겠지..
+          	  console.log("왼쪽갱신");
+                main.npcLeftEnd = test.x;
+            }
+          
+    	  if (test.x > main.npcRightEnd) {
+        	  console.log("오른쪽갱신");
+            main.npcRightEnd = (test.x)+(test.width)-main.width+1;
           }
-          if (test.x > main.npcRightEnd) {
-            main.npcRightEnd = (test.x)+(test.width)-main.width;
-          }
-        
-          if(main.x <= main.npcLeftEnd){
-            main.direction = 'right';
-          }
+    	  if(main.x <= main.npcLeftEnd){
+    		  main.direction = 'right';
+    	  }
           if(main.x >= main.npcRightEnd){
-            main.direction = 'left';
+        	  main.direction = 'left';
           }
+          this.beforeTop = test;
         });
         if(this.direction == 'right' && this.x <= this.npcRightEnd)
         {
-          this.x+=2;
+          this.x+=1;
           this.play('rightWalk');
         }
         if(this.direction == 'left' && this.x >= this.npcLeftEnd){
-          this.x-=2;
+          this.x-=1;
           this.play('leftWalk');
+        }
+        game.physics.arcade.collide(this,GameState.elevatorTopGroup,function(main,test){
+        	if(main.npcLeftEnd == 0){
+        		console.log("층올라옴");
+        		main.npcLeftEnd = test.x;
+        	}
+        	if(main.npcRightEnd == game.world.width){
+        		console.log("층올라옴 2");
+        		main.npcRightEnd = test.x+test.width-main.width+1;
+        	}
+        	if(test.x < main.npcLeftEnd){
+        		//이동을 하겠지..
+        		console.log("왼쪽갱신");
+        		main.npcLeftEnd = test.x;
+        	}
+        	
+        	if (test.x > main.npcRightEnd) {
+        		console.log("오른쪽갱신");
+        		main.npcRightEnd = (test.x)+(test.width)-main.width+1;
+        	}
+        	if(main.x <= main.npcLeftEnd){
+        		main.direction = 'right';
+        	}
+        	if(main.x >= main.npcRightEnd){
+        		main.direction = 'left';
+        	}
+        	this.beforeTop = test;
+        });
+        if(this.direction == 'right' && this.x <= this.npcRightEnd)
+        {
+        	this.x+=1;
+        	this.play('rightWalk');
+        }
+        if(this.direction == 'left' && this.x >= this.npcLeftEnd){
+        	this.x-=1;
+        	this.play('leftWalk');
         }
     }
     
@@ -181,7 +227,7 @@ var GameState = {
 	    this.load.spritesheet('hair', '/kanemochi/resources/image/shop/complete/hair.png', 400, 300);
 	    this.load.spritesheet('ramen', '/kanemochi/resources/image/shop/complete/ramen.png', 400, 300);
 	    this.load.spritesheet('sushi', '/kanemochi/resources/image/shop/complete/sushi.png', 400, 300);
-		this.load.spritesheet('burger','/kanemochi/resources/image/burger.png',400,300);
+		this.load.spritesheet('burger','/kanemochi/resources/image/shop/complete/burger.png',400,300);
 	  this.load.image('background', '/kanemochi/resources/image/bg/bg.jpg');
     this.load.spritesheet('ground','/kanemochi/resources/image/bg/ground.png');
     
@@ -255,6 +301,7 @@ var GameState = {
   this.elevatorTopGroup = game.add.group();  
   this.elevatorTopGroup.enableBody = true;
   this.npcGroup = game.add.group();
+  this.npcGroup.enableBody = true;
   this.wallGroup = game.add.group();
   this.wallGroup.enableBody = true;
   this.canBuildGroup = game.add.group();
@@ -489,11 +536,11 @@ function stateBuilding(inputText,buildingX,buildingY){
 	    	      buildingTop =  game.add.sprite(sprite2.x, sprite2.y-8.9, 'buildingTopLong');
 	    	    }
 
-	    	   
+	    	    GameState.buildingTopGroup.add(buildingTop);
 	    	    if(sprite2.key =='elevator'){
 	    	    	GameState.elevatorTopGroup.add(buildingTop);
 	    	    }
-	    	    GameState.buildingTopGroup.add(buildingTop);
+	    	    
 	    	    buildingTop.scale.setTo(0.5,0.3);
 	    	    this.game.physics.arcade.enable(buildingTop);
 	    	    buildingTop.body.allowGravity = false;
@@ -528,7 +575,6 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    			      leftWall.scale.setTo(0.5,1);
 		    			      leftWall.width = (sprite2.x - test.x - test.width);
 		    			      leftWall.height = sprite2.height;
-		    			      console.log(leftWall);
 		    			      GameState.wallGroup.add(leftWall);
 		    			      
 		    			      leftWallTop =  game.add.sprite(leftWall.x, leftWall.y-8.9, 'buildingTopShort');
@@ -553,7 +599,6 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    				
 		    				 rightWall.width = (test.x - temp);
 		    			      rightWall.height = test.height;
-		    			      console.log(rightWall);
 		    			      GameState.wallGroup.add(rightWall);
 		    			      
 		    			      rightWallTop =  game.add.sprite(rightWall.x, rightWall.y-8.9, 'buildingTopShort');
@@ -1000,7 +1045,8 @@ function getNumberOfNPC(npc,nowBuildingCounter,incOrDec){
   
   function randomCreateNPC(numberOfNPC){
     var randomTime;
-      for(var i=0; i<numberOfNPC-1;i++){
+//      for(var i=0; i<numberOfNPC-1;i++){
+   	  for(var i=0; i<1;i++){
         
         randomTime = 5;
         setTimeout(temp, randomTime*1000);
