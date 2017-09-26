@@ -192,6 +192,6 @@ $(function() {
 		</tr>
 	</table>
 </c:if>
-
+<audio src="/kanemochi/resources/sound/Login_Sound.mp3" autoplay="autoplay" loop="loop"></audio>
 </body>
 </html>
