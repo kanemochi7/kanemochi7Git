@@ -46,11 +46,11 @@ npcCharacter.prototype.update = function() {
     var behavior = Math.floor(Math.random() * 1000);
 
     game.physics.arcade.collide(this,GameState.buildingTopGroup,function(main,test){
-//      main.npcLeftEnd = test.x;
+      main.npcLeftEnd = test.x;
       main.npcRightEnd = test.x+test.width-main.width+1;
     });
     game.physics.arcade.collide(this,GameState.elevatorTopGroup,function(main,test){
-//      main.npcLeftEnd = test.x;
+      main.npcLeftEnd = test.x;
       main.npcRightEnd = test.x+test.width-main.width+1;
     });
     
@@ -104,21 +104,17 @@ npcCharacter.prototype.move = function(){
     if(this.npcFloor>1){
         game.physics.arcade.collide(this,GameState.buildingTopGroup,function(main,test){
           if(main.npcLeftEnd == 0){
-        	 console.log("층올라옴");
             main.npcLeftEnd = test.x;
           }
           if(main.npcRightEnd == game.world.width){
-        	  console.log("층올라옴 2");
             main.npcRightEnd = test.x+test.width-main.width+1;
           }
     	  if(test.x < main.npcLeftEnd){
               //이동을 하겠지..
-          	  console.log("왼쪽갱신");
                 main.npcLeftEnd = test.x;
             }
           
     	  if (test.x > main.npcRightEnd) {
-        	  console.log("오른쪽갱신");
             main.npcRightEnd = (test.x)+(test.width)-main.width+1;
           }
     	  if(main.x <= main.npcLeftEnd){
@@ -140,21 +136,17 @@ npcCharacter.prototype.move = function(){
         }
         game.physics.arcade.collide(this,GameState.elevatorTopGroup,function(main,test){
         	if(main.npcLeftEnd == 0){
-        		console.log("층올라옴");
         		main.npcLeftEnd = test.x;
         	}
         	if(main.npcRightEnd == game.world.width){
-        		console.log("층올라옴 2");
         		main.npcRightEnd = test.x+test.width-main.width+1;
         	}
         	if(test.x < main.npcLeftEnd){
         		//이동을 하겠지..
-        		console.log("왼쪽갱신");
         		main.npcLeftEnd = test.x;
         	}
         	
         	if (test.x > main.npcRightEnd) {
-        		console.log("오른쪽갱신");
         		main.npcRightEnd = (test.x)+(test.width)-main.width+1;
         	}
         	if(main.x <= main.npcLeftEnd){
@@ -737,13 +729,6 @@ function createBuilding(inputText){
   var elevatorBottom;
   var elevatorComplete;
   var result;
-//  var spriteTemp = buildingGroup.create(game.input.mousePointer.x,game.input.mousePointer.y,inputText);
-//	  if(inputText != 'elevator'){
-////		  GameState.buildingGroup.add(spriteTemp);  
-//	  }
-//	  else if(inputText == 'elevator'){
-////		  GameState.elevatorGroup.add(spriteTemp);  
-//	  }
 	  spriteTemp.scale.setTo(0.5);
 	  spriteTemp.alpha = 0.5;
 	  spriteTemp.inputEnabled = true;
@@ -766,6 +751,7 @@ function createBuilding(inputText){
 	      var check;//false 충돌 안남. / true 충돌남.
 	      var firstFloorCheck = true; // true면 1층인거
 	      var windowCheck = true; // false면 게임창 바깥 나간거
+	      var canBuildWallCheck = true; // true면 지어도 되는거
 	    //게임 나가냐 안나가냐
 	    if(sprite.x < 0 || sprite.x > game.world.width-(sprite.width) || sprite.y < 0 || sprite.y > game.world.height - (sprite.height)){
 	      windowCheck = false;
@@ -782,7 +768,11 @@ function createBuilding(inputText){
 	    	if(windowCheck == true && firstFloorCheck == true && topCheck == false){
 	  	      check = game.physics.arcade.collide(sprite,GameState.buildingGroup);
 	  	      check1 = game.physics.arcade.collide(sprite,GameState.elevatorGroup);
-	  	      // check = false;
+//	  	      	game.physics.arcade.collide(sprite,GameState.canBuildGroup,function(sprite,canWall){
+// 	        	 if(canWall.y == sprite.y-9){
+// 	        		 canBuildWallCheck = true; 
+// 	        	 }
+// 	          });
 	  	    }
 	  	    //게임창 안벗어나고, 1층이 아니더라도, 위에 하얀바에 닿으면 충돌 체크해서 생성여부 정함
 	  	    else if(windowCheck == true && firstFloorCheck == false && topCheck==true && topCheck1 == false){
@@ -794,6 +784,14 @@ function createBuilding(inputText){
 	  	        if(sprite.y<= (getBuilding[i].y-sprite.height) && sprite.name != getBuilding[i].name){
 	  	          check = game.physics.arcade.collide(sprite,GameState.buildingGroup);
 	  	          check1 = game.physics.arcade.collide(sprite,GameState.elevatorGroup);
+	  	          game.physics.arcade.collide(sprite,GameState.canBuildGroup,function(sprite,canWall){
+	  	        	 if(canWall.y == sprite.y-9){
+	  	        		 canBuildWallCheck = true; 
+	  	        	 }
+	  	        	 else{
+	  	        		canBuildWallCheck = false;
+	  	        	 }
+	  	          });
 	  	          break;
 	  	        }
 	  	        else{
@@ -838,14 +836,20 @@ function createBuilding(inputText){
 	          }
 	    }
 	    //모든 충돌여부에 따른 건물 색깔 변화
-	    if(check == true && check1 == true){
+	    
+	    if(check == true || check1 == true){
 	      sprite.tint = 0xff0000;
 	      checkResult = true;
 	    }
-	    else{
-	      sprite.tint = 0xffffff;
-	      checkResult = false;
+	    if (check == false && check1 == false){
+		      sprite.tint = 0xffffff;
+		      checkResult = false;
+		    }
+	    if( canBuildWallCheck == false){
+	    	sprite.tint = 0xff0000;
+		      checkResult = true;
 	    }
+	    
 	  }
 	  
 	  	spriteTemp.events.onInputUp.add(function(){
@@ -1001,12 +1005,29 @@ function deleteButtonOn(anywaySprite){
 				
 				
 				canBuildWall = game.add.sprite(canBuildWallLeftEnd,anywaySprite.y,'canBuildingWall');
+				console.log(canBuildWall.x);
+				console.log(canBuildWall.y);
+				console.log(canBuildWall.key);
+				//벽도 DB에 담기위해 연구중(DB에 테이블을 따로 팔지 고민중 & image 테이블에 가짜벽에 대한 이미지도 넣어놔야함)
+//				$.ajax({
+//			        url : '/kanemochi/record/setStatus',
+//			        method : 'post',
+//			        data : {'img_x':canBuildWall.x,
+//			               'img_y':canBuildWall.y,
+//			               'img_id':canBuildWall.key},
+//			        success: function(result) {
+//			        	console.log("성공");
+//			        },
+//			        error: function() {
+//			        	console.log("실패");
+//			        }
+//			     });
 				game.world.moveDown(canBuildWall);
 				canBuildWall.width = canBuildWallRightEnd - canBuildWallLeftEnd;
 				canBuildWall.height = 150;
 				console.log(canBuildWall);
 				console.log(canBuildWall.x);
-				
+				GameState.canBuildGroup.add(canBuildWall);
 				canBuildWallTop = game.add.sprite(canBuildWallLeftEnd,anywaySprite.y,'canBuildingTop');
 				canBuildWallTop.scale.setTo(0.5,0.3);
 				canBuildWallTop.y -= 8.9;
