@@ -7,6 +7,7 @@ import com.project.kanemochi.vo.CountOneVO;
 import com.project.kanemochi.vo.CountVO;
 import com.project.kanemochi.vo.RecordVO;
 import com.project.kanemochi.vo.ShopVO;
+import com.project.kanemochi.vo.SumVO;
 
 public interface RecordMapper {
 	
@@ -21,6 +22,6 @@ public interface RecordMapper {
 	
 	public void setStatus(ShopVO vo);
 	public ArrayList<ShopVO> getStatus(String id);
-	public Object getExpense(String id);
+	public SumVO getExpense(String id);
 	public ArrayList<RecordVO> getEveryRecord(String id);
 }

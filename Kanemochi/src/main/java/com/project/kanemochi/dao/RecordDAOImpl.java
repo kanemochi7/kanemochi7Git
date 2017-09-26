@@ -11,6 +11,7 @@ import com.project.kanemochi.vo.CountOneVO;
 import com.project.kanemochi.vo.CountVO;
 import com.project.kanemochi.vo.RecordVO;
 import com.project.kanemochi.vo.ShopVO;
+import com.project.kanemochi.vo.SumVO;
 
 @Repository
 public class RecordDAOImpl implements RecordDAO {
@@ -78,8 +79,9 @@ public class RecordDAOImpl implements RecordDAO {
 	public int getExpense(String id) {
 		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);
 		int result = 0;
-		if(mapper.getExpense(id) != null) {
-			result = (int)mapper.getExpense(id);
+		SumVO vo = mapper.getExpense(id);
+		if(vo != null) {
+			result = vo.getSum();
 		}
 		return result;
 	}

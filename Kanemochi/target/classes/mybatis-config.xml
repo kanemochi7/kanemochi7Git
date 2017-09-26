@@ -12,6 +12,7 @@
 		<typeAlias type="com.project.kanemochi.vo.ShopVO" alias="ShopVO"/>
 		<typeAlias type="com.project.kanemochi.vo.ScreenshotVO" alias="ScreenshotVO"/>
 		<typeAlias type="com.project.kanemochi.vo.ExpVO" alias="ExpVO"/>
+		<typeAlias type="com.project.kanemochi.vo.SumVO" alias="SumVO"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mapper/memberMapper.xml"/>

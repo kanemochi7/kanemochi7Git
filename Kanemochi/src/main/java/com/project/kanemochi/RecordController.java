@@ -42,6 +42,7 @@ public class RecordController {
 		String id = (String)session.getAttribute("loginID");
 		vo.setUser_id(id);
 		vo.setCategory(category);
+		System.out.println(vo);
 		dao.input(vo);
 		dao.upcount(vo);
 		CountOneVO countvo = new CountOneVO(id, category, 0);
@@ -110,6 +111,9 @@ public class RecordController {
 		/*case "地下鉄":
 			category_English = "bus";
 			break;*/
+		case "銀行":
+			category_English = "bank";
+			break;
 		default:
 			break;
 		}

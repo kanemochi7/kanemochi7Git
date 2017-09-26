@@ -12,6 +12,9 @@
 		height: 100%;
 		width: 100%;
 	}
+	div {
+		text-align: center;
+	}
 	.foot {
 		display: inline;
 		margin-left: 10px;
@@ -40,7 +43,7 @@
 div.blueTable {
   width: 500px;
   height: 200px;
-  text-align: left;
+  text-align: center;
   float: center;
 }
 .divTable.blueTable .divTableCell, .divTable.blueTable .divTableHead {
@@ -382,29 +385,29 @@ $(function() {
 			method : 'get',
 			success: function (result) {
 				if (result == 5) {
-					alert("ログイン"+result+"回! ＋"+result*10+"px");
-					exp = result*10;
+					alert("ログイン"+result+"回! ＋"+result*2+"px");
+					exp = result*2;
 				} else if (result == 10) {
-					alert("ログイン"+result+"回! ＋"+result*10+"px");
-					exp = result*10;
+					alert("ログイン"+result+"回! ＋"+result*2+"px");
+					exp = result*2;
 				} else if (result == 15) {
-					alert("ログイン"+result+"回! ＋"+result*10+"px");
-					exp = result*10;
+					alert("ログイン"+result+"回! ＋"+result*2+"px");
+					exp = result*2;
 				} else if (result == 20) {
-					alert("ログイン"+result+"回! ＋"+result*10+"px");
-					exp = result*10;
+					alert("ログイン"+result+"回! ＋"+result*2+"px");
+					exp = result*2;
 				} else if (result == 25) {
-					alert("ログイン"+result+"回! ＋"+result*10+"px");
-					exp = result*10;
+					alert("ログイン"+result+"回! ＋"+result*2+"px");
+					exp = result*2;
 				} else if (result == 30) {
-					alert("ログイン"+result+"回! ＋"+result*10+"px");
-					exp = result*10;
+					alert("ログイン"+result+"回! ＋"+result*2+"px");
+					exp = result*2;
 				} else if (result == 35) {
-					alert("ログイン"+result+"回! ＋"+result*10+"px");
-					exp = result*10;
+					alert("ログイン"+result+"回! ＋"+result*2+"px");
+					exp = result*2;
 				} else if (result == 45) {
-					alert("ログイン"+result+"回! ＋"+result*10+"px");
-					exp = result*10;
+					alert("ログイン"+result+"回! ＋"+result*2+"px");
+					exp = result*2;
 				} else {
 					
 				}
@@ -453,16 +456,17 @@ $(function() {
 
 <!-- Modal_write -->
 <div id="modal_write" class="modal">
-	<div class="modal-content">
+	<div class="modal-content" style="text-align: center;">
 		<span class="close" id="close_modal_write">&times;</span>
 		<h3>支出</h3>
 		<h4>[今日はいくら使いましたか？]</h4>
+		<div style="text-align: center;">
 			<form id="input-form" name="input-form">
 			<div class="divTable blueTable">
 				<div class="divTableBody">
 					<div class="divTableRow">
 						<div class="divTableCell">date</div>
-						<div class="divTableCell"><input type="text" id="record_date" name="record_date" placeholder="date"></div>
+						<div class="divTableCell"><input type="text" style="width: 250px; text-align: left;" id="record_date" name="record_date" placeholder="date"></div>
 					</div>
 					<div class="divTableRow">
 						<div class="divTableCell">category</div>
@@ -484,12 +488,12 @@ $(function() {
 					<div class="divTableRow">
 						<div class="divTableCell">price</div>
 						<div class="divTableCell">
-							<input type="text" id="record_price" name="record_price" placeholder="値">￥
+							<input type="text" style="width: 232px; text-align: left;" id="record_price" name="record_price" placeholder="値">￥
 						</div>
 					</div>
 					<div class="divTableRow">
 						<div class="divTableCell">tag</div>
-						<div class="divTableCell"><textarea rows="3" id="record_tag" name="record_tag" placeholder="#item"></textarea></div>
+						<div class="divTableCell"><textarea rows="3" id="record_tag" style="width: 250px; text-align: left;" name="record_tag" placeholder="#item"></textarea></div>
 					</div>
 					<div class="divTableRow">
 						<div class="divTableCell">pay</div>
@@ -501,13 +505,14 @@ $(function() {
 					<div class="divTableRow">
 						<div class="divTableCell"></div>
 						<div class="divTableCell">
-							<input type="button" value="ok" onclick="input()">
-							<input type="reset" value="reset">
+							<input type="button" class="btn btn-primary" value="  ok  " onclick="input()">
+							<input type="reset" class="btn btn-success" value="reset">
 						</div>
 					</div>
 				</div>
 			</div>
 			</form>
+		</div>
 	</div>
 </div>	
 
@@ -518,33 +523,33 @@ $(function() {
 		<h3>Budget</h3>
 		<p id="p_footer">[<span id="today_year_budget"></span>年<span id="today_month_budget"></span>月]</p>
 		<form id="budget_form" name="budget_form">
-		<div class="divTable blueTable">
+		<div class="divTable blueTable" style="float: center;">
 			<div class="divTableBody">
 				<div class="divTableRow" id="budget_input_text">
 					<div class="divTableCell"></div>
 					<div class="divTableCell"><input type="text" id="budget_month" placeholder="一ヵ月の予算" onkeyup="cal()"></div>
-					<div class="divTableCell">￥</div>
+					<div class="divTableCell" style="width: 10px">￥</div>
 				</div>
 				<div class="divTableRow">
-					<div class="divTableCell">monthly budget</div>
-					<div class="divTableCell"><span id="month_result"></span></div>
-					<div class="divTableCell">￥</div>
+					<div class="divTableCell" style="width: 150px">monthly budget</div>
+					<div class="divTableCell" style="width: 100px"><span id="month_result"></span></div>
+					<div class="divTableCell" style="width: 10px">￥</div>
 				</div>
 				<div class="divTableRow">
-					<div class="divTableCell">weekly budget</div>
-					<div class="divTableCell"><span id="weekly_result"></span></div>
-					<div class="divTableCell">￥</div>
+					<div class="divTableCell" style="width: 150px">weekly budget</div>
+					<div class="divTableCell" style="width: 100px"><span id="weekly_result"></span></div>
+					<div class="divTableCell" style="width: 10px">￥</div>
 				</div>
 				<div class="divTableRow">
-					<div class="divTableCell">daily budget</div>
-					<div class="divTableCell"><span id="daily_result"></span></div>
-					<div class="divTableCell">￥</div>
+					<div class="divTableCell" style="width: 150px">daily budget</div>
+					<div class="divTableCell" style="width: 100px"><span id="daily_result"></span></div>
+					<div class="divTableCell" style="width: 10px">￥</div>
 				</div>
 				<div class="divTableRow">
-					<div class="divTableCell"></div>
-					<div class="divTableCell">
-						<input type="button" id="btn_setbudget" value="save this plan" onclick="setbudget()">
-						<input type="button" id="btn_changebudget" value="change the plan" onclick="changebudget()">
+					<div class="divTableCell" style="width: 150px"></div>
+					<div class="divTableCell" style="width: 110px">
+						<input type="button" id="btn_setbudget" class="btn btn-primary" value="save this plan" onclick="setbudget()">
+						<input type="button" id="btn_changebudget" class="btn btn-success" value="change the plan" onclick="changebudget()">
 					</div>
 				</div>
 			</div>
