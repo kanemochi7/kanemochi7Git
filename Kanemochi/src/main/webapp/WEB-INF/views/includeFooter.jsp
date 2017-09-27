@@ -9,6 +9,7 @@
 		font-family: "GoodFont";
 	}
 	body {
+
 		height: 100%;
 		width: 100%;
 	}
@@ -22,14 +23,14 @@
 		float: left;
 	}
 	#p_footer {
-		color: white;
+		/* color: white; */
 		text-align: center;
 		font-size: 15px;
 	}
 	.icon_footer {
 		width: auto;
 		height: 50px;
-		/* margin: 15px; */
+		margin: 10px;
 		float: left;
 	}
 	#write {
@@ -625,16 +626,16 @@ $(function() {
 	<div class="foot"><img class="icon_footer click" data-toggle="tooltip" data-placement="top" title="記録" id="write" src="/kanemochi/resources/image/icon/write.png"></div>
 	<div class="foot"><img class="icon_footer click" data-toggle="tooltip" data-placement="top" title="予算" id="budget" src="/kanemochi/resources/image/icon/moneyPack.png"></div>
 	<div class="foot">
-		<div style="width:500px; height:30px; margin-top:10px; background-color:#e8e8e8;">
-			<div id="budget_progress" style="width:0px; height:30px; padding:5px; background-color:#5f9e55; text-align:center;"></div>
+		<div style="width:500px; height:30px; margin-top:10px; background-color:#e8e8e8; border-radius: 10px;">
+			<div id="budget_progress" style="width:0px; height:30px; padding:5px; background-color:#fff3b2; text-align:center; border-radius: 10px;"></div>
 		</div>
 		<div style="color: black;">今まで使ったお金 ： <span id="show_spend"></span> / 全体予算 ： <span id="show_budget"></span></div>	
 	</div>
 	
 	<div class="foot"><img class="icon_footer click" data-toggle="tooltip" data-placement="top" title="ポイント" id="exp" src="/kanemochi/resources/image/icon/exp.png"></div>
 	<div class="foot">
-		<div style="width:500px; height:30px; margin-top:10px; background-color:#e8e8e8;">
-			<div id="exp_progress" style="width:0px; height:30px; padding:5px; background-color:#5f9e55; text-align:center;"></div>
+		<div style="width:500px; height:30px; margin-top:10px; background-color:#e8e8e8; border-radius:10px;">
+			<div id="exp_progress" style="width:0px; height:30px; padding:5px; background-color:#fff3b2; text-align:center; border-radius:10px;"></div>
 		</div>
 		<div style="color: black;">今までのポイント ： <span id="show_point"></span> / 次のレベルまでのポイント ： <span id="next_level"></span></div>	
 	</div>

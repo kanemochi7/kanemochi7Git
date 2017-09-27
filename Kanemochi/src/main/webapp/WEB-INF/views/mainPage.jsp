@@ -38,7 +38,7 @@
 		height: 730px;
 		margin: 0px;
 		padding: 0px;
-		background-color: white;
+		/* background-color: black; */
 	}
 	#header {
 		width: 1518px;
@@ -47,8 +47,19 @@
 		padding: 0px;
 		float: left;
 		text_align: right;
-		background-color: white;
-		border: 1px solid white;
+		/* border: 1px solid black; */
+		/* background-color: white; */
+		
+/*1*/
+/* background-color: #fffbd1;
+background-image: url("data:image/svg+xml,%3Csvg width='42' height='44' viewBox='0 0 42 44' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Page-1' fill='none' fill-rule='evenodd'%3E%3Cg id='brick-wall' fill='%2352d4da' fill-opacity='0.55'%3E%3Cpath d='M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); */
+/*2*/
+/* background-color: #ffacab;
+background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23a8e9ec' fill-opacity='0.73' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E"); */
+/*3*/
+background-color: #c9f1f3;
+background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.76' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+
 	}
 	#sidebar {
 		width: 121px;
@@ -56,28 +67,51 @@
 		margin: 0px;
 		padding: 0px;
 		float: left;
-		background-color: white;
-		border: 1px solid white;
+		/* border: 1px solid black; */
+		/* background-color: white; */
+
+/*1*/
+/* background-color: #fffbd1;
+background-image: url("data:image/svg+xml,%3Csvg width='42' height='44' viewBox='0 0 42 44' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Page-1' fill='none' fill-rule='evenodd'%3E%3Cg id='brick-wall' fill='%2352d4da' fill-opacity='0.55'%3E%3Cpath d='M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); */
+/*2*/
+/* background-color: #ffacab;
+background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23a8e9ec' fill-opacity='0.73' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E"); */
+/*3*/
+background-color: #c9f1f3;
+background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.76' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+	
 	}
+	#footer {
+		width: 1518px;
+		height: 70px;
+		margin: 0px;
+		padding: 5px;
+		float: left;
+		text-align: left;
+		/* border: 1px solid black; */
+		/* background-color: white; */
+
+/*1*/
+/* background-color: #fffbd1;
+background-image: url("data:image/svg+xml,%3Csvg width='42' height='44' viewBox='0 0 42 44' xmlns='http://www.w3.org/2000/svg'%3E%3Cg id='Page-1' fill='none' fill-rule='evenodd'%3E%3Cg id='brick-wall' fill='%2352d4da' fill-opacity='0.55'%3E%3Cpath d='M0 0h42v44H0V0zm1 1h40v20H1V1zM0 23h20v20H0V23zm22 0h20v20H22V23z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); */
+/*2*/
+/* background-color: #ffacab;
+background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23a8e9ec' fill-opacity='0.73' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E"); */
+/*3*/
+background-color: #c9f1f3;
+background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.76' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+
+	}
+
 	#game {
 		width: 1397px;
 		height: 600px;
 		margin: 0px;
 		padding: 0px;
 		float: left;
-		border: 1px solid white;
+		/* border: 1px solid black; */
 	}
-	#footer {
-		width: 1518px;
-		height: 59px;
-		margin: 0px;
-		padding: 5px;
-		float: left;
-		text-align: left;
-		background-color: white;
-		border: 1px solid white;
-	}
-
+	
 /* sidebar */
 	button.accordion {
 		width: 100%;
