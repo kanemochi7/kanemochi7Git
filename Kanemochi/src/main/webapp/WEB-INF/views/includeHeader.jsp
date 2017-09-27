@@ -42,6 +42,8 @@ function getToday() {
 		document.getElementById("today_year_budget").innerHTML = year;
 		document.getElementById("today_month_budget").innerHTML = month;
 }
+
+
 </script>
 </head>
 <body>
@@ -74,13 +76,55 @@ function getToday() {
 		<a href="/kanemochi/member/album">
 			<input type="image" id="album" class="icon" data-toggle="tooltip" data-placement="bottom" title="スクリーンショットアルバム" src="/kanemochi/resources/image/icon/album.png">
 		</a>
-		<a href="#">
 			<input type="image" id="setting" class="icon" data-toggle="tooltip" data-placement="bottom" title="設定" src="/kanemochi/resources/image/icon/setting.png">
-		</a>
 		<a href="#">
 			<input type="image" id="question" class="icon" data-toggle="tooltip" data-placement="bottom" title="アドバイス" src="/kanemochi/resources/image/icon/questionmark.png">
 		</a>
 	</p>
 	<%-- </c:if> --%>
+	
+	<!-- Modal_budget -->
+	<div id="volume" class="modal">
+		<div class="modal-content">
+			<span class="close" id="close_volume">&times;</span>
+			<h3>音量調節</h3>
+			<div class="divTable blueTable" style="text-align: center; position: relative; left: 10%;">
+				<div class="divTableBody">
+					<div class="divTableRow">
+						<div class="divTableCell">game theme</div>
+						<div class="divTableCell"><img src="/kanemochi/resources/image/icon/music_minus.png"></div>
+						<div class="divTableCell"><img src="/kanemochi/resources/image/icon/music_plus.png"></div>
+					</div>
+					<div class="divTableRow">
+						<div class="divTableCell">sound effect</div>
+						<div class="divTableCell"><img src="/kanemochi/resources/image/icon/music_minus.png"></div>
+						<div class="divTableCell"><img src="/kanemochi/resources/image/icon/music_plus.png"></div>
+					</div>
+					<div class="divTableRow">
+						<div class="divTableCell"></div>
+						<div class="divTableCell">
+							<input type="button" id="btn_setbudget" class="btn btn-primary click" value="closes" onclick="setbudget()">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
+<script type="text/javascript">
+var volume_form = document.getElementById("volume");
+var setting_b = document.getElementById("setting");
+var close_b = document.getElementById("close_volume");
+setting_b.onclick = function() {
+	volume_form.style.display = "block";
+	close_b.onclick = function() {
+		volume_form.style.display = "none";
+	}
+	window.onclick = function(event_v) {
+		if (event_v.target == volume_form) {
+			volume_form.style.display = "none";
+		}
+	}
+};
+</script>
 </html>
