@@ -3,9 +3,27 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.kanemochi.dao.GPMapper">
-	<!-- 스크린샷 저장 -->
-	<insert id="screenshotSave" parameterType="ScreenshotVO">
-		insert into screenshot values(seq_screenshot.nextval,#{user_id}, sysdate,#{screenshot_url})
-	</insert>
+<!-- 
+  # DB 결과 데이터 객체에 매핑 
+  # jdbcType="CLOB"
+-->
+<resultMap id="getAlbumResult" type="HashMap">
+    <result property="screenshot_num" column="SCREENSHOT_NUM" /> 
+    <result property="user_id" column="USER_ID" /> 
+    <result property="shotdate" column="SHOTDATE" /> 
+    <result property="screenshotdata" column="SCREENSHOTDATA" jdbcType="CLOB" javaType="java.lang.String"/>
+</resultMap>
 
+	<insert id="saveScreenshot" parameterType="java.util.HashMap">
+		insert into screenshot2 values (seq_screenshot.nextval, #{user_id}, sysdate, #{screenshotData})
+	</insert>
+	
+	<select id="printScreenshot" resultType="screenshotVO">
+		select * from screenshot2 where screenshot_num = 22
+  	</select>
+  	
+  	<select id="printScreenshotAll" parameterType="java.util.HashMap" resultMap="getAlbumResult">
+		select * from screenshot2 where user_id = #{user_id}
+  	</select>
+  	
 </mapper>

@@ -1,5 +1,7 @@
 package com.project.kanemochi.dao;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,13 +15,24 @@ public class GP_DAOImpl implements GP_DAO {
 	private SqlSession sqlsession;
 
 	@Override
-	public int screenshotSave(ScreenshotVO vo) {
+	public void saveScreenshot(ScreenshotVO scVO) {
+		System.out.println(scVO);
 		GPMapper mapper = sqlsession.getMapper(GPMapper.class);
-		int result = mapper.screenshotSave(vo);
-		return result;
+		mapper.saveScreenshot(scVO);
 	}
 
+	@Override
+	public ScreenshotVO printScreenshot() {
+		GPMapper mapper = sqlsession.getMapper(GPMapper.class);
+		ScreenshotVO printVO = mapper.printScreenshot();
+		return printVO;
+	}
 
-	
+	@Override
+	public ArrayList<ScreenshotVO> printScreenshotAll(String user_id) {
+		GPMapper mapper = sqlsession.getMapper(GPMapper.class);
+		ArrayList<ScreenshotVO> screenshotList = mapper.printScreenshotAll(user_id);
+		return screenshotList;
+	}
 	
 }

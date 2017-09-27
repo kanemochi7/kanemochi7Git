@@ -180,9 +180,6 @@ public class MemberController {
 		return "loginForm";
 	}
 	
-	//페이지이동
-	
-	
 	@RequestMapping(value = "loginForm", method = RequestMethod.GET)
 	public String loginForm() {
 		return "loginForm";
@@ -212,11 +209,6 @@ public class MemberController {
 	public String memberListForm() {
 		return "memberListForm";
 	}	
-	
-	@RequestMapping(value = "album", method = RequestMethod.GET)
-	public String album() {
-		return "album";
-	}
 	
 	@RequestMapping(value = "write", method = RequestMethod.GET)
 	public String write() {

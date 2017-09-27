@@ -1,20 +1,19 @@
 package com.project.kanemochi.vo;
 
-import java.sql.Date;
-
 public class ScreenshotVO {
 	private int screenshot_num;
 	private String user_id;
-	private Date shotdate;
-	private String screenshot_url;
+	private String shotdate;
+	private String screenshotData;
 	
 	public ScreenshotVO() {}
 
-	public ScreenshotVO(int screenshot_num, String user_id, Date shotdate, String screenshot_url) {
+	public ScreenshotVO(int screenshot_num, String user_id, String shotdate, String screenshotData) {
+		super();
 		this.screenshot_num = screenshot_num;
 		this.user_id = user_id;
 		this.shotdate = shotdate;
-		this.screenshot_url = screenshot_url;
+		this.screenshotData = screenshotData;
 	}
 
 	public int getScreenshot_num() {
@@ -33,25 +32,26 @@ public class ScreenshotVO {
 		this.user_id = user_id;
 	}
 
-	public Date getShotdate() {
+	public String getShotdate() {
 		return shotdate;
 	}
 
-	public void setShotdate(Date shotdate) {
+	public void setShotdate(String shotdate) {
 		this.shotdate = shotdate;
 	}
 
-	public String getScreenshot_url() {
-		return screenshot_url;
+	public String getScreenshotData() {
+		return screenshotData;
 	}
 
-	public void setScreenshot_url(String screenshot_url) {
-		this.screenshot_url = screenshot_url;
+	public void setScreenshotData(String screenshotData) {
+		this.screenshotData = screenshotData;
 	}
 
 	@Override
 	public String toString() {
 		return "ScreenshotVO [screenshot_num=" + screenshot_num + ", user_id=" + user_id + ", shotdate=" + shotdate
-				+ ", screenshot_url=" + screenshot_url + "]";
+				+ ", screenshotData=" + screenshotData + "]";
 	}
+	
 }

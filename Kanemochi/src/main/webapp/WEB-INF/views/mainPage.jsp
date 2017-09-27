@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap-datepicker.min.css">
 
+<script src="/kanemochi/resources/js/phaser-capture.js"></script>
 <script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
 <script src="/kanemochi/resources/js/bootstrap.js"></script>
 <script src="/kanemochi/resources/js/bootstrap-datepicker.min.js"></script>
@@ -247,6 +248,17 @@ $(function() {
 	<div id ="game">
 		<script src="/kanemochi/resources/js/game.js"></script>
 	</div>
+	
+	<!-- screenshot_capture // Modal Screenshot -->
+
+	<div id="modal_screenshot" class="modal">
+	      <div class="modal-content">
+			<span class="close" id="close_modal_screenshot">&times;</span>
+			<h3>screenshot</h3>
+			<canvas id="canvas" width= "800" height ="500"></canvas> <!-- 캔버스 크기 -->
+			<a href="#" id="download">download</a>
+	      </div>
+	</div>
 
 	<div id="footer">
 		<jsp:include page="includeFooter.jsp"></jsp:include>
@@ -346,5 +358,65 @@ $(function() {
 	}
 
 </script>
+
+
+<script>
+	/* modal_screenshot */
+ 	var btn_sc = document.getElementById("screenshot");
+	var modal_screenshot = document.getElementById('modal_screenshot');
+	var span_sc = document.getElementById("close_modal_screenshot");
+	
+	btn_sc.onclick = function() {
+		modal_screenshot.style.display = "block";
+		console.log("modal_screenshot test");
+		gameCapture();
+		span_sc.onclick = function() {
+			modal_screenshot.style.display = "none";
+		}
+		window.onclick = function(event_sc) {
+			if (event.target == modal_screenshot) {
+				modal_screenshot.style.display = "none";
+			}
+		}
+	}
+
+
+ function gameCapture(){
+	  //var PhaserCapture = require('phaser-capture');  // For Node/Browserify users
+	    console.log(game.capture);
+		game.capture.screenshot(function(dataUrl) {
+			var canvas = document.getElementById('canvas');
+			console.log(canvas);
+	        // Outputs a data-url of the image (default image/png).
+// 	        console.log(dataUrl);
+	        console.log("test1 function is running.....");
+	        drawDataURIOnCanvas(dataUrl,canvas);
+	      });
+		
+	/* downloadBtn */
+	function downloadCanvas(link, canvasId, filename) {
+	    link.href = document.getElementById(canvasId).toDataURL();
+	    link.download = filename;
+	}
+	
+	document.getElementById('download').addEventListener('click', function() {
+		downloadCanvas(this, 'canvas', 'test.png');
+	}, false);
+		    
+	
+}
+ 
+  function drawDataURIOnCanvas(strDataURI, canvas) {
+	    "use strict";
+	    var img = new window.Image();
+	    img.addEventListener("load", function () {
+	        canvas.getContext("2d").drawImage(img, 0, 0,1020,500)// 내부 이미지 크기
+	    });
+	    img.setAttribute("src", strDataURI);
+	} 
+
+</script>
+
+
 </body>
 </html>
