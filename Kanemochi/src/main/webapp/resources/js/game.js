@@ -57,7 +57,7 @@ npcCharacter.prototype.update = function() {
     if(behavior >=0 && behavior < 1){
       // this.turn();
     }
-    if((collideBuild == true) &&behavior >=1 && behavior <10){
+    if((collideBuild == true) &&behavior >=1 && behavior <100){
       this.elevator();
     }
 //    if((collideBuild == true) && behavior >=2 && behavior <3){
@@ -178,27 +178,33 @@ npcCharacter.prototype.out = function(){
 }
 npcCharacter.prototype.elevator = function(){
   console.log('elevator');
-  game.physics.arcade.collide(this,GameState.elevatorGroup,function(main,right){
-	  
-	  var elevatorMove = right.animations.add('elevatorMove',[0,1,2,3,4,5,6],7,true);
-	  right.play('elevatorMove');
-	  		console.log(right.x);
-	  		console.log(right.getBounds());
-		  if(right.getBounds().contains(right.x, right.y-15)){
-			  console.log(right.getBounds().contains(right.x, right.y-15));
-			  main.alpha = 0.5;
+  	 game.physics.arcade.collide(this,GameState.elevatorGroup,function(main,right){
+  		 
+		    main.y-=158;
+		    main.alpha = 0.2;
+		    var eleResult = game.physics.arcade.collide(main,GameState.elevatorGroup,function(main2,right2){
+		    	var elevatorMove = right2.animations.add('elevatorMove',[0,1,2,3,4,5,6],7,true);
+				  right2.play('elevatorMove');
+				  setTimeout(function(){
+					  right2.animations.stop(null, true);  
+				  },1000);
+		    });
+		  if(eleResult){
 			  setTimeout(function(){
-				  main.y-=158;
-			  },100);
+				  main.alpha = 1;  
+			  },1500);
+			  
 		  }
-		  setTimeout(function(){
-			  right.animations.stop(null, true);  
-			  main.alpha = 1;
-		  },1000);
-	  
-	  
-	
-  });
+		  else{
+			  main.y+=158;
+		  }
+		  var elevatorMove = right.animations.add('elevatorMove',[0,1,2,3,4,5,6],7,true);
+		  right.play('elevatorMove');
+			  setTimeout(function(){
+				  right.animations.stop(null, true);  
+			  },1000);
+	  });
+	 
   
 }
 npcCharacter.prototype.turn = function(){
@@ -633,7 +639,6 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    			      leftWall.width = (sprite2.x - test.x - test.width);
 		    			      leftWall.height = sprite2.height;
 		    			      GameState.wallGroup.add(leftWall);
-		    			      console.log(leftWall);
 		    			      leftWallTop =  game.add.sprite(leftWall.x, leftWall.y-8.9, 'buildingTopShort');
 		    			      leftWallTop.scale.setTo(0.5,0.3);
 		    			      leftWallTop.width = (sprite2.x - test.x - test.width);
@@ -656,7 +661,6 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    				 rightWall.width = (test.x - temp);
 		    			      rightWall.height = test.height;
 		    			      GameState.wallGroup.add(rightWall);
-		    			      console.log(rightWall);
 		    			      rightWallTop =  game.add.sprite(rightWall.x, rightWall.y-8.9, 'buildingTopShort');
 		    			     
 		    			      rightWallTop.scale.setTo(0.5,0.3);
