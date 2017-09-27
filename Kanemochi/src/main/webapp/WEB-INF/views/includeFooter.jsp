@@ -124,7 +124,6 @@ $(function() {
 	/* setProgressbar_exp(); */
 	setProgressbar_budget();
 	
-	
 	$(".click").on('click', function() {
 		var audio = new Audio("/kanemochi/resources/sound/ClickOn.wav");
 		audio.volume = 1;
@@ -278,7 +277,7 @@ $(function() {
 				var elem = document.getElementById("exp_progress");
 				var value = 0;
 				var width = 0;
-				if (user_score != 0 && full_score != 0 && user_score <= 12000) {
+				if (full_score != 0 && user_score <= 12000) {
 					value = user_score/full_score*100;
 					var id = setInterval(frame, 10);
 						function frame() {
@@ -446,6 +445,12 @@ $(function() {
 			});
 	}
 	
+	function levelUpSound() {
+		var audio_LevelUp = new Audio("/kanemochi/resources/sound/MusicBox.wav");
+		audio_LevelUp.volume = 1;
+		audio_LevelUp.play();
+	}
+	
 	function upExp(exp) {
 		$.ajax({
 			url : '/kanemochi/exp/getExp',
@@ -462,66 +467,85 @@ $(function() {
 				var level_img = "level1";
 				var level_title = 1;
 
+				//hong - level 바뀔 때의 변화
 				if (pre_point < 300 && post_point >= 300) {
 					level_img="level2";
 					level_title = 2;
-					var audio_LevelUp = new Audio("/kanemochi/resources/sound/MusicBox.wav");
-					audio_LevelUp.volume = 1;
-					audio_LevelUp.play();
+					
+					levelUpSound();
+					bg = 'bg_level2';
+					userCharacterBehavior(userCharacter,'levelUP');
+				
 				} else if (pre_point < 700 && post_point >= 700) {
 					level_img="level3";
 					level_title = 3;
-					var audio_LevelUp = new Audio("/kanemochi/resources/sound/MusicBox.wav");
-					audio_LevelUp.volume = 1;
-					audio_LevelUp.play();
+					
+					levelUpSound();
+					bg = 'bg_level3';
+					userCharacterBehavior(userCharacter,'levelUP');
+					
 				} else if (pre_point < 1240 && post_point >= 1240) {
 					level_img="level4";
 					level_title = 4;
-					var audio_LevelUp = new Audio("/kanemochi/resources/sound/MusicBox.wav");
-					audio_LevelUp.volume = 1;
-					audio_LevelUp.play();
+					
+					levelUpSound();
+					GameState.background = GameState.game.add.sprite(0,0,'bg_level4');
+					userCharacterBehavior(userCharacter,'levelUP');
+					
 				} else if (pre_point < 2000 && post_point >= 2000) {
 					level_img="level5";
 					level_title = 5;
-					var audio_LevelUp = new Audio("/kanemochi/resources/sound/MusicBox.wav");
-					audio_LevelUp.volume = 1;
-					audio_LevelUp.play();
+					
+					levelUpSound();
+					GameState.background = GameState.game.add.sprite(0,0,'bg_level5');
+					userCharacterBehavior(userCharacter,'levelUP');
+					
 				} else if (pre_point < 3120 && post_point >= 3120) {
 					level_img="level6";
 					level_title = 6;
-					var audio_LevelUp = new Audio("/kanemochi/resources/sound/MusicBox.wav");
-					audio_LevelUp.volume = 1;
-					audio_LevelUp.play();
+					
+					levelUpSound();
+					GameState.background = GameState.game.add.sprite(0,0,'bg_level6');
+					userCharacterBehavior(userCharacter,'levelUP');
+					
 				} else if (pre_point < 4620 && post_point >= 4620) {
 					level_img="level7";
 					level_title = 7;
-					var audio_LevelUp = new Audio("/kanemochi/resources/sound/MusicBox.wav");
-					audio_LevelUp.volume = 1;
-					audio_LevelUp.play();
+					
+					levelUpSound();
+					GameState.background = GameState.game.add.sprite(0,0,'bg_level7');
+					userCharacterBehavior(userCharacter,'levelUP');
+					
 				} else if (pre_point < 6600 && post_point >= 6600) {
 					level_img="level8";
 					level_title = 8;
-					var audio_LevelUp = new Audio("/kanemochi/resources/sound/MusicBox.wav");
-					audio_LevelUp.volume = 1;
-					audio_LevelUp.play();
+					
+					levelUpSound();
+					GameState.background = GameState.game.add.sprite(0,0,'bg_level8');
+					userCharacterBehavior(userCharacter,'levelUP');
+					
 				} else if (pre_point < 9000 && post_point >= 9000) {
 					level_img="level9";
 					level_title = 9;
-					var audio_LevelUp = new Audio("/kanemochi/resources/sound/MusicBox.wav");
-					audio_LevelUp.volume = 1;
-					audio_LevelUp.play();
+					
+					levelUpSound();
+					GameState.background = GameState.game.add.sprite(0,0,'bg_level9');
+					userCharacterBehavior(userCharacter,'levelUP');
+					
 				} else if (pre_point < 12000 && post_point >= 12000) {
 					level_img="level10";
 					level_title = 10;
-					var audio_LevelUp = new Audio("/kanemochi/resources/sound/MusicBox.wav");
-					audio_LevelUp.volume = 1;
-					audio_LevelUp.play();
+					
+					levelUpSound();
+					GameState.background = GameState.game.add.sprite(0,0,'bg_level9');
+					userCharacterBehavior(userCharacter,'levelUP');
+					
 				} else {
 					level_img="no change";
 				}
 				var level_img_url = "/kanemochi/resources/image/level/"+level_img+".png";
 				/* $("#level").attr("src", level_img_url); */
-				
+
 				setProgressbar_exp();
 					},
 					error: function() {
@@ -743,105 +767,6 @@ for(var count = 0; count < changeItem.length; count++){
 	$("#category").append(option);
 }
 };
-
-
-
-
-//광역변수
-//var user_level = ${user_level}
-//var user_character_js = ${user_character}
-
-/* function getCharacter() {
-	$.ajax({
-		url : '/kanemochi/exp/getCharacter',
-		method : 'get',
-		cache : false,
-		success: function (character) {
-		
-		},
-		error: function() {
-		}
-	});	
-} */
-
-
-/*
-game.js 에 추가할 것들
-
-var GameState = {
-  preload:function(){
-
-	  this.load.spritesheet('chineseGirl', '/kanemochi/resources/image/character/character_final/chineseGirl_final.png', 150, 200);
-	  this.load.spritesheet('catGirl', '/kanemochi/resources/image/character/character_final/catGirl_final.png', 150, 200);
-	  this.load.spritesheet('pinkGirl', '/kanemochi/resources/image/character/character_final/pink_final.png', 150, 200);
-	  this.load.spritesheet('englishBoy', '/kanemochi/resources/image/character/character_final/englishBoy_final.png', 150, 200);
-	  this.load.spritesheet('coolBoy', '/kanemochi/resources/image/character/character_final/coolBoy_final.png', 150, 200);
-	  this.load.spritesheet('usoku', '/kanemochi/resources/image/character/character_final/Usoku_final.png', 150, 200);
-
-  }
-
-game.js 에서 삭제할 것들
-var userCharacter;
-userCharacter = this.game.add.sprite(0,0,'mainCharacter');
-
-userCharacter.scale.setTo(0.5);
-userCharacter.y = game.world.height - userCharacter.height;
-game.physics.arcade.enable(userCharacter);
-
-var wink = userCharacter.animations.add('wink',[4,5],2,true);
-var leftWalk = userCharacter.animations.add('leftWalk',[0,1],2,true);
-var rightWalk = userCharacter.animations.add('rightWalk',[2,3],2,true);
-userCharacter.play('wink');
-
-game.js*/
-
-
-
-
-function userCharacterBehavior(userCharacter,situation){
-	var randBehavior = Math.floor(Math.random() * 2);
-		comeUserCharacter(userCharacter,situation);
-}
-
-function comeUserCharacter(userCharacter,situation){
-	if(userCharacter.x < 300 && userDirection=='right'){
-		userCharacter.play('rightWalk');
-		userCharacter.x = userCharacter.x+1;
-	}
-	else if(userCharacter.x > 0 && userDirection == 'left'){
-		userCharacter.play('leftWalk');
-		userCharacter.x = userCharacter.x-1;
-	}
-	if(userCharacter.x ==300){
-		var ballon = this.game.add.sprite(300+(userCharacter.width*2),userCharacter.y-(userCharacter.height*1.2),'onlySpeech');
-		ballon.anchor.set(0.5);
-		ballon.scale.setTo(-0.3,0.3);
-		ballon.x -= userCharacter.width;
-		userCharacter.play('wink');
-	if(situation == 'levelUP'){
-		var joun=  game.add.text(150,-350,"레벨 업", { font: "100px arial", fill: "#000000", align: "center" });
-		joun.scale.setTo(-1,1);
-		ballon.addChild(joun);
-		var levelImg = game.add.sprite(+150,-200,'level_'+level);
-		levelImg.scale.setTo(-1.5,1.5);
-		ballon.addChild(levelImg);
-	}	
-	else{
-		var joun=  game.add.text(300,-200,"히오스는 갓겜", { font: "100px arial", fill: "#000000", align: "center" });
-		joun.scale.setTo(-1,1);
-		ballon.addChild(joun);
-	}	
-		setTimeout(function(){
-			userDirection = 'left';
-			ballon.destroy();
-		},2000);
-	}
-	else if(userCharacter.x ==0){
-		userDirection = 'right';
-		userCharacter.play('wink');
-		beforeLevel = level;
-	}
-}
 </script>
 </body>
 </html>
