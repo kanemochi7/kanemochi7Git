@@ -206,6 +206,9 @@ var userDirection ='right';
 var beforeLevel=1;
 var level =1;
 var cursors;
+var bd;
+var mg;
+var main_music;
 //var deleteMode = false;
 var GameState = {
   preload:function(){
@@ -265,9 +268,16 @@ var GameState = {
     this.load.spritesheet('level_8','/kanemochi/resources/image/level/level8.png');
     this.load.spritesheet('level_9','/kanemochi/resources/image/level/level9.png');
     this.load.spritesheet('level_10','/kanemochi/resources/image/level/level10.png');
-	
+
+    this.load.audio('bd_sound', '/kanemochi/resources/sound/Building.mp3');
+    this.load.audio('mg_sound', '/kanemochi/resources/sound/MainGame.mp3');
   },
   create:function(){
+	bd = game.add.audio('bd_sound');
+	bd.allowMultiple = true;
+	bd.addMarker('bd_sound2', 0, 1.0,1);
+    main_music = game.add.audio('mg_sound');
+    main_music.play('',0,0.35,true);
   //근본적인 생성로직들 = 배경
   game.world.setBounds(0, 0, width*1.5, height*1.5);
   this.background = this.game.add.sprite(0,0,'background');
@@ -865,6 +875,7 @@ function mouseUp(sprite,check,topCheck){
   if(check == false){
     //충돌안하면 설정하는 것들 / 투명도 복구 / 움직임, 드래그 방지 / 메인캐릭터를 제일 앞으로 오게 (건물에 가려지지않게)
     var tempSprite = stateBuilding(sprite.key,sprite.x,sprite.y);
+    bd.play('bd_sound2');
     $.ajax({
         url : '/kanemochi/record/setStatus',
         method : 'post',
