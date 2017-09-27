@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.project.kanemochi.vo.ExpVO;
+import com.project.kanemochi.vo.MemberVO;
 
 
 @Repository
@@ -29,6 +30,12 @@ public class ExpDAOImpl implements ExpDAO {
 	public int login_times(String id) {
 		ExpMapper mapper = sqlsession.getMapper(ExpMapper.class);
 		return mapper.login_times(id);
+	}
+
+	@Override
+	public void setNewLevel(MemberVO vo) {
+		ExpMapper mapper = sqlsession.getMapper(ExpMapper.class);
+		mapper.setNewLevel(vo);
 	}
 
 }

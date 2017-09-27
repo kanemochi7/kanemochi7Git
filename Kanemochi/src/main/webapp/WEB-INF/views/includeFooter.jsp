@@ -114,12 +114,22 @@ div.blueTable {
 	}
 </style>
 <script>
+var user_level = "1";
+
 $(function() {
 	datepicker();
-	login_times(); //로그인횟수 체크 + 초기프로그레스바 설정
+	login_times(); //로그인횟수 체크 -> upExp -> 초기프로그레스바 설정 -> 광역 변수에 레벨 정보 저장
 	setModal_budget();
 	/* setProgressbar_exp(); */
 	setProgressbar_budget();
+	
+	
+	$(".click").on('click', function() {
+		var audio = new Audio("/kanemochi/resources/sound/ClickOn.wav");
+		audio.volume = 1;
+		audio.play();
+	})
+
 });
 
 	function datepicker() {
@@ -203,7 +213,7 @@ $(function() {
 	function setProgressbar_exp() {
 		var level_img ="";
 		var full_score = 0;
-	
+		
 		$.ajax({
 			url : '/kanemochi/exp/getExp',
 			method : 'get',
@@ -211,44 +221,54 @@ $(function() {
 			success: function (user_score) {
 				console.log("setProgressbar_exp() - ajax : /kanemochi/record/getExp -> 현재 사용자 점수 :"+user_score);
 				if (user_score < 300) {
+					user_level="1";
 					level_img="level1";
 					full_score = 300;
 				} else if (user_score < 700) {
+					user_level="2";
 					level_img="level2";
 					user_score = user_score-300;
 					full_score = 700-300;
 				} else if (user_score < 1240) {
+					user_level="3";
 					level_img="level3";
 					user_score = user_score-700;
 					full_score = 1240-700;
 				} else if (user_score < 2000) {
+					user_level="4";
 					level_img="level4";
 					user_score = user_score-1240;
 					full_score = 2000-1240;
 				} else if (user_score < 3120) {
+					user_level="5";
 					level_img="level5";
 					user_score = user_score-2000;
 					full_score = 3120-2000;
 				} else if (user_score < 4620) {
+					user_level="6";
 					level_img="level6";
 					user_score = user_score-3120;
 					full_score = 4620-3120;
 				} else if (user_score < 6600) {
+					user_level="7";
 					level_img="level7";
 					user_score = user_score-4620;
 					full_score = 6600-4620;
 				} else if (user_score < 9000) {
+					user_level="8";
 					level_img="level8";
 					user_score = user_score-6600;
 					full_score = 9000-6600;
 				} else if (user_score < 12000) {
+					user_level="9";
 					level_img="level9";
 					user_score = user_score-9000;
 					full_score = 12000-9000;
 				} else if (user_score > 12000) {
+					user_level="10";
 					level_img="level10";
-					user_score = user_score-12000;
-					full_score = result-12000;
+					/* user_score = user_score-12000;
+					full_score = user_score; */
 				}
 				
 				var level_img_url = "/kanemochi/resources/image/level/"+level_img+".png";
@@ -257,26 +277,28 @@ $(function() {
 				var elem = document.getElementById("exp_progress");
 				var value = 0;
 				var width = 0;
-				console.log("user_score -> " + user_score);
-				console.log("full_score -> " + full_score);
-				if (user_score != 0 && full_score != 0) { value = user_score/full_score*100; }
-				console.log("value_frame 전 -> " + value);
-				console.log("width_frame 전 -> " + width);
-				var id = setInterval(frame, 10);
-					function frame() {
-				console.log("value_frame 후 -> " + value);
-				console.log("width_frame 후 -> " + width);
-						if (width >= value) {
-							clearInterval(id);
-					    } else {
-					      width++;
-					      elem.style.width = width*5 + 'px';
-					      elem.innerHTML = width*1  + '%';
-					    }
-					}
-				document.getElementById("next_level").innerHTML = numberWithCommas(full_score)+"xp";
-				document.getElementById("show_point").innerHTML = numberWithCommas(user_score)+"xp";
-				},
+				if (user_score != 0 && full_score != 0 && user_score <= 12000) {
+					value = user_score/full_score*100;
+					var id = setInterval(frame, 10);
+						function frame() {
+							if (width >= value) {
+								clearInterval(id);
+						    } else {
+						      width++;
+						      elem.style.width = width*5 + 'px';
+						      elem.innerHTML = width*1  + '%';
+						    }
+						}
+						document.getElementById("next_level").innerHTML = numberWithCommas(full_score)+"xp";
+						document.getElementById("show_point").innerHTML = numberWithCommas(user_score)+"xp";
+						
+				} else if (user_score > 12000) {
+					elem.style.width = 500+'px';
+					elem.innerHTML = "LEVEL COMPLETE!";
+					document.getElementById("next_level").innerHTML = "MAX";
+					document.getElementById("show_point").innerHTML = "MAX";
+				}
+			},
 			error: function() {
 					}
 			});
@@ -384,15 +406,12 @@ $(function() {
 	}
 	
 	function login_times() {
-		console.log("function login_times");
 		var exp = 0;
 		$.ajax({
 			url : '/kanemochi/exp/login_times',
 			method : 'get',
 			success: function (result) {
-				//임시
-				console.log("exp : 200씩 추가");
-				exp = 200;
+				exp = 1000;
 /* 				if (result == 5) {
 					alert("ログイン"+result+"回! ＋"+result*2+"px");
 					exp = result*2;
@@ -428,47 +447,78 @@ $(function() {
 	}
 	
 	function upExp(exp) {
-		console.log("function upExp(exp) 올라가는 경험치:"+exp);
 		$.ajax({
 			url : '/kanemochi/exp/getExp',
 			method : 'get',
 			cache : false,
 			success: function (user_score) {
-				console.log("upExp - ajax : /kanemochi/exp/getExp, 기존에 있는 포인트 ->"+user_score);
 				$.ajax({
 					url : '/kanemochi/exp/upExp',
 					method : 'get',
-					data : {"exp":exp},
+					data : {"exp":exp, "user_score":user_score},
 					success: function () {
-						console.log("upExp - ajax : /kanemochi/exp 올라가는 경험치 :"+exp);
 				var pre_point = user_score;
 				var post_point = Number(exp) + Number(user_score);
-				var level_img = "";
+				var level_img = "level1";
+				var level_title = 1;
 
 				if (pre_point < 300 && post_point >= 300) {
 					level_img="level2";
+					level_title = 2;
+					var audio_LevelUp = new Audio("/kanemochi/resources/sound/MusicBox.wav");
+					audio_LevelUp.volume = 1;
+					audio_LevelUp.play();
 				} else if (pre_point < 700 && post_point >= 700) {
 					level_img="level3";
+					level_title = 3;
+					var audio_LevelUp = new Audio("/kanemochi/resources/sound/MusicBox.wav");
+					audio_LevelUp.volume = 1;
+					audio_LevelUp.play();
 				} else if (pre_point < 1240 && post_point >= 1240) {
 					level_img="level4";
+					level_title = 4;
+					var audio_LevelUp = new Audio("/kanemochi/resources/sound/MusicBox.wav");
+					audio_LevelUp.volume = 1;
+					audio_LevelUp.play();
 				} else if (pre_point < 2000 && post_point >= 2000) {
 					level_img="level5";
+					level_title = 5;
+					var audio_LevelUp = new Audio("/kanemochi/resources/sound/MusicBox.wav");
+					audio_LevelUp.volume = 1;
+					audio_LevelUp.play();
 				} else if (pre_point < 3120 && post_point >= 3120) {
 					level_img="level6";
+					level_title = 6;
+					var audio_LevelUp = new Audio("/kanemochi/resources/sound/MusicBox.wav");
+					audio_LevelUp.volume = 1;
+					audio_LevelUp.play();
 				} else if (pre_point < 4620 && post_point >= 4620) {
 					level_img="level7";
+					level_title = 7;
+					var audio_LevelUp = new Audio("/kanemochi/resources/sound/MusicBox.wav");
+					audio_LevelUp.volume = 1;
+					audio_LevelUp.play();
 				} else if (pre_point < 6600 && post_point >= 6600) {
 					level_img="level8";
+					level_title = 8;
+					var audio_LevelUp = new Audio("/kanemochi/resources/sound/MusicBox.wav");
+					audio_LevelUp.volume = 1;
+					audio_LevelUp.play();
 				} else if (pre_point < 9000 && post_point >= 9000) {
 					level_img="level9";
+					level_title = 9;
+					var audio_LevelUp = new Audio("/kanemochi/resources/sound/MusicBox.wav");
+					audio_LevelUp.volume = 1;
+					audio_LevelUp.play();
 				} else if (pre_point < 12000 && post_point >= 12000) {
 					level_img="level10";
+					level_title = 10;
+					var audio_LevelUp = new Audio("/kanemochi/resources/sound/MusicBox.wav");
+					audio_LevelUp.volume = 1;
+					audio_LevelUp.play();
 				} else {
 					level_img="no change";
 				}
-				console.log("경험치 오르기 전 :"+pre_point);
-				console.log("경험치 오르고 난 후 :"+post_point);
-				console.log("next level:"+level_img);
 				var level_img_url = "/kanemochi/resources/image/level/"+level_img+".png";
 				/* $("#level").attr("src", level_img_url); */
 				
@@ -483,13 +533,97 @@ $(function() {
 					}
 			});
 	}
-
+	/* modal_budget */
+		var modal_budget = document.getElementById("modal_budget");
+		var btn_b = document.getElementById("budget");
+		var span_b = document.getElementById("close_modal_budget");
+		btn_b.onclick = function() {
+			modal_budget.style.display = "block";
+			span_b.onclick = function() {
+				modal_budget.style.display = "none";
+			}
+			window.onclick = function(event_b) {
+				if (event_b.target == modal_budget) {
+					modal_budget.style.display = "none";
+				}
+			}
+		};
+	/* modal_write */
+		var modal_write = document.getElementById('modal_write');
+		var btn_w = document.getElementById("write");
+		var span_w = document.getElementsByClassName("close")[0];
+		btn_w.onclick = function() {
+			var check = document.getElementById("month_result").innerHTML;
+			if (check == 0) {
+				alert("budget first!");
+				modal_budget.style.display = "block";
+				span_b.onclick = function() {
+					modal_budget.style.display = "none";
+				}
+				window.onclick = function(event_b) {
+					if (event_b.target == modal_budget) {
+						modal_budget.style.display = "none";
+					}
+				}
+			} else {
+				modal_write.style.display = "block";
+				span_w.onclick = function() {
+					modal_write.style.display = "none";
+				}
+				window.onclick = function(event_w) {
+					if (event.target == modal_write) {
+						modal_write.style.display = "none";
+					}
+				}
+			}
+		};
+	/* modal_write - category change */
+	function itemChange(){
+		var food = ["バーがー","ラーメン","すし", "カフェ", "デザート", "ビール", "コンビニ"];
+		var culture = ["映画"];
+		var fashion = ["服","美容室"];
+		var medical = ["病院"];
+		var education = ["本"];
+		var transportation = ["バス"];
+		var save = ["銀行"];
+		 
+		var selectItem = $("#select-category").val();
+		var changeItem;
+		
+		if(selectItem == "食べ物"){
+			changeItem = food;
+		}
+		else if(selectItem == "文化生活"){
+			changeItem = culture;
+		}
+		else if(selectItem == "ファッション"){
+			changeItem =  fashion;
+		}
+		else if(selectItem == "医慮"){
+			changeItem =  medical;
+		}
+		else if(selectItem == "教育"){
+			changeItem = education;
+		}
+		else if(selectItem == "交通"){
+			changeItem = transportation;
+		}
+		else if(selectItem == "貯金"){
+			changeItem = save;
+		}
+		
+		$("#category").empty();
+		for(var count = 0; count < changeItem.length; count++){
+			var option = "<option value='"+changeItem[count]+"'>"+changeItem[count]+"</option>";
+			$("#category").append(option);
+		}
+	};
 </script>
 </head>
 <body>
 <div>
-	<div class="foot"><img class="icon_footer" data-toggle="tooltip" data-placement="top" title="記録" id="write" src="/kanemochi/resources/image/icon/write.png"></div>
-	<div class="foot"><img class="icon_footer" data-toggle="tooltip" data-placement="top" title="予算" id="budget" src="/kanemochi/resources/image/icon/moneyPack.png"></div>
+	<div class="foot"><img class="icon_footer click" data-toggle="tooltip" data-placement="top" title="記録" id="write" src="/kanemochi/resources/image/icon/write.png"></div>
+	<div class="foot"><img class="icon_footer click" data-toggle="tooltip" data-placement="top" title="予算" id="budget" src="/kanemochi/resources/image/icon/moneyPack.png"></div>
 	<div class="foot">
 		<div style="width:500px; height:30px; margin-top:10px; background-color:#e8e8e8;">
 			<div id="budget_progress" style="width:0px; height:30px; padding:5px; background-color:#5f9e55; text-align:center;"></div>
@@ -497,14 +631,14 @@ $(function() {
 		<div style="color: black;">今まで使ったお金 ： <span id="show_spend"></span> / 全体予算 ： <span id="show_budget"></span></div>	
 	</div>
 	
-	<div class="foot"><img class="icon_footer" data-toggle="tooltip" data-placement="top" title="ポイント" id="exp" src="/kanemochi/resources/image/icon/exp.png"></div>
+	<div class="foot"><img class="icon_footer click" data-toggle="tooltip" data-placement="top" title="ポイント" id="exp" src="/kanemochi/resources/image/icon/exp.png"></div>
 	<div class="foot">
 		<div style="width:500px; height:30px; margin-top:10px; background-color:#e8e8e8;">
 			<div id="exp_progress" style="width:0px; height:30px; padding:5px; background-color:#5f9e55; text-align:center;"></div>
 		</div>
 		<div style="color: black;">今までのポイント ： <span id="show_point"></span> / 次のレベルまでのポイント ： <span id="next_level"></span></div>	
 	</div>
-	<div class="foot"><img class="icon_footer" id="level" src="/kanemochi/resources/image/level/level1.png"></div>
+	<div class="foot"><img class="icon_footer click" id="level" src="/kanemochi/resources/image/level/level1.png"></div>
 </div>
 
 <!-- Modal_write -->
@@ -557,8 +691,8 @@ $(function() {
 					<div class="divTableRow">
 						<div class="divTableCell"></div>
 						<div class="divTableCell">
-							<input type="button" class="btn btn-primary" value=" ok " onclick="input()">
-							<input type="reset" class="btn btn-success" value="reset">
+							<input type="button" class="btn btn-primary click" value=" ok " onclick="input()">
+							<input type="reset" class="btn btn-success click" value="reset">
 						</div>
 					</div>
 				</div>
@@ -599,8 +733,8 @@ $(function() {
 				<div class="divTableRow">
 					<div class="divTableCell"></div>
 					<div class="divTableCell">
-						<input type="button" id="btn_setbudget" class="btn btn-primary" value="save this plan" onclick="setbudget()">
-						<input type="button" id="btn_changebudget" class="btn btn-success" value="change the plan" onclick="changebudget()">
+						<input type="button" id="btn_setbudget" class="btn btn-primary click" value="save this plan" onclick="setbudget()">
+						<input type="button" id="btn_changebudget" class="btn btn-success click" value="change the plan" onclick="changebudget()">
 					</div>
 				</div>
 			</div>
@@ -608,93 +742,102 @@ $(function() {
 		</form>
 	</div>
 </div>
-
 <script>
-/* modal_budget */
-	var modal_budget = document.getElementById("modal_budget");
-	var btn_b = document.getElementById("budget");
-	var span_b = document.getElementById("close_modal_budget");
-	btn_b.onclick = function() {
-		modal_budget.style.display = "block";
-		span_b.onclick = function() {
-			modal_budget.style.display = "none";
+//광역변수
+//user_level
+//user_character_js
+
+/* function getCharacter() {
+	$.ajax({
+		url : '/kanemochi/exp/getCharacter',
+		method : 'get',
+		cache : false,
+		success: function (character) {
+		
+		},
+		error: function() {
 		}
-		window.onclick = function(event_b) {
-			if (event_b.target == modal_budget) {
-				modal_budget.style.display = "none";
-			}
-		}
-	};
-/* modal_write */
-	var modal_write = document.getElementById('modal_write');
-	var btn_w = document.getElementById("write");
-	var span_w = document.getElementsByClassName("close")[0];
-	btn_w.onclick = function() {
-		var check = document.getElementById("month_result").innerHTML;
-		if (check == 0) {
-			alert("budget first!");
-			modal_budget.style.display = "block";
-			span_b.onclick = function() {
-				modal_budget.style.display = "none";
-			}
-			window.onclick = function(event_b) {
-				if (event_b.target == modal_budget) {
-					modal_budget.style.display = "none";
-				}
-			}
-		} else {
-			modal_write.style.display = "block";
-			span_w.onclick = function() {
-				modal_write.style.display = "none";
-			}
-			window.onclick = function(event_w) {
-				if (event.target == modal_write) {
-					modal_write.style.display = "none";
-				}
-			}
-		}
-	};
-/* modal_write - category change */
-function itemChange(){
-	var food = ["バーがー","ラーメン","すし", "カフェ", "デザート", "ビール", "コンビニ"];
-	var culture = ["映画"];
-	var fashion = ["服","美容室"];
-	var medical = ["病院"];
-	var education = ["本"];
-	var transportation = ["バス"];
-	var save = ["銀行"];
-	 
-	var selectItem = $("#select-category").val();
-	var changeItem;
-	
-	if(selectItem == "食べ物"){
-		changeItem = food;
+	});	
+} */
+
+
+/*
+game.js 에 추가할 것들
+
+var GameState = {
+  preload:function(){
+
+	  this.load.spritesheet('chineseGirl', '/kanemochi/resources/image/character/character_final/chineseGirl_final.png', 150, 200);
+	  this.load.spritesheet('catGirl', '/kanemochi/resources/image/character/character_final/catGirl_final.png', 150, 200);
+	  this.load.spritesheet('pinkGirl', '/kanemochi/resources/image/character/character_final/pink_final.png', 150, 200);
+	  this.load.spritesheet('englishBoy', '/kanemochi/resources/image/character/character_final/englishBoy_final.png', 150, 200);
+	  this.load.spritesheet('coolBoy', '/kanemochi/resources/image/character/character_final/coolBoy_final.png', 150, 200);
+	  this.load.spritesheet('usoku', '/kanemochi/resources/image/character/character_final/Usoku_final.png', 150, 200);
+
+  }
+
+game.js 에서 삭제할 것들
+var userCharacter;
+userCharacter = this.game.add.sprite(0,0,'mainCharacter');
+
+userCharacter.scale.setTo(0.5);
+userCharacter.y = game.world.height - userCharacter.height;
+game.physics.arcade.enable(userCharacter);
+
+var wink = userCharacter.animations.add('wink',[4,5],2,true);
+var leftWalk = userCharacter.animations.add('leftWalk',[0,1],2,true);
+var rightWalk = userCharacter.animations.add('rightWalk',[2,3],2,true);
+userCharacter.play('wink');
+
+game.js*/
+
+
+
+
+function userCharacterBehavior(userCharacter,situation){
+	var randBehavior = Math.floor(Math.random() * 2);
+		comeUserCharacter(userCharacter,situation);
+}
+
+function comeUserCharacter(userCharacter,situation){
+	if(userCharacter.x < 300 && userDirection=='right'){
+		userCharacter.play('rightWalk');
+		userCharacter.x = userCharacter.x+1;
 	}
-	else if(selectItem == "文化生活"){
-		changeItem = culture;
+	else if(userCharacter.x > 0 && userDirection == 'left'){
+		userCharacter.play('leftWalk');
+		userCharacter.x = userCharacter.x-1;
 	}
-	else if(selectItem == "ファッション"){
-		changeItem =  fashion;
+	if(userCharacter.x ==300){
+		var ballon = this.game.add.sprite(300+(userCharacter.width*2),userCharacter.y-(userCharacter.height*1.2),'onlySpeech');
+		ballon.anchor.set(0.5);
+		ballon.scale.setTo(-0.3,0.3);
+		ballon.x -= userCharacter.width;
+		userCharacter.play('wink');
+	if(situation == 'levelUP'){
+		var joun=  game.add.text(150,-350,"레벨 업", { font: "100px arial", fill: "#000000", align: "center" });
+		joun.scale.setTo(-1,1);
+		ballon.addChild(joun);
+		var levelImg = game.add.sprite(+150,-200,'level_'+level);
+		levelImg.scale.setTo(-1.5,1.5);
+		ballon.addChild(levelImg);
+	}	
+	else{
+		var joun=  game.add.text(300,-200,"히오스는 갓겜", { font: "100px arial", fill: "#000000", align: "center" });
+		joun.scale.setTo(-1,1);
+		ballon.addChild(joun);
+	}	
+		setTimeout(function(){
+			userDirection = 'left';
+			ballon.destroy();
+		},2000);
 	}
-	else if(selectItem == "医慮"){
-		changeItem =  medical;
+	else if(userCharacter.x ==0){
+		userDirection = 'right';
+		userCharacter.play('wink');
+		beforeLevel = level;
 	}
-	else if(selectItem == "教育"){
-		changeItem = education;
-	}
-	else if(selectItem == "交通"){
-		changeItem = transportation;
-	}
-	else if(selectItem == "貯金"){
-		changeItem = save;
-	}
-	
-	$("#category").empty();
-	for(var count = 0; count < changeItem.length; count++){
-		var option = "<option value='"+changeItem[count]+"'>"+changeItem[count]+"</option>";
-		$("#category").append(option);
-	}
-};
+}
 </script>
 </body>
 </html>

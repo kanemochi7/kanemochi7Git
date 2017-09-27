@@ -39,5 +39,10 @@
 		where user_id = #{id}
 	</select>
 
+	<update id="setNewLevel" parameterType="MemberVO">
+		update users
+		set level_title = #{level_title}
+		where user_id = #{user_id}
+	</update>
 </mapper>
 
