@@ -109,7 +109,7 @@ background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0
 		margin: 0px;
 		padding: 0px;
 		float: left;
-		/* border: 1px solid black; */
+		border: 1px solid white; 
 	}
 	
 /* sidebar */
