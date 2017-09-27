@@ -56,7 +56,7 @@ npcCharacter.prototype.update = function() {
     if(behavior >=0 && behavior < 1){
       // this.turn();
     }
-    if(behavior >=1 && behavior <10){
+    if(behavior >=1 && behavior <5){
       this.elevator();
     }
 //    if((collideBuild == true) && behavior >=2 && behavior <3){
@@ -133,29 +133,6 @@ npcCharacter.prototype.move = function(){
           this.x-=1;
           this.play('leftWalk');
         }
-        game.physics.arcade.collide(this,GameState.elevatorTopGroup,function(main,test){
-        	if(main.npcLeftEnd == 0){
-        		main.npcLeftEnd = test.x;
-        	}
-        	if(main.npcRightEnd == game.world.width){
-        		main.npcRightEnd = test.x+test.width-main.width+1;
-        	}
-        	if(test.x < main.npcLeftEnd){
-        		//이동을 하겠지..
-        		main.npcLeftEnd = test.x;
-        	}
-        	
-        	if (test.x > main.npcRightEnd) {
-        		main.npcRightEnd = (test.x)+(test.width)-main.width+1;
-        	}
-        	if(main.x <= main.npcLeftEnd){
-        		main.direction = 'right';
-        	}
-        	if(main.x >= main.npcRightEnd){
-        		main.direction = 'left';
-        	}
-        	this.beforeTop = test;
-        });
         if(this.direction == 'right' && this.x <= this.npcRightEnd)
         {
         	this.x+=1;
@@ -169,34 +146,36 @@ npcCharacter.prototype.move = function(){
     
 }
 npcCharacter.prototype.out = function(){
-  console.log('out');
 
   if(this.npcFloor>1){
     this.y+=158;
   }
 }
 npcCharacter.prototype.elevator = function(){
-  console.log('elevator');
   	 game.physics.arcade.collide(this,GameState.elevatorGroup,function(main,right){
   		 
 		    main.y-=158;
-		    main.alpha = 0.2;
-		    var eleResult = game.physics.arcade.collide(main,GameState.elevatorGroup,function(main2,right2){
-		    	var elevatorMove = right2.animations.add('elevatorMove',[0,1,2,3,4,5,6],7,true);
-				  right2.play('elevatorMove');
-				  setTimeout(function(){
-					  right2.animations.stop(null, true);  
-				  },1000);
-		    });
-		  if(eleResult){
-			  setTimeout(function(){
-				  main.alpha = 1;  
-			  },1500);
-			  
-		  }
-		  else{
-			  main.y+=158;
-		  }
+		    main.alpha = 0;
+		    var eleResult = false;
+		    setTimeout(function(){
+		      eleResult = game.physics.arcade.collide(main,GameState.elevatorGroup,function(main2,right2){
+			    	var elevatorMove = right2.animations.add('elevatorMove',[0,1,2,3,4,5,6],7,true);
+					  right2.play('elevatorMove');
+					  setTimeout(function(){
+						  right2.animations.stop(null, true);  
+					  },1000);
+				  });
+		    },25);
+		    setTimeout(function(){
+		    	 main.alpha = 1; 
+		    	 
+		    	 if(!eleResult){
+		    		 right.animations.stop(null, true);
+					  main.y+=158;
+				  }
+					  
+			    },25);
+		 
 		  var elevatorMove = right.animations.add('elevatorMove',[0,1,2,3,4,5,6],7,true);
 		  right.play('elevatorMove');
 			  setTimeout(function(){
@@ -207,7 +186,6 @@ npcCharacter.prototype.elevator = function(){
   
 }
 npcCharacter.prototype.turn = function(){
-  console.log('turn');
   if(this.direction == 'right'){
       this.direction = 'left';
   }
@@ -440,7 +418,7 @@ function getStatus(){
 		dataType : "json",
 		success: function(result) {
 			$(result).each(function(index,item){
-				setTimeout(function(){stateBuilding(item.img_id,item.img_x,item.img_y)},200);
+				setTimeout(function(){stateBuilding(item.img_id,item.img_x,item.img_y)},100);
 			});
 		},
 		error: function() {
@@ -464,7 +442,6 @@ function stateBuilding(inputText,buildingX,buildingY){
 		  	else if(inputText == 'elevator'){
 		  		GameState.elevatorGroup.add(sprite2);  
 		  	}
-		  	console.log("여기 지나감");
 		    sprite2.events.onInputOver.add(function(){
 				  deleteButtonOn(sprite2);
 			  },this);
@@ -950,11 +927,9 @@ function deleteButtonOn(anywaySprite){
 				var rightWallTop;
 				
 				setTimeout(game.physics.arcade.collide(leftWing2,GameState.wallGroup,function(left,wall){
-					console.log("왼쪽 벽 충돌");
 					canBuildWallLeftEnd = wall.x;
 					canBuildWallRightEnd = anywaySprite.x+anywaySprite.width;
 					      game.physics.arcade.collide(wall,GameState.buildingTopGroup,function(wall2,top){
-					    	  console.log("왼쪽 벽과 벽 지붕 충돌");
 					    	 
 					    	  GameState.buildingTopGroup.remove(top);
 					    	  top.destroy();
@@ -963,13 +938,11 @@ function deleteButtonOn(anywaySprite){
 					      wall.destroy();
 				 }),100);
 				setTimeout(game.physics.arcade.collide(rightWing2,GameState.wallGroup,function(right,wall){
-					console.log("오른쪽 벽 충돌");
 					if(canBuildWallLeftEnd == undefined){
 						canBuildWallLeftEnd = anywaySprite.x;
 					}
 					canBuildWallRightEnd = wall.x+wall.width;
 					game.physics.arcade.collide(wall,GameState.buildingTopGroup,function(wall2,top){
-						console.log("오른쪽 벽과 벽 지붕 충돌");
 						  
 				    	  GameState.buildingTopGroup.remove(top);
 				    	  top.destroy();
@@ -980,15 +953,11 @@ function deleteButtonOn(anywaySprite){
 				
 				//여기에 그 Ajax 넣으시고
 				setTimeout(game.physics.arcade.collide(anywaySprite,GameState.buildingTopGroup,function(sprite,top){
-					console.log("건물 지붕 제거");
 					GameState.buildingTopGroup.remove(top);
-					console.log(top);
 					top.destroy();
 				}),100);
 				setTimeout(game.physics.arcade.collide(anywaySprite,GameState.elevatorTopGroup,function(sprite,top){
-					console.log("엘베 지붕 제거");
 					GameState.elevatorTopGroup.remove(top);
-					console.log(top);
 					top.destroy();
 				}),100);
 				$.ajax({
@@ -1031,19 +1000,6 @@ function deleteButtonOn(anywaySprite){
 				console.log(canBuildWall.y);
 				console.log(canBuildWall.key);
 				//벽도 DB에 담기위해 연구중(DB에 테이블을 따로 팔지 고민중 & image 테이블에 가짜벽에 대한 이미지도 넣어놔야함)
-//				$.ajax({
-//			        url : '/kanemochi/record/setStatus',
-//			        method : 'post',
-//			        data : {'img_x':canBuildWall.x,
-//			               'img_y':canBuildWall.y,
-//			               'img_id':canBuildWall.key},
-//			        success: function(result) {
-//			        	console.log("성공");
-//			        },
-//			        error: function() {
-//			        	console.log("실패");
-//			        }
-//			     });
 				game.world.moveDown(canBuildWall);
 				canBuildWall.width = canBuildWallRightEnd - canBuildWallLeftEnd;
 				canBuildWall.height = 150;
@@ -1071,12 +1027,12 @@ function getNumberOfNPC(npc,nowBuildingCounter,incOrDec){
     if(nowBuildingCounter<11 && nowBuildingCounter == 1){
       npc = 1;
     }
-    else if((nowBuildingCounter %5 != 0) && (nowBuildingCounter <11)){
+    else if((nowBuildingCounter %5 != 0) && (nowBuildingCounter <9)){
       if(incOrDec == true){
-          npc+=(nowBuildingCounter-1);
+          npc+=(nowBuildingCounter-2);
       }
       else{
-        npc-=(nowBuildingCounter+1);
+        npc-=(nowBuildingCounter+2);
       }
     }
     else{
@@ -1088,10 +1044,10 @@ function getNumberOfNPC(npc,nowBuildingCounter,incOrDec){
   
   function randomCreateNPC(numberOfNPC){
     var randomTime;
-//      for(var i=0; i<numberOfNPC-1;i++){
-   	  for(var i=0; i<1;i++){
+      for(var i=0; i<numberOfNPC-1;i++){
+//   	  for(var i=0; i<1;i++){
         
-        randomTime = 5;
+        randomTime = Math.floor(Math.random() * 60)+1;
         setTimeout(temp, randomTime*1000);
       }
       function temp(){
