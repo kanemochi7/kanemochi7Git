@@ -42,7 +42,6 @@ npcCharacter.prototype = Object.create(Phaser.Sprite.prototype);
 npcCharacter.prototype.constructor = npcCharacter;
 npcCharacter.prototype.update = function() {
 	
-    var collideBuild = game.physics.arcade.collide(this,GameState.buildingGroup);
     var behavior = Math.floor(Math.random() * 1000);
 
     game.physics.arcade.collide(this,GameState.buildingTopGroup,function(main,test){
@@ -57,7 +56,7 @@ npcCharacter.prototype.update = function() {
     if(behavior >=0 && behavior < 1){
       // this.turn();
     }
-    if((collideBuild == true) &&behavior >=1 && behavior <100){
+    if(behavior >=1 && behavior <10){
       this.elevator();
     }
 //    if((collideBuild == true) && behavior >=2 && behavior <3){
