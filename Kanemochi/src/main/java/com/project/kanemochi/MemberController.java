@@ -85,6 +85,8 @@ public class MemberController {
 		if(loginVO!=null){
 			session.setAttribute("loginID", loginVO.getUser_id());
 			session.setAttribute("loginName", loginVO.getUser_name());
+			session.setAttribute("user_level", loginVO.getLevel_title());
+			session.setAttribute("user_character", loginVO.getImg_id());
 			model.addAttribute("loginResult", true);
 			if(loginVO.getUser_authority()!=0){
 				return "memberListForm";

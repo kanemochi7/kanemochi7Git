@@ -412,8 +412,7 @@ $(function() {
 			url : '/kanemochi/exp/login_times',
 			method : 'get',
 			success: function (result) {
-				exp = 1000;
-/* 				if (result == 5) {
+ 				if (result == 5) {
 					alert("ログイン"+result+"回! ＋"+result*2+"px");
 					exp = result*2;
 				} else if (result == 10) {
@@ -440,7 +439,7 @@ $(function() {
 				} else {
 					
 				}
- */				upExp(exp);
+				upExp(exp);
 			},
 			error: function() {
 				}
@@ -748,10 +747,9 @@ for(var count = 0; count < changeItem.length; count++){
 
 
 
-
 //광역변수
-//user_level
-//user_character_js
+//var user_level = ${user_level}
+//var user_character_js = ${user_character}
 
 /* function getCharacter() {
 	$.ajax({

@@ -151,7 +151,6 @@ background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0
 <script>
 $(function() {
 	countset();
-	
 });
 	function countset() {
 		$.ajax({
