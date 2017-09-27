@@ -57,12 +57,12 @@ npcCharacter.prototype.update = function() {
     if(behavior >=0 && behavior < 1){
       // this.turn();
     }
-    if((collideBuild == true) &&behavior >=1 && behavior <2){
+    if((collideBuild == true) &&behavior >=1 && behavior <10){
       this.elevator();
     }
-    if((collideBuild == true) && behavior >=2 && behavior <3){
+//    if((collideBuild == true) && behavior >=2 && behavior <3){
       // this.out();
-    }
+//    }
 //    if(behavior >=3 && behavior <1000){
       this.move();
 //    }
@@ -114,7 +114,7 @@ npcCharacter.prototype.move = function(){
                 main.npcLeftEnd = test.x;
             }
           
-    	  if (test.x > main.npcRightEnd) {
+    	  if (test.x >= main.npcRightEnd) {
             main.npcRightEnd = (test.x)+(test.width)-main.width+1;
           }
     	  if(main.x <= main.npcLeftEnd){
@@ -178,7 +178,28 @@ npcCharacter.prototype.out = function(){
 }
 npcCharacter.prototype.elevator = function(){
   console.log('elevator');
-  this.y-=158;
+  game.physics.arcade.collide(this,GameState.elevatorGroup,function(main,right){
+	  
+	  var elevatorMove = right.animations.add('elevatorMove',[0,1,2,3,4,5,6],7,true);
+	  right.play('elevatorMove');
+	  		console.log(right.x);
+	  		console.log(right.getBounds());
+		  if(right.getBounds().contains(right.x, right.y-15)){
+			  console.log(right.getBounds().contains(right.x, right.y-15));
+			  main.alpha = 0.5;
+			  setTimeout(function(){
+				  main.y-=158;
+			  },100);
+		  }
+		  setTimeout(function(){
+			  right.animations.stop(null, true);  
+			  main.alpha = 1;
+		  },1000);
+	  
+	  
+	
+  });
+  
 }
 npcCharacter.prototype.turn = function(){
   console.log('turn');
@@ -327,6 +348,8 @@ var GameState = {
       
       this.game.physics.arcade.enable(GameState.buildingTopGroup);
       this.game.physics.arcade.enable(GameState.elevatorTopGroup);
+      this.game.physics.arcade.enable(GameState.elevatorGroup);
+      this.game.physics.arcade.enable(GameState.npcGroup);
       this.game.physics.arcade.enable(GameState.wallGroup);
       this.game.physics.arcade.collide(userCharacter,ground);
       this.game.world.bringToTop(userCharacter);
@@ -352,11 +375,7 @@ var GameState = {
       }
 
       
-      game.physics.arcade.collide(GameState.npcGroup,GameState.elevatorGroup,function(left,right){
-    	  if(right.getBounds().contains(right.x, right.y-15)){
-    		  
-    	  }
-      })
+      
       
     }
 };
