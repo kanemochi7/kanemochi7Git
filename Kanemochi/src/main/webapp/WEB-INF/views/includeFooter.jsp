@@ -534,91 +534,6 @@ $(function() {
 					}
 			});
 	}
-	/* modal_budget */
-		var modal_budget = document.getElementById("modal_budget");
-		var btn_b = document.getElementById("budget");
-		var span_b = document.getElementById("close_modal_budget");
-		btn_b.onclick = function() {
-			modal_budget.style.display = "block";
-			span_b.onclick = function() {
-				modal_budget.style.display = "none";
-			}
-			window.onclick = function(event_b) {
-				if (event_b.target == modal_budget) {
-					modal_budget.style.display = "none";
-				}
-			}
-		};
-	/* modal_write */
-		var modal_write = document.getElementById('modal_write');
-		var btn_w = document.getElementById("write");
-		var span_w = document.getElementsByClassName("close")[0];
-		btn_w.onclick = function() {
-			var check = document.getElementById("month_result").innerHTML;
-			if (check == 0) {
-				alert("budget first!");
-				modal_budget.style.display = "block";
-				span_b.onclick = function() {
-					modal_budget.style.display = "none";
-				}
-				window.onclick = function(event_b) {
-					if (event_b.target == modal_budget) {
-						modal_budget.style.display = "none";
-					}
-				}
-			} else {
-				modal_write.style.display = "block";
-				span_w.onclick = function() {
-					modal_write.style.display = "none";
-				}
-				window.onclick = function(event_w) {
-					if (event.target == modal_write) {
-						modal_write.style.display = "none";
-					}
-				}
-			}
-		};
-	/* modal_write - category change */
-	function itemChange(){
-		var food = ["バーがー","ラーメン","すし", "カフェ", "デザート", "ビール", "コンビニ"];
-		var culture = ["映画"];
-		var fashion = ["服","美容室"];
-		var medical = ["病院"];
-		var education = ["本"];
-		var transportation = ["バス"];
-		var save = ["銀行"];
-		 
-		var selectItem = $("#select-category").val();
-		var changeItem;
-		
-		if(selectItem == "食べ物"){
-			changeItem = food;
-		}
-		else if(selectItem == "文化生活"){
-			changeItem = culture;
-		}
-		else if(selectItem == "ファッション"){
-			changeItem =  fashion;
-		}
-		else if(selectItem == "医慮"){
-			changeItem =  medical;
-		}
-		else if(selectItem == "教育"){
-			changeItem = education;
-		}
-		else if(selectItem == "交通"){
-			changeItem = transportation;
-		}
-		else if(selectItem == "貯金"){
-			changeItem = save;
-		}
-		
-		$("#category").empty();
-		for(var count = 0; count < changeItem.length; count++){
-			var option = "<option value='"+changeItem[count]+"'>"+changeItem[count]+"</option>";
-			$("#category").append(option);
-		}
-	};
 </script>
 </head>
 <body>
@@ -743,7 +658,97 @@ $(function() {
 		</form>
 	</div>
 </div>
-<script>
+<script type="text/javascript">
+/* modal_budget */
+var modal_budget = document.getElementById("modal_budget");
+var btn_b = document.getElementById("budget");
+var span_b = document.getElementById("close_modal_budget");
+btn_b.onclick = function() {
+	modal_budget.style.display = "block";
+	span_b.onclick = function() {
+		modal_budget.style.display = "none";
+	}
+	window.onclick = function(event_b) {
+		if (event_b.target == modal_budget) {
+			modal_budget.style.display = "none";
+		}
+	}
+};
+/* modal_write */
+var modal_write = document.getElementById('modal_write');
+var btn_w = document.getElementById("write");
+var span_w = document.getElementsByClassName("close")[0];
+btn_w.onclick = function() {
+	var check = document.getElementById("month_result").innerHTML;
+	if (check == 0) {
+		alert("budget first!");
+		modal_budget.style.display = "block";
+		span_b.onclick = function() {
+			modal_budget.style.display = "none";
+		}
+		window.onclick = function(event_b) {
+			if (event_b.target == modal_budget) {
+				modal_budget.style.display = "none";
+			}
+		}
+	} else {
+		modal_write.style.display = "block";
+		span_w.onclick = function() {
+			modal_write.style.display = "none";
+		}
+		window.onclick = function(event_w) {
+			if (event.target == modal_write) {
+				modal_write.style.display = "none";
+			}
+		}
+	}
+};
+/* modal_write - category change */
+function itemChange(){
+var food = ["バーがー","ラーメン","すし", "カフェ", "デザート", "ビール", "コンビニ"];
+var culture = ["映画"];
+var fashion = ["服","美容室"];
+var medical = ["病院"];
+var education = ["本"];
+var transportation = ["バス"];
+var save = ["銀行"];
+ 
+var selectItem = $("#select-category").val();
+var changeItem;
+
+if(selectItem == "食べ物"){
+	changeItem = food;
+}
+else if(selectItem == "文化生活"){
+	changeItem = culture;
+}
+else if(selectItem == "ファッション"){
+	changeItem =  fashion;
+}
+else if(selectItem == "医慮"){
+	changeItem =  medical;
+}
+else if(selectItem == "教育"){
+	changeItem = education;
+}
+else if(selectItem == "交通"){
+	changeItem = transportation;
+}
+else if(selectItem == "貯金"){
+	changeItem = save;
+}
+
+$("#category").empty();
+for(var count = 0; count < changeItem.length; count++){
+	var option = "<option value='"+changeItem[count]+"'>"+changeItem[count]+"</option>";
+	$("#category").append(option);
+}
+};
+
+
+
+
+
 //광역변수
 //user_level
 //user_character_js
