@@ -241,7 +241,7 @@ var GameState = {
 	    this.load.spritesheet('ramen', '/kanemochi/resources/image/shop/complete/ramen.png', 400, 300);
 	    this.load.spritesheet('sushi', '/kanemochi/resources/image/shop/complete/sushi.png', 400, 300);
 		this.load.spritesheet('burger','/kanemochi/resources/image/shop/complete/burger.png',400,300);
-	  this.load.image('background', '/kanemochi/resources/image/bg/bg.jpg');
+	  this.load.image('background', '/kanemochi/resources/image/bg/Desert.png');
     this.load.spritesheet('ground','/kanemochi/resources/image/bg/ground.png');
     
     this.load.spritesheet('buildingTopLong','/kanemochi/resources/image/bg/buildingTop.png',600,30);
@@ -286,7 +286,7 @@ var GameState = {
   },
   create:function(){
   //근본적인 생성로직들 = 배경
-  game.world.setBounds(0, 0, width*2, height*1.5);
+  game.world.setBounds(0, 0, width*1.5, height*1.5);
   this.background = this.game.add.sprite(0,0,'background');
   this.background.width = width*2;
   this.background.height = height*1.5;
