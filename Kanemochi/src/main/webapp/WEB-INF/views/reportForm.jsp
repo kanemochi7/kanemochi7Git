@@ -1,26 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.project.kanemochi.vo.RecordVO" %>
-<!DOCTYPE html PUBLIC>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 <title>풀캘린더</title>
+<script src="/kanemochi/resources/js/print.js" ></script>
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
 <link rel="icon" href="/kanemochi/resources/image/favicon.png">
 <link href="/kanemochi/resources/js/fullcalendar.css" rel="stylesheet" />
 <link href="/kanemochi/resources/js/fullcalendar.print.css" rel="stylesheet" media="print" />
+<!-- <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css"> -->
 <script type="text/javascript" src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="/kanemochi/resources/js/moment.min.js"></script>
 <script type="text/javascript" src="/kanemochi/resources/js/fullcalendar.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script src="/kanemochi/resources/js/jquery.mtz.monthpicker.js"></script>
-<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css">
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/kanemochi/resources/js/jquery.techbytarun.excelexportjs.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
+<!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> -->
+<script src="/kanemochi/resources/js/html2canvas.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script> -->
 <style type="text/css">
+
+
 body {
 	margin: 40px 10px;
 	padding: 0;
@@ -98,8 +99,7 @@ td, tr {
 
 #first{
 	font-weight: bold;
-	background-color: #FDF7F7;
-	
+	background-color: #FDF7F7;	
 }
 
 #listTable{
@@ -119,33 +119,10 @@ td, tr {
 	background-color: rgba( 255, 255, 255, 0.25);
 } */
 
+
 </style>
 <script>
 $(document).ready(function() {
-	  
-	
-	<!-- onclick="location.href='/kanemochi/member/loginForm'" -->
-	/* $.datepicker.regional['jp'] = {
-			closeText: '닫기',
-			prevText: '이전달',
-			nextText: '다음달',
-			currentText: '오늘',
-			monthNames: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
-			monthNamesShort: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'],
-			weekHeader: 'Wk',
-			dateFormat: 'yy-mm',
-			firstDay: 0,
-			isRTL: false,
-			duration:200,
-			showAnim:'show',
-			showMonthAfterYear: true,
-			yearSuffix:'년'
-			};
-			$.datepicker.setDefaults($.datepicker.regional['jp']);
-			$('#input').datepicker({
-				changeMonth: false,
-				changeYear: false,
-			}); */
 	
 	$.ajax({
 	     type : "POST" 
@@ -161,9 +138,6 @@ $(document).ready(function() {
 	});
 			
 	initTable();
-	
-	
-
 });
 
 	function initTable() {
@@ -175,7 +149,6 @@ $(document).ready(function() {
 		addrow += '<tr><td><button id="btnExport" class="btn btn-warning" type="button">Export</button><td><tr>';
 		addrow += '<tr id="first"><td>日付</td><td>カテゴリー</td><td>価格</td><td>支払方法</td></tr>';
 		$(list).each(function (index,item) {
-			/* alert(item.category); */
 			addrow += "<tr class='"+arr[i]+"''>";
 			addrow += '<td>'+item.record_date+'</td>';
 			addrow += '<td>'+item.category+'</td>';
@@ -222,7 +195,6 @@ $(document).ready(function() {
                , datatype: 'table'
             });
         });
-		
 	}
 	
 	function setCalendar( data ){		  
@@ -263,7 +235,37 @@ $(document).ready(function() {
 	 }
 	
 //google Chart
-	google.charts.load('current', {
+/* google.charts.load('current', {
+	'packages' : [ 'line' ]
+});
+google.charts.load('current', {
+	'packages' : [ 'corechart' ]
+});
+google.charts.load('current', {'packages':['bar']});
+google.charts.setOnLoadCallback(drawChart);
+	function drawChart() {
+		// [Pie Chart]
+		var data = new google.visualization.DataTable();
+		data.addColumn('string', 'Topping');
+		data.addColumn('number', 'Slices');
+		data.addRows([ [ 'food', 3 ], [ '交通費', 1 ], [ '文化費', 1 ], [ '教育費', 1 ],
+				[ '生活費', 2 ] ]);
+
+		var options = {
+			'title' : '9월',
+			//'is3D' : true,
+			'width' : 700,
+			'height' : 400,
+			'backgroundColor' : 'transparent',
+			'colors' : [ '#91A8D0', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6' ],
+			'fontSize' : 20
+		};
+
+		var chart = new google.visualization.PieChart(document
+				.getElementById('pieChart'));
+		chart.draw(data, options);
+	} */
+	/* google.charts.load('current', {
 		'packages' : [ 'line' ]
 	});
 	google.charts.load('current', {
@@ -272,50 +274,57 @@ $(document).ready(function() {
 	google.charts.load('current', {'packages':['bar']});
 	google.charts.setOnLoadCallback(drawChart);
 	
+	function AddNamespaceHandler(){
+		var svg = jQuery('#pieChart svg');
+		svg.attr("xmlns", "http://www.w3.org/2000/svg");
+		svg.css('overflow','visible');
+	}
+	
 	function drawChart() {
-		// [Pie Chart]
-		var data = new google.visualization.DataTable();
-		data.addColumn('string', 'Topping');
-		data.addColumn('number', 'Slices');
-		data.addRows([ [ '#버거킹', 3 ], [ '#오크우드', 1 ], [ '#편의점', 1 ],
-				[ '#소노야', 1 ], [ '#신의주국밥', 2 ] ]);
-	
-		var options = {
-			'title' : '식비',
-			//'is3D' : true,
-			'width' : 700,
-			'height' : 400,
-			'backgroundColor': 'transparent',
-			'colors': ['#91A8D0', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6'],
-			'fontSize':20
-		};
-	
-		var chart = new google.visualization.PieChart(document.getElementById('pieChart'));
-		chart.draw(data, options);
-		
-		//[Column Chart]
-        var data = google.visualization.arrayToDataTable([
-          ['Category', '2017/08', '2017/09'],
-          ['식비', 500000, 600000], 
-          ['문화비', 12000, 50000],
-          ['교통비', 150000, 100000],
-          ['교육비', 45000, 17000]
-        ]);
+		  // [Pie Chart]
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Topping');
+      data.addColumn('number', 'Slices');
+      data.addRows([ [ 'food', 3 ], [ '交通費', 1 ], [ '文化費', 1 ],[ '教育費', 1 ], [ '生活費', 2 ] ]);
+   
+      var options = {
+         'title' : '9월',
+         //'is3D' : true,
+         'width' : 700,    
+         'height' : 400,
+         'backgroundColor': 'transparent',
+         'colors': ['#91A8D0', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6'],
+         'fontSize':20
+      };
+   
+      var chart = new google.visualization.PieChart(document.getElementById('pieChart'));
+      chart.draw(data, options);
+	      
+	      //[Column Chart]
+	        var data = google.visualization.arrayToDataTable([
+	          ['Category', '2017/08', '2017/09'],
+	          ['식비', 1000, 400],
+	          ['문화비', 1170, 460],
+	          ['교통비', 660, 1120],
+	          ['교육비', 1030, 540]
+	        ]);
 
-        var options = {
-          chart: {
-            title: '월별 분석',
-            subtitle: '지난달과 이번달 소비 비교'
-            },
-            width : 700,
-			height : 400,
-			'backgroundColor': 'transparent',
-			'fontSize':20
-        };
+	        var options = {
+	          chart: {
+	            title: '월별 분석',
+	            subtitle: '지난달과 이번달 소비 비교'
+	            },
+	            width : 700,
+	         height : 400,
+	         'backgroundColor': 'transparent',
+	         'fontSize':20,
+	         color:'pink'
+	        };
 
-        var chart = new google.charts.Bar(document.getElementById('columnChart'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options)); 
+	        var chart = new google.charts.Bar(document.getElementById('columnChart'));
+	        chart.draw(data, options);
+	        /* var click="return xepOnline.Formatter.Format('menu1', {render:'download', srctype:'svg'})";
+	        jQuery('#button').append('<button class="btn btn-success" onclick="'+ click +'">グラフ-EXPORT</button>');
 	
 		// [Line Chart]
 		var data = new google.visualization.DataTable();
@@ -351,11 +360,11 @@ $(document).ready(function() {
 			'fontSize':20
 			
 		};
-	/* 
-		var chart = new google.charts.Line(document
+
+		/* var chart = new google.charts.Line(document
 				.getElementById('lineChart'));
-		chart.draw(data, google.charts.Line.convertOptions(options));
-		 */
+		chart.draw(data, google.charts.Line.convertOptions(options)); */
+	/*	 
 		//[Bubble Chart]
 		var data = google.visualization.arrayToDataTable([
 	          ['ID', '방문 횟수', '평균 가격', '카테고리', '월 총 소비액'],
@@ -383,14 +392,13 @@ $(document).ready(function() {
 	        chart.draw(data, options);
 	}
 	
+	 */
 	
 	
 </script>
 
 </head>
 <body>
-<div>
-</div>
 <div id="header">
 	<jsp:include page="includeHeader.jsp"></jsp:include>
 </div>
@@ -411,43 +419,44 @@ $(document).ready(function() {
     </div>
     <div id="menu1" class="tab-pane fade">
       <h1>[Report]</h1>
-      <hr>
-	  <button type="button" class="btn btn-warning">export in excel</button>
-	  <button type="button" id="exportPDF" class="btn btn-success">export in pdf</button>
+      <hr/>
+
 	  <br>
-	  <div id="pieChart"></div>
-	  <!-- <div id="lineChart"></div> -->
-	  <div id="columnChart"></div>
+	  
+	  <jsp:include page="includeChart.jsp"></jsp:include>
+	 
 	  
     </div>
     <div id="menu2" class="tab-pane fade">
       <div id="bubbleChart"></div> 
     </div>
+    
     <div id="menu3" class="tab-pane fade">
     	<!-- <input class="input"> -->
     	<table id="everyList" class="table table-striped table-hover "></table>
     </div>
   </div>
 </div>
-<script type="text/javascript">
-var doc = new jsPDF();
-var specialElementHandlers = {
-    '#buttons': function (element, renderer) {
-        return true;
-    }
-};
-
-$('#exportPDF').click(function () {
-	alert("hi");
-    doc.fromHTML($('#menu1').html(), 15, 15, {
-        'width': 170,
-            'elementHandlers': specialElementHandlers
-    });
-    doc.save('sample-file.pdf');
-});
-</script>
-
-
 </body>
+<!-- <script type="text/javascript">       
+		$('#pdf').click(function() {
+			alert("hi");
+			html2canvas(document.getElementById("pieChart"),{
+				onrendered:function(canvas){
+					var imgData = canvas.toDataURL('image/png');
+					console.log('1');
+					var doc = new jsPDF();
+					console.log('2');
+					//doc.addImage(imgData,'png',20,20);
+					console.log('3');
+					doc.save('sample_file.pdf');
+					console.log('4');
+				}
+			})
+			alert("bye");
+		})
+      
+
+</script> -->
 </html>
 
