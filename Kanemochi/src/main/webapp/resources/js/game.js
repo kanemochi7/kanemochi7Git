@@ -472,11 +472,11 @@ var GameState = {
   getStatus();
   },
     update:function(){
-      this.game.world.bringToTop(GameState.buildingGroup);
-      this.game.world.bringToTop(GameState.buildingTopGroup);
-      this.game.world.bringToTop(GameState.elevatorGroup);
-      this.game.world.bringToTop(GameState.elevatorTopGroup);
-      this.game.world.bringToTop(GameState.wallGroup);
+//      this.game.world.bringToTop(GameState.buildingGroup);
+//      this.game.world.bringToTop(GameState.buildingTopGroup);
+//      this.game.world.bringToTop(GameState.elevatorGroup);
+//      this.game.world.bringToTop(GameState.elevatorTopGroup);
+//      this.game.world.bringToTop(GameState.wallGroup);
       this.game.world.bringToTop(GameState.npcGroup);
       
       this.game.physics.arcade.collide(GameState.npcGroup,ground);
@@ -491,9 +491,7 @@ var GameState = {
       this.game.physics.arcade.collide(userCharacter,ground);
       this.game.world.bringToTop(userCharacter);
       
-      if(level != beforeLevel){
-    	  userCharacterBehavior(userCharacter,'levelUP');
-      }
+      
       if (cursors.up.isDown)
       {
           game.camera.y -= 10;
@@ -519,50 +517,58 @@ var GameState = {
 game.state.add('GameState',GameState);
 game.state.start('GameState');
 
-function userCharacterBehavior(userCharacter,situation){
+function userCharacterBehavior(userCharacter,situation,level){
 	var randBehavior = Math.floor(Math.random() * 2);
-		comeUserCharacter(userCharacter,situation);
+		comeUserCharacter(userCharacter,situation,level);
 }
 
-function comeUserCharacter(userCharacter,situation){
-	if(userCharacter.x < 300 && userDirection=='right'){
+function comeUserCharacter(userCharacter,situation,level){
+	var temp1;
+	var temp2;
+	var temp3;
+	temp1 = setInterval(function(){
 		userCharacter.play('rightWalk');
 		userCharacter.x = userCharacter.x+1;
-	}
-	else if(userCharacter.x > 0 && userDirection == 'left'){
-		userCharacter.play('leftWalk');
-		userCharacter.x = userCharacter.x-1;
-	}
-	if(userCharacter.x ==300){
-		var ballon = this.game.add.sprite(300+(userCharacter.width*2),userCharacter.y-(userCharacter.height*1.2),'onlySpeech');
-
-		ballon.anchor.set(0.5);
-		ballon.scale.setTo(-0.3,0.3);
-		ballon.x -= userCharacter.width;
-		userCharacter.play('wink');
-	if(situation == 'levelUP'){
-		var joun=  game.add.text(150,-350,"레벨 업", { font: "100px arial", fill: "#000000", align: "center" });
-		joun.scale.setTo(-1,1);
-		ballon.addChild(joun);
-		var levelImg = game.add.sprite(+150,-200,'level_'+level);
-		levelImg.scale.setTo(-1.5,1.5);
-		ballon.addChild(levelImg);
-	}	
-	else{
-		var joun=  game.add.text(300,-200,"히오스는 갓겜", { font: "100px arial", fill: "#000000", align: "center" });
-		joun.scale.setTo(-1,1);
-		ballon.addChild(joun);
-	}	
-		setTimeout(function(){
-			userDirection = 'left';
-			ballon.destroy();
-		},2000);
-	}
-	else if(userCharacter.x ==0){
-		userDirection = 'right';
-		userCharacter.play('wink');
-		beforeLevel = level;
-	}
+		
+		if(userCharacter.x >=300){
+			clearInterval(temp1);
+			var ballon = this.game.add.sprite(300+(userCharacter.width*2),userCharacter.y-(userCharacter.height*1.2),'onlySpeech');
+			
+			ballon.anchor.set(0.5);
+			ballon.scale.setTo(-0.3,0.3);
+			ballon.x -= userCharacter.width;
+			userCharacter.play('wink');
+			if(situation == 'levelUP'){
+				var joun=  game.add.text(225,-350,"LEVEL UP", { font: "100px arial", fill: "#000000", align: "center" });
+				joun.scale.setTo(-1,1);
+				ballon.addChild(joun);
+				var levelImg = game.add.sprite(+150,-200,'level_'+level);
+				levelImg.scale.setTo(-1.5,1.5);
+				ballon.addChild(levelImg);
+				
+			}	
+			
+			setTimeout(function(){
+//				temp3 = setInterval(function(){
+					game.world.bringToTop(ballon);
+//					console.log(ballon);
+//				},1);
+				userDirection = 'left';
+//				clearInterval(temp3);
+				ballon.destroy();
+				temp2 = setInterval(function(){
+					userCharacter.play('leftWalk');
+					userCharacter.x = userCharacter.x-1;
+					if(userCharacter.x ==0){
+						clearInterval(temp2);
+						userDirection = 'right';
+						userCharacter.play('wink');
+					}
+				},10);
+			},2000);
+		}
+	}, 10);
+	
 }
 
 function getStatus(){

@@ -426,6 +426,7 @@ $(function() {
 			url : '/kanemochi/exp/login_times',
 			method : 'get',
 			success: function (result) {
+				console.log(result);
  				if (result == 5) {
 					alert("ログイン"+result+"回! ＋"+result*2+"px");
 					exp = result*2;
@@ -450,9 +451,9 @@ $(function() {
 				} else if (result == 45) {
 					alert("ログイン"+result+"回! ＋"+result*2+"px");
 					exp = result*2;
-				} else if (result == 50) {
+				} else if (result >= 50) {
 					
-					alert("!");
+// 					alert("!");
 					exp =200;
 					
 				}
@@ -491,90 +492,99 @@ $(function() {
 					level_title = 2;
 					
 					levelUpSound();
-					GameState.background = GameState.game.add.sprite(0,0,'bg_level2');
+// 					GameState.background = game.add.sprite(0,0,'bg_level2');
+					GameState.background.loadTexture('bg_level2');
 					GameState.background.width = width*2;
 	                GameState.background.height = height*1.5;
-					userCharacterBehavior(userCharacter,'levelUP');
+					userCharacterBehavior(userCharacter,'levelUP',level_title);
 				
 				} else if (pre_point < 700 && post_point >= 700) {
 					level_img="level3";
 					level_title = 3;
 					
 					levelUpSound();
-					GameState.background = GameState.game.add.sprite(0,0,'bg_level3');
+// 					GameState.background = game.add.sprite(0,0,'bg_level3');
+					GameState.background.loadTexture('bg_level3');
 					GameState.background.width = width*2;
 	                GameState.background.height = height*1.5;
-					userCharacterBehavior(userCharacter,'levelUP');
+					userCharacterBehavior(userCharacter,'levelUP',level_title);
 					
 				} else if (pre_point < 1240 && post_point >= 1240) {
 					level_img="level4";
 					level_title = 4;
 					
 					levelUpSound();
-					GameState.background = GameState.game.add.sprite(0,0,'bg_level4');
+// 					GameState.background = game.add.sprite(0,0,'bg_level4');
+					GameState.background.loadTexture('bg_level4');
 					GameState.background.width = width*2;
 	                GameState.background.height = height*1.5;
-					userCharacterBehavior(userCharacter,'levelUP');
+					userCharacterBehavior(userCharacter,'levelUP',level_title);
 					
 				} else if (pre_point < 2000 && post_point >= 2000) {
 					level_img="level5";
 					level_title = 5;
 					
 					levelUpSound();
-					GameState.background = GameState.game.add.sprite(0,0,'bg_level5');
+// 					GameState.background = game.add.sprite(0,0,'bg_level5');
+					GameState.background.loadTexture('bg_level5');
 					GameState.background.width = width*2;
 	                GameState.background.height = height*1.5;
-					userCharacterBehavior(userCharacter,'levelUP');
+					userCharacterBehavior(userCharacter,'levelUP',level_title);
 					
 				} else if (pre_point < 3120 && post_point >= 3120) {
 					level_img="level6";
 					level_title = 6;
 					
 					levelUpSound();
-					GameState.background = GameState.game.add.sprite(0,0,'bg_level6');
+// 					GameState.background = game.add.sprite(0,0,'bg_level6');
+					GameState.background.loadTexture('bg_level6');
 					GameState.background.width = width*2;
 	                GameState.background.height = height*1.5;
-					userCharacterBehavior(userCharacter,'levelUP');
+					userCharacterBehavior(userCharacter,'levelUP',level_title);
 					
 				} else if (pre_point < 4620 && post_point >= 4620) {
 					level_img="level7";
 					level_title = 7;
 					
 					levelUpSound();
-					GameState.background = GameState.game.add.sprite(0,0,'bg_level7');
+// 					GameState.background = game.add.sprite(0,0,'bg_level7');
+					GameState.background.loadTexture('bg_level7');
 					GameState.background.width = width*2;
 	                GameState.background.height = height*1.5;
-					userCharacterBehavior(userCharacter,'levelUP');
+					userCharacterBehavior(userCharacter,'levelUP',level_title);
 					
 				} else if (pre_point < 6600 && post_point >= 6600) {
 					level_img="level8";
 					level_title = 8;
 					
 					levelUpSound();
-					GameState.background = GameState.game.add.sprite(0,0,'bg_level8');
+// 					GameState.background = game.add.sprite(0,0,'bg_level8');
+					GameState.background.loadTexture('bg_level8');
 					GameState.background.width = width*2;
 	                GameState.background.height = height*1.5;
-					userCharacterBehavior(userCharacter,'levelUP');
+					userCharacterBehavior(userCharacter,'levelUP',level_title);
 					
 				} else if (pre_point < 9000 && post_point >= 9000) {
 					level_img="level9";
 					level_title = 9;
 					
 					levelUpSound();
-					GameState.background = GameState.game.add.sprite(0,0,'bg_level9');
+// 					GameState.background = game.add.sprite(0,0,'bg_level9');
+					GameState.background.loadTexture('bg_level9');
 					GameState.background.width = width*2;
 	                GameState.background.height = height*1.5;
-					userCharacterBehavior(userCharacter,'levelUP');
+					userCharacterBehavior(userCharacter,'levelUP',level_title);
 					
 				} else if (pre_point < 12000 && post_point >= 12000) {
 					level_img="level10";
 					level_title = 10;
 					
 					levelUpSound();
-					GameState.background = GameState.game.add.sprite(0,0,'bg_level10');
+// 					GameState.background = game.add.sprite(0,0,'bg_level10');
+					GameState.background.loadTexture('bg_level10');
 					GameState.background.width = width*2;
 	                GameState.background.height = height*1.5;
-					userCharacterBehavior(userCharacter,'levelUP');
+					userCharacterBehavior(userCharacter,'levelUP',level_title);
 					
 				} else {
 					level_img="no change";
