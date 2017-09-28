@@ -3,6 +3,7 @@ package com.project.kanemochi;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.kanemochi.dao.RecordDAO;
+import com.project.kanemochi.vo.BubbleVO;
 import com.project.kanemochi.vo.BudgetVO;
 import com.project.kanemochi.vo.CountOneVO;
 import com.project.kanemochi.vo.CountVO;
@@ -262,22 +264,57 @@ public class RecordController {
 	
 	@RequestMapping(value = "getSelectDateRecord", method = RequestMethod.POST)
 	@ResponseBody
-	public ArrayList<RecordVO> getSelectDateRecord(HttpSession session, String start_date, String end_date, String category){
+	public ArrayList<BubbleVO> getSelectDateRecord(HttpSession session, String start_date, String end_date, String category){
 		String id = (String)session.getAttribute("loginID");
 		DateCategoryVO vo = new DateCategoryVO(id, start_date, end_date, category);
 		ArrayList<RecordVO> list = dao.getSelectDateRecord(vo);
-		ArrayList<RecordVO> fineList = new ArrayList<>();
+		ArrayList<String> taglist = new ArrayList<>();
+
+		
 		for (int i = 0; i < list.size(); i++) {
 			String MainCategory = categoryFinder(list.get(i).getCategory());
-			System.out.println(list.get(i));
-			if (MainCategory.equals(category)) {
-				fineList.add(list.get(i));
+			if (MainCategory.equals(category)) { //사용한 카테고리에 해당하는 경우
+				for (int j = 0; j < list.size(); j++) {
+					String jstr = list.get(j).getRecord_tag().replace("#", "");
+					String istr = list.get(i).getRecord_tag().replace("#", "");
+					if (istr.equals(jstr)) { //일치하는 태그가 있는 경우
+						taglist.add(istr);
+					}
+				}
 			}
 		}
-		for (int i = 0; i < fineList.size(); i++) {
-			System.out.println(fineList.get(i));
+		// HashSet 데이터 형태로 생성되면서 중복 제거됨
+		HashSet<String> hs = new HashSet<String>(taglist);
+		// ArrayList 형태로 다시 생성
+		ArrayList<String> newtaglist = new ArrayList<String>(hs);
+
+		ArrayList<BubbleVO> bubbleList = new ArrayList<>();		
+		int visit = 0; //방문횟수
+		int price = 0; //금액
+		int avg = 0; //평균
+		int sum = 0; //기간 총 금액
+		
+		for (int i = 0; i < newtaglist.size(); i++) {
+			for (int j = 0; j < list.size(); j++) {
+				if ((newtaglist.get(i)).equals(list.get(j).getRecord_tag().replace("#", ""))) {
+					visit++;
+					price += list.get(j).getRecord_price();
+				}
+			}
+			if (visit!=0) {				
+				BubbleVO bo = new BubbleVO();
+				avg = price/visit;
+				sum = avg*visit;
+				bo.setTag(newtaglist.get(i));//태그
+				bo.setVisit(visit);//방문
+				bo.setAvg(avg);//평균금액
+				bo.setSum(sum);//기간총금액
+				bubbleList.add(bo);
+			}
 		}
-		return fineList;
+System.out.println(bubbleList);
+		return bubbleList;
+		
 	}
 	
 	private String categoryFinder(String category){
