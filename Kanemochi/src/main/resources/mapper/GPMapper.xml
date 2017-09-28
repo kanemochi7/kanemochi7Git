@@ -18,12 +18,12 @@
 		insert into screenshot2 values (seq_screenshot.nextval, #{user_id}, sysdate, #{screenshotData})
 	</insert>
 	
-	<select id="printScreenshot" resultType="screenshotVO">
+	<!-- <select id="printScreenshot" resultType="screenshotVO">
 		select * from screenshot2 where screenshot_num = 22
-  	</select>
+  	</select> -->
   	
   	<select id="printScreenshotAll" parameterType="java.util.HashMap" resultMap="getAlbumResult">
-		select * from screenshot2 where user_id = #{user_id}
+		select * from screenshot2 where user_id = 'kl5425'
   	</select>
   	
 </mapper>

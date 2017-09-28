@@ -8,12 +8,13 @@
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap-datepicker.min.css">
 
-<script src="/kanemochi/resources/js/phaser-capture.js"></script>
+<script src="/kanemochi/resources/js/html2canvas.js"></script>
 <script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
 <script src="/kanemochi/resources/js/bootstrap.js"></script>
 <script src="/kanemochi/resources/js/bootstrap-datepicker.min.js"></script>
-<!-- <script src="/kanemochi/resources/js/phaser.min.js"></script> -->
-<script src="/kanemochi/resources/js/phaser_2.87.js"></script>
+<script src="/kanemochi/resources/js/phaser.min.js"></script>
+<!-- <script src="/kanemochi/resources/js/phaser_2.87.js"></script> -->
+<script src="/kanemochi/resources/js/phaser-capture.js"></script>
 
 <!-- CSS -->
 <style type="text/css">
@@ -249,14 +250,14 @@ $(function() {
 		<script src="/kanemochi/resources/js/game.js"></script>
 	</div>
 	
-	<!-- screenshot_capture // Modal Screenshot -->
+	<!-- Modal Screenshot -->
 
 	<div id="modal_screenshot" class="modal">
 	      <div class="modal-content">
 			<span class="close" id="close_modal_screenshot">&times;</span>
 			<h3>screenshot</h3>
 			<canvas id="canvas" width= "800" height ="500"></canvas> <!-- 캔버스 크기 -->
-			<a href="#" id="download">download</a>
+			<a href="#" id="download">save to album</a>
 	      </div>
 	</div>
 
@@ -357,10 +358,10 @@ $(function() {
 		}
 	}
 
-</script>
+
+//추가
 
 
-<script>
 	/* modal_screenshot */
  	var btn_sc = document.getElementById("screenshot");
 	var modal_screenshot = document.getElementById('modal_screenshot');
@@ -381,40 +382,51 @@ $(function() {
 	}
 
 
- function gameCapture(){
-	  //var PhaserCapture = require('phaser-capture');  // For Node/Browserify users
-	    console.log(game.capture);
-		game.capture.screenshot(function(dataUrl) {
-			var canvas = document.getElementById('canvas');
-			console.log(canvas);
-	        // Outputs a data-url of the image (default image/png).
-// 	        console.log(dataUrl);
-	        console.log("test1 function is running.....");
-	        drawDataURIOnCanvas(dataUrl,canvas);
-	      });
+	function gameCapture(){
+		  //var PhaserCapture = require('phaser-capture');  // For Node/Browserify users
+		    console.log(game.capture);
+			game.capture.screenshot(function(dataUrl) {
+				var canvas = document.getElementById('canvas');
+				console.log(canvas);
+		        // Outputs a data-url of the image (default image/png).
+//	 	        console.log(dataUrl);
+		        console.log("gameCapture function is running.....");
+		        drawDataURIOnCanvas(dataUrl,canvas);
+		      });
+			
+		/* downloadBtn */
+		function downloadCanvas(link, canvasId, filename) {
+		    link.href = document.getElementById(canvasId).toDataURL();
+	 	    var img_data =link.href;
 		
-	/* downloadBtn */
-	function downloadCanvas(link, canvasId, filename) {
-	    link.href = document.getElementById(canvasId).toDataURL();
-	    link.download = filename;
+	 	   $.ajax({
+	 			url : '/kanemochi/album/saveScreenshot',
+	 			type: "POST",
+	 			data : { imgData: img_data },
+	 			success: function () {
+	 				alert("success~~~~");
+	 			},
+	 			error: function() {
+	 				alert("error~~~~~");
+	 				}
+	 		});
+		
+		}
+		
+		document.getElementById('download').addEventListener('click', function() {
+			downloadCanvas(this, 'canvas', 'test.png');
+		}, false);
+		
 	}
-	
-	document.getElementById('download').addEventListener('click', function() {
-		downloadCanvas(this, 'canvas', 'test.png');
-	}, false);
-		    
-	
-}
- 
-  function drawDataURIOnCanvas(strDataURI, canvas) {
-	    "use strict";
-	    var img = new window.Image();
-	    img.addEventListener("load", function () {
-	        canvas.getContext("2d").drawImage(img, 0, 0,1020,500)// 내부 이미지 크기
-	    });
-	    img.setAttribute("src", strDataURI);
+	 
+	  function drawDataURIOnCanvas(strDataURI, canvas) {
+		    "use strict";
+		    var img = new window.Image();
+		    img.addEventListener("load", function () {
+		        canvas.getContext("2d").drawImage(img, 0, 0,1020,500)// 내부 이미지 크기
+		    });
+		    img.setAttribute("src", strDataURI);
 	} 
-
 </script>
 
 

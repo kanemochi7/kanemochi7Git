@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="/kanemochi/resources/js/phaser-capture.js"></script>
+
 <!-- CSS -->
 <style type="text/css">
 body{
@@ -71,7 +71,7 @@ function getToday() {
 		<a href="/kanemochi/record/reportForm">
 			<input type="image" id="record" class="icon" data-toggle="tooltip" data-placement="bottom" title="今までの記録" src="/kanemochi/resources/image/icon/graph.png">
 		</a>
-		<a>
+		<a href="#">
 			<input type="image" id="screenshot" class="icon" data-toggle="tooltip" data-placement="bottom" title="スクリーンショットを撮る" src="/kanemochi/resources/image/icon/screenshot.png">
 		</a>
 		<a href="/kanemochi/printScreenshotAll2">

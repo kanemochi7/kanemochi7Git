@@ -37,12 +37,12 @@ public class GPark {
 		return "loginForm";
 	}
 	
-	@RequestMapping(value = "printScreenshot")
+/*	@RequestMapping(value = "printScreenshot")
 	@ResponseBody
 	public ScreenshotVO printScreenshot() {
 		ScreenshotVO printVO = dao.printScreenshot();
 		return printVO;
-	}
+	}*/
 	
 	@RequestMapping(value = "printScreenshotAll")
 	@ResponseBody
@@ -59,7 +59,6 @@ public class GPark {
 		model.addAttribute("scList", scList);
 		return "albumTest";
 	}
-	
 	
 	@RequestMapping(value = "/member/album", method = RequestMethod.GET)
 	public String album() {

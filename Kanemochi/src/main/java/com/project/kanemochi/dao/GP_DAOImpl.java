@@ -21,12 +21,12 @@ public class GP_DAOImpl implements GP_DAO {
 		mapper.saveScreenshot(scVO);
 	}
 
-	@Override
+/*	@Override
 	public ScreenshotVO printScreenshot() {
 		GPMapper mapper = sqlsession.getMapper(GPMapper.class);
 		ScreenshotVO printVO = mapper.printScreenshot();
 		return printVO;
-	}
+	}*/
 
 	@Override
 	public ArrayList<ScreenshotVO> printScreenshotAll(String user_id) {
