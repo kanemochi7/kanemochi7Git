@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-<title>풀캘린더</title>
+<title>Statistics</title>
 <script src="/kanemochi/resources/js/print.js" ></script>
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
 <link rel="icon" href="/kanemochi/resources/image/favicon.png">
@@ -23,9 +23,9 @@
 body {
 	margin: 40px 10px;
 	padding: 0;
-	background: #578CA9;
-	background-image:url(/kanemochi/resources/image/bg/bg3.gif);
-	background-size: 100% 100%;
+	background: #7bd434;
+	background-image:url(/kanemochi/resources/image/bg/bg2.png);
+	background-size: 90%;
 	color: navy;
 }
 
@@ -478,19 +478,16 @@ google.charts.setOnLoadCallback(drawChart);
       		<table id="listTable" class="table table-striped table-hover " style="background-color: rgba( 255, 255, 255, 0.0);"></table>
       	</div>
     </div>
-    <div id="menu1" class="tab-pane fade">
-      <h1>[Report]</h1>
-      <hr/>
-      <br>
+    <div id="menu1" class="tab-pane fade" style="position:absolute;">
+	<h1>[Report]</h1>
+	<hr/><br>
 	  <jsp:include page="includeChart.jsp"></jsp:include>
-	 
-	  
     </div>
-    <div id="menu2" class="tab-pane fade">
-      <div id="bubbleChart"></div> 
+    <div id="menu2" class="tab-pane fade" style="position:absolute;">
+	    <jsp:include page="includeBubbleChart.jsp"></jsp:include>
     </div>
     
-    <div id="menu3" class="tab-pane fade">
+    <div id="menu3" class="tab-pane fade" style="position:absolute;">
     	<!-- <input class="input"> -->
     	<div style="margin-right:50px;float:left;">
 	    	<h3 class="alert alert-dismissible alert-success">[家計簿]</h3>
