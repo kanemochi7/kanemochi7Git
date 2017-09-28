@@ -43,27 +43,28 @@ npcCharacter = function (game) {
 npcCharacter.prototype = Object.create(Phaser.Sprite.prototype);
 npcCharacter.prototype.constructor = npcCharacter;
 npcCharacter.prototype.update = function() {
-	 var behavior = Math.floor(Math.random() * 1000);
+	 var behavior = Math.floor(Math.random() * 1200);
 
-	    game.physics.arcade.collide(this,GameState.buildingTopGroup,function(main,test){
-	      main.npcLeftEnd = test.x;
-	      main.npcRightEnd = test.x+test.width-main.width+1;
-	    });
-	    game.physics.arcade.collide(this,GameState.elevatorTopGroup,function(main,test){
-	      main.npcLeftEnd = test.x;
-	      main.npcRightEnd = test.x+test.width-main.width+1;
-	    });
+//	    game.physics.arcade.collide(this,GameState.buildingTopGroup,function(main,test){
+//	      main.npcLeftEnd = test.x;
+//	      main.npcRightEnd = test.x+test.width-main.width+1;
+//	    });
+//	    game.physics.arcade.collide(this,GameState.elevatorTopGroup,function(main,test){
+//	      main.npcLeftEnd = test.x;
+//	      main.npcRightEnd = test.x+test.width-main.width+1;
+//	    });
 	    //고전 로직 잘 긁어와봐..... 
 	    if(behavior >=0 && behavior < 1){
-//	       this.turn();
+	    	console.log(this.name+"_turn");
+	       this.turn();
 	    }
 	    if(behavior >=1 && behavior <2){
-	      this.elevator();
+	      this.up();
 	    }
-//	    if((collideBuild == true) && behavior >=2 && behavior <3){
-	      // this.out();
-//	    }
-	    if(behavior >=2 && behavior <1000){
+	    if(behavior >=2 && behavior <3){
+	       this.down();
+	    }
+	    if(behavior >=3 && behavior <1200){
 	      this.move();
 	    }
 };
@@ -156,13 +157,40 @@ npcCharacter.prototype.move = function(){
 	      }
 	  }
 }
-npcCharacter.prototype.out = function(){
+npcCharacter.prototype.down = function(){
 
-  if(this.npcFloor>1){
-    this.y+=158;
-  }
+	 game.physics.arcade.collide(this,GameState.elevatorGroup,function(main,right){
+  		 
+		    main.y+=158;
+		    main.alpha = 0;
+		    var eleResult = false;
+		    setTimeout(function(){
+		      eleResult = game.physics.arcade.collide(main,GameState.elevatorGroup,function(main2,right2){
+			    	var elevatorMove = right2.animations.add('elevatorMove',[0,1,2,3,4,5,6],7,true);
+					  right2.play('elevatorMove');
+					  setTimeout(function(){
+						  right2.animations.stop(null, true);  
+					  },1000);
+				  });
+		    },25);
+		    setTimeout(function(){
+		    	 main.alpha = 1; 
+		    	 
+		    	 if(!eleResult){
+		    		 right.animations.stop(null, true);
+					  main.y-=158;
+				  }
+					  
+			    },25);
+		 
+		  var elevatorMove = right.animations.add('elevatorMove',[0,1,2,3,4,5,6],7,true);
+		  right.play('elevatorMove');
+			  setTimeout(function(){
+				  right.animations.stop(null, true);  
+			  },1000);
+	  });
 }
-npcCharacter.prototype.elevator = function(){
+npcCharacter.prototype.up = function(){
   	 game.physics.arcade.collide(this,GameState.elevatorGroup,function(main,right){
   		 
 		    main.y-=158;
@@ -667,8 +695,12 @@ function stateBuilding(inputText,buildingX,buildingY){
 	    		rightWing.alpha = 0;
 	    		var leftWall;
 	    		var rightWall;
+	    		var leftWall2;
+	    		var rightWall2;
 	    		var leftWallTop;
 	    		var rightWallTop;
+	    		var leftWallTop2;
+	    		var rightWallTop2;
 	    		var timer = setTimeout(function(){
 					var leftCollision = game.physics.arcade.collide(leftWing,GameState.buildingGroup,function(left,test){
 						if(!game.physics.arcade.collide(leftWing,GameState.wallGroup)){
@@ -719,43 +751,43 @@ function stateBuilding(inputText,buildingX,buildingY){
 	    			var leftCollision1 = game.physics.arcade.collide(leftWing,GameState.elevatorGroup,function(left,test){
 	    				if(!game.physics.arcade.collide(leftWing,GameState.wallGroup)){
 		    			 if(test.name != sprite2.name && (sprite2.x - (test.x+test.width)) < 200){
-		    				 leftWall = game.add.sprite(test.x+test.width, test.y, 'buildingWall');
-		    				 game.world.moveDown(leftWall);
-		    			      leftWall.scale.setTo(0.5,1);
-		    			      leftWall.width = (sprite2.x - test.x - test.width);
-		    			      leftWall.height = sprite2.height;
-		    			      GameState.wallGroup.add(leftWall);
-		    			      leftWallTop =  game.add.sprite(leftWall.x, leftWall.y-8.9, 'buildingTopShort');
-		    			      leftWallTop.scale.setTo(0.5,0.3);
-		    			      leftWallTop.width = (sprite2.x - test.x - test.width);
-		    			      game.physics.arcade.enable(leftWallTop);
-		    			      leftWallTop.body.allowGravity = false;
-		    			      leftWallTop.body.immovable = true;
-		    			      leftWallTop.tint = 0xffff00;
-		    			      GameState.buildingTopGroup.add(leftWallTop);
+		    				 leftWall2 = game.add.sprite(test.x+test.width, test.y, 'buildingWall');
+		    				 game.world.moveDown(leftWall2);
+		    			      leftWall2.scale.setTo(0.5,1);
+		    			      leftWall2.width = (sprite2.x - test.x - test.width);
+		    			      leftWall2.height = sprite2.height;
+		    			      GameState.wallGroup.add(leftWall2);
+		    			      leftWallTop2 =  game.add.sprite(leftWall2.x, leftWall2.y-8.9, 'buildingTopShort');
+		    			      leftWallTop2.scale.setTo(0.5,0.3);
+		    			      leftWallTop2.width = (sprite2.x - test.x - test.width);
+		    			      game.physics.arcade.enable(leftWallTop2);
+		    			      leftWallTop2.body.allowGravity = false;
+		    			      leftWallTop2.body.immovable = true;
+		    			      leftWallTop2.tint = 0xffff00;
+		    			      GameState.buildingTopGroup.add(leftWallTop2);
 		    			 }
 	    				}
 		    		 });
 		    		var rightCollision1 = game.physics.arcade.collide(rightWing,GameState.elevatorGroup,function(right,test){
 		    			if(!game.physics.arcade.collide(rightWing,GameState.wallGroup)){
 		    			 if(test.name != sprite2.name && (test.x - (sprite2.x+sprite2.width)) < 200){
-		    				 rightWall = game.add.sprite(sprite2.x+sprite2.width, sprite2.y, 'buildingWall');
-		    				 game.world.moveDown(rightWall);
-		    				 rightWall.scale.setTo(0.5,1);
+		    				 rightWall2 = game.add.sprite(sprite2.x+sprite2.width, sprite2.y, 'buildingWall');
+		    				 game.world.moveDown(rightWall2);
+		    				 rightWall2.scale.setTo(0.5,1);
 		    				 var temp = sprite2.x+sprite2.width;
 		    				
-		    				 rightWall.width = (test.x - temp);
-		    			      rightWall.height = test.height;
-		    			      GameState.wallGroup.add(rightWall);
-		    			      rightWallTop =  game.add.sprite(rightWall.x, rightWall.y-8.9, 'buildingTopShort');
+		    				 rightWall2.width = (test.x - temp);
+		    			      rightWall2.height = test.height;
+		    			      GameState.wallGroup.add(rightWall2);
+		    			      rightWallTop2 =  game.add.sprite(rightWall2.x, rightWall2.y-8.9, 'buildingTopShort');
 		    			     
-		    			      rightWallTop.scale.setTo(0.5,0.3);
-		    			      rightWallTop.width = (test.x - temp);
-		    			      game.physics.arcade.enable(rightWallTop);
-		    			      rightWallTop.body.allowGravity = false;
-		    			      rightWallTop.body.immovable = true;
-		    			      rightWallTop.tint = 0x0000ff;
-		    			      GameState.buildingTopGroup.add(rightWallTop);
+		    			      rightWallTop2.scale.setTo(0.5,0.3);
+		    			      rightWallTop2.width = (test.x - temp);
+		    			      game.physics.arcade.enable(rightWallTop2);
+		    			      rightWallTop2.body.allowGravity = false;
+		    			      rightWallTop2.body.immovable = true;
+		    			      rightWallTop2.tint = 0x0000ff;
+		    			      GameState.buildingTopGroup.add(rightWallTop2);
 		    			 }
 		    			}
 		    		 });
