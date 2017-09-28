@@ -41,7 +41,7 @@ body {
 td, tr {
 	color:black;
 	background-color: #ffffff;
-    background-color: rgba( 255, 255, 255, 0.25);
+    background-color: rgba( 255, 255, 255, 0.4);
 }
 
 .fc-unthemed td.fc-today {
