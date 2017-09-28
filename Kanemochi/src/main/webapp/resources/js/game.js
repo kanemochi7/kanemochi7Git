@@ -455,9 +455,9 @@ var GameState = {
   this.canBuildGroup = game.add.group();
   this.canBuildGroup.enableBody = true;
   
- //주의 : 폰트 안됨. 하얀거만 칠해진거임. //text 관련
- // 그리고 여기는 아마 html과 합치게 되면 없어지거나 다르게 변형해야 할 내용이라고 생각함.
-  
+  //이거 안넣으면 난리남.. : 스샷터짐.
+  this.game.capture = this.game.plugins.add(Phaser.Plugin.Capture);
+
   //카메라 임시
   cursors = game.input.keyboard.createCursorKeys();
   game.camera.y += height;
