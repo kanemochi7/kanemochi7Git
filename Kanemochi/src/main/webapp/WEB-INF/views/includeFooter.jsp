@@ -477,6 +477,8 @@ $(function() {
 					
 					levelUpSound();
 					GameState.background = GameState.game.add.sprite(0,0,'bg_level2');
+					GameState.background.width = width*2;
+	                GameState.background.height = height*1.5;
 					userCharacterBehavior(userCharacter,'levelUP');
 				
 				} else if (pre_point < 700 && post_point >= 700) {
@@ -485,6 +487,8 @@ $(function() {
 					
 					levelUpSound();
 					GameState.background = GameState.game.add.sprite(0,0,'bg_level3');
+					GameState.background.width = width*2;
+	                GameState.background.height = height*1.5;
 					userCharacterBehavior(userCharacter,'levelUP');
 					
 				} else if (pre_point < 1240 && post_point >= 1240) {
@@ -493,6 +497,8 @@ $(function() {
 					
 					levelUpSound();
 					GameState.background = GameState.game.add.sprite(0,0,'bg_level4');
+					GameState.background.width = width*2;
+	                GameState.background.height = height*1.5;
 					userCharacterBehavior(userCharacter,'levelUP');
 					
 				} else if (pre_point < 2000 && post_point >= 2000) {
@@ -501,6 +507,8 @@ $(function() {
 					
 					levelUpSound();
 					GameState.background = GameState.game.add.sprite(0,0,'bg_level5');
+					GameState.background.width = width*2;
+	                GameState.background.height = height*1.5;
 					userCharacterBehavior(userCharacter,'levelUP');
 					
 				} else if (pre_point < 3120 && post_point >= 3120) {
@@ -509,6 +517,8 @@ $(function() {
 					
 					levelUpSound();
 					GameState.background = GameState.game.add.sprite(0,0,'bg_level6');
+					GameState.background.width = width*2;
+	                GameState.background.height = height*1.5;
 					userCharacterBehavior(userCharacter,'levelUP');
 					
 				} else if (pre_point < 4620 && post_point >= 4620) {
@@ -517,6 +527,8 @@ $(function() {
 					
 					levelUpSound();
 					GameState.background = GameState.game.add.sprite(0,0,'bg_level7');
+					GameState.background.width = width*2;
+	                GameState.background.height = height*1.5;
 					userCharacterBehavior(userCharacter,'levelUP');
 					
 				} else if (pre_point < 6600 && post_point >= 6600) {
@@ -525,6 +537,8 @@ $(function() {
 					
 					levelUpSound();
 					GameState.background = GameState.game.add.sprite(0,0,'bg_level8');
+					GameState.background.width = width*2;
+	                GameState.background.height = height*1.5;
 					userCharacterBehavior(userCharacter,'levelUP');
 					
 				} else if (pre_point < 9000 && post_point >= 9000) {
@@ -533,6 +547,8 @@ $(function() {
 					
 					levelUpSound();
 					GameState.background = GameState.game.add.sprite(0,0,'bg_level9');
+					GameState.background.width = width*2;
+	                GameState.background.height = height*1.5;
 					userCharacterBehavior(userCharacter,'levelUP');
 					
 				} else if (pre_point < 12000 && post_point >= 12000) {
@@ -540,7 +556,9 @@ $(function() {
 					level_title = 10;
 					
 					levelUpSound();
-					GameState.background = GameState.game.add.sprite(0,0,'bg_level9');
+					GameState.background = GameState.game.add.sprite(0,0,'bg_level10');
+					GameState.background.width = width*2;
+	                GameState.background.height = height*1.5;
 					userCharacterBehavior(userCharacter,'levelUP');
 					
 				} else {
