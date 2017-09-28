@@ -38,6 +38,10 @@ body {
 	margin: 0 auto;
 }
 
+.tabcontent {
+	display: none;
+}
+
 td, tr {
 	color:black;
 	background-color: #ffffff;
@@ -475,22 +479,21 @@ google.charts.setOnLoadCallback(drawChart);
   </ul>
   
   <div class="tab-content fade in fade" >
-    <div id="home" class="tab-pane fade in active">
+    <div id="home" class="tab-pane fade in active tabcontent">
       	<div id="calendar" style="float:left;"></div>
       	<div id="recordWrapper" style="float:right;">
       		<table id="listTable" class="table table-striped table-hover " style="background-color: rgba( 255, 255, 255, 0.0);"></table>
       	</div>
     </div>
-    <div id="menu1" class="tab-pane fade">
+    <div id="menu1" class="tab-pane fade tabcontent">
 	<h1>[Report]</h1>
 	<hr/><br>
-	  <%-- <jsp:include page="includeChart.jsp"></jsp:include> --%>
+		<jsp:include page="includeChart.jsp"></jsp:include>
     </div>
-    <div id="menu2" class="tab-pane fade" style="position:absolute;">
-	    <%-- <jsp:include page="includeBubbleChart.jsp"></jsp:include> --%>
-    </div>
-    
-    <div id="menu3" class="tab-pane fade" style="position:absolute;">
+	<div id="menu2" class="tab-pane fade tabcontent" style="position:absolute;">
+		<jsp:include page="includeBubbleChart.jsp"></jsp:include>
+	</div>
+	<div id="menu3" class="tab-pane fadetabcontent" style="position:absolute;">
     	<!-- <input class="input"> -->
     	<div style="margin-right:50px;float:left;">
 	    	<h3 class="alert alert-dismissible alert-success">[家計簿]</h3>
@@ -528,8 +531,6 @@ google.charts.setOnLoadCallback(drawChart);
 			})
 			alert("bye");
 		})
-      
-
 </script> -->
 </html>
 
