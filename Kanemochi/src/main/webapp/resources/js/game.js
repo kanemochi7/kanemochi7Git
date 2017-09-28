@@ -13,7 +13,7 @@ npcCharacter = function (game) {
     this.direction = 'left';
     this.npcLeftEnd = 0;
     this.npcRightEnd = game.world.width;
-    this.beforeTop;
+//    this.beforeFloor=1;
     var width2 = (game.world.width - (150*0.35));
     var positionX = width2-(100);
     var positionY=0;
@@ -45,24 +45,34 @@ npcCharacter.prototype.constructor = npcCharacter;
 npcCharacter.prototype.update = function() {
 	 var behavior = Math.floor(Math.random() * 1200);
 
-//	    game.physics.arcade.collide(this,GameState.buildingTopGroup,function(main,test){
-//	      main.npcLeftEnd = test.x;
-//	      main.npcRightEnd = test.x+test.width-main.width+1;
-//	    });
-//	    game.physics.arcade.collide(this,GameState.elevatorTopGroup,function(main,test){
-//	      main.npcLeftEnd = test.x;
-//	      main.npcRightEnd = test.x+test.width-main.width+1;
-//	    });
+	    
 	    //고전 로직 잘 긁어와봐..... 
 	    if(behavior >=0 && behavior < 1){
-	    	console.log(this.name+"_turn");
+//	    	console.log(this.name+"_turn");
 	       this.turn();
 	    }
 	    if(behavior >=1 && behavior <2){
 	      this.up();
+//	      game.physics.arcade.collide(this,GameState.buildingTopGroup,function(main,test){
+//		      main.npcLeftEnd = test.x;
+//		      main.npcRightEnd = test.x+test.width-main.width+1;
+//		    });
+		    game.physics.arcade.collide(this,GameState.elevatorTopGroup,function(main,test){
+		      main.npcLeftEnd = test.x;
+		      main.npcRightEnd = test.x+test.width-main.width+1;
+		    });
 	    }
 	    if(behavior >=2 && behavior <3){
+	    	
 	       this.down();
+//	       game.physics.arcade.collide(this,GameState.buildingTopGroup,function(main,test){
+//	 	      main.npcLeftEnd = test.x;
+//	 	      main.npcRightEnd = test.x+test.width-main.width+1;
+//	 	    });
+	 	    game.physics.arcade.collide(this,GameState.elevatorTopGroup,function(main,test){
+	 	      main.npcLeftEnd = test.x;
+	 	      main.npcRightEnd = test.x+test.width-main.width+1;
+	 	    });
 	    }
 	    if(behavior >=3 && behavior <1200){
 	      this.move();
@@ -102,35 +112,39 @@ npcCharacter.prototype.move = function(){
 	    }
 	  }
 	  if(this.npcFloor>1){
-	      game.physics.arcade.collide(this,GameState.buildingTopGroup,function(main,test){
-	        if(main.npcLeftEnd == 0){
-	        	main.npcLeftEnd = test.x;
-	        }
-	        if(main.npcRightEnd == game.world.width){
-	        	main.npcRightEnd = test.x+test.width-main.width+1;
-	        }
-	        if((test.x <= main.npcLeftEnd)){
-	            //?대룞???섍쿋吏..
-	          	main.npcLeftEnd = test.x;
-	          }
-	           if ((test.x >= main.npcRightEnd)) {
-	          	main.npcRightEnd = (test.x)+(test.width)-main.width+1;
-	          }
-	        if(main.x <= main.npcLeftEnd){
-	          main.direction = 'right';
-	        }
-	        if(main.x >= main.npcRightEnd){
-	          main.direction = 'left';
-	        }
-	        
-	      });
-	      game.physics.arcade.collide(this,GameState.elevatorTopGroup,function(main,test){
+		  game.physics.arcade.collide(this,GameState.buildingTopGroup,function(main,test){
+		        if(main.npcLeftEnd == 0 && main.beforeFloor != main.npcFloor){
+		        	main.npcLeftEnd = test.x;
+		        }
+		        if(main.npcRightEnd == game.world.width && main.beforeFloor != main.npcFloor){
+		        	main.npcRightEnd = test.x+test.width-main.width+1;
+		        }
+		        main.beforeFloor = main.npcFloor;
+		        if((test.x <= main.npcLeftEnd)){
+		            //?대룞???섍쿋吏..
+		          	main.npcLeftEnd = test.x;
+		          }
+		           if ((test.x >= main.npcRightEnd)) {
+		          	main.npcRightEnd = (test.x)+(test.width)-main.width+1;
+		          }
+		        if(main.x < main.npcLeftEnd){
+		          main.direction = 'right';
+		        }
+		        if(main.x > main.npcRightEnd){
+		          main.direction = 'left';
+		        }
+		        
+		      });
+		  game.physics.arcade.collide(this,GameState.elevatorTopGroup,function(main,test){
+//	          if(main.npcLeftEnd == 0 && main.beforeFloor != main.npcFloor){
 	          if(main.npcLeftEnd == 0){
 	          	main.npcLeftEnd = test.x;
 	          }
-	          if(main.npcRightEnd == game.world.width){
+//	          if(main.npcRightEnd == game.world.width && main.beforeFloor != main.npcFloor){
+	       	  if(main.npcRightEnd == game.world.width ){
 	          	main.npcRightEnd = test.x+test.width-main.width+1;
 	          }
+	          main.beforeFloor = main.npcFloor;
 	          if((test.x <= main.npcLeftEnd)){
 	              //?대룞???섍쿋吏..
 	            	main.npcLeftEnd = test.x;
@@ -138,10 +152,10 @@ npcCharacter.prototype.move = function(){
 	             if ((test.x >= main.npcRightEnd)) {
 	            	main.npcRightEnd = (test.x)+(test.width)-main.width+1;
 	            }
-	          if(main.x <= main.npcLeftEnd){
+	          if(main.x < main.npcLeftEnd){
 	            main.direction = 'right';
 	          }
-	          if(main.x >= main.npcRightEnd){
+	          if(main.x > main.npcRightEnd){
 	            main.direction = 'left';
 	          }
 	         
@@ -172,7 +186,7 @@ npcCharacter.prototype.down = function(){
 						  right2.animations.stop(null, true);  
 					  },1000);
 				  });
-		    },25);
+		    },50);
 		    setTimeout(function(){
 		    	 main.alpha = 1; 
 		    	 
@@ -181,7 +195,7 @@ npcCharacter.prototype.down = function(){
 					  main.y-=158;
 				  }
 					  
-			    },25);
+			    },50);
 		 
 		  var elevatorMove = right.animations.add('elevatorMove',[0,1,2,3,4,5,6],7,true);
 		  right.play('elevatorMove');
@@ -1167,10 +1181,10 @@ function deleteButtonOff(anywaySprite){
 
 
 function getNumberOfNPC(npc,nowBuildingCounter,incOrDec){
-    if(nowBuildingCounter<11 && nowBuildingCounter == 1){
+    if(nowBuildingCounter<10 && nowBuildingCounter == 1){
       npc = 1;
     }
-    else if((nowBuildingCounter %5 != 0) && (nowBuildingCounter <9)){
+    else if((nowBuildingCounter %5 != 0) && (nowBuildingCounter <10)){
       if(incOrDec == true){
           npc+=(nowBuildingCounter-2);
       }
