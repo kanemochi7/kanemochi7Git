@@ -44,16 +44,16 @@ public class GPark {
 		return printVO;
 	}*/
 	
-	@RequestMapping(value = "printScreenshotAll")
+/*	@RequestMapping(value = "printScreenshotAll")
 	@ResponseBody
 	public ArrayList<ScreenshotVO> printScreenshotAll(HttpSession session) {
 		String user_id = (String) session.getAttribute("loginID");
 		ArrayList<ScreenshotVO> screenshotList = dao.printScreenshotAll(user_id);
 		return screenshotList;
-	}
+	}*/
 	
-	@RequestMapping(value = "printScreenshotAll2")
-	public String printScreenshotAll2(HttpSession session, Model model) {
+	@RequestMapping(value = "printScreenshotAll")
+	public String printScreenshotAll(HttpSession session, Model model) {
 		String user_id = (String) session.getAttribute("loginID");
 		ArrayList<ScreenshotVO> scList = dao.printScreenshotAll(user_id);
 		model.addAttribute("scList", scList);

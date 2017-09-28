@@ -32,7 +32,7 @@ th, td {
 	padding: 10px;
 }
 .screenshot{
-	width: 350px;
+	width: 300px;
 }
 #dog{
 	width: 10%;
@@ -105,9 +105,10 @@ element.style {
 
 	<h1>Album</h1>
 	
+	<c:if test="${fn:length(scList) > 0}" var="result">
 	<div id="target" class="table">
 		<div class="table-row">
-		<c:forEach items="${scList}" var="list" begin="0" end="${(fn:length(scList))/2-1}" varStatus="status">
+		<c:forEach items="${scList}" var="list" begin="0" end="${((fn:length(scList))/4)+1}" varStatus="status">
 				<div class="table-cell">
 					<a href="#" data-toggle="modal" data-target="#myModal">
 						<img id="sc${status.index}" src="${list.screenshotdata}" class="screenshot"/>
@@ -116,15 +117,16 @@ element.style {
 	 	</c:forEach>
 		</div>
 		
-		<div class="table-row">
-		<c:forEach items="${scList}" var="list" begin="0" end="${(fn:length(scList))/2-1}">
+ 		<div class="table-row">
+		<c:forEach items="${scList}" var="list" begin="0" end="${((fn:length(scList))/4)+1}">
 			<div class="table-cell">
 				<p>${list.shotdate}</p>
 			</div>
 		</c:forEach>
 		</div>
-				<div class="table-row">
-		<c:forEach items="${scList}" var="list"  begin="${(fn:length(scList)/2)}" end="${fn:length(scList)-1}">
+		
+		<div class="table-row">
+		<c:forEach items="${scList}" var="list"  begin="${((fn:length(scList))/4)+2}" end="${fn:length(scList)-1}">
 				<div class="table-cell">
 					<a href="#" data-toggle="modal" data-target="#myModal">
 						<img id="sc" src="${list.screenshotdata}" class="screenshot"/>
@@ -134,17 +136,22 @@ element.style {
 		</div>
 		
 		<div class="table-row">
-		<c:forEach items="${scList}" var="list" begin="${(fn:length(scList)/2)}" end="${fn:length(scList)-1}">
+		<c:forEach items="${scList}" var="list" begin="${((fn:length(scList))/4)+2}" end="${fn:length(scList)-1}">
 			<div class="table-cell">
 				<p>${list.shotdate}</p>
 			</div>
 		</c:forEach>
 		</div>
 	</div>
-
-	<a type="button" href="/kanemochi/member/loginForm" class="btn btn-warning">home</a><br>
+	</c:if>
 	
-	<!-- paging -->
+	<c:if test="${fn:length(scList) < 0}" var="result">
+		<p>waiting for screenshot...</p>
+	</c:if>
+	
+<!-- 	<a type="button" href="/kanemochi/member/loginForm" class="btn btn-warning">home</a><br> -->
+	
+<!-- 	<!-- paging 
 		<ul class="pagination">
 		  <li class="disabled"><a href="#">&laquo;</a></li>
 		  <li class="active"><a href="#">1</a></li>
@@ -154,7 +161,7 @@ element.style {
 		  <li><a href="#">5</a></li>
 		  <li><a href="#">&raquo;</a></li>
 		</ul>
-		<br>
+		<br> -->
 	<img src="/kanemochi/resources/image/dog.gif" class="rounded float-left" alt="left-img" id="dog">
 	
 	<script>

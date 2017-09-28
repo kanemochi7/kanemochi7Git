@@ -23,7 +23,7 @@
   	</select> -->
   	
   	<select id="printScreenshotAll" parameterType="java.util.HashMap" resultMap="getAlbumResult">
-		select * from screenshot2 where user_id = 'kl5425'
+		select * from screenshot2 where user_id = #{user_id}
   	</select>
   	
 </mapper>

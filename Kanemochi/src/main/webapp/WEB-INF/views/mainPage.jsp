@@ -257,7 +257,7 @@ $(function() {
 			<span class="close" id="close_modal_screenshot">&times;</span>
 			<h3>screenshot</h3>
 			<canvas id="canvas" width= "800" height ="500"></canvas> <!-- 캔버스 크기 -->
-			<a href="#" id="download">save to album</a>
+			<a href="#" id="saveBtn">save to album</a>
 	      </div>
 	</div>
 
@@ -372,6 +372,7 @@ $(function() {
 		console.log("modal_screenshot test");
 		gameCapture();
 		span_sc.onclick = function() {
+			
 			modal_screenshot.style.display = "none";
 		}
 		window.onclick = function(event_sc) {
@@ -393,31 +394,31 @@ $(function() {
 		        console.log("gameCapture function is running.....");
 		        drawDataURIOnCanvas(dataUrl,canvas);
 		      });
-			
-		/* downloadBtn */
-		function downloadCanvas(link, canvasId, filename) {
-		    link.href = document.getElementById(canvasId).toDataURL();
-	 	    var img_data =link.href;
-		
-	 	   $.ajax({
-	 			url : '/kanemochi/album/saveScreenshot',
-	 			type: "POST",
-	 			data : { imgData: img_data },
-	 			success: function () {
-	 				alert("success~~~~");
-	 			},
-	 			error: function() {
-	 				alert("error~~~~~");
-	 				}
-	 		});
-		
-		}
-		
-		document.getElementById('download').addEventListener('click', function() {
-			downloadCanvas(this, 'canvas', 'test.png');
-		}, false);
-		
-	}
+					
+	} 
+			/* saveBtn */
+			 		function downloadCanvas(link, canvasId, filename) {
+					    link.href = document.getElementById(canvasId).toDataURL();
+				 	    var img_data =link.href;
+					
+				 	   $.ajax({
+				 			url : '/kanemochi/saveScreenshot',
+				 			type: "POST",
+				 			data : { imgData: img_data },
+				 			success: function () {
+				 				alert("success~~~~");
+				 			},
+				 			error: function() {
+				 				alert("error~~~~~");
+				 				}
+				 		});
+		 				return false;
+					
+					}
+					
+					document.getElementById('saveBtn').addEventListener('click', function() {
+						downloadCanvas(this, 'canvas', 'test.png');
+					}, false);
 	 
 	  function drawDataURIOnCanvas(strDataURI, canvas) {
 		    "use strict";

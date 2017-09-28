@@ -74,7 +74,7 @@ function getToday() {
 		<a href="#">
 			<input type="image" id="screenshot" class="icon" data-toggle="tooltip" data-placement="bottom" title="スクリーンショットを撮る" src="/kanemochi/resources/image/icon/screenshot.png">
 		</a>
-		<a href="/kanemochi/printScreenshotAll2">
+		<a href="/kanemochi/printScreenshotAll">
 			<input type="image" id="album" class="icon" data-toggle="tooltip" data-placement="bottom" title="スクリーンショットアルバム" src="/kanemochi/resources/image/icon/album.png">
 		</a>
 			<input type="image" id="setting" class="icon" data-toggle="tooltip" data-placement="bottom" title="設定" src="/kanemochi/resources/image/icon/setting.png">
