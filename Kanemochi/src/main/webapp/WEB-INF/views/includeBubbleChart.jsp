@@ -9,9 +9,6 @@
 google.charts.load("current", {packages:["corechart"]});
 google.charts.setOnLoadCallback(drawChart2);
 
-$(function() {
-	drawChart2();
-})
 function drawChart2() {
 
 	var data = new google.visualization.DataTable();
