@@ -20,13 +20,15 @@ npcCharacter = function (game) {
 
     positionY = game.world.height - (200*0.35);
     
-    var npcImage = Math.floor(Math.random() * 5)+1;
+    var npcImage;
     var randGender = Math.floor(Math.random() * 2);
     var npcGender;
     if(randGender == 0){
+    	npcImage = Math.floor(Math.random() * 11)+1;
     	npcGender = 'w';
     }
     else{
+    	npcImage = Math.floor(Math.random() * 8)+1;
     	npcGender = 'm';
     }
     Phaser.Sprite.call(this, game, positionX, positionY, 'npc_'+npcGender+npcImage);
@@ -286,6 +288,15 @@ var GameState = {
 	    this.load.spritesheet('npc_m4', '/kanemochi/resources/image/npc/npc_m4.png', 150, 200);
 	    this.load.spritesheet('npc_w5', '/kanemochi/resources/image/npc/npc_w5.png', 150, 200);
 	    this.load.spritesheet('npc_m5', '/kanemochi/resources/image/npc/npc_m5.png', 150, 200);
+	    this.load.spritesheet('npc_w6', '/kanemochi/resources/image/npc/npc_w6.png', 150, 200);
+	    this.load.spritesheet('npc_m6', '/kanemochi/resources/image/npc/npc_m6.png', 150, 200);
+	    this.load.spritesheet('npc_w7', '/kanemochi/resources/image/npc/npc_w7.png', 150, 200);
+	    this.load.spritesheet('npc_m7', '/kanemochi/resources/image/npc/npc_m7.png', 150, 200);
+	    this.load.spritesheet('npc_w8', '/kanemochi/resources/image/npc/npc_w8.png', 150, 200);
+	    this.load.spritesheet('npc_m8', '/kanemochi/resources/image/npc/npc_m8.png', 150, 200);
+	    this.load.spritesheet('npc_w9', '/kanemochi/resources/image/npc/npc_w9.png', 150, 200);
+	    this.load.spritesheet('npc_w10', '/kanemochi/resources/image/npc/npc_w10.png', 150, 200);
+	    this.load.spritesheet('npc_w11', '/kanemochi/resources/image/npc/npc_w11.png', 150, 200);
 	    
 	    //level
 	    this.load.spritesheet('level_1','/kanemochi/resources/image/level/level1.png');
@@ -1145,9 +1156,8 @@ function getNumberOfNPC(npc,nowBuildingCounter,incOrDec){
   function randomCreateNPC(numberOfNPC){
     var randomTime;
       for(var i=0; i<numberOfNPC-1;i++){
-//   	  for(var i=0; i<1;i++){
         
-        randomTime = Math.floor(Math.random() * 60)+1;
+        randomTime = Math.floor(Math.random() * 120)+1;
         setTimeout(temp, randomTime*1000);
       }
       function temp(){
