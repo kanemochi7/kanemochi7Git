@@ -198,6 +198,13 @@
 		and record_date between (SELECT TRUNC(SYSDATE,'MM') FROM DUAL) and (SELECT LAST_DAY(SYSDATE) FROM DUAL)
 	</select>
 	
+	<select id="getSelectDateRecord" parameterType="DateCategoryVO" resultType="RecordVO">
+		select *
+		from record
+		where user_id = #{id}
+		and TO_CHAR(record_date, 'YYYY-MM-DD') between #{start_date} and #{end_date}
+	</select>
+	
 	<select id="budgetList" resultType="BudgetVO">
 		select * from budget where user_id = #{id}
 	</select>

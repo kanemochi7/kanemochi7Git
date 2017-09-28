@@ -493,7 +493,7 @@ google.charts.setOnLoadCallback(drawChart);
 	<div id="menu2" class="tab-pane fade tabcontent" style="position:absolute;">
 		<jsp:include page="includeBubbleChart.jsp"></jsp:include>
 	</div>
-	<div id="menu3" class="tab-pane fadetabcontent" style="position:absolute;">
+	<div id="menu3" class="tab-pane fadetabcontent">
     	<!-- <input class="input"> -->
     	<div style="margin-right:50px;float:left;">
 	    	<h3 class="alert alert-dismissible alert-success">[家計簿]</h3>

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.project.kanemochi.vo.BudgetVO;
 import com.project.kanemochi.vo.CountOneVO;
 import com.project.kanemochi.vo.CountVO;
+import com.project.kanemochi.vo.DateCategoryVO;
 import com.project.kanemochi.vo.RecordVO;
 import com.project.kanemochi.vo.ShopVO;
 
@@ -24,4 +25,5 @@ public interface RecordDAO {
 	public boolean deleteStatus(ShopVO vo);
 	public ArrayList<BudgetVO> budgetList(String id);
 	public int avgCost(String id);
+	public ArrayList<RecordVO> getSelectDateRecord(DateCategoryVO vo);
 }

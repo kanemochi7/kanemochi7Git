@@ -19,6 +19,7 @@ import com.project.kanemochi.dao.RecordDAO;
 import com.project.kanemochi.vo.BudgetVO;
 import com.project.kanemochi.vo.CountOneVO;
 import com.project.kanemochi.vo.CountVO;
+import com.project.kanemochi.vo.DateCategoryVO;
 import com.project.kanemochi.vo.RecordVO;
 import com.project.kanemochi.vo.ShopVO;
 
@@ -257,6 +258,26 @@ public class RecordController {
 	public int getExpense(HttpSession session){
 		String id = (String)session.getAttribute("loginID");
 		return dao.getExpense(id);
+	}
+	
+	@RequestMapping(value = "getSelectDateRecord", method = RequestMethod.POST)
+	@ResponseBody
+	public ArrayList<RecordVO> getSelectDateRecord(HttpSession session, String start_date, String end_date, String category){
+		String id = (String)session.getAttribute("loginID");
+		DateCategoryVO vo = new DateCategoryVO(id, start_date, end_date, category);
+		ArrayList<RecordVO> list = dao.getSelectDateRecord(vo);
+		ArrayList<RecordVO> fineList = new ArrayList<>();
+		for (int i = 0; i < list.size(); i++) {
+			String MainCategory = categoryFinder(list.get(i).getCategory());
+			System.out.println(list.get(i));
+			if (MainCategory.equals(category)) {
+				fineList.add(list.get(i));
+			}
+		}
+		for (int i = 0; i < fineList.size(); i++) {
+			System.out.println(fineList.get(i));
+		}
+		return fineList;
 	}
 	
 	private String categoryFinder(String category){

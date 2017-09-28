@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.project.kanemochi.vo.BudgetVO;
 import com.project.kanemochi.vo.CountOneVO;
 import com.project.kanemochi.vo.CountVO;
+import com.project.kanemochi.vo.DateCategoryVO;
 import com.project.kanemochi.vo.RecordVO;
 import com.project.kanemochi.vo.ShopVO;
 import com.project.kanemochi.vo.SumVO;
@@ -110,6 +111,12 @@ public class RecordDAOImpl implements RecordDAO {
 	public int avgCost(String id) {
 		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);
 		return mapper.avgCost(id);
+	}
+
+	@Override
+	public ArrayList<RecordVO> getSelectDateRecord(DateCategoryVO vo) {
+		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);
+		return mapper.getSelectDateRecord(vo);
 	}
 
 	
