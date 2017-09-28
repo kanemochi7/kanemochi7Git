@@ -94,6 +94,7 @@ td, tr {
 	padding: 0px;
 	display: table;
 	width: 100%;
+	max-height:0px;
 }
 
 #buttons>button{
