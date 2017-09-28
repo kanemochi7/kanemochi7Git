@@ -41,109 +41,118 @@ npcCharacter = function (game) {
 npcCharacter.prototype = Object.create(Phaser.Sprite.prototype);
 npcCharacter.prototype.constructor = npcCharacter;
 npcCharacter.prototype.update = function() {
-	
-    var behavior = Math.floor(Math.random() * 1000);
+	 var behavior = Math.floor(Math.random() * 1000);
 
-    game.physics.arcade.collide(this,GameState.buildingTopGroup,function(main,test){
-      main.npcLeftEnd = test.x;
-      main.npcRightEnd = test.x+test.width-main.width+1;
-    });
-    game.physics.arcade.collide(this,GameState.elevatorTopGroup,function(main,test){
-      main.npcLeftEnd = test.x;
-      main.npcRightEnd = test.x+test.width-main.width+1;
-    });
-    
-    if(behavior >=0 && behavior < 1){
-      // this.turn();
-    }
-    if(behavior >=1 && behavior <5){
-      this.elevator();
-    }
-//    if((collideBuild == true) && behavior >=2 && behavior <3){
-      // this.out();
-//    }
-//    if(behavior >=3 && behavior <1000){
-      this.move();
-//    }
+	    game.physics.arcade.collide(this,GameState.buildingTopGroup,function(main,test){
+	      main.npcLeftEnd = test.x;
+	      main.npcRightEnd = test.x+test.width-main.width+1;
+	    });
+	    game.physics.arcade.collide(this,GameState.elevatorTopGroup,function(main,test){
+	      main.npcLeftEnd = test.x;
+	      main.npcRightEnd = test.x+test.width-main.width+1;
+	    });
+	    //고전 로직 잘 긁어와봐..... 
+	    if(behavior >=0 && behavior < 1){
+//	       this.turn();
+	    }
+	    if(behavior >=1 && behavior <2){
+	      this.elevator();
+	    }
+//	    if((collideBuild == true) && behavior >=2 && behavior <3){
+	      // this.out();
+//	    }
+	    if(behavior >=2 && behavior <1000){
+	      this.move();
+	    }
 };
 npcCharacter.prototype.move = function(){
-  
-  var wholeFloor=1;
-  if((game.world.height - this.height) == this.y){
-    this.npcFloor = 1;
-  }
-  else{
-    wholeFloor = Math.floor(game.world.height/159);
-    for(var i=1;i<wholeFloor;i++){
-      if((game.world.height-(159*i)) >= this.y && (game.world.height-(159*(i+1)) < this.y)){
-        this.npcFloor = i+1;
-        break;
-      }
-    }
-  }
+	  
+	  var wholeFloor=1;
+	  if((game.world.height - this.height) == this.y){
+	    this.npcFloor = 1;
+	  }
+	  else{
+	    wholeFloor = Math.floor(game.world.height/159);
+	    for(var i=1;i<wholeFloor;i++){
+	      if((game.world.height-(159*i)) >= this.y && (game.world.height-(159*(i+1)) < this.y)){
+	        this.npcFloor = i+1;
+	        break;
+	      }
+	    }
+	  }
 
-  if(this.npcFloor ==1){
-    if(this.x <= this.buildLeftX){
-      this.direction = 'right';
-    }
-    else if(this.x >= (this.buildRightX-this.width)){
-      this.direction = 'left';
-    }
-    if(this.direction == 'right' && this.x < (this.buildRightX-this.width))
-    {
-      this.x+=2;
-      this.play('rightWalk');
-    }
-    else if(this.direction == 'left' && this.x > this.buildLeftX ){
-      this.x-=2;
-      this.play('leftWalk');
-    }
-  }
- 
-    if(this.npcFloor>1){
-        game.physics.arcade.collide(this,GameState.buildingTopGroup,function(main,test){
-          if(main.npcLeftEnd == 0){
-            main.npcLeftEnd = test.x;
-          }
-          if(main.npcRightEnd == game.world.width){
-            main.npcRightEnd = test.x+test.width-main.width+1;
-          }
-    	  if(test.x < main.npcLeftEnd){
-              //이동을 하겠지..
-                main.npcLeftEnd = test.x;
-            }
-          
-    	  if (test.x >= main.npcRightEnd) {
-            main.npcRightEnd = (test.x)+(test.width)-main.width+1;
-          }
-    	  if(main.x <= main.npcLeftEnd){
-    		  main.direction = 'right';
-    	  }
-          if(main.x >= main.npcRightEnd){
-        	  main.direction = 'left';
-          }
-          this.beforeTop = test;
-        });
-        if(this.direction == 'right' && this.x <= this.npcRightEnd)
-        {
-          this.x+=1;
-          this.play('rightWalk');
-        }
-        if(this.direction == 'left' && this.x >= this.npcLeftEnd){
-          this.x-=1;
-          this.play('leftWalk');
-        }
-        if(this.direction == 'right' && this.x <= this.npcRightEnd)
-        {
-        	this.x+=1;
-        	this.play('rightWalk');
-        }
-        if(this.direction == 'left' && this.x >= this.npcLeftEnd){
-        	this.x-=1;
-        	this.play('leftWalk');
-        }
-    }
-    
+	  if(this.npcFloor ==1){
+	    if(this.x <= this.buildLeftX){
+	      this.direction = 'right';
+	    }
+	    else if(this.x >= (this.buildRightX-this.width)){
+	      this.direction = 'left';
+	    }
+	    if(this.direction == 'right' && this.x < (this.buildRightX-this.width))
+	    {
+	      this.x+=2;
+	      this.play('rightWalk');
+	    }
+	    else if(this.direction == 'left' && this.x > this.buildLeftX ){
+	      this.x-=2;
+	      this.play('leftWalk');
+	    }
+	  }
+	  if(this.npcFloor>1){
+	      game.physics.arcade.collide(this,GameState.buildingTopGroup,function(main,test){
+	        if(main.npcLeftEnd == 0){
+	        	main.npcLeftEnd = test.x;
+	        }
+	        if(main.npcRightEnd == game.world.width){
+	        	main.npcRightEnd = test.x+test.width-main.width+1;
+	        }
+	        if((test.x <= main.npcLeftEnd)){
+	            //?대룞???섍쿋吏..
+	          	main.npcLeftEnd = test.x;
+	          }
+	           if ((test.x >= main.npcRightEnd)) {
+	          	main.npcRightEnd = (test.x)+(test.width)-main.width+1;
+	          }
+	        if(main.x <= main.npcLeftEnd){
+	          main.direction = 'right';
+	        }
+	        if(main.x >= main.npcRightEnd){
+	          main.direction = 'left';
+	        }
+	        
+	      });
+	      game.physics.arcade.collide(this,GameState.elevatorTopGroup,function(main,test){
+	          if(main.npcLeftEnd == 0){
+	          	main.npcLeftEnd = test.x;
+	          }
+	          if(main.npcRightEnd == game.world.width){
+	          	main.npcRightEnd = test.x+test.width-main.width+1;
+	          }
+	          if((test.x <= main.npcLeftEnd)){
+	              //?대룞???섍쿋吏..
+	            	main.npcLeftEnd = test.x;
+	            }
+	             if ((test.x >= main.npcRightEnd)) {
+	            	main.npcRightEnd = (test.x)+(test.width)-main.width+1;
+	            }
+	          if(main.x <= main.npcLeftEnd){
+	            main.direction = 'right';
+	          }
+	          if(main.x >= main.npcRightEnd){
+	            main.direction = 'left';
+	          }
+	         
+	        });
+	      if(this.direction == 'right' && this.x < this.npcRightEnd)
+	      {
+	        this.x+=2;
+	        this.play('rightWalk');
+	      }
+	      else if(this.direction == 'left' && this.x > this.npcLeftEnd){
+	        this.x-=2;
+	        this.play('leftWalk');
+	      }
+	  }
 }
 npcCharacter.prototype.out = function(){
 
@@ -216,7 +225,7 @@ var GameState = {
 		//shop
 		this.load.spritesheet('cafe','/kanemochi/resources/image/shop/complete/cafe.png',400,300);
 		this.load.spritesheet('bus', '/kanemochi/resources/image/shop/complete/bus.png', 600, 300);
-		this.load.spritesheet('bank', '/kanemochi/resources/image/shop/complete/bank.png', 600, 300);
+		this.load.spritesheet('bank', '/kanemochi/resources/image/shop/complete/bank.png', 400, 300);
 		this.load.spritesheet('movie', '/kanemochi/resources/image/shop/complete/movie.png', 600, 300);
 		this.load.spritesheet('hospital', '/kanemochi/resources/image/shop/complete/hospital.png', 600, 300);
 		this.load.spritesheet('beer', '/kanemochi/resources/image/shop/complete/beer.png', 400, 300);
@@ -711,7 +720,7 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    			      game.physics.arcade.enable(leftWallTop);
 		    			      leftWallTop.body.allowGravity = false;
 		    			      leftWallTop.body.immovable = true;
-		    			      leftWallTop.tint = 0xff0000;
+		    			      leftWallTop.tint = 0xffff00;
 		    			      GameState.buildingTopGroup.add(leftWallTop);
 		    			 }
 	    				}
