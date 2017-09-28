@@ -49,7 +49,6 @@ function getToday() {
 		}
 }
 
-
 </script>
 </head>
 <body>
