@@ -209,6 +209,7 @@ public class RecordController {
 				break;
 
 			default:
+				price_others += recordVO.getRecord_price();
 				break;
 			}
 		}

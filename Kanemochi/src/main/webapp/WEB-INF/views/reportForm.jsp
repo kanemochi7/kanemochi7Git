@@ -95,7 +95,7 @@ td, tr {
     -moz-border-radius:12px;
 } */
 
-#first{
+#first,#second{
 	font-weight: bold;
 	background-color: #FDF7F7;	
 }
@@ -111,6 +111,7 @@ td, tr {
 #menu3{
 	position: absolute;
 	top: 200px;
+	width: 100%;
 }
 
 /* #listTable>tbody{
@@ -122,7 +123,7 @@ td, tr {
 	text-align: center;
 }
 
-.table.table-striped.table-hover,#container>h4{
+.table.table-striped.table-hover{
 	
         text-align: center;
         background-color: rgba( 255, 255, 255, 0.0);
@@ -130,8 +131,14 @@ td, tr {
 
 .table.table-striped.table-hover{
 	font-size: 20px;
-} 
+}
 
+.alert.alert-dismissible.alert-success{
+	background-color: #FAE97B;
+	color:#FF8868;
+	text-align: center;
+	font-weight: bold;
+}
 
 </style>
 <script>
@@ -161,8 +168,6 @@ $(document).ready(function() {
 		var i = 0;
 		if( $("everylist").empty()){
 			var addrow = "<tbody>";
-			addrow += '<tr><td><h4>家計簿<h4></td></tr>';
-			addrow += '<tr><td><button id="btnExport2" class="btn btn-warning" type="button">Export</button><td><tr>';
 			addrow += '<tr id="first"><td>日付</td><td>カテゴリー</td><td>価格</td><td>支払方法</td></tr>';
 			$(everylist).each(function (index,item) {
 				addrow += "<tr class='"+arr[i]+"''>";
@@ -180,15 +185,22 @@ $(document).ready(function() {
 				}
 			});
 			var addrow = "<tbody>";
-			addrow += '<tr><td><h4>分析リスト<h4></td></tr>';
-			addrow += '<tr><td><button id="btnExport3" class="btn btn-warning" type="button">Export</button><td><tr>';
-			addrow += '<tr class="success">';
-			addrow += '<td><h3>今まで平均予算：</h3></td>';
+			addrow += '<tr id="second">';
+			addrow += '<td><h4>今まで平均予算：</h4></td>';
 			addrow += '<td>¥'+avgBudget+'</td><tr>';
-			addrow += '<tr><td><h3>平均使用金額: </h3></td>';
-			addrow += '<td>¥'+avgCost+'</td></tr>';
-			addrow += "</tbody>";
+			addrow += '<tr class="info"><td><h4>平均使用金額: </h4></td>';
+			addrow += '<td>¥'+avgCost+'</td></tr></tbody>';
 			$("#allAnalyzeList").append(addrow);
+			var addrow2 = '<tbody><tr class="info"><td>食べ物: ¥'+${price_food}+'</td>';
+			addrow2 += '<tr><td>文化生活: ¥'+${price_culture}+'</td></tr>'
+			addrow2 += '<tr class="info"><td>ファッション: ¥'+${price_fashion}+'</td></tr>'
+			addrow2 += '<tr><td>医慮: ¥'+${price_itai}+'</td></tr>'
+			addrow2 += '<tr class="info"><td>教育: ¥'+${price_study}+'</td></tr>'
+			addrow2 += '<tr><td>交通: ¥'+${price_transportation}+'</td></tr>'
+			addrow2 += '<tr class="info"><td>貯金: ¥'+${price_bank}+'</td></tr>'
+			addrow2 += '<tr><td>その他: ¥'+${price_others}+'</td></tr>'
+			addrow2 += "</tbody>";
+			$("#categoryList").append(addrow2);
 		}else{
 			var addrow = '<h1 id="empty">記録がありません</h1>';
 			$("#menu3").append(addrow);
@@ -205,13 +217,20 @@ $(document).ready(function() {
                , datatype: 'table'
             });
         });
+        $("#btnExport4").click(function () {
+        	$("#categoryList").excelexportjs({
+                containerid: "categoryList"
+               , datatype: 'table'
+            });
+        });
+        
 	}
 	
 	function makeTable(list) {
 		$("#listTable").empty();
 		var addrow = "<tbody>";
-		addrow += '<tr><td><h4>レポート<h4></td></tr>';
-		addrow += '<tr><td><button id="btnExport" class="btn btn-warning" type="button">Export</button><td><tr>';
+		addrow += '<tr style="background-color: rgba( 255, 255, 255, 0.0);"><td style="background-color: rgba( 255, 255, 255, 0.0);"><h3>レポート<h3></td></tr>';
+		addrow += '<tr style="background-color: rgba( 255, 255, 255, 0.0);"><td style="background-color: rgba( 255, 255, 255, 0.0);"><button id="btnExport" class="btn btn-warning" type="button">Export</button><td><tr>';
 		addrow += '<tr id="first"><td>日付</td><td>カテゴリー</td><td>価格</td><td>支払方法</td></tr>';
 		var arr = ["info","success","danger","warning","acive"];
 		var i = 0;
@@ -456,7 +475,7 @@ google.charts.setOnLoadCallback(drawChart);
     <div id="home" class="tab-pane fade in active">
       	<div id="calendar" style="float:left;"></div>
       	<div id="recordWrapper" style="float:right;">
-      		<table id="listTable" class="table table-striped table-hover "></table>
+      		<table id="listTable" class="table table-striped table-hover " style="background-color: rgba( 255, 255, 255, 0.0);"></table>
       	</div>
     </div>
     <div id="menu1" class="tab-pane fade">
@@ -473,8 +492,21 @@ google.charts.setOnLoadCallback(drawChart);
     
     <div id="menu3" class="tab-pane fade">
     	<!-- <input class="input"> -->
-    	<table id="everyList" class="table table-striped table-hover "></table>
-    	<table id="allAnalyzeList" class="table table-striped table-hover "></table>
+    	<div style="margin-right:50px;float:left;">
+	    	<h3 class="alert alert-dismissible alert-success">[家計簿]</h3>
+	    	<button id="btnExport2" class="btn btn-warning" type="button">Export</button>
+	    	<table id="everyList" class="table table-striped table-hover "></table>
+    	</div>
+    	<div style="float:left;margin-right:50px;">
+	    	<h3 class="alert alert-dismissible alert-success">[分析リスト]</h3>
+	    	<button id="btnExport3" class="btn btn-warning" type="button">Export</button>
+	    	<table id="allAnalyzeList" class="table table-striped table-hover "></table>
+    	</div>
+    	<div style="float:left;">
+	    	<h3 class="alert alert-dismissible alert-success">[カテゴリ別金額]</h3>
+	    	<button id="btnExport4" class="btn btn-warning" type="button">Export</button>
+	    	<table id="categoryList" class="table table-striped table-hover "></table>
+    	</div>
     </div>
   </div>
 </div>
