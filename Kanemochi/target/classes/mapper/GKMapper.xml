@@ -24,4 +24,11 @@
 		order by record_date
 	</select>
 	
+	<select id="getChartInfo" parameterType="map" resultType="RecordVO">
+		select TO_CHAR(record_date,'YYYY-MM')record_date,category,record_price
+		from record
+		where user_id = #{id} 
+		and TO_CHAR(record_date,'YYYY-MM') = #{date}
+	</select>
+	
 </mapper>

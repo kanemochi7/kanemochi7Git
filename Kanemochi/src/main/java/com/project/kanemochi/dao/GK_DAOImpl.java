@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -44,6 +46,16 @@ public class GK_DAOImpl implements GK_DAO {
 		map.put("id", id);
 		map.put("month", searchMonth);
 		return mapper.getMonthRecord(map);
+	}
+
+	@Override
+	public ArrayList<RecordVO> getChartInfo(String date,String id) {
+		GKMapper mapper = sqlsession.getMapper(GKMapper.class);
+		Map<String, String> map = new HashMap<>();
+		System.out.println(date);
+		map.put("id", id);
+		map.put("date", date.substring(0,7));
+		return mapper.getChartInfo(map);
 	}
 
 	

@@ -11,4 +11,5 @@ public interface GKMapper {
 	public ArrayList<RecordVO> getRecord(String id);
 	public ArrayList<RecordVO> getDayRecord(Map<String, String> map);
 	public ArrayList<RecordVO> getMonthRecord(Map<String, String> map);
+	public ArrayList<RecordVO> getChartInfo(Map<String, String> map);
 }

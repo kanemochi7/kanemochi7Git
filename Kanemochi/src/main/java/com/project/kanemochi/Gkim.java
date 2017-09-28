@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.project.kanemochi.dao.GK_DAO;
 import com.project.kanemochi.vo.RecordVO;
 
+import net.sf.json.JSONArray;
+
 @Controller
 public class Gkim {
 	
@@ -109,6 +111,54 @@ public class Gkim {
 		}
 		ArrayList<RecordVO> monthRecord = dao.getMonthRecord(id,searchMonth);
 		return monthRecord;
+	}
+	
+	@RequestMapping(value = "getChartInfo1", method = RequestMethod.POST)
+	@ResponseBody
+	public ArrayList<RecordVO> getChartInfo1(String date1,HttpSession session){
+		String id = (String) session.getAttribute("loginID");
+		ArrayList<RecordVO> list_1= dao.getChartInfo(date1,id);
+		return list_1;
+	}
+	
+	@RequestMapping(value = "getChartInfo2", method = RequestMethod.POST)
+	@ResponseBody
+	public ArrayList<RecordVO> getChartInfo2(String date2,HttpSession session){
+		String id = (String) session.getAttribute("loginID");
+		ArrayList<RecordVO> list_2= dao.getChartInfo(date2,id);
+		return list_2;
+	}
+	
+	private String categoryFinder(String category){
+		String result = null;
+		switch (category) {
+		case "burger": case "ramen": case "sushi": case "cafe":
+		case "dessert": case "beer": case "cvs":
+			result = "食べ物"; 
+			break;
+		case "movie":
+			result = "文化生活";
+			break;
+		case "clothes": case "hair":
+			result = "ファッション";
+			break;
+		case "hospital": 
+			result = "医慮";
+			break;
+		case "book":
+			result = "教育";
+			break;
+		case "bus":
+			result = "交通";
+			break;
+		case "bank":
+			result = "貯金";
+			break;
+		default:
+			result = "その他";
+			break;
+		}
+		return result;
 	}
 
 }
