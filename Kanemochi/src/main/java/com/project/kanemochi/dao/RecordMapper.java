@@ -15,14 +15,14 @@ public interface RecordMapper {
 	public void upcount(RecordVO vo);
 	public void downcount(CountOneVO vo);
 	public int getcount(CountOneVO vo);
-	public CountVO getAllCount(String id);
-	
+	public CountVO getAllCount(String id);	
 	public void setbudget(BudgetVO vo);
-	public BudgetVO getbudget(String id);
-	
+	public BudgetVO getbudget(String id);	
 	public void setStatus(ShopVO vo);
 	public ArrayList<ShopVO> getStatus(String id);
 	public SumVO getExpense(String id);
 	public ArrayList<RecordVO> getEveryRecord(String id);
 	public boolean deleteStatus(ShopVO vo);
+	public ArrayList<BudgetVO> budgetList(String id);
+	public int avgCost(String id);
 }

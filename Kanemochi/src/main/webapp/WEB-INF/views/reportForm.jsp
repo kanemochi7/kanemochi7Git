@@ -20,8 +20,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script> -->
 <style type="text/css">
-
-
 body {
 	margin: 40px 10px;
 	padding: 0;
@@ -119,6 +117,21 @@ td, tr {
 	background-color: rgba( 255, 255, 255, 0.25);
 } */
 
+#empty{
+	margin: 0 auto;
+	text-align: center;
+}
+
+.table.table-striped.table-hover,#container>h4{
+	
+        text-align: center;
+        background-color: rgba( 255, 255, 255, 0.0);
+}
+
+.table.table-striped.table-hover{
+	font-size: 20px;
+} 
+
 
 </style>
 <script>
@@ -141,28 +154,57 @@ $(document).ready(function() {
 });
 
 	function initTable() {
-		var list = ${everyList};
+		var everylist = ${everyList};
+		var avgBudget = ${avgBudget};
+		var avgCost = ${avgCost};
 		var arr = ["info","success","danger","warning","acive"];
 		var i = 0;
-		var addrow = "<tbody>";
-		addrow += '<tr><td><h4>レポート<h4></td></tr>';
-		addrow += '<tr><td><button id="btnExport" class="btn btn-warning" type="button">Export</button><td><tr>';
-		addrow += '<tr id="first"><td>日付</td><td>カテゴリー</td><td>価格</td><td>支払方法</td></tr>';
-		$(list).each(function (index,item) {
-			addrow += "<tr class='"+arr[i]+"''>";
-			addrow += '<td>'+item.record_date+'</td>';
-			addrow += '<td>'+item.category+'</td>';
-			addrow += '<td>¥'+item.record_price+'</td>';
-			addrow += '<td>'+item.record_pay+'</td></tr>';
-			if(Object.keys(list).length==index+1){
-				addrow += "</tbody>";
-				$("#everyList").append(addrow);
-			}
-			i++;
-			if(i==4){
-				i=0;
-			}
-		});
+		if( $("everylist").empty()){
+			var addrow = "<tbody>";
+			addrow += '<tr><td><h4>家計簿<h4></td></tr>';
+			addrow += '<tr><td><button id="btnExport2" class="btn btn-warning" type="button">Export</button><td><tr>';
+			addrow += '<tr id="first"><td>日付</td><td>カテゴリー</td><td>価格</td><td>支払方法</td></tr>';
+			$(everylist).each(function (index,item) {
+				addrow += "<tr class='"+arr[i]+"''>";
+				addrow += '<td>'+item.record_date+'</td>';
+				addrow += '<td>'+item.category+'</td>';
+				addrow += '<td>¥'+item.record_price+'</td>';
+				addrow += '<td>'+item.record_pay+'</td></tr>';
+				if(Object.keys(everylist).length==index+1){
+					addrow += "</tbody>";
+					$("#everyList").append(addrow);
+				}
+				i++;
+				if(i==4){
+					i=0;
+				}
+			});
+			var addrow = "<tbody>";
+			addrow += '<tr><td><h4>分析リスト<h4></td></tr>';
+			addrow += '<tr><td><button id="btnExport3" class="btn btn-warning" type="button">Export</button><td><tr>';
+			addrow += '<tr class="success">';
+			addrow += '<td><h3>今まで平均予算：</h3></td>';
+			addrow += '<td>¥'+avgBudget+'</td><tr>';
+			addrow += '<tr><td><h3>平均使用金額: </h3></td>';
+			addrow += '<td>¥'+avgCost+'</td></tr>';
+			addrow += "</tbody>";
+			$("#allAnalyzeList").append(addrow);
+		}else{
+			var addrow = '<h1 id="empty">記録がありません</h1>';
+			$("#menu3").append(addrow);
+		}
+		$("#btnExport2").click(function () {
+            $("#everyList").excelexportjs({
+                containerid: "everyList"
+               , datatype: 'table'
+            });
+        });
+        $("#btnExport3").click(function () {
+            $("#allAnalyzeList").excelexportjs({
+                containerid: "allAnalyzeList"
+               , datatype: 'table'
+            });
+        });
 	}
 	
 	function makeTable(list) {
@@ -420,9 +462,7 @@ google.charts.setOnLoadCallback(drawChart);
     <div id="menu1" class="tab-pane fade">
       <h1>[Report]</h1>
       <hr/>
-
-	  <br>
-	  
+      <br>
 	  <jsp:include page="includeChart.jsp"></jsp:include>
 	 
 	  
@@ -434,6 +474,7 @@ google.charts.setOnLoadCallback(drawChart);
     <div id="menu3" class="tab-pane fade">
     	<!-- <input class="input"> -->
     	<table id="everyList" class="table table-striped table-hover "></table>
+    	<table id="allAnalyzeList" class="table table-striped table-hover "></table>
     </div>
   </div>
 </div>

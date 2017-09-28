@@ -22,4 +22,6 @@ public interface RecordDAO {
 	public int getExpense(String id);
 	public ArrayList<RecordVO> getEveryRecord(String id);
 	public boolean deleteStatus(ShopVO vo);
+	public ArrayList<BudgetVO> budgetList(String id);
+	public int avgCost(String id);
 }

@@ -174,9 +174,65 @@ public class RecordController {
 	@RequestMapping(value = "reportForm", method = RequestMethod.GET)
 	public String reportForm(Model model,HttpSession session) {
 		String id = (String)session.getAttribute("loginID");
-		ArrayList<RecordVO> list =dao.getEveryRecord(id);
+		ArrayList<RecordVO> recordList = dao.getEveryRecord(id);
+		int price_food = 0;
+		int price_culture = 0;
+		int price_fashion = 0;
+		int price_itai = 0;
+		int price_study = 0;
+		int price_transportation = 0;
+		int price_bank = 0;
+		int price_others = 0;
+		for (RecordVO recordVO : recordList) {
+			String category = categoryFinder(recordVO.getCategory());
+			switch (category) {
+			case "食べ物":
+				price_food += recordVO.getRecord_price();
+				break;
+			case "文化生活":
+				price_culture += recordVO.getRecord_price();
+				break;
+			case "ファッション":				
+				price_fashion += recordVO.getRecord_price();
+				break;
+			case "医慮":
+				price_itai += recordVO.getRecord_price();
+				break;
+			case "教育":	
+				price_study += recordVO.getRecord_price();
+				break;
+			case "交通":
+				price_transportation += recordVO.getRecord_price();
+				break;
+			case "貯金":
+				price_bank += recordVO.getRecord_price();
+				break;
+
+			default:
+				break;
+			}
+		}
+		
+		ArrayList<BudgetVO> budgetList = dao.budgetList(id);
+		int avgCost = dao.avgCost(id);
+		int budget = 0;
+		for (BudgetVO budgetVO : budgetList) {
+			budget += budgetVO.getMonthly();
+		}
+		budget = budget/budgetList.size();
+		
 		JSONArray jsonArray = new JSONArray();
-		model.addAttribute("everyList", jsonArray.fromObject(list));
+		model.addAttribute("everyList", jsonArray.fromObject(recordList));
+		model.addAttribute("avgBudget", budget);
+		model.addAttribute("avgCost", avgCost);
+		model.addAttribute("price_bank", price_bank);
+		model.addAttribute("price_culture", price_culture);
+		model.addAttribute("price_fashion", price_fashion);
+		model.addAttribute("price_food", price_food);
+		model.addAttribute("price_itai", price_itai);
+		model.addAttribute("price_others", price_others);
+		model.addAttribute("price_study", price_study);
+		model.addAttribute("price_transportation", price_transportation);
 		return "reportForm";
 	}
 	
@@ -200,5 +256,37 @@ public class RecordController {
 	public int getExpense(HttpSession session){
 		String id = (String)session.getAttribute("loginID");
 		return dao.getExpense(id);
+	}
+	
+	private String categoryFinder(String category){
+		String result = null;
+		switch (category) {
+		case "burger": case "ramen": case "sushi": case "cafe":
+		case "dessert": case "beer": case "cvs":
+			result = "食べ物"; 
+			break;
+		case "movie":
+			result = "文化生活";
+			break;
+		case "clothes": case "hair":
+			result = "ファッション";
+			break;
+		case "hospital": 
+			result = "医慮";
+			break;
+		case "book":
+			result = "教育";
+			break;
+		case "bus":
+			result = "交通";
+			break;
+		case "bank":
+			result = "貯金";
+			break;
+		default:
+			result = "その他";
+			break;
+		}
+		return result;
 	}
 }

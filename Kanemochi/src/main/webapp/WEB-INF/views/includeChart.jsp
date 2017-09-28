@@ -3,7 +3,6 @@
 <!DOCTYPE html PUBLIC>
 <html>
 <head>
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="/kanemochi/resources/js/print.js" ></script>
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
@@ -101,7 +100,6 @@ google.charts.setOnLoadCallback(drawChart);
 <title>Insert title here</title>
 </head>
 <body>
-<h1>TEST</h1>
 <button id="pdf">pdf</button>
 <hr/>
 <div id="JSFiddle">
@@ -120,8 +118,7 @@ google.charts.setOnLoadCallback(drawChart);
 					doc.save(inputString+'sample_file.pdf');
 				}
 			})
-		})
-      
+		})  
 
 </script>
 </html>

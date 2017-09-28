@@ -99,4 +99,18 @@ public class RecordDAOImpl implements RecordDAO {
 		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);
 		return mapper.getEveryRecord(id);
 	}
+
+	@Override
+	public ArrayList<BudgetVO> budgetList(String id) {
+		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);
+		return mapper.budgetList(id);
+	}
+
+	@Override
+	public int avgCost(String id) {
+		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);
+		return mapper.avgCost(id);
+	}
+
+	
 }
