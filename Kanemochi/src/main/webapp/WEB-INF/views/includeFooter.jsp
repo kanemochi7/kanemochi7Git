@@ -419,7 +419,12 @@ $(function() {
 	function numberWithCommas(x) {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
-	
+	//여기 지워라.
+	function buildExpUp(){
+		var tempexp = 100;
+		console.log("지나감");
+		upExp(tempexp);
+	}
 	function login_times() {
 		var exp = 0;
 		$.ajax({
@@ -471,6 +476,7 @@ $(function() {
 	}
 	
 	function upExp(exp) {
+		console.log(exp);
 		$.ajax({
 			url : '/kanemochi/exp/getExp',
 			method : 'get',

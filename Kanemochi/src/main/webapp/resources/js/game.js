@@ -1030,6 +1030,7 @@ function mouseUp(sprite,check,topCheck){
     //충돌안하면 설정하는 것들 / 투명도 복구 / 움직임, 드래그 방지 / 메인캐릭터를 제일 앞으로 오게 (건물에 가려지지않게)
     var tempSprite = stateBuilding(sprite.key,sprite.x,sprite.y);
     bd.play('bd_sound2');
+    buildExpUp();
     $.ajax({
         url : '/kanemochi/record/setStatus',
         method : 'post',
@@ -1037,6 +1038,7 @@ function mouseUp(sprite,check,topCheck){
                'img_y':tempSprite.y,
                'img_id':tempSprite.key},
         success: function(result) {
+        	 
         	console.log("성공");
         },
         error: function() {
