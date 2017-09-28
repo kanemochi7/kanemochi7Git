@@ -411,7 +411,9 @@ $(function() {
 			</table>
 		</fieldset>
 		<button type="button" class="btn btn-primary" id="joinBtn">　　次へ　　</button>
-		<button type="reset" class="btn btn-info">キャンセル</button>
+		<a href="/kanemochi/">
+			<button type="button" class="btn btn-info">キャンセル</button>
+		</a>
 	</form>
 	<!-- <a href="/kanemochi/member/characterSelect" class="btn btn-warning">characterSelect</a> -->
 	<input type="hidden" id="smt">
