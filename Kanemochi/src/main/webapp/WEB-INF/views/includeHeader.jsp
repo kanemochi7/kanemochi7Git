@@ -136,18 +136,13 @@ function getToday() {
 				<div class="divTableBody">
 					<div class="divTableRow">
 						<div class="divTableCell">game theme</div>
-						<div class="divTableCell"><img src="/kanemochi/resources/image/icon/music_minus.png"></div>
-						<div class="divTableCell"><img src="/kanemochi/resources/image/icon/music_plus.png"></div>
-					</div>
-					<div class="divTableRow">
-						<div class="divTableCell">sound effect</div>
-						<div class="divTableCell"><img src="/kanemochi/resources/image/icon/music_minus.png"></div>
-						<div class="divTableCell"><img src="/kanemochi/resources/image/icon/music_plus.png"></div>
+						<div class="divTableCell"><img src="/kanemochi/resources/image/icon/music_minus.png" id="mg_sound_minus"></div>
+						<div class="divTableCell"><img src="/kanemochi/resources/image/icon/music_plus.png" id="mg_sound_plus"></div>
 					</div>
 					<div class="divTableRow">
 						<div class="divTableCell"></div>
 						<div class="divTableCell">
-							<input type="button" id="" class="btn btn-primary click" value="closes" onclick="">
+							<input type="button" id="btn_setClose" class="btn btn-primary click" value="Close" >
 						</div>
 					</div>
 				</div>
@@ -159,6 +154,9 @@ function getToday() {
 var volume_form = document.getElementById("volume");
 var setting_b = document.getElementById("setting");
 var close_b = document.getElementById("close_volume");
+var btn_setClose = document.getElementById("btn_setClose");
+var mg_sound_minus = document.getElementById("mg_sound_minus");
+var mg_sound_plus = document.getElementById("mg_sound_plus");
 setting_b.onclick = function() {
 	volume_form.style.display = "block";
 	close_b.onclick = function() {
@@ -169,6 +167,26 @@ setting_b.onclick = function() {
 			volume_form.style.display = "none";
 		}
 	}
+	btn_setClose.onclick = function(){
+		volume_form.style.display = "none";
+	}
+	mg_sound_minus.onclick = function() {
+		main_music.volume -= 0.03;
+		console.log(main_music.volume);
+		if(main_music.volume < 0){
+			main_music.mute = true;
+			console.log(main_music.volume);
+		}
+	}
+	mg_sound_plus.onclick = function() {
+		main_music.volume += 0.03;
+		console.log(main_music.volume);
+		if(main_music.volume < 0){
+			main_music.mute = false;
+			console.log(main_music.volume);
+		}
+	}
+	
 };
 </script>
 </html>
