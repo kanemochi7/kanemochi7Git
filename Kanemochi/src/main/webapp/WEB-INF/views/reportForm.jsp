@@ -163,7 +163,7 @@ $(document).ready(function() {
 	     	 			setCalendar(data);
 	     			 }
 	});
-			
+	
 	initTable();
 });
 
