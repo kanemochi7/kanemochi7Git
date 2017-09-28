@@ -186,7 +186,7 @@ npcCharacter.prototype.down = function(){
 						  right2.animations.stop(null, true);  
 					  },1000);
 				  });
-		    },50);
+		    },100);
 		    setTimeout(function(){
 		    	 main.alpha = 1; 
 		    	 
@@ -195,7 +195,7 @@ npcCharacter.prototype.down = function(){
 					  main.y-=158;
 				  }
 					  
-			    },50);
+			    },100);
 		 
 		  var elevatorMove = right.animations.add('elevatorMove',[0,1,2,3,4,5,6],7,true);
 		  right.play('elevatorMove');
@@ -218,7 +218,7 @@ npcCharacter.prototype.up = function(){
 						  right2.animations.stop(null, true);  
 					  },1000);
 				  });
-		    },25);
+		    },100);
 		    setTimeout(function(){
 		    	 main.alpha = 1; 
 		    	 
@@ -227,7 +227,7 @@ npcCharacter.prototype.up = function(){
 					  main.y+=158;
 				  }
 					  
-			    },25);
+			    },100);
 		 
 		  var elevatorMove = right.animations.add('elevatorMove',[0,1,2,3,4,5,6],7,true);
 		  right.play('elevatorMove');
