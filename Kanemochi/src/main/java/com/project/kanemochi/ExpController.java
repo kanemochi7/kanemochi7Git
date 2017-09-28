@@ -74,5 +74,12 @@ public class ExpController {
 		}
 		return level_title;
 	}
+	
+	@RequestMapping(value = "getCharacter", method = RequestMethod.GET)
+	@ResponseBody
+	public String getCharacter(HttpSession session) {
+		String id = (String)session.getAttribute("loginID");
+		return dao.getCharacter(id);
+	}
 
 }

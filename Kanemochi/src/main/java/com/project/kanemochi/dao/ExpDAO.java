@@ -9,5 +9,6 @@ public interface ExpDAO {
 	public void upExp(ExpVO vo);
 	public int login_times(String id);
 	public void setNewLevel(MemberVO vo);
+	public String getCharacter(String id);
 	
 }

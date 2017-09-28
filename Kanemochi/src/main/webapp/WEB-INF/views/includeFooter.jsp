@@ -435,7 +435,10 @@ $(function() {
 				} else if (result == 45) {
 					alert("ログイン"+result+"回! ＋"+result*2+"px");
 					exp = result*2;
-				} else {
+				} else if (result == 50) {
+					
+					alert("!");
+					exp =200;
 					
 				}
 				upExp(exp);
@@ -473,7 +476,7 @@ $(function() {
 					level_title = 2;
 					
 					levelUpSound();
-					bg = 'bg_level2';
+					GameState.background = GameState.game.add.sprite(0,0,'bg_level2');
 					userCharacterBehavior(userCharacter,'levelUP');
 				
 				} else if (pre_point < 700 && post_point >= 700) {
@@ -481,7 +484,7 @@ $(function() {
 					level_title = 3;
 					
 					levelUpSound();
-					bg = 'bg_level3';
+					GameState.background = GameState.game.add.sprite(0,0,'bg_level3');
 					userCharacterBehavior(userCharacter,'levelUP');
 					
 				} else if (pre_point < 1240 && post_point >= 1240) {

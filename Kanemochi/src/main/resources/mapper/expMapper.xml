@@ -9,6 +9,12 @@
 		from users
 		where user_id = #{id}
 	</select>
+	
+	<select id="getCharacter" parameterType="String" resultType="String">
+		select img_id
+		from users
+		where user_id = #{id}
+	</select>
 
 	<update id="upExp" parameterType="ExpVO">
 		update users

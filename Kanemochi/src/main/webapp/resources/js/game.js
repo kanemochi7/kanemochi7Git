@@ -211,8 +211,8 @@ var mg;
 var main_music;
 //var deleteMode = false;
 var GameState = {
-  preload:function(){
-	//이미지 호출
+		  preload:function(){
+			//이미지 호출
 		//shop
 		this.load.spritesheet('cafe','/kanemochi/resources/image/shop/complete/cafe.png',400,300);
 		this.load.spritesheet('bus', '/kanemochi/resources/image/shop/complete/bus.png', 600, 300);
@@ -230,17 +230,17 @@ var GameState = {
 		this.load.spritesheet('burger','/kanemochi/resources/image/shop/complete/burger.png',400,300);
 		this.load.spritesheet('elevator', '/kanemochi/resources/image/shop/complete/elevator.png',400, 300);
 		
-		this.load.image('background', '/kanemochi/resources/image/bg/Desert.png');
+//				this.load.image('background', '/kanemochi/resources/image/bg/Desert.png');
 		this.load.spritesheet('ground','/kanemochi/resources/image/bg/ground.png');
 	    
 	    this.load.spritesheet('buildingTopLong','/kanemochi/resources/image/bg/buildingTop.png',600,30);
 	    this.load.spritesheet('canBuildingTop','/kanemochi/resources/image/bg/buildingTop.png',1400,30);
 	    this.load.spritesheet('buildingTopShort','/kanemochi/resources/image/bg/buildingTop.png',400,30);
 	    this.load.spritesheet('buildingTopCheck','/kanemochi/resources/image/bg/buildingTop.png',400,30);
-//	    this.load.spritesheet('canBuildingWall','/kanemochi/resources/image/bg/wall4_2.png',1600,300);
+//			    this.load.spritesheet('canBuildingWall','/kanemochi/resources/image/bg/wall4_2.png',1600,300);
 	    this.load.spritesheet('canBuildingWall','/kanemochi/resources/image/bg/wall3_2.png',1600,300);
 	    this.load.spritesheet('buildingWall','/kanemochi/resources/image/bg/wall2.png',400,300);
-//	    this.load.spritesheet('buildingWall','/kanemochi/resources/image/bg/wall2.png',400,300);
+//			    this.load.spritesheet('buildingWall','/kanemochi/resources/image/bg/wall2.png',400,300);
 	        
 	    this.load.spritesheet('delete_button','/kanemochi/resources/image/button/delete_button.png',80,60);
 	    this.load.spritesheet('onlySpeech','/kanemochi/resources/image/speech/speech_bubble2.png');
@@ -307,7 +307,38 @@ var GameState = {
 
 //hong 2017-09-28 02:28
 //this.background = this.game.add.sprite(0,0,'background');
-  var bg = "bg_level1";
+  var bg = "";
+  $.ajax({
+	  	url : '/kanemochi/exp/getExp',
+	  	method : 'get',
+	  	async:false,
+	  	success: function(result) {
+	  		console.log("result:"+result);
+	  		if (result < 300) {
+	  			bg="bg_level1";
+			} else if (result < 700) {
+				bg="bg_level2";
+			} else if (result < 1240) {
+				bg="bg_level3";
+			} else if (result < 2000) {
+				bg="bg_level4";
+			} else if (result < 3120) {
+				bg="bg_level5";
+			} else if (result < 4620) {
+				bg="bg_level6";
+			} else if (result < 6600) {
+				bg="bg_level7";
+			} else if (result < 9000) {
+				bg="bg_level8";
+			} else if (result < 12000) {
+				bg="bg_level9";
+			} else if (result > 12000) {
+				bg="bg_level10";
+			}
+	  	},
+	  	error: function() {
+	  	}
+	  });
   this.background = this.game.add.sprite(0,0,bg);  
 //hong
   

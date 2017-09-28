@@ -37,5 +37,10 @@ public class ExpDAOImpl implements ExpDAO {
 		ExpMapper mapper = sqlsession.getMapper(ExpMapper.class);
 		mapper.setNewLevel(vo);
 	}
-
+	
+	@Override
+	public String getCharacter(String id) {
+		ExpMapper mapper = sqlsession.getMapper(ExpMapper.class);
+		return mapper.getCharacter(id);
+	}
 }
