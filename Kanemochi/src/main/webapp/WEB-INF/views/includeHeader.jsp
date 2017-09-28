@@ -40,8 +40,13 @@ function getToday() {
 		document.getElementById("today_month").innerHTML = month;
 		document.getElementById("today_day").innerHTML = day;
 		document.getElementById("today_weekday").innerHTML = weekday;
-		document.getElementById("today_year_budget").innerHTML = year;
-		document.getElementById("today_month_budget").innerHTML = month;
+		
+		var innerYear = document.getElementById("today_year_budget").innerHTML;
+		var innerMonth = document.getElementById("today_month_budget").innerHTML
+		if (innerYear != null) {
+			innerYear = year;
+			innerMonth = month;
+		}
 }
 
 
