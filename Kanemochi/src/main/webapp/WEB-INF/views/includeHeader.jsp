@@ -84,7 +84,7 @@ function getToday() {
 	</p>
 	<%-- </c:if> --%>
 	
-	<!-- Modal_budget -->
+	<!-- Modal_volume -->
 	<div id="volume" class="modal">
 		<div class="modal-content">
 			<span class="close" id="close_volume">&times;</span>
@@ -104,7 +104,7 @@ function getToday() {
 					<div class="divTableRow">
 						<div class="divTableCell"></div>
 						<div class="divTableCell">
-							<input type="button" id="btn_setbudget" class="btn btn-primary click" value="closes" onclick="setbudget()">
+							<input type="button" id="" class="btn btn-primary click" value="closes" onclick="">
 						</div>
 					</div>
 				</div>
