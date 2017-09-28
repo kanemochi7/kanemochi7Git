@@ -433,7 +433,7 @@ $(function() {
 				game.capture.screenshot(function(dataUrl) {
 					var canvas = document.getElementById('canvas');
 					console.log(canvas);
-			        // Outputs a data-url of the image (default image/png).
+			        // Outputs a data-url of the image (default image/png)
 	//	 	        console.log(dataUrl);
 			        console.log("gameCapture function is running.....");
 			        drawDataURIOnCanvas(dataUrl,canvas);

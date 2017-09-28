@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <title>album</title>
 <link rel="icon" href="/kanemochi/resources/image/favicon.png">
-<link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 
 <script src="/kanemochi/resources/js/html2canvas.js"></script>
@@ -19,6 +18,14 @@
 <style type="text/css">
 
 /*폰트 설정해보기   */
+@font-face{ 
+	font-family:'PixelMplus12'; 
+	src: url('/kanemochi/resources/fonts/PixelMplus12-Regular.ttf') format('truetype');
+}
+a, img{
+	text-decoration:none;
+	border: 0;
+}
 body {
 	margin: 50px ;
 	text-align: center;
@@ -26,6 +33,7 @@ body {
 	background-image:url(/kanemochi/resources/image/bg/pinkSky2.png);
 	background-repeat: repeat-x;
 	color: black;
+	font-family:'PixelMplus12'; 
 }
 table {
 	margin: auto;
@@ -70,15 +78,73 @@ element.style {
 }
 .modal-content{
 	position: relative;
+	width: 900px;
 	/* left: 45%; */
-	background-color:#fff5c3;
-	background-image:url(/kanemochi/resources/image/bg/pinkSky2.png);
+	/* background-color:#fff5c3; */
+	/* background-image:url(/kanemochi/resources/image/bg/pinkSky2.png); */
 	background-repeat: repeat-x;
 	background-color: rgba(255,255,255,0.1);
 }
-.modal-header{
-	width: 800px;
+.btn{
+display:inline-block;margin-bottom:0;font-weight:normal;text-align:center;vertical-align:middle;-ms-touch-action:manipulation;touch-action:manipulation;cursor:pointer;background-image:none;border:1pxsolidtransparent;white-space:nowrap;padding:10px15px;font-size:15px;line-height:1.42857143;border-radius:4px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none
+}.btn:focus,.btn:active:focus,.btn.active:focus,.btn.focus,.btn:active.focus,.btn.active.focus{
+outline:5pxauto-webkit-focus-ring-color;outline-offset:-2px
+}.btn:hover,.btn:focus,.btn.focus{
+color:#ffffff;text-decoration:none
+}.btn:active,.btn.active{
+outline:0;background-image:none;-webkit-box-shadow:inset03px5pxrgba(0,0,0,0.125);box-shadow:inset03px5pxrgba(0,0,0,0.125)
+}.btn.disabled,.btn[disabled],fieldset[disabled].btn{
+cursor:not-allowed;opacity:0.65;filter:alpha(opacity=65);-webkit-box-shadow:none;box-shadow:none
 }
+a.btn.disabled,fieldset[disabled]a.btn{
+pointer-events:none
+}.btn-
+default{
+color:#ffffff;background-color:#464545;border-color:#464545
+}.btn-
+default:focus,.btn-
+default.focus{
+color:#ffffff;background-color:#2c2c2c;border-color:#060606
+}.btn-
+default:hover{
+color:#ffffff;background-color:#2c2c2c;border-color:#272727
+}.btn-
+default:active,.btn-
+default.active,.open>.dropdown-toggle.btn-
+default{
+color:#ffffff;background-color:#2c2c2c;border-color:#272727
+}.btn-
+default:active:hover,.btn-
+default.active:hover,.open>.dropdown-toggle.btn-
+default:hover,.btn-
+default:active:focus,.btn-
+default.active:focus,.open>.dropdown-toggle.btn-
+default:focus,.btn-
+default:active.focus,.btn-
+default.active.focus,.open>.dropdown-toggle.btn-
+default.focus{
+color:#ffffff;background-color:#1a1a1a;border-color:#060606
+}.btn-
+default:active,.btn-
+default.active,.open>.dropdown-toggle.btn-
+default{
+background-image:none
+}.btn-
+default.disabled:hover,.btn-
+default[disabled]:hover,fieldset[disabled].btn-
+default:hover,.btn-
+default.disabled:focus,.btn-
+default[disabled]:focus,fieldset[disabled].btn-
+default:focus,.btn-
+default.disabled.focus,.btn-
+default[disabled].focus,fieldset[disabled].btn-
+default.focus{
+background-color:#464545;border-color:#464545
+}.btn-
+default.badge{
+color:#464545;background-color:#ffffff
+}
+
 </style>
 </head>
 
@@ -137,52 +203,21 @@ element.style {
 		    <div class="modal-dialog modal-lg">
 		      <div class="modal-content">
 		        <div class="modal-header">
-		          <button type="button" class="close" data-dismiss="modal">&times;</button>
-		          <h4 class="modal-title">Album</h4>
+		          <button type="button" class="close btn btn-default" data-dismiss="modal">&times;</button>
+		          <h1 class="modal-title">Album</h1>
 		        </div>
 		        <div class="modal-body modal-lg">
 		          <canvas id="canvas" width="600" height="400"></canvas> <!-- 캔버스 크기 -->
 		        </div>
 		        <div class="modal-footer modal-lg">
-		         <button type="button" class="btn btn-warning">delete</button>
-		          <button type="button" class="btn btn-info" onclick="fbShare()">facebookShare</button>
-		          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="deleteScreenshot()">Close</button>
+		         <!-- <button type="button" class="btn btn-warning">delete</button> -->
+		          <button type="button" class="btn btn-default" onclick="fbShare()" style ="font-family:PixelMplus12">facebookShare</button>
+		          <button type="button" class="btn btn-default" data-dismiss="modal" style ="font-family:PixelMplus12" onclick="deleteScreenshot()">Close</button>
 		        </div>
 		      </div>
 		    </div>
 		  </div> 
-		  
-	<!-- 	  
-		  Trigger the Modal
-		<img id="myImg" src="img_fjords.jpg">
-		
-		The Modal
-		<div id="myModal" class="modal">
-		
-		  The Close Button
-		  <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
-		
-		  Modal Content (The Image)
-		  <img class="modal-content" id="img01">
-		
-		  Modal Caption (Image Text)
-		  <div id="caption"></div>
-		</div> -->
-	
-	
-<!-- 	<a type="button" href="/kanemochi/member/loginForm" class="btn btn-warning">home</a><br> -->
-	
-<!-- 	<!-- paging 
-		<ul class="pagination">
-		  <li class="disabled"><a href="#">&laquo;</a></li>
-		  <li class="active"><a href="#">1</a></li>
-		  <li><a href="#">2</a></li>
-		  <li><a href="#">3</a></li>
-		  <li><a href="#">4</a></li>
-		  <li><a href="#">5</a></li>
-		  <li><a href="#">&raquo;</a></li>
-		</ul>
-		<br> -->
+
 	<img src="/kanemochi/resources/image/dog.gif" class="rounded float-left" alt="left-img" id="dog">
 	
 	<script>
@@ -215,8 +250,8 @@ element.style {
 			console.log(imgUrl);
 			//var imgUrl = "/kanemochi/resources/image/screenshot/one.png";
 			var canvas = document.createElement("canvas");
-			canvas.width = 800;
-			canvas.height = 500;
+			canvas.width = 600;
+			canvas.height = 400;
 			var context = canvas.getContext("2d");
 			var img = new Image();
 			img.src = imgUrl;
@@ -238,7 +273,8 @@ element.style {
 			}
 			var fd = new FormData();
 			fd.append("source", blob);
-			fd.append("message", "Photo Text");
+			var msg = prompt("title:");
+			fd.append("message", msg);
 			FB.login(function() {
 				var auth = FB.getAuthResponse();
 				console.log(auth.userID);

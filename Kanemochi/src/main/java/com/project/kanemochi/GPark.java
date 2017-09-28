@@ -57,7 +57,7 @@ public class GPark {
 		String user_id = (String) session.getAttribute("loginID");
 		ArrayList<ScreenshotVO> scList = dao.printScreenshotAll(user_id);
 		model.addAttribute("scList", scList);
-		return "album";
+		return "album3";
 	}
 	
 /*	@RequestMapping(value = "/member/album", method = RequestMethod.GET)
