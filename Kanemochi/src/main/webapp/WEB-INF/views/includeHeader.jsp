@@ -40,7 +40,6 @@ function getToday() {
 		document.getElementById("today_month").innerHTML = month;
 		document.getElementById("today_day").innerHTML = day;
 		document.getElementById("today_weekday").innerHTML = weekday;
-
 }
 
 </script>
