@@ -118,6 +118,7 @@ div.blueTable {
 var user_level = "1";
 
 $(function() {
+	getToday();
 	datepicker();
 	login_times(); //로그인횟수 체크 -> upExp -> 초기프로그레스바 설정 -> 광역 변수에 레벨 정보 저장
 	setModal_budget();
@@ -138,6 +139,20 @@ $(function() {
 			autoclose: true,
 			todayHighlight: true
 		});
+	}
+	
+	function getToday() {
+		var date = new Date();
+		var year = date.getFullYear();
+		var month = (1 + date.getMonth());
+			month = month >= 10 ? month : '0' + month;
+		var day = date.getDate();
+			day = day >= 10 ? day : '0' + day;
+		var week = new Array("日","月","火","水","木","金","土");
+			weekday = week[date.getDay()];
+			
+			document.getElementById("today_year_budget").innerHTML = year;
+			document.getElementById("today_month_budget").innerHTML = month
 	}
 	
 	function input() {
