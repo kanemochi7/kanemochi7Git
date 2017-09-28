@@ -36,7 +36,7 @@ function drawChart() {
 		}
 	};
 
-	var chart = new google.visualization.BubbleChart(document.getElementById('noAura'));
+	var chart = new google.visualization.BubbleChart(document.getElementById('bubbleChart'));
 
 	chart.draw(data, options);
 }
@@ -69,10 +69,10 @@ $(function() {
 <body>
 <div>
 	<form>
-	<div class="sub-div">
+	<!-- <div class="sub-div">
 		<input type="text" id="start_date" name="start_date" placeholder="start date">
 		<input type="text" id="end_date" name="end_date" placeholder="end date">
-	</div>
+	</div> -->
 	<div class="sub-div">
 		<select class="select" id="select-category" name="select-category" onchange="">
 			<option>カテゴリ選択</option>
@@ -87,6 +87,6 @@ $(function() {
 	</div>
 	</form>
 </div>
-<div id="noAura" style="width: 900px; height: 500px;"></div>
+<!-- <div id="bubbleChart" style="width: 900px; height: 500px;"></div> -->
 </body>
 </html>

@@ -480,7 +480,7 @@ google.charts.setOnLoadCallback(drawChart);
       		<table id="listTable" class="table table-striped table-hover " style="background-color: rgba( 255, 255, 255, 0.0);"></table>
       	</div>
     </div>
-    <div id="menu1" class="tab-pane fade" style="position:absolute;">
+    <div id="menu1" class="tab-pane fade">
 	<h1>[Report]</h1>
 	<hr/><br>
 	  <jsp:include page="includeChart.jsp"></jsp:include>
