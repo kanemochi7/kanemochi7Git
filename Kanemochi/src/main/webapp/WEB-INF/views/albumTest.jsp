@@ -95,7 +95,6 @@ element.style {
         <div class="modal-footer">
          <button type="button" class="btn btn-warning">delete</button>
           <button type="button" class="btn btn-info" onclick="fbShare()">facebookShare</button>
-          <!-- <a type="button" class="btn btn-danger" onclick="download()">download</a> -->
           <button type="button" class="btn btn-default" data-dismiss="modal" onclick="deleteScreenshot">Close</button>
         </div>
       </div>
@@ -118,7 +117,7 @@ element.style {
 		</div>
 		
  		<div class="table-row">
-		<c:forEach items="${scList}" var="list" begin="0" end="${((fn:length(scList))/4)+1}">
+		<c:forEach items="${scList}" var="list" begin="0" end="${((fn:length(scList))/4)+1}" varStatus="status">
 			<div class="table-cell">
 				<p>${list.shotdate}</p>
 			</div>
@@ -126,17 +125,17 @@ element.style {
 		</div>
 		
 		<div class="table-row">
-		<c:forEach items="${scList}" var="list"  begin="${((fn:length(scList))/4)+2}" end="${fn:length(scList)-1}">
+		<c:forEach items="${scList}" var="list"  begin="${((fn:length(scList))/4)+2}" end="${fn:length(scList)-1}" varStatus="status">
 				<div class="table-cell">
 					<a href="#" data-toggle="modal" data-target="#myModal">
-						<img id="sc" src="${list.screenshotdata}" class="screenshot"/>
+						<img id="sc${status.index}" src="${list.screenshotdata}" class="screenshot"/>
 					</a>
 				</div>
 	 	</c:forEach>
 		</div>
 		
 		<div class="table-row">
-		<c:forEach items="${scList}" var="list" begin="${((fn:length(scList))/4)+2}" end="${fn:length(scList)-1}">
+		<c:forEach items="${scList}" var="list" begin="${((fn:length(scList))/4)+2}" end="${fn:length(scList)-1}" varStatus="status">
 			<div class="table-cell">
 				<p>${list.shotdate}</p>
 			</div>
@@ -146,7 +145,7 @@ element.style {
 	</c:if>
 	
 	<c:if test="${fn:length(scList) < 0}" var="result">
-		<p>waiting for screenshot...</p>
+		<h1>Take your screenshot!</h1>
 	</c:if>
 	
 <!-- 	<a type="button" href="/kanemochi/member/loginForm" class="btn btn-warning">home</a><br> -->
@@ -185,12 +184,13 @@ window.fbAsyncInit = function() {
 	  
 	  function fbShare(){
 		  
-		 var imgUrl = $(this).children().attr("src");
+		 var imgUrl =  document.getElementById("canvas").toDataURL();
+		 //var imgUrl = $(this).children().attr("src");
 		 console.log(imgUrl);
 	     //var imgUrl = "/kanemochi/resources/image/screenshot/one.png";
 	     var canvas = document.createElement("canvas");
-	     canvas.width  = 900;
-	     canvas.height = 600;
+	     canvas.width  = 800;
+	     canvas.height = 500;
 	     var context = canvas.getContext("2d");
 	     var img = new Image();
 	     img.src = imgUrl;

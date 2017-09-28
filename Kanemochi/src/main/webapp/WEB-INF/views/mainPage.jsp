@@ -372,7 +372,6 @@ $(function() {
 		console.log("modal_screenshot test");
 		gameCapture();
 		span_sc.onclick = function() {
-			
 			modal_screenshot.style.display = "none";
 		}
 		window.onclick = function(event_sc) {
@@ -383,44 +382,44 @@ $(function() {
 	}
 
 
-	function gameCapture(){
-		  //var PhaserCapture = require('phaser-capture');  // For Node/Browserify users
-		    console.log(game.capture);
-			game.capture.screenshot(function(dataUrl) {
-				var canvas = document.getElementById('canvas');
-				console.log(canvas);
-		        // Outputs a data-url of the image (default image/png).
-//	 	        console.log(dataUrl);
-		        console.log("gameCapture function is running.....");
-		        drawDataURIOnCanvas(dataUrl,canvas);
-		      });
-					
-	} 
+		function gameCapture(){
+			  //var PhaserCapture = require('phaser-capture');  // For Node/Browserify users
+			    console.log(game.capture);
+				game.capture.screenshot(function(dataUrl) {
+					var canvas = document.getElementById('canvas');
+					console.log(canvas);
+			        // Outputs a data-url of the image (default image/png).
+	//	 	        console.log(dataUrl);
+			        console.log("gameCapture function is running.....");
+			        drawDataURIOnCanvas(dataUrl,canvas);
+			      });
+						
+		} 
 			/* saveBtn */
-			 		function downloadCanvas(link, canvasId, filename) {
-					    link.href = document.getElementById(canvasId).toDataURL();
-				 	    var img_data =link.href;
+	 		function downloadCanvas(link, canvasId, filename) {
+			    link.href = document.getElementById(canvasId).toDataURL();
+		 	    var img_data =link.href;
+			
+		 	   $.ajax({
+		 			url : '/kanemochi/saveScreenshot',
+		 			type: "POST",
+		 			data : { imgData: img_data },
+		 			success: function () {
+		 				alert("saved your sceenshot!");
+		 			},
+		 			error: function() {
+		 				alert("error~~~~~");
+		 				}
+		 		});
+ 				return false;
+			
+			}
 					
-				 	   $.ajax({
-				 			url : '/kanemochi/saveScreenshot',
-				 			type: "POST",
-				 			data : { imgData: img_data },
-				 			success: function () {
-				 				alert("success~~~~");
-				 			},
-				 			error: function() {
-				 				alert("error~~~~~");
-				 				}
-				 		});
-		 				return false;
-					
-					}
-					
-					document.getElementById('saveBtn').addEventListener('click', function() {
-						downloadCanvas(this, 'canvas', 'test.png');
-					}, false);
+			document.getElementById('saveBtn').addEventListener('click', function() {
+				downloadCanvas(this, 'canvas', 'test.png');
+			}, false);
 	 
-	  function drawDataURIOnCanvas(strDataURI, canvas) {
+	  		function drawDataURIOnCanvas(strDataURI, canvas) {
 		    "use strict";
 		    var img = new window.Image();
 		    img.addEventListener("load", function () {
