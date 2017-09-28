@@ -57,13 +57,13 @@ public class GPark {
 		String user_id = (String) session.getAttribute("loginID");
 		ArrayList<ScreenshotVO> scList = dao.printScreenshotAll(user_id);
 		model.addAttribute("scList", scList);
-		return "albumTest";
+		return "album";
 	}
 	
-	@RequestMapping(value = "/member/album", method = RequestMethod.GET)
+/*	@RequestMapping(value = "/member/album", method = RequestMethod.GET)
 	public String album() {
 		return "printScreenshotAll2";
-	}
+	}*/
 	
 	@RequestMapping(value = "deleteScreenshot", method = RequestMethod.GET)
 	public void deleteScreenshot(ScreenshotVO vo, HttpSession session) {

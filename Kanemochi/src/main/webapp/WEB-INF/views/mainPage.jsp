@@ -195,71 +195,116 @@ $(function() {
 </script>
 </head>
 <body>
-<div id="container">
+	<div id="container">
 
-	<div id="header">
-		<jsp:include page="includeHeader.jsp"></jsp:include>
-	</div>
+		<div id="header">
+			<jsp:include page="includeHeader.jsp"></jsp:include>
+		</div>
 
-	<div id="sidebar">
-		<button class="accordion">食べ物</button>
-		<div class="panel">
-			<p><a href="javascript:createItem('burger')">バーがー  </a><span class="badge" id="burger">0</span></p>
-			<p><a href="javascript:createItem('ramen')">ラーメン  </a><span class="badge" id="ramen">0</span></p>
-			<p><a href="javascript:createItem('sushi')">すし  </a><span class="badge" id="sushi">0</span></p>
-			<p><a href="javascript:createItem('cafe')">カフェ  </a><span class="badge" id="cafe">0</span></p>
-			<p><a href="javascript:createItem('dessert')">デザート  </a><span class="badge" id="dessert">0</span></p>
-			<p><a href="javascript:createItem('beer')">ビール  </a><span class="badge" id="beer">0</span></p>
-			<p><a href="javascript:createItem('cvs')">コンビニ  </a><span class="badge" id="cvs">0</span></p>
+		<div id="sidebar">
+			<button class="accordion">食べ物</button>
+			<div class="panel">
+				<p>
+					<a href="javascript:createItem('burger')">バーがー </a><span
+						class="badge" id="burger">0</span>
+				</p>
+				<p>
+					<a href="javascript:createItem('ramen')">ラーメン </a><span
+						class="badge" id="ramen">0</span>
+				</p>
+				<p>
+					<a href="javascript:createItem('sushi')">すし </a><span class="badge"
+						id="sushi">0</span>
+				</p>
+				<p>
+					<a href="javascript:createItem('cafe')">カフェ </a><span class="badge"
+						id="cafe">0</span>
+				</p>
+				<p>
+					<a href="javascript:createItem('dessert')">デザート </a><span
+						class="badge" id="dessert">0</span>
+				</p>
+				<p>
+					<a href="javascript:createItem('beer')">ビール </a><span class="badge"
+						id="beer">0</span>
+				</p>
+				<p>
+					<a href="javascript:createItem('cvs')">コンビニ </a><span class="badge"
+						id="cvs">0</span>
+				</p>
+			</div>
+			<button class="accordion">文化生活</button>
+			<div class="panel">
+				<p>
+					<a href="javascript:createItem('movie')">映画 </a><span class="badge"
+						id="movie">0</span>
+				</p>
+			</div>
+			<button class="accordion">ファッション</button>
+			<div class="panel">
+				<p>
+					<a href="javascript:createItem('clothes')">服 </a><span
+						class="badge" id="clothes">0</span>
+				</p>
+				<p>
+					<a href="javascript:createItem('hair')">美容室 </a><span class="badge"
+						id="hair">0</span>
+				</p>
+			</div>
+			<button class="accordion">医慮</button>
+			<div class="panel">
+				<p>
+					<a href="javascript:createItem('hospital')">病院 </a><span
+						class="badge" id="hospital">0</span>
+				</p>
+				<!-- <p>薬局  <span class="badge" id="hospital">0</span></p> -->
+			</div>
+			<button class="accordion">教育</button>
+			<div class="panel">
+				<!-- <p>学院  <span class="badge" id="book">0</span></p> -->
+				<p>
+					<a href="javascript:createItem('book')">本 </a><span class="badge"
+						id="book">0</span>
+				</p>
+			</div>
+			<button class="accordion">交通</button>
+			<div class="panel">
+				<p>
+					<a href="javascript:createItem('bus')">バス </a><span class="badge"
+						id="bus">0</span>
+				</p>
+				<!-- <p>地下鉄  <span class="badge" id="bus">0</span></p> -->
+			</div>
+			<button class="accordion">貯金</button>
+			<div class="panel">
+				<p>
+					<a href="javascript:createItem('bank')">銀行 </a><span class="badge"
+						id="bank">0</span>
+				</p>
+			</div>
+			<button class="accordion">その他</button>
+			<div class="panel">
+				<p>
+					<a href="javascript:createItem('elevator')">エレベーター </a><span
+						class="badge" id="elevator">1</span>
+				</p>
+			</div>
 		</div>
-		<button class="accordion">文化生活</button>
-		<div class="panel">
-			<p><a href="javascript:createItem('movie')">映画  </a><span class="badge" id="movie">0</span></p>
-		</div>
-		<button class="accordion">ファッション</button>
-		<div class="panel">
-			<p><a href="javascript:createItem('clothes')">服  </a><span class="badge" id="clothes">0</span></p>
-			<p><a href="javascript:createItem('hair')">美容室  </a><span class="badge" id="hair">0</span></p>
-		</div>
-		<button class="accordion">医慮</button>
-		<div class="panel">
-			<p><a href="javascript:createItem('hospital')">病院  </a><span class="badge" id="hospital">0</span></p>
-			<!-- <p>薬局  <span class="badge" id="hospital">0</span></p> -->
-		</div>
-		<button class="accordion">教育</button>
-		<div class="panel">
-			<!-- <p>学院  <span class="badge" id="book">0</span></p> -->
-			<p><a href="javascript:createItem('book')">本  </a><span class="badge" id="book">0</span></p>
-		</div>
-		<button class="accordion">交通</button>
-		<div class="panel">
-			<p><a href="javascript:createItem('bus')">バス  </a><span class="badge" id="bus">0</span></p>
-			<!-- <p>地下鉄  <span class="badge" id="bus">0</span></p> -->
-		</div>
-		<button class="accordion">貯金</button>
-		<div class="panel">
-			<p><a href="javascript:createItem('bank')">銀行  </a><span class="badge" id="bank">0</span></p>
-		</div>
-		<button class="accordion">その他</button>
-		<div class="panel">
-			<p><a href="javascript:createItem('elevator')">エレベーター  </a><span class="badge" id="elevator">1</span></p>
-		</div>
-	</div>
 
-	<div id ="game">
-		<script src="/kanemochi/resources/js/game.js"></script>
-	</div>
-	
-	<!-- Modal Screenshot -->
+		<div id="game">
+			<script src="/kanemochi/resources/js/game.js"></script>
+		</div>
 
-	<div id="modal_screenshot" class="modal">
+		<!-- Modal Screenshot -->
+
+		<div id="modal_screenshot" class="modal modal-lg">
 	      <div class="modal-content">
 			<span class="close" id="close_modal_screenshot">&times;</span>
 			<h3>screenshot</h3>
-			<canvas id="canvas" width= "800" height ="500"></canvas> <!-- 캔버스 크기 -->
-			<a href="#" id="saveBtn">save to album</a>
+			<canvas id="canvas" width= "600" height ="400"></canvas> <!-- 캔버스 크기 --><br>
+			<a href="#" id="saveBtn" class="btn btn-warning">save to album</a>
 	      </div>
-	</div>
+	</div> 
 
 	<div id="footer">
 		<jsp:include page="includeFooter.jsp"></jsp:include>
@@ -423,7 +468,7 @@ $(function() {
 		    "use strict";
 		    var img = new window.Image();
 		    img.addEventListener("load", function () {
-		        canvas.getContext("2d").drawImage(img, 0, 0,1020,500)// 내부 이미지 크기
+		        canvas.getContext("2d").drawImage(img, 0, 0,600,400)// 내부 이미지 크기
 		    });
 		    img.setAttribute("src", strDataURI);
 	} 
