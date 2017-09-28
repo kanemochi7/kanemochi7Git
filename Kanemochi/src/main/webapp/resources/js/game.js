@@ -427,7 +427,7 @@ var GameState = {
   	error: function() {
   	}
   });
-  userCharacter = this.game.add.sprite(0, 0, character);
+  userCharacter = this.game.add.sprite(-100, 0, character);
 //hong
   
   userCharacter.scale.setTo(0.5);
@@ -472,11 +472,12 @@ var GameState = {
   getStatus();
   },
     update:function(){
-//      this.game.world.bringToTop(GameState.buildingGroup);
-//      this.game.world.bringToTop(GameState.buildingTopGroup);
-//      this.game.world.bringToTop(GameState.elevatorGroup);
-//      this.game.world.bringToTop(GameState.elevatorTopGroup);
-//      this.game.world.bringToTop(GameState.wallGroup);
+    	this.game.world.bringToTop(GameState.canBuildGroup);
+      this.game.world.bringToTop(GameState.buildingGroup);
+      this.game.world.bringToTop(GameState.buildingTopGroup);
+      this.game.world.bringToTop(GameState.elevatorGroup);
+      this.game.world.bringToTop(GameState.elevatorTopGroup);
+      this.game.world.bringToTop(GameState.wallGroup);
       this.game.world.bringToTop(GameState.npcGroup);
       
       this.game.physics.arcade.collide(GameState.npcGroup,ground);
@@ -530,19 +531,19 @@ function comeUserCharacter(userCharacter,situation,level){
 		userCharacter.play('rightWalk');
 		userCharacter.x = userCharacter.x+1;
 		
-		if(userCharacter.x >=300){
+		if(userCharacter.x >=250){
 			clearInterval(temp1);
-			var ballon = this.game.add.sprite(300+(userCharacter.width*2),userCharacter.y-(userCharacter.height*1.2),'onlySpeech');
+			var ballon = this.game.add.sprite(250+(userCharacter.width*2),userCharacter.y-(userCharacter.height*1.2),'onlySpeech');
 			
 			ballon.anchor.set(0.5);
 			ballon.scale.setTo(-0.3,0.3);
 			ballon.x -= userCharacter.width;
 			userCharacter.play('wink');
 			if(situation == 'levelUP'){
-				var joun=  game.add.text(225,-350,"LEVEL UP", { font: "100px arial", fill: "#000000", align: "center" });
+				var joun=  game.add.text(200,-350,"LEVEL UP", { font: "100px arial", fill: "#000000", align: "center" });
 				joun.scale.setTo(-1,1);
 				ballon.addChild(joun);
-				var levelImg = game.add.sprite(+150,-200,'level_'+level);
+				var levelImg = game.add.sprite(+125,-200,'level_'+level);
 				levelImg.scale.setTo(-1.5,1.5);
 				ballon.addChild(levelImg);
 				
@@ -559,7 +560,7 @@ function comeUserCharacter(userCharacter,situation,level){
 				temp2 = setInterval(function(){
 					userCharacter.play('leftWalk');
 					userCharacter.x = userCharacter.x-1;
-					if(userCharacter.x ==0){
+					if(userCharacter.x ==-100){
 						clearInterval(temp2);
 						userDirection = 'right';
 						userCharacter.play('wink');
@@ -741,7 +742,6 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    			      game.physics.arcade.enable(leftWallTop);
 		    			      leftWallTop.body.allowGravity = false;
 		    			      leftWallTop.body.immovable = true;
-		    			      leftWallTop.tint = 0xff0000;
 		    			      GameState.buildingTopGroup.add(leftWallTop);
 		    			 }
 						}
@@ -765,7 +765,6 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    			      game.physics.arcade.enable(rightWallTop);
 		    			      rightWallTop.body.allowGravity = false;
 		    			      rightWallTop.body.immovable = true;
-		    			      rightWallTop.tint = 0x00ff00;
 		    			      GameState.buildingTopGroup.add(rightWallTop);
 		    			 } 
 		    			}
@@ -785,7 +784,6 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    			      game.physics.arcade.enable(leftWallTop2);
 		    			      leftWallTop2.body.allowGravity = false;
 		    			      leftWallTop2.body.immovable = true;
-		    			      leftWallTop2.tint = 0xffff00;
 		    			      GameState.buildingTopGroup.add(leftWallTop2);
 		    			 }
 	    				}
@@ -808,7 +806,6 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    			      game.physics.arcade.enable(rightWallTop2);
 		    			      rightWallTop2.body.allowGravity = false;
 		    			      rightWallTop2.body.immovable = true;
-		    			      rightWallTop2.tint = 0x0000ff;
 		    			      GameState.buildingTopGroup.add(rightWallTop2);
 		    			 }
 		    			}
