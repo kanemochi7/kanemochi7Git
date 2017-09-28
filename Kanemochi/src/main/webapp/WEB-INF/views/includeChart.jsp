@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src="/kanemochi/resources/js/print.js" ></script>
+<!-- <script src="/kanemochi/resources/js/print.js" ></script>
 <link rel="stylesheet" href="/kanemochi/resources/css/bootstrap.min.css">
 <link rel="icon" href="/kanemochi/resources/image/favicon.png">
 <link href="/kanemochi/resources/js/fullcalendar.css" rel="stylesheet" />
@@ -17,7 +17,7 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="/kanemochi/resources/js/html2canvas.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script> -->
 <style type="text/css">
 body{
 	color: black;
@@ -40,6 +40,14 @@ button:hover{
     background-image: linear-gradient(to top,#337ab7 0,#265a88 100%);
     box-shadow: inset 0 1px 0 rgba(255,255,255,.25),0 1px 1px rgba(0,0,0,.175);
 }
+/* #chart_div, #line_div, #columnChart{
+	width: 50%;
+	display: inline-block;
+	max-width: 700px;
+	max-height: 0px;
+	margin: 0 auto;
+	padding: 0 auto;
+} */
 </style>
 <script type="text/javascript">
 google.charts.load('current', {
@@ -52,11 +60,19 @@ google.charts.load('current', {'packages':['bar']});
 google.charts.setOnLoadCallback(drawChart);
 	function drawChart() {
 		// [Pie Chart]
+		var bank = ${price_bank};
+		var culture = ${price_culture};
+		var fashion = ${price_fashion};
+		var food = ${price_food};
+		var hospital = ${price_itai};
+		var others = ${price_others};
+		var study = ${price_study};
+		var bus = ${price_transportation};
 		var data = new google.visualization.DataTable();
 		data.addColumn('string', 'Topping');
 		data.addColumn('number', 'Slices');
-		data.addRows([ [ 'food', 3 ], [ '交通費', 1 ], [ '文化費', 1 ], [ '教育費', 1 ],
-				[ '生活費', 2 ] ]);
+		data.addRows([ [ 'food',food], [ '交通費',bus], [ '文化費', culture], 
+			[ '教育費', study],	[ '医慮費', hospital] ,['ファッション',fashion],['貯金',bank],['その他',others] ]);
 
 		var options = {
 			'title' : '9월',
@@ -86,25 +102,44 @@ google.charts.setOnLoadCallback(drawChart);
 	            subtitle: '지난달과 이번달 소비 비교'
 	            },
 	            width : 700,
-	         height : 400,
-	         'backgroundColor': 'transparent',
-	         'fontSize':20,
-	         color:'pink'
+		         height : 400,
+		         'backgroundColor': 'transparent',
+		         'fontSize':20,
+		         color:'pink'
 	        };
 
 	        var chart = new google.charts.Bar(document.getElementById('line_div'));
 	        chart.draw(data, options);
 	}
+	
+	$(function() {
+		datepicker1();
+	})
+		function datepicker1() {
+			$('#start_date1').datepicker({
+				format: 'yyyy-mm-dd',
+				autoclose: true,
+				todayHighlight: true
+			});
+			$('#end_date1').datepicker({
+				format: 'yyyy-mm-dd',
+				autoclose: true,
+				todayHighlight: true
+			});
+		}
 </script>
 
 <title>Insert title here</title>
 </head>
 <body>
+
+		<input type="text" id="start_date1" name="start_date1" placeholder="start date">
+		<input type="text" id="end_date1" name="end_date1" placeholder="end date">
+
 <button id="pdf">pdf</button>
-<hr/>
-<div id="JSFiddle">
-    <div id="chart_div" ></div>
-	<div id="line_div" ></div>
+<div id="jsChart">
+    <div id="chart_div" style="float:left;"></div>
+	<div id="line_div" style="float:left;"></div>
 </div>
 </body>
 <script type="text/javascript">       
