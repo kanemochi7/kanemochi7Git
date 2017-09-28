@@ -473,7 +473,9 @@ var GameState = {
   },
     update:function(){
       this.game.world.bringToTop(GameState.buildingGroup);
+      this.game.world.bringToTop(GameState.buildingTopGroup);
       this.game.world.bringToTop(GameState.elevatorGroup);
+      this.game.world.bringToTop(GameState.elevatorTopGroup);
       this.game.world.bringToTop(GameState.wallGroup);
       this.game.world.bringToTop(GameState.npcGroup);
       
