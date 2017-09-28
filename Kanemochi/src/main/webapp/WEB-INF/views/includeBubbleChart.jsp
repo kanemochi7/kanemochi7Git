@@ -7,8 +7,65 @@
 <script type="text/javascript">
 
 google.charts.load("current", {packages:["corechart"]});
-google.charts.setOnLoadCallback(drawChart);
+google.charts.setOnLoadCallback(drawChart2);
 
+$(function() {
+	drawChart2();
+})
+function drawChart2() {
+
+	var data = new google.visualization.DataTable();
+	// Declare columns
+	data.addColumn('string', 'tag');
+	data.addColumn('number', 'visit');
+	data.addColumn('number', 'avg');
+	data.addColumn('number', 'sum');
+	
+	var startdate = '2017-09-01';
+	var enddate = '2017-09-30';
+	var category = 'cafe';
+	$.ajax({
+		url : '/kanemochi/record/getSelectDateRecord',
+		method : 'post',
+		cache : false,
+		async: false,
+		data : {"start_date":startdate, "end_date":enddate, "category":category},
+		success: function (result) {
+			console.log(typeof result);
+				for (var i = 0; i < result.length; i++) {
+			console.log(result[i].avg);
+			console.log(result[i].sum);
+			console.log(result[i].tag);
+			console.log(result[i].visit);
+			data.addRow([result[i].tag, result[i].visit, result[i].avg, result[i].sum]);
+				}
+			},
+		error: function() {
+			}
+		});
+
+	// Add data.
+	
+	var options = {
+	title: category,
+/* 	width: 1200, 
+    height: 450,
+    sortBubblesBySize: true,
+	backgroundColor: 'transparent' */
+	hAxis: {title: 'visit'},
+	vAxis: {title: 'average'},
+	bubble: {
+			textStyle: {
+			auraColor: 'none',
+			}
+		}
+	};
+
+	var chart = new google.visualization.BubbleChart(document.getElementById('bubbleChart2'));
+
+	chart.draw(data, options);
+  }
+  
 function drawChart() {
 	var data = new google.visualization.DataTable();
 	// Declare columns

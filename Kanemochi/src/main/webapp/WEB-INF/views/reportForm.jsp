@@ -35,12 +35,16 @@ body {
 	color: navy;
 	max-width: 700px;
 	max-height: 0px;
+	margin: 0 auto;+
+}
+
+#menu2 {
+	color: navy;
+	max-width: 700px;
+	max-height: 0px;
 	margin: 0 auto;
 }
 
-.tabcontent {
-	display: none;
-}
 
 td, tr {
 	color:black;
