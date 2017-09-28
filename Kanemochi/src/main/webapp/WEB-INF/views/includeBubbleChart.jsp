@@ -28,21 +28,19 @@ function drawChart() {
 		data : {"start_date":startdate, "end_date":enddate, "category":category},
 		success: function (result) {
 			console.log(typeof result);
-			console.log(result);
-			console.log(result[0]);
 				for (var i = 0; i < result.length; i++) {
-					data.addRow([[result[i].tag, result]]);
+			console.log(result[i].avg);
+			console.log(result[i].sum);
+			console.log(result[i].tag);
+			console.log(result[i].visit);
+			data.addRow([result[i].tag, result[i].visit, result[i].avg, result[i].sum]);
 				}
 			},
 		error: function() {
 			}
 		});
-	
-
 
 	// Add data.
-	
-
 	
 	var options = {
 	title: category,
