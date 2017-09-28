@@ -273,8 +273,8 @@ color:#464545;background-color:#ffffff
 			}
 			var fd = new FormData();
 			fd.append("source", blob);
-			var msg = prompt("title:");
-			fd.append("message", msg);
+			//var msg = prompt("title:");
+			fd.append("message", "");
 			FB.login(function() {
 				var auth = FB.getAuthResponse();
 				console.log(auth.userID);

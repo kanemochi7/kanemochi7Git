@@ -450,10 +450,10 @@ $(function() {
 		 			type: "POST",
 		 			data : { imgData: img_data },
 		 			success: function () {
-		 				alert("saved your sceenshot!");
+		 				//alert("saved your sceenshot!");
 		 			},
 		 			error: function() {
-		 				alert("error~~~~~");
+		 				//alert("error~~~~~");
 		 				}
 		 		});
  				return false;
