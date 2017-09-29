@@ -495,7 +495,7 @@ google.charts.setOnLoadCallback(drawChart);
 	<hr/><br>
 		<jsp:include page="includeChart.jsp"></jsp:include>
     </div>
-	<div id="menu2" class="tab-pane fade tabcontent" style="position:absolute;">
+	<div id="menu2" class="tab-pane fade tabcontent">
 		<jsp:include page="includeBubbleChart.jsp"></jsp:include>
 	</div>
 	<div id="menu3" class="tab-pane fadetabcontent">

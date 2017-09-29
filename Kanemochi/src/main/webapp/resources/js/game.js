@@ -472,11 +472,11 @@ var GameState = {
   getStatus();
   },
     update:function(){
-    	this.game.world.bringToTop(GameState.canBuildGroup);
+//    	this.game.world.bringToTop(GameState.canBuildGroup);
       this.game.world.bringToTop(GameState.buildingGroup);
-      this.game.world.bringToTop(GameState.buildingTopGroup);
+//      this.game.world.bringToTop(GameState.buildingTopGroup);
       this.game.world.bringToTop(GameState.elevatorGroup);
-      this.game.world.bringToTop(GameState.elevatorTopGroup);
+//      this.game.world.bringToTop(GameState.elevatorTopGroup);
       this.game.world.bringToTop(GameState.wallGroup);
       this.game.world.bringToTop(GameState.npcGroup);
       
@@ -1188,10 +1188,10 @@ function deleteButtonOff(anywaySprite){
 
 
 function getNumberOfNPC(npc,nowBuildingCounter,incOrDec){
-    if(nowBuildingCounter<10 && nowBuildingCounter == 1){
+    if(nowBuildingCounter<5 && nowBuildingCounter == 1){
       npc = 1;
     }
-    else if((nowBuildingCounter %5 != 0) && (nowBuildingCounter <10)){
+    else if((nowBuildingCounter %5 != 0) && (nowBuildingCounter <7)){
       if(incOrDec == true){
           npc+=(nowBuildingCounter-2);
       }
@@ -1210,7 +1210,7 @@ function getNumberOfNPC(npc,nowBuildingCounter,incOrDec){
     var randomTime;
       for(var i=0; i<numberOfNPC-1;i++){
         
-        randomTime = Math.floor(Math.random() * 120)+1;
+        randomTime = Math.floor(Math.random() * 30)+1;
         setTimeout(temp, randomTime*1000);
       }
       function temp(){
