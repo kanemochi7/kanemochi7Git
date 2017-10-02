@@ -10,7 +10,6 @@ import com.project.kanemochi.vo.RecordVO;
 import com.project.kanemochi.vo.ShopVO;
 
 public interface RecordDAO {
-	
 	public void input(RecordVO vo);
 	public void upcount(RecordVO vo);
 	public void downcount(CountOneVO vo);

@@ -122,7 +122,6 @@ $(function() {
 	datepicker();
 	login_times(); //로그인횟수 체크 -> upExp -> 초기프로그레스바 설정 -> 광역 변수에 레벨 정보 저장
 	setModal_budget();
-	/* setProgressbar_exp(); */
 	setProgressbar_budget();
 	
 	$(".click").on('click', function() {

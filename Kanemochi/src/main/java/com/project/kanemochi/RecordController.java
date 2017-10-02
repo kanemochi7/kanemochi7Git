@@ -244,13 +244,10 @@ public class RecordController {
 	@ResponseBody
 	public void setbudget(BudgetVO vo, HttpSession session) {
 		String id = (String)session.getAttribute("loginID");
-		
 		if (dao.getbudget(id) == null) {
 			dao.insertbudget(id);
 		}
-
 		vo.setUser_id(id);
-		System.out.println(vo);
 		dao.setbudget(vo);
 	}
 

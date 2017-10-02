@@ -58,7 +58,6 @@ public class RecordDAOImpl implements RecordDAO {
 	
 	@Override
 	public void setbudget(BudgetVO vo) {
-		System.out.println("to mapper:"+vo);
 		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);	
 		mapper.setbudget(vo);
 	}
