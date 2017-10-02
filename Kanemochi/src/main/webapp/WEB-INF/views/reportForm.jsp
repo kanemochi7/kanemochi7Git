@@ -518,6 +518,7 @@ google.charts.setOnLoadCallback(drawChart);
     </div>
   </div>
 </div>
+<audio src="/kanemochi/resources/sound/Statistics.mp3" autoplay="autoplay" loop="loop"></audio>
 </body>
 <!-- <script type="text/javascript">       
 		$('#pdf').click(function() {
