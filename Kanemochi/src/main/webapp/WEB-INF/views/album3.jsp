@@ -219,7 +219,7 @@ color:#464545;background-color:#ffffff
 		  </div> 
 
 	<img src="/kanemochi/resources/image/dog.gif" class="rounded float-left" alt="left-img" id="dog">
-	
+	<audio src="/kanemochi/resources/sound/Album_Sound.ogg" autoplay="autoplay" loop="loop"></audio>
 	<script>
 //facebook share
 
