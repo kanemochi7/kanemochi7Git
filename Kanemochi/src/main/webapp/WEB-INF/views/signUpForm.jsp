@@ -434,6 +434,6 @@ $(function() {
 		</div>
 	</div>
 </div>
-
+<audio src="/kanemochi/resources/sound/SignUp_Sound.mp3" autoplay="autoplay" loop="loop"></audio>
 </body>
 </html>
