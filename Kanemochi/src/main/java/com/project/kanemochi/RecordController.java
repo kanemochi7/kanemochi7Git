@@ -244,7 +244,13 @@ public class RecordController {
 	@ResponseBody
 	public void setbudget(BudgetVO vo, HttpSession session) {
 		String id = (String)session.getAttribute("loginID");
+		
+		if (dao.getbudget(id) == null) {
+			dao.insertbudget(id);
+		}
+
 		vo.setUser_id(id);
+		System.out.println(vo);
 		dao.setbudget(vo);
 	}
 
@@ -252,7 +258,12 @@ public class RecordController {
 	@ResponseBody
 	public BudgetVO getbudget(HttpSession session){
 		String id = (String)session.getAttribute("loginID");
-		return dao.getbudget(id);
+		BudgetVO result = new BudgetVO(0, id, 0, 0, 0);
+		BudgetVO get = dao.getbudget(id);
+		if (get != null) {
+			result = get;
+		}
+		return result;
 	}
 
 	@RequestMapping(value = "getExpense", method = RequestMethod.GET)

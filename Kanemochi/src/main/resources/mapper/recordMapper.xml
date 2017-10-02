@@ -175,6 +175,11 @@
 		where user_id = #{id}
 		order by record_date
 	</select>
+	
+	<insert id="insertbudget" parameterType="String">
+		insert into budget
+		values(seq_budget.nextval, #{user_id}, sysdate, 0, 0, 0)
+	</insert>
 
 	<update id="setbudget" parameterType="BudgetVO">
 		update budget set
@@ -182,6 +187,7 @@
 		weekly = #{weekly},
 		daily = #{daily}
 		where user_id = #{user_id}
+		and TO_CHAR(budget_date,'YYYY-MM') = TO_CHAR(sysdate,'YYYY-MM')
 	</update>
 	
 	<select id="getbudget" parameterType="String" resultType="BudgetVO">

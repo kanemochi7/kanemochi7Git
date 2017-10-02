@@ -26,4 +26,5 @@ public interface RecordDAO {
 	public ArrayList<BudgetVO> budgetList(String id);
 	public int avgCost(String id);
 	public ArrayList<RecordVO> getSelectDateRecord(DateCategoryVO vo);
+	public void insertbudget(String id);
 }

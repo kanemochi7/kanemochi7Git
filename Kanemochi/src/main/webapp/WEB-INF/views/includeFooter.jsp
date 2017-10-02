@@ -365,7 +365,7 @@ $(function() {
 			}
 		});
 	}
-
+	
 	function changebudget() {
 		document.getElementById("budget_input_text").style.display = "block";
 		document.getElementById("btn_setbudget").style.display='block';
