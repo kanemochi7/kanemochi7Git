@@ -454,7 +454,8 @@ var GameState = {
   this.wallGroup.enableBody = true;
   this.canBuildGroup = game.add.group();
   this.canBuildGroup.enableBody = true;
-  
+  this.speechGroup = game.add.group();
+  this.speechGroup.enableBody = true;
   //이거 안넣으면 난리남.. : 스샷터짐.
   this.game.capture = this.game.plugins.add(Phaser.Plugin.Capture);
 
@@ -490,6 +491,7 @@ var GameState = {
       this.game.physics.arcade.enable(GameState.npcGroup);
       this.game.physics.arcade.enable(GameState.wallGroup);
       this.game.physics.arcade.collide(userCharacter,ground);
+      this.game.world.bringToTop(GameState.speechGroup);
       this.game.world.bringToTop(userCharacter);
       
       
@@ -546,14 +548,10 @@ function comeUserCharacter(userCharacter,situation,level){
 				var levelImg = game.add.sprite(+125,-200,'level_'+level);
 				levelImg.scale.setTo(-1.5,1.5);
 				ballon.addChild(levelImg);
-				
+				GameState.speechGroup.add(ballon);
 			}	
 			
 			setTimeout(function(){
-//				temp3 = setInterval(function(){
-					game.world.bringToTop(ballon);
-//					console.log(ballon);
-//				},1);
 				userDirection = 'left';
 //				clearInterval(temp3);
 				ballon.destroy();

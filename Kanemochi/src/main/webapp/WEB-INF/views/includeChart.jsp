@@ -231,7 +231,7 @@ google.charts.setOnLoadCallback(drawChart);
 											date2 = date2.substring(0,7);
 											var data = google.visualization.arrayToDataTable([
 										         ['Month', '食べ物', '文化生活', 'ファッション',      '医慮',        '教育',   '交通',  '貯金',   'その他'],
-										         [date1, list1_price_food, list1_price_culture, list2_price_fashion, list1_price_hospital, list1_price_book, list1_price_bus, list1_price_bank,  list1_price_others],
+										         [date1, list1_price_food, list1_price_culture, list1_price_fashion, list1_price_hospital, list1_price_book, list1_price_bus, list1_price_bank,  list1_price_others],
 										         [date2, list2_price_food, list2_price_culture, list2_price_fashion, list2_price_hospital, list2_price_book, list2_price_bus, list2_price_bank,  list2_price_others],
 										       
 											    ]);
