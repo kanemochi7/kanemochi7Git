@@ -413,6 +413,9 @@ $(function() {
 	var span_sc = document.getElementById("close_modal_screenshot");
 	
 	btn_sc.onclick = function() {
+		var audio = new Audio("/kanemochi/resources/sound/Camera_Sound.mp3");
+		audio.volume = 1;
+		audio.play();
 		modal_screenshot.style.display = "block";
 		console.log("modal_screenshot test");
 		gameCapture();
