@@ -120,7 +120,7 @@ td, tr {
 	margin-top: 50px;
 }
 
-#menu3{
+#menu3, #menu2{
 	position: absolute;
 	top: 200px;
 	width: 100%;
@@ -479,7 +479,7 @@ google.charts.setOnLoadCallback(drawChart);
   <ul class="nav nav-pills">
     <li class="active"><a data-toggle="pill" href="#home"> カレンダー</a></li>
     <li><a data-toggle="pill" href="#menu1">月別分析</a></li>
-   <!--  <li><a data-toggle="pill" href="#menu2">カテゴリー分析</a></li> -->
+    <li><a data-toggle="pill" href="#menu2">カテゴリー分析</a></li>
     <li><a data-toggle="pill" href="#menu3">全体記録</a></li>
   </ul>
   
@@ -492,12 +492,12 @@ google.charts.setOnLoadCallback(drawChart);
     </div>
     <div id="menu1" class="tab-pane fade tabcontent">
 	<h1>[Report]</h1>
-	<hr/><br>
+	<br>
 		<jsp:include page="includeChart.jsp"></jsp:include>
     </div>
-<%-- 	<div id="menu2" class="tab-pane fade tabcontent">
+	<div id="menu2" class="tab-pane fade tabcontent">
 		<jsp:include page="includeBubbleChart.jsp"></jsp:include>
-	</div> --%>
+	</div> 
 	<div id="menu3" class="tab-pane fadetabcontent">
     	<!-- <input class="input"> -->
     	<div style="margin-right:50px;float:left;">
