@@ -12,14 +12,18 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		HttpSession session = request.getSession();
-		String id = (String)session.getAttribute("id");
-		
+		String id = (String)session.getAttribute("loginID");
+		System.out.println(id);
 		if(id == null) {
-			response.sendRedirect("/kanemochi/");
+			System.out.println("id 없다구.");
+			response.sendRedirect("/kanemochi");
 			return false;
 		}
+		else{
+			System.out.println("id : "+id);
+			return true;
+		}
 		
-		return true;
 	}
 }
 
