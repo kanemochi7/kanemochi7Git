@@ -112,6 +112,17 @@ CREATE TABLE	SCREENSHOT2(
 	screenshotdata   	clob ,	
 	CONSTRAINT fk_screenshot2_user FOREIGN KEY(user_id) REFERENCES USERS(user_id) ON DELETE CASCADE		
 	);
+	
+CREATE TABLE	BUDGET_LIMIT(		
+	budget_num	NUMBER	PRIMARY KEY,
+	user_id	VARCHAR2(30)	NOT NULL,
+	budget_limit_date	DATE	DEFAULT SYSDATE,
+	category	VARCHAR2(30)	,
+	times	NUMBER	,
+	amount	NUMBER	,
+	CONSTRAINT fk_budget_limit_user FOREIGN KEY(user_id) REFERENCES USERS(user_id) ON DELETE CASCADE		
+	);		
+
 			
 CREATE SEQUENCE	seq_shop;		
 CREATE SEQUENCE	seq_record;		
