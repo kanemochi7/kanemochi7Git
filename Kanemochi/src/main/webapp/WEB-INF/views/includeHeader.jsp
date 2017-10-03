@@ -149,8 +149,159 @@ function getToday() {
 			</div>
 		</div>
 	</div>
+	
+	<!-- Modal Advice -->
+	<div id="advice" class="modal typewriter_body">
+		<span class="close" id="close_advice">&times;</span>
+		<div id="welcome">
+			<div class="typewriter" id="1" onclick="nextLine(2)"><h1>KANEMOCHIへようこそ！</h1></div>
+			<div class="typewriter" id="2" onclick="nextLine(3)" style="display:none;"><h1>今から格メニュを紹介します。</h1></div>
+			<div class="typewriter" id="3" onclick="nextDiv()" style="display:none;"><h3>next▶</h3></div>
+		</div>
+		<div id="date_id_typewriter">
+		 	<div class="typewriter" id="4" onclick="nextLine(5)">こちらへ今日の日付と、ログインしているユーザーのIDが票示されます。</div>
+		 	<div class="typewriter" id="5" onclick="nextDiv2()" style="display:none;"><h3>next▶</h3></div>
+		</div>
+		<div id="budget_typewriter">
+			<div class="typewriter" id="6" onclick="nextLine(7)">ここの予算メニュでは、期間・カテゴリによる予算を設定します。</div>
+			<div class="typewriter" id="7" onclick="nextDiv3()" style="display:none;"><h3>next▶</h3></div>
+			<div class="budgetbox"></div>
+		</div>
+		<div id="write_typewriter">
+			<div class="typewriter" id="8" onclick="nextLine(9)">ここの記録メニュでは、自分の支払いをカテゴリを選んで記録します。</div>
+			<div class="typewriter" id="9" onclick="" style="display:none;"><h3>next▶</h3></div>
+			<div class="writebox"></div>
+		</div>
+
+	</div>
+	
 </body>
+<style>
+#welcome {
+    position: absolute;
+    right: 500px;
+    top: 200px;
+	background-color: black;
+}
+#date_id_typewriter {
+	font-size: 18px;
+    display: none;
+    height: 50px;
+    width: 365px;
+    position: absolute;
+    right: 374px;
+    top: 60px;
+    border-top: 3px solid white;
+    padding: 10px;
+	background-color: black;
+}
+
+#budget_typewriter {
+    font-size: 18px;
+    display: none;
+    height: 70px;
+    width: 300px;
+    position: absolute;
+    left: 122px;
+    bottom: 83px;
+    padding: 10px;
+	background-color: black;
+}
+.budgetbox {
+    height: 60px;
+    width: 60px;
+    border: 3px solid white;
+    position: absolute;
+    left: 28px;
+    bottom: -68px;
+}
+
+#write_typewriter {
+    font-size: 18px;
+    display: none;
+    height: 70px;
+    width: 320px;
+    position: absolute;
+    left: 20px;
+    bottom: 83px;
+    padding: 10px;
+    background-color: black;
+}
+.writebox {
+    height: 60px;
+    width: 60px;
+    border: 3px solid white;
+    position: absolute;
+    left: -82px;
+    bottom: -68px;
+}
+	
+/* GLOBAL STYLES */
+.typewriter_body {
+  background: #333;
+  padding-top: 5em;
+  display: flex;
+  justify-content: center;
+}
+
+/* DEMO-SPECIFIC STYLES */
+.typewriter h1 {
+  color: #fff;
+  /* font-family: monospace; */
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid orange; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation: 
+    typing 3.5s steps(30, end),
+    blink-caret .5s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: orange }
+}
+</style>
 <script type="text/javascript">
+function nextLine(next) {
+	document.getElementById(next).style.display = "block";
+}
+function nextDiv() {
+	document.getElementById("welcome").style.display = "none";
+	document.getElementById("date_id_typewriter").style.display = "block";
+}
+function nextDiv2() {
+	document.getElementById("date_id_typewriter").style.display = "none";
+	document.getElementById("budget_typewriter").style.display = "block";
+}
+function nextDiv3() {
+	document.getElementById("budget_typewriter").style.display = "none";
+	document.getElementById("write_typewriter").style.display = "block";
+}
+var advice_modal = document.getElementById("advice");
+var btn_advice = document.getElementById("question");
+var btn_close_advice = document.getElementById("close_advice");
+	btn_advice.onclick = function() {
+	advice_modal.style.display = "block";
+	btn_close_advice.onclick = function() {
+		modal_budget.style.display = "none";
+	}
+	window.onclick = function(event_b) {
+		if (event_b.target == advice_modal) {
+			advice_modal.style.display = "none";
+		}
+	}
+};
+
+
 var volume_form = document.getElementById("volume");
 var setting_b = document.getElementById("setting");
 var close_b = document.getElementById("close_volume");
