@@ -41,6 +41,23 @@ a > b{
     /* color: #5858FA; */
     color: #348b8f;
 } 
+
+/* Modal Content */
+	.modal-content {
+		text-align: center;
+	    vertical-align: middle;
+
+	    width: 60%;
+	    background-color: #aaaaaa;
+	    margin: auto;
+	    padding: 20px;
+	    border: none;
+	    display: block;
+	}
+	.select {
+		background-color: #fefefe;
+		color: #aaaaaa;
+	}
 </style>
 <script>
 $(function() {
@@ -169,7 +186,8 @@ $(function() {
 	 	<tr>
 	 		<td colspan="2" id="idpw">
 	 			<a href="/kanemochi/member/findIdPwdForm?menu=findinfo"><b>id</b></a> /
-				<a href="/kanemochi/member/findIdPwdForm?menu=findpw"><b>pwd を探す</b></a>
+				<a href="/kanemochi/member/findIdPwdForm?menu=findpw"><b>pwd を探す</b></a><br>
+				<a href="#" class="btn btn-info" id="credit" onclick="location.href='/kanemochi/credit'">credit</a>
 			</td>
 	 	</tr>
 	</table>
@@ -199,5 +217,31 @@ $(function() {
 	</table>
 </c:if>
 <audio src="/kanemochi/resources/sound/Login_Sound.mp3" autoplay="autoplay" loop="loop"></audio>
+
+<%-- <!-- Credit Modal -->
+		  <div class="modal fade" id="modal_credit" role="dialog">
+		    <div class="modal-dialog modal-lg">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close btn btn-default" data-dismiss="modal" id ="close_modal_credit">&times;</button>
+		          <h1 class="modal-title">Credit</h1>
+		        </div>
+		        <div class="modal-body modal-lg">
+		        <jsp:include page="credit.jsp"></jsp:include>
+		        </div>
+		        <div class="modal-footer modal-lg">
+		         <!-- <button type="button" class="btn btn-warning">delete</button> -->
+		          <button type="button" class="btn btn-default" data-dismiss="modal" style ="font-family:PixelMplus12" onclick="deleteScreenshot()">Close</button>
+		        </div>
+		      </div>
+		    </div>
+		  </div>  --%>
 </body>
+<script>
+
+/*  	//Credit Modal
+	$("#credit").on("click", function showOnModal() {
+		
+	}); */
+</script>
 </html>
