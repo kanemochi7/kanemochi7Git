@@ -151,7 +151,12 @@ td, tr {
 	text-align: center;
 	font-weight: bold;
 }
-
+#list_paging > a{
+	color: black;
+}
+#list_paging{
+	color : white;
+}
 </style>
 <script>
 $(document).ready(function() {
@@ -171,7 +176,155 @@ $(document).ready(function() {
 	
 	initTable();
 });
+//----------------------------test-----------
+var PageUtil = function() // 페이지 처리 함수
+{
+ var totalCnt; // 총 건수
+ var pageRows; // 한 페이지에 출력될 항목 갯수
+ var curPage; // 현재 페이지
+ var disPagepCnt;// 화면출력 페이지수
+ var totalPage;
 
+ this.setTotalPage = function()
+ {
+  this.totalPage = parseInt((this.totalCnt/this.pageRows)) + (this.totalCnt%this.pageRows>0 ? 1:0);
+ }
+
+ this.getPrev = function()
+ {
+  var prev    = 0;
+
+  if(this.curPage > 1)
+   prev    = this.curPage - 1;
+  else
+   prev    = 1;
+
+  return prev;
+ }
+
+ this.getNext = function()
+ {
+  var next    = 0;
+
+  if(this.curPage < this.totalPage)
+   next = this.curPage + 1;
+  else
+   next = this.totalPage;
+
+  return next;
+ }
+
+ this.getPrevPage = function()
+ {
+  var prevPage    = 0;
+  var curPos      = (parseInt((this.curPage/this.disPagepCnt))+(this.curPage%this.disPagepCnt>0 ? 1:0));
+
+  if(curPos>1)
+  {
+   prevPage    = parseInt((curPos-1))*this.disPagepCnt;
+  }
+
+  return prevPage;
+ }
+
+ this.getNextPage = function()
+ {
+  var nextPage    = 0;
+  var curPos  = parseInt((parseInt((this.curPage/this.disPagepCnt))+(this.curPage%this.disPagepCnt >0 ? 1:0)));
+
+  if((curPos*this.disPagepCnt+1) <= this.totalPage)
+  {
+   nextPage    = curPos*this.disPagepCnt+1;
+  }
+
+  if( this.totalPage >= nextPage )
+   return nextPage;
+  else
+   return this.totalPage;
+ }
+ this.Drow = function()
+ {
+  var sb = '';
+  var start   = ((parseInt((this.curPage/this.disPagepCnt))+(this.curPage%this.disPagepCnt>0 ? 1:0)) * this.disPagepCnt - (this.disPagepCnt-1));
+  var end     = ((parseInt((this.curPage/this.disPagepCnt))+(this.curPage%this.disPagepCnt>0 ? 1:0)) * this.disPagepCnt);
+  if(end > this.totalPage)
+   end = this.totalPage;
+
+   sb += "&nbsp;&nbsp;<a href='javascript:prev();'>◀</a>&nbsp;&nbsp;";
+  for(var i=start; i<=end; i++)
+  {
+   if(i==this.curPage)
+   {
+    sb += "&nbsp;&nbsp;<b>"+i+"</b>&nbsp;&nbsp;";
+   }
+   else
+   {
+    sb += "&nbsp;&nbsp;<a href='javascript:goPage("+i+");'>"+i+"</a>&nbsp;&nbsp;";
+   }
+  }
+   sb += "&nbsp;&nbsp;<a href='javascript:next();'>▶</a>&nbsp;&nbsp;";
+
+  return sb;
+ }
+};
+var util = new PageUtil();
+var everylist2 = ${everyList};
+util.totalCnt = Object.keys(everylist2).length; //게시물의 총 건수
+util.pageRows = 10; // 한번에 출력될 게시물 수
+util.disPagepCnt= 5; //화면 출력 페이지 수
+util.curPage = 1;
+console.log(util.totalCnt);
+function fn_DrowPageNumber()
+{
+//  	return util.Drow();
+	 parent.document.getElementById('list_paging').innerHTML  = util.Drow();
+}
+
+function goPage(pageNo)
+{
+util.curPage = pageNo;  
+util.setTotalPage();
+fn_DrowPageNumber();
+document.getElementById("everyList").innerHTML = "";
+pageTable();
+}
+
+function next_page()
+{
+util.curPage    = util.getNextPage();
+util.setTotalPage();
+fn_DrowPageNumber();
+document.getElementById("everyList").innerHTML = "";
+pageTable();
+}
+
+function next()
+{
+util.curPage    = util.getNext();
+util.setTotalPage();
+fn_DrowPageNumber();
+document.getElementById("everyList").innerHTML = "";
+pageTable();
+}
+
+function prev_page()
+{
+util.curPage    = util.getNextPage();
+util.setTotalPage();
+fn_DrowPageNumber();
+document.getElementById("everyList").innerHTML = "";
+pageTable();
+}
+
+function prev()
+{
+util.curPage    = util.getPrev();
+util.setTotalPage();
+fn_DrowPageNumber();
+document.getElementById("everyList").innerHTML = "";
+pageTable();
+}
+//-------------------------------------------
 	function initTable() {
 		var everylist = ${everyList};
 		var avgBudget = ${avgBudget};
@@ -181,21 +334,40 @@ $(document).ready(function() {
 		if( $("everylist").empty()){
 			var addrow = "<tbody>";
 			addrow += '<tr id="first"><td>日付</td><td>カテゴリー</td><td>価格</td><td>支払方法</td></tr>';
+			var firstData;
+			if(util.curPage == 1){
+				firstData = 0;
+			}
+			if(util.curPage > 1){
+				firstData = ((util.curPage-1)*10);
+			}
+			console.log(firstData);
+			
+			var lastData = (util.curPage*10);
+			if(lastData >= Object.keys(everylist).length){
+				lastData = Object.keys(everylist).length;
+			}
+			var j = firstData;
+			console.log(lastData);
 			$(everylist).each(function (index,item) {
-				addrow += "<tr class='"+arr[i]+"''>";
-				addrow += '<td>'+item.record_date+'</td>';
-				addrow += '<td>'+item.category+'</td>';
-				addrow += '<td>¥'+item.record_price+'</td>';
-				addrow += '<td>'+item.record_pay+'</td></tr>';
-				if(Object.keys(everylist).length==index+1){
-					addrow += "</tbody>";
-					$("#everyList").append(addrow);
-				}
-				i++;
-				if(i==4){
-					i=0;
+				if(index >= firstData && index < lastData){
+					addrow += "<tr class='"+arr[i]+"''>";
+					addrow += '<td>'+item.record_date+'</td>';
+					addrow += '<td>'+item.category+'</td>';
+					addrow += '<td>¥'+item.record_price+'</td>';
+					addrow += '<td>'+item.record_pay+'</td></tr>';
+					if(lastData==index+1){
+						addrow += "</tbody>";
+						$("#everyList").append(addrow);
+					}
+					i++;
+					if(i==4){
+						i=0;
+					}
 				}
 			});
+			fn_DrowPageNumber();
+// 			$("#everyList").append(fn_DrowPageNumber());
 			var addrow = "<tbody>";
 			addrow += '<tr id="second">';
 			addrow += '<td><h4>今まで平均予算：</h4></td>';
@@ -237,7 +409,50 @@ $(document).ready(function() {
         });
         
 	}
-	
+	function pageTable(){
+		var everylist = ${everyList};
+		var avgBudget = ${avgBudget};
+		var avgCost = ${avgCost};
+		var arr = ["info","success","danger","warning","acive"];
+		var i = 0;
+		
+		if( $("everylist").empty()){
+			var addrow = "<tbody>";
+			addrow += '<tr id="first"><td>日付</td><td>カテゴリー</td><td>価格</td><td>支払方法</td></tr>';
+			var firstData;
+			if(util.curPage == 1){
+				firstData = 0;
+			}
+			if(util.curPage > 1){
+				firstData = ((util.curPage-1)*10);
+			}
+			console.log(firstData);
+			var lastData = (util.curPage*10);
+			var j = firstData;
+			if(lastData >= Object.keys(everylist).length){
+				lastData = Object.keys(everylist).length;
+			}
+			console.log(lastData);
+			$(everylist).each(function (index,item) {
+				if(index >= firstData && index < lastData){
+					addrow += "<tr class='"+arr[i]+"''>";
+					addrow += '<td>'+item.record_date+'</td>';
+					addrow += '<td>'+item.category+'</td>';
+					addrow += '<td>¥'+item.record_price+'</td>';
+					addrow += '<td>'+item.record_pay+'</td></tr>';
+					if(lastData==index+1){
+						addrow += "</tbody>";
+						$("#everyList").append(addrow);
+					}
+					i++;
+					if(i==4){
+						i=0;
+					}
+				}
+			});
+			fn_DrowPageNumber();
+		}
+	}
 	function makeTable(list) {
 		$("#listTable").empty();
 		var addrow = "<tbody>";
@@ -504,6 +719,7 @@ google.charts.setOnLoadCallback(drawChart);
 	    	<h3 class="alert alert-dismissible alert-success">[家計簿]</h3>
 	    	<button id="btnExport2" class="btn btn-warning" type="button">Export</button>
 	    	<table id="everyList" class="table table-striped table-hover "></table>
+	    	<table id="list_paging"></table>
     	</div>
     	<div style="float:left;margin-right:50px;">
 	    	<h3 class="alert alert-dismissible alert-success">[分析リスト]</h3>
