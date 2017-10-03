@@ -151,11 +151,11 @@ td, tr {
 	text-align: center;
 	font-weight: bold;
 }
-#list_paging > a{
-	color: black;
+#list_paging > a,#listPageTable > a{
+	color: #ffffff;
 }
-#list_paging{
-	color : white;
+#list_paging,#listPageTable{
+	color : purple;
 }
 </style>
 <script>
@@ -266,11 +266,24 @@ var PageUtil = function() // 페이지 처리 함수
 
   return sb;
  }
+
 };
+setInterval(function(){
+	if ( $('#homes').hasClass('active') ) {
+	    util.timing = 1;
+	    console.log(util.timing);
+	  }
+	if ( $('#menu3s').hasClass('active') ) {
+	    util.timing = 0;
+	    console.log(util.timing);
+	  }
+},100);
+
 var util = new PageUtil();
+var calenderList;
 var everylist2 = ${everyList};
 util.totalCnt = Object.keys(everylist2).length; //게시물의 총 건수
-util.pageRows = 10; // 한번에 출력될 게시물 수
+util.pageRows = 7; // 한번에 출력될 게시물 수
 util.disPagepCnt= 5; //화면 출력 페이지 수
 util.curPage = 1;
 console.log(util.totalCnt);
@@ -279,50 +292,89 @@ function fn_DrowPageNumber()
 //  	return util.Drow();
 	 parent.document.getElementById('list_paging').innerHTML  = util.Drow();
 }
-
+function fn_DrowPage2Number()
+{
+//  	return util.Drow();
+	 parent.document.getElementById('listPageTable').innerHTML  = util.Drow();
+}
 function goPage(pageNo)
 {
 util.curPage = pageNo;  
 util.setTotalPage();
-fn_DrowPageNumber();
-document.getElementById("everyList").innerHTML = "";
-pageTable();
+if(util.timing==0){
+	fn_DrowPageNumber();
+	document.getElementById("everyList").innerHTML = "";
+	pageTable();
+}
+else if(util.timing == 1){
+	fn_DrowPage2Number();
+	document.getElementById("listTable").innerHTML = "";
+	makeTable(calenderList);
+}
 }
 
 function next_page()
 {
 util.curPage    = util.getNextPage();
 util.setTotalPage();
-fn_DrowPageNumber();
-document.getElementById("everyList").innerHTML = "";
-pageTable();
+if(util.timing==0){
+	fn_DrowPageNumber();
+	document.getElementById("everyList").innerHTML = "";
+	pageTable();
+}
+else if(util.timing==1){
+	fn_DrowPage2Number();
+	document.getElementById("listTable").innerHTML = "";
+	makeTable(calenderList);
+}
 }
 
 function next()
 {
 util.curPage    = util.getNext();
 util.setTotalPage();
-fn_DrowPageNumber();
-document.getElementById("everyList").innerHTML = "";
-pageTable();
+if(util.timing==0){
+	fn_DrowPageNumber();
+	document.getElementById("everyList").innerHTML = "";
+	pageTable();
+}
+else if(util.timing==1){
+	fn_DrowPage2Number();
+	document.getElementById("listTable").innerHTML = "";
+	makeTable(calenderList);
+}
 }
 
 function prev_page()
 {
 util.curPage    = util.getNextPage();
 util.setTotalPage();
-fn_DrowPageNumber();
-document.getElementById("everyList").innerHTML = "";
-pageTable();
+if(util.timing==0){
+	fn_DrowPageNumber();
+	document.getElementById("everyList").innerHTML = "";
+	pageTable();
+}
+else if(util.timing==1){
+	fn_DrowPage2Number();
+	document.getElementById("listTable").innerHTML = "";
+	makeTable(calenderList);
+}
 }
 
 function prev()
 {
 util.curPage    = util.getPrev();
 util.setTotalPage();
-fn_DrowPageNumber();
-document.getElementById("everyList").innerHTML = "";
-pageTable();
+if(util.timing==0){
+	fn_DrowPageNumber();
+	document.getElementById("everyList").innerHTML = "";
+	pageTable();
+}
+else if(util.timing==1){
+	fn_DrowPage2Number();
+	document.getElementById("listTable").innerHTML = "";
+	makeTable(calenderList);
+}
 }
 //-------------------------------------------
 	function initTable() {
@@ -339,11 +391,11 @@ pageTable();
 				firstData = 0;
 			}
 			if(util.curPage > 1){
-				firstData = ((util.curPage-1)*10);
+				firstData = ((util.curPage-1)*7);
 			}
 			console.log(firstData);
 			
-			var lastData = (util.curPage*10);
+			var lastData = (util.curPage*7);
 			if(lastData >= Object.keys(everylist).length){
 				lastData = Object.keys(everylist).length;
 			}
@@ -424,10 +476,10 @@ pageTable();
 				firstData = 0;
 			}
 			if(util.curPage > 1){
-				firstData = ((util.curPage-1)*10);
+				firstData = ((util.curPage-1)*7);
 			}
 			console.log(firstData);
-			var lastData = (util.curPage*10);
+			var lastData = (util.curPage*7);
 			var j = firstData;
 			if(lastData >= Object.keys(everylist).length){
 				lastData = Object.keys(everylist).length;
@@ -461,13 +513,30 @@ pageTable();
 		addrow += '<tr id="first"><td>日付</td><td>カテゴリー</td><td>価格</td><td>支払方法</td></tr>';
 		var arr = ["info","success","danger","warning","acive"];
 		var i = 0;
+		util.timing=1;
+		var firstData;
+		if(util.curPage == 1){
+			firstData = 0;
+		}
+		if(util.curPage > 1){
+			firstData = ((util.curPage-1)*7);
+		}
+		var lastData = (util.curPage*7);
+		console.log(firstData);
+		console.log(lastData);
+		var j = firstData;
+		if(lastData >= Object.keys(list).length){
+			lastData = Object.keys(list).length;
+		}
 		$(list).each(function (index,item) {
+			if(index >= firstData && index < lastData){
+				console.log(index);
 				addrow += "<tr class='"+arr[i]+"''>";
 				addrow += '<td>'+item.record_date+'</td>';
 				addrow += '<td>'+item.category+'</td>';
 				addrow += '<td>¥'+item.record_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")+'</td>';
 				addrow += '<td>'+item.record_pay+'</td></tr>';
-				if(Object.keys(list).length==index+1){
+				if(lastData==index+1){
 					addrow += "</tbody>";
 					$("#listTable").append(addrow);
 				}
@@ -475,8 +544,9 @@ pageTable();
 				if(i==4){
 					i=0;
 				}
+			}
 		}); 
-		
+		fn_DrowPage2Number();
 		$("#btnExport").click(function () {
             $("#tblExport").excelexportjs({
                 containerid: "listTable"
@@ -499,6 +569,7 @@ pageTable();
 					, dataType : "json" //전송받을 데이터 타입
 				    , contentType: "application/x-www-form-urlencoded; charset=UTF-8"
 				    , success : function(list) {
+				    	calenderList = list;
 				    	makeTable(list)
 						
 						$("h2").click(function(){
@@ -512,6 +583,7 @@ pageTable();
 									, dataType : "json"
 								    , contentType: "application/x-www-form-urlencoded; charset=UTF-8"
 								    , success : function(list2) {
+								    	calenderList = list2;
 									   makeTable(list2);
 								    }
 							}); 
@@ -692,10 +764,10 @@ google.charts.setOnLoadCallback(drawChart);
 </div>
 <div class="container">
   <ul class="nav nav-pills">
-    <li class="active"><a data-toggle="pill" href="#home"> カレンダー</a></li>
-    <li><a data-toggle="pill" href="#menu1">月別分析</a></li>
-    <li><a data-toggle="pill" href="#menu2">カテゴリー分析</a></li>
-    <li><a data-toggle="pill" href="#menu3">全体記録</a></li>
+    <li id="homes" class="active"><a data-toggle="pill" href="#home"> カレンダー</a></li>
+    <li id="menu1s"><a data-toggle="pill" href="#menu1">月別分析</a></li>
+    <li id="menu2s"><a data-toggle="pill" href="#menu2">カテゴリー分析</a></li>
+    <li id="menu3s"><a data-toggle="pill" href="#menu3">全体記録</a></li>
   </ul>
   
   <div class="tab-content fade in fade" >
@@ -703,6 +775,7 @@ google.charts.setOnLoadCallback(drawChart);
       	<div id="calendar" style="float:left;"></div>
       	<div id="recordWrapper" style="float:right;">
       		<table id="listTable" class="table table-striped table-hover " style="background-color: rgba( 255, 255, 255, 0.0);"></table>
+      		<table id="listPageTable"></table>
       	</div>
     </div>
     <div id="menu1" class="tab-pane fade tabcontent">
