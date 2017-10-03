@@ -37,7 +37,7 @@
 		margin-left: 30px;
 		margin-right: 30px;
 	}
-	#btn_setbudget, #btn_modifybudget{
+	#btn_setbudget, #btn_changebudget, #budget-times, #budget-amount, #btn_setbudget2, #btn_changebudget2 {
 		display: none;
 	}
 	
@@ -56,7 +56,7 @@ div.blueTable {
 	font-size: 20px;
 }
 .blueTable .tableFootStyle {
-	float: center;  font-size: 20px;
+	float: center;  font-size: inherit;
 }
 /* DivTable.com */
 .divTable{ display: table; float: center;}
@@ -122,6 +122,7 @@ $(function() {
 	datepicker();
 	login_times(); //로그인횟수 체크 -> upExp -> 초기프로그레스바 설정 -> 광역 변수에 레벨 정보 저장
 	setModal_budget();
+	setModal_budget2();
 	setProgressbar_budget();
 	
 	$(".click").on('click', function() {
@@ -342,6 +343,47 @@ $(function() {
 		});
 	}
 	
+	function setModal_budget2() {
+		//budget_limit
+		$.ajax({
+			url : '/kanemochi/record/getbudget_limit',
+			method : 'get',
+			success: function (result) {
+				//result에 times에 대한 정보가 있을 때
+				if (result.category != "" && result.times != 0) {
+ 					document.getElementById("select-category-div").style.display = 'none';
+					document.getElementById("select-type").style.display = 'none';
+					document.getElementById("budget-times").style.display = 'block';
+					document.getElementById("btn_setbudget2").style.display = 'none';
+					document.getElementById("btn_changebudget2").style.display = 'block';
+					
+					document.getElementById("limit-category").innerHTML = result.category;
+					document.getElementById("times-input").value = result.times;
+					/* document.getElementById("times-input").readOnly = true; */
+				//result에 amount에 대한 정보가 있을 때	
+				} else if (result.category != "" && result.amount != 0) {
+ 					document.getElementById("select-category-div").style.display = 'none';
+					document.getElementById("select-type").style.display = 'none';
+					document.getElementById("budget-amount").style.display = 'block';
+					document.getElementById("btn_setbudget2").style.display = 'none';
+					document.getElementById("btn_changebudget2").style.display = 'block';
+					
+					document.getElementById("limit-category").innerHTML = result.category;
+					document.getElementById("amount-input").value = result.amount;
+					/* document.getElementById("amount-input").readOnly = true; */
+				//result에 아무 정보도 없을 때
+				} else if (result.category == "") {
+					document.getElementById("select-category-div").style.display = "block";
+					document.getElementById("select-type").style.display='block';
+					document.getElementById("btn_setbudget2").style.display='block';
+					document.getElementById("btn_changebudget2").style.display='none';
+				}
+			},
+			error: function() {
+			}
+		});
+	}	
+	
 	function setbudget() {
 		var month = document.getElementById("month_result").innerHTML;
 		var week = document.getElementById("weekly_result").innerHTML;
@@ -354,24 +396,58 @@ $(function() {
 		method : 'post',
 		cache : false,
 		data : {"monthly":monthly,"weekly":weekly,"daily":daily},
-		success: function (result) {
+		success: function () {
 			setModal_budget();
 			setProgressbar_budget();
-			var modal_budget = document.getElementById('modal_budget');
-			modal_budget.style.display = "none";
+			/* var modal_budget = document.getElementById('modal_budget');
+			modal_budget.style.display = "none"; */
 			},
 		error: function() {
 			}
 		});
 	}
-	
+ 
+	function setbudget2() {
+		var categorylist = document.getElementById("category2");
+		var category = categorylist.options[categorylist.selectedIndex].value;
+		var times = document.getElementById("times-input").value;
+		var amount = document.getElementById("amount-input").value;
+		
+		if(times == "") { times = 0 }
+		if(amount == "") { amount = 0 }
+		
+		alert("setbudget2");
+		alert(typeof times);
+		alert(category+","+times+","+amount);
+		
+		$.ajax({
+		url : '/kanemochi/record/setbudget_limit',
+		method : 'post',
+		data : {"category":category,"times":Number(times),"amount":Number(amount)},
+		success: function () {
+			setModal_budget2();
+			},
+		error: function() {
+			}
+		});
+	}	
+
 	function changebudget() {
 		document.getElementById("budget_input_text").style.display = "block";
-		document.getElementById("btn_setbudget").style.display='block';
-		document.getElementById("btn_changebudget").style.display='none';
+		document.getElementById("btn_setbudget").style.display = "block";
+		document.getElementById("btn_changebudget").style.display = "none";
 		cal();
 	}
-	
+
+	function changebudget2() {
+		document.getElementById("select-category-div").style.display = "block";
+		document.getElementById("select-type").style.display = "block";
+		document.getElementById("budget-times").style.display = "none";
+		document.getElementById("budget-amount").style.display = "none";
+		document.getElementById("btn_setbudget2").style.display = "block";
+		document.getElementById("btn_changebudget2").style.display = "none";
+	}
+
 	function f_leapyear(yy) {
 		if (yy%4==0 && yy%100!=0 || yy%400==0) return 1;
 		else return 0;
@@ -418,12 +494,12 @@ $(function() {
 	function numberWithCommas(x) {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
-	//여기 지워라.
+/* 	//여기 지워라.
 	function buildExpUp(){
 		var tempexp = 100;
 		console.log("지나감");
 		upExp(tempexp);
-	}
+	} */
 	function login_times() {
 		var exp = 0;
 		$.ajax({
@@ -697,31 +773,29 @@ $(function() {
 		<span class="close" id="close_modal_budget">&times;</span>
 		<h3>Budget</h3>
 		<p id="p_footer">[<span id="today_year_budget"></span>年<span id="today_month_budget"></span>月]</p>
-		<form id="budget_form" name="budget_form">
-		<div class="divTable blueTable" style="text-align: center; position: relative; left: 10%;">
+		
+		<div class="divTable blueTable" style="text-align: center; display: inline;; left: 10%;">
 			<div class="divTableBody">
+				<div class="divTableRow">
+					<div class="divTableCell">[期間予算]</div>
+				</div>
 				<div class="divTableRow" id="budget_input_text">
-					<div class="divTableCell"></div>
 					<div class="divTableCell"><input type="text" id="budget_month" placeholder="一ヵ月の予算" onkeyup="cal()"></div>
 					<div class="divTableCell">￥</div>
 				</div>
 				<div class="divTableRow">
 					<div class="divTableCell">monthly budget</div>
-					<div class="divTableCell"><span id="month_result"></span></div>
-					<div class="divTableCell">￥</div>
+					<div class="divTableCell"><span id="month_result"></span>￥</div>
 				</div>
 				<div class="divTableRow">
 					<div class="divTableCell">weekly budget</div>
-					<div class="divTableCell"><span id="weekly_result"></span></div>
-					<div class="divTableCell">￥</div>
+					<div class="divTableCell"><span id="weekly_result"></span>￥</div>
 				</div>
 				<div class="divTableRow">
 					<div class="divTableCell">daily budget</div>
-					<div class="divTableCell"><span id="daily_result"></span></div>
-					<div class="divTableCell">￥</div>
+					<div class="divTableCell"><span id="daily_result"></span>￥</div>
 				</div>
 				<div class="divTableRow">
-					<div class="divTableCell"></div>
 					<div class="divTableCell">
 						<input type="button" id="btn_setbudget" class="btn btn-primary click" value="save this plan" onclick="setbudget()">
 						<input type="button" id="btn_changebudget" class="btn btn-success click" value="change the plan" onclick="changebudget()">
@@ -729,10 +803,76 @@ $(function() {
 				</div>
 			</div>
 		</div>
-		</form>
+		
+		<div class="divTable blueTable" style="text-align: center; display:inline; margin-left: 10px;">
+			<div class="divTableBody">
+				<div class="divTableRow">
+					<div class="divTableCell">[カテゴリ予算]</div>
+				</div>
+				<div class="divTableRow" id="select-category-div">
+					<div class="divTableCell">
+						<select class="select" id="select-category-2" name="select-category-2" onchange="itemChange2()">
+							<option>選択してください！</option>
+							<option value="食べ物">食べ物</option>
+							<option value="文化生活">文化生活</option>
+							<option value="ファッション">ファッション</option>
+							<option value="医慮">医慮</option>
+							<option value="教育">教育</option>
+							<option value="交通">交通</option>
+							<option value="貯金">貯金</option>
+						</select>
+					</div>
+					<div class="divTableCell">
+						<select class="select" id="category2" name="category2" onchange="setCategory()">
+						</select>
+					</div>	
+				</div>
+				<div class="divTableRow" id="select-type">
+					<div class="divTableCell">
+						<input type="radio" name="pay_radio" id="pay_times" value="pay_times" onchange="times_input_display()">回数制限
+						<input type="radio" name="pay_radio" id="pay_amount" value="pay_amount" onchange="amount_input_display()">金額制限
+					</div>
+				</div>
+				<div class="divTableRow" id="budget-times">
+					<div class="divTableCell">今月は<span id="limit-category"></span>を</div>
+					<div class="divTableCell"><input type="text" id="times-input" placeholder="何">回だけ</div>
+					<div class="divTableCell">買います！</div>					
+				</div>
+				<div class="divTableRow" id="budget-amount">
+					<div class="divTableCell">今月は<span id="limit-category"></span>に</div>
+					<div class="divTableCell"><input type="text" id="amount-input" placeholder="いくら?">円だけ</div>
+					<div class="divTableCell">使います！</div>
+				</div>
+				<div class="divTableRow">
+					<div class="divTableCell">
+						<input type="button" id="btn_setbudget2" class="btn btn-primary click" value="save this plan" onclick="setbudget2()">
+						<input type="button" id="btn_changebudget2" class="btn btn-success click" value="change the plan" onclick="changebudget2()">
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 <script type="text/javascript">
+function times_input_display() {
+	document.getElementById("amount-input").value = "";
+	document.getElementById("budget-amount").style.display = "none";
+	document.getElementById("budget-times").style.display = "block";
+}
+function amount_input_display() {
+	document.getElementById("times-input").value = "";
+	document.getElementById("budget-times").style.display = "none";
+	document.getElementById("budget-amount").style.display = "block";
+}
+function setCategory() {
+	console.log("setCategory");
+	var categorylist = document.getElementById("category2");
+	var category = categorylist.options[categorylist.selectedIndex].value;
+	console.log(categorylist);
+	console.log(category);
+	document.getElementById("limit-category").innerHTML = category;
+}
+
 /* modal_budget */
 var modal_budget = document.getElementById("modal_budget");
 var btn_b = document.getElementById("budget");
@@ -749,7 +889,7 @@ btn_b.onclick = function() {
 	}
 };
 /* modal_write */
-var modal_write = document.getElementById('modal_write');
+var modal_write = document.getElementById("modal_write");
 var btn_w = document.getElementById("write");
 var span_w = document.getElementsByClassName("close")[0];
 btn_w.onclick = function() {
@@ -779,44 +919,85 @@ btn_w.onclick = function() {
 };
 /* modal_write - category change */
 function itemChange(){
-var food = ["バーがー","ラーメン","すし", "カフェ", "デザート", "ビール", "コンビニ"];
-var culture = ["映画"];
-var fashion = ["服","美容室"];
-var medical = ["病院"];
-var education = ["本"];
-var transportation = ["バス"];
-var save = ["銀行"];
- 
-var selectItem = $("#select-category").val();
-var changeItem;
+	var food = ["選択", "バーがー","ラーメン","すし", "カフェ", "デザート", "ビール", "コンビニ"];
+	var culture = ["選択", "映画"];
+	var fashion = ["選択", "服","美容室"];
+	var medical = ["選択", "病院"];
+	var education = ["選択", "本"];
+	var transportation = ["選択", "バス"];
+	var save = ["選択", "銀行"];
+	 
+	var selectItem = $("#select-category").val();
+	var changeItem;
+	
+	if(selectItem == "食べ物"){
+		changeItem = food;
+	}
+	else if(selectItem == "文化生活"){
+		changeItem = culture;
+	}
+	else if(selectItem == "ファッション"){
+		changeItem =  fashion;
+	}
+	else if(selectItem == "医慮"){
+		changeItem =  medical;
+	}
+	else if(selectItem == "教育"){
+		changeItem = education;
+	}
+	else if(selectItem == "交通"){
+		changeItem = transportation;
+	}
+	else if(selectItem == "貯金"){
+		changeItem = save;
+	}
+	
+	$("#category").empty();
+	for(var count = 0; count < changeItem.length; count++){
+		var option = "<option value='"+changeItem[count]+"'>"+changeItem[count]+"</option>";
+		$("#category").append(option);
+	}
+};
 
-if(selectItem == "食べ物"){
-	changeItem = food;
-}
-else if(selectItem == "文化生活"){
-	changeItem = culture;
-}
-else if(selectItem == "ファッション"){
-	changeItem =  fashion;
-}
-else if(selectItem == "医慮"){
-	changeItem =  medical;
-}
-else if(selectItem == "教育"){
-	changeItem = education;
-}
-else if(selectItem == "交通"){
-	changeItem = transportation;
-}
-else if(selectItem == "貯金"){
-	changeItem = save;
-}
-
-$("#category").empty();
-for(var count = 0; count < changeItem.length; count++){
-	var option = "<option value='"+changeItem[count]+"'>"+changeItem[count]+"</option>";
-	$("#category").append(option);
-}
+function itemChange2(){
+	var food = ["選択", "バーがー","ラーメン","すし", "カフェ", "デザート", "ビール", "コンビニ"];
+	var culture = ["選択", "映画"];
+	var fashion = ["選択", "服","美容室"];
+	var medical = ["選択", "病院"];
+	var education = ["選択", "本"];
+	var transportation = ["選択", "バス"];
+	var save = ["選択", "銀行"];
+	
+	var selectItem = $("#select-category-2").val();
+	var changeItem;
+	
+	if(selectItem == "食べ物"){
+		changeItem = food;
+	}
+	else if(selectItem == "文化生活"){
+		changeItem = culture;
+	}
+	else if(selectItem == "ファッション"){
+		changeItem =  fashion;
+	}
+	else if(selectItem == "医慮"){
+		changeItem =  medical;
+	}
+	else if(selectItem == "教育"){
+		changeItem = education;
+	}
+	else if(selectItem == "交通"){
+		changeItem = transportation;
+	}
+	else if(selectItem == "貯金"){
+		changeItem = save;
+	}
+	
+	$("#category2").empty();
+	for(var count = 0; count < changeItem.length; count++){
+		var option = "<option value='"+changeItem[count]+"'>"+changeItem[count]+"</option>";
+		$("#category2").append(option);
+	}
 };
 </script>
 </body>

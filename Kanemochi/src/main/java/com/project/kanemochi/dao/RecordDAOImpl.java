@@ -10,6 +10,7 @@ import com.project.kanemochi.vo.BudgetVO;
 import com.project.kanemochi.vo.CountOneVO;
 import com.project.kanemochi.vo.CountVO;
 import com.project.kanemochi.vo.DateCategoryVO;
+import com.project.kanemochi.vo.LimitVO;
 import com.project.kanemochi.vo.RecordVO;
 import com.project.kanemochi.vo.ShopVO;
 import com.project.kanemochi.vo.SumVO;
@@ -60,6 +61,12 @@ public class RecordDAOImpl implements RecordDAO {
 	public void setbudget(BudgetVO vo) {
 		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);	
 		mapper.setbudget(vo);
+	}
+
+	@Override
+	public void setbudget_limit(LimitVO vo) {
+		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);	
+		mapper.setbudget_limit(vo);
 	}
 	
 	@Override
@@ -125,6 +132,10 @@ public class RecordDAOImpl implements RecordDAO {
 		return mapper.getSelectDateRecord(vo);
 	}
 
-
+	@Override
+	public LimitVO getbudget_limit(String id) {
+		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);
+		return mapper.getbudget_limit(id);
+	}
 	
 }

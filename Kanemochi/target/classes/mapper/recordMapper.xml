@@ -176,7 +176,6 @@
 		order by record_date
 	</select>
 	
-	
 	<insert id="insertbudget" parameterType="String">
 		insert into budget
 		values(seq_budget.nextval, #{user_id}, sysdate, 0, 0, 0)
@@ -191,12 +190,26 @@
 		and TO_CHAR(budget_date,'YYYY-MM') = TO_CHAR(sysdate,'YYYY-MM')
 	</update>
 	
+	<insert id="setbudget_limit" parameterType="LimitVO">
+		insert into budget_limit
+		values(seq_budget.nextval, #{user_id}, sysdate, #{category}, #{times}, #{amount})
+	</insert>
+	
 	<select id="getbudget" parameterType="String" resultType="BudgetVO">
 		select * 
 		from budget
 		where user_id = #{id} 
 		and TO_CHAR(sysdate, 'YYYY-MM') = TO_CHAR(budget_date, 'YYYY-MM')
 	</select>
+
+	<select id="getbudget_limit" parameterType="String" resultType="LimitVO">
+	select *
+	from(select * from budget_limit
+		 where user_id = #{id} 
+		 and TO_CHAR(sysdate, 'YYYY-MM') = TO_CHAR(budget_limit_date, 'YYYY-MM')
+		 order by rownum desc)
+	where rownum = 1
+	</select>	
 
 	<select id="getExpense" parameterType="String" resultType="SumVO">
 		select sum(record_price) sum

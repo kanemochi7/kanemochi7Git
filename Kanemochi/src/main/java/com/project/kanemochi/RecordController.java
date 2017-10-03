@@ -22,6 +22,7 @@ import com.project.kanemochi.vo.BudgetVO;
 import com.project.kanemochi.vo.CountOneVO;
 import com.project.kanemochi.vo.CountVO;
 import com.project.kanemochi.vo.DateCategoryVO;
+import com.project.kanemochi.vo.LimitVO;
 import com.project.kanemochi.vo.RecordVO;
 import com.project.kanemochi.vo.ShopVO;
 
@@ -250,7 +251,31 @@ public class RecordController {
 		vo.setUser_id(id);
 		dao.setbudget(vo);
 	}
-
+	
+	@RequestMapping(value = "setbudget_limit", method = RequestMethod.POST)
+	@ResponseBody
+	public void setbudget_limit(LimitVO vo, HttpSession session) {
+		String id = (String)session.getAttribute("loginID");
+		String category = change(vo.getCategory());
+		vo.setCategory(category);
+		vo.setId(id);
+		System.out.println(vo);
+		dao.setbudget_limit(vo);
+	}
+	
+	@RequestMapping(value = "getbudget_limit", method = RequestMethod.GET)
+	@ResponseBody
+	public LimitVO getbudget_limit(HttpSession session) {
+		String id = (String)session.getAttribute("loginID");
+		LimitVO result = new LimitVO(id, "", "", 0, 0);
+		LimitVO vo = dao.getbudget_limit(id);
+		if(vo == null) {
+			return result;
+		} else {
+			return vo;			
+		}
+	}
+	
 	@RequestMapping(value = "getbudget", method = RequestMethod.GET)
 	@ResponseBody
 	public BudgetVO getbudget(HttpSession session){
