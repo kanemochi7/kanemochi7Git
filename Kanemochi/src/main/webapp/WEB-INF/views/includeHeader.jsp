@@ -151,7 +151,7 @@ function getToday() {
 	</div>
 	
 	<!-- Modal Advice -->
-	<div id="advice" class="modal typewriter_body">
+<!-- 	<div id="advice" class="modal typewriter_body">
 		<span class="close" id="close_advice">&times;</span>
 		<div id="welcome">
 			<div class="typewriter" id="1" onclick="nextLine(2)"><h1>KANEMOCHIへようこそ！</h1></div>
@@ -173,7 +173,7 @@ function getToday() {
 			<div class="writebox"></div>
 		</div>
 
-	</div>
+	</div> -->
 	
 </body>
 <style>
