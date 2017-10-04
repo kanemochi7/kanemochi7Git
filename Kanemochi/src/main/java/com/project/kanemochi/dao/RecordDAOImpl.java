@@ -70,6 +70,24 @@ public class RecordDAOImpl implements RecordDAO {
 	}
 	
 	@Override
+	public LimitVO checkGoal(LimitVO vo) {
+		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);	
+		System.out.println(vo);
+		return mapper.checkGoal(vo);
+	}
+	
+	@Override
+	public void upGoal(String id) {
+		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);	
+		mapper.upGoal(id);
+	}
+
+	@Override
+	public String getCategory(String id) {
+		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);	
+		return mapper.getCategory(id);
+	}
+	@Override
 	public BudgetVO getbudget(String id) {
 		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);
 		return mapper.getbudget(id);

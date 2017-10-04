@@ -30,7 +30,7 @@
 	.icon_footer {
 		width: auto;
 		height: 50px;
-		margin: 10px;
+		margin: 5px;
 		float: left;
 	}
 	#write {
@@ -154,7 +154,19 @@ $(function() {
 			document.getElementById("today_year_budget").innerHTML = year;
 			document.getElementById("today_month_budget").innerHTML = month
 	}
-	
+	function checkGoal(){
+		$.ajax({
+			url : '/kanemochi/record/checkGoal',
+			method : 'post',
+			cache : false,
+			success: function (result) {
+				console.log(result);
+				userCharacterBehavior(userCharacter,"check",result);
+			},
+			error: function() {
+				}
+			});
+	}
 	function input() {
 		/* 유효성 검사 아직 안함 */
 		var param = $("#input-form").serialize();
@@ -705,6 +717,7 @@ $(function() {
 		<div style="color: black;">今までのポイント ： <span id="show_point"></span> / 次のレベルまでのポイント ： <span id="next_level"></span></div>	
 	</div>
 	<div class="foot"><img class="icon_footer click" id="level" src="/kanemochi/resources/image/level/level1.png"></div>
+	<div class="foot"><input type="image" class="icon_footer click" onclick="checkGoal()" src="/kanemochi/resources/image/button/statisticsButton.png"></div>
 </div>
 
 <!-- Modal_write -->

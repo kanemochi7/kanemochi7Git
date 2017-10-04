@@ -473,11 +473,11 @@ var GameState = {
   getStatus();
   },
     update:function(){
-//    	this.game.world.bringToTop(GameState.canBuildGroup);
+    	this.game.world.bringToTop(GameState.canBuildGroup);
       this.game.world.bringToTop(GameState.buildingGroup);
-//      this.game.world.bringToTop(GameState.buildingTopGroup);
+      this.game.world.bringToTop(GameState.buildingTopGroup);
       this.game.world.bringToTop(GameState.elevatorGroup);
-//      this.game.world.bringToTop(GameState.elevatorTopGroup);
+      this.game.world.bringToTop(GameState.elevatorTopGroup);
       this.game.world.bringToTop(GameState.wallGroup);
       this.game.world.bringToTop(GameState.npcGroup);
       
@@ -520,53 +520,104 @@ var GameState = {
 game.state.add('GameState',GameState);
 game.state.start('GameState');
 
-function userCharacterBehavior(userCharacter,situation,level){
-	var randBehavior = Math.floor(Math.random() * 2);
-		comeUserCharacter(userCharacter,situation,level);
+function userCharacterBehavior(userCharacter,situation,data){
+	comeUserCharacter(userCharacter,situation,data);
 }
 
 function comeUserCharacter(userCharacter,situation,level){
 	var temp1;
 	var temp2;
 	var temp3;
-	temp1 = setInterval(function(){
-		userCharacter.play('rightWalk');
-		userCharacter.x = userCharacter.x+1;
+	if(situation == 'levelUP'){
+		temp1 = setInterval(function(){
+			userCharacter.play('rightWalk');
+			userCharacter.x = userCharacter.x+1;
+			
+			if(userCharacter.x >=250){
+				clearInterval(temp1);
+				var ballon = this.game.add.sprite(250+(userCharacter.width*2),userCharacter.y-(userCharacter.height*1.2),'onlySpeech');
+				
+				ballon.anchor.set(0.5);
+				ballon.scale.setTo(-0.3,0.3);
+				ballon.x -= userCharacter.width;
+				userCharacter.play('wink');
+					var joun=  game.add.text(200,-350,"LEVEL UP", { font: "100px arial", fill: "#000000", align: "center" });
+					joun.scale.setTo(-1,1);
+					ballon.addChild(joun);
+					var levelImg = game.add.sprite(+125,-200,'level_'+level);
+					levelImg.scale.setTo(-1.5,1.5);
+					ballon.addChild(levelImg);
+					GameState.speechGroup.add(ballon);
+				
+				setTimeout(function(){
+					userDirection = 'left';
+//					clearInterval(temp3);
+					ballon.destroy();
+					temp2 = setInterval(function(){
+						userCharacter.play('leftWalk');
+						userCharacter.x = userCharacter.x-1;
+						if(userCharacter.x ==-100){
+							clearInterval(temp2);
+							userDirection = 'right';
+							userCharacter.play('wink');
+						}
+					},10);
+				},2000);
+			}
+		}, 10);
+	}
+	else if(situation == 'check'){
 		
-		if(userCharacter.x >=250){
-			clearInterval(temp1);
-			var ballon = this.game.add.sprite(250+(userCharacter.width*2),userCharacter.y-(userCharacter.height*1.2),'onlySpeech');
-			
-			ballon.anchor.set(0.5);
-			ballon.scale.setTo(-0.3,0.3);
-			ballon.x -= userCharacter.width;
-			userCharacter.play('wink');
-			if(situation == 'levelUP'){
-				var joun=  game.add.text(200,-350,"LEVEL UP", { font: "100px arial", fill: "#000000", align: "center" });
-				joun.scale.setTo(-1,1);
-				ballon.addChild(joun);
-				var levelImg = game.add.sprite(+125,-200,'level_'+level);
-				levelImg.scale.setTo(-1.5,1.5);
-				ballon.addChild(levelImg);
-				GameState.speechGroup.add(ballon);
-			}	
-			
-			setTimeout(function(){
-				userDirection = 'left';
-//				clearInterval(temp3);
-				ballon.destroy();
-				temp2 = setInterval(function(){
-					userCharacter.play('leftWalk');
-					userCharacter.x = userCharacter.x-1;
-					if(userCharacter.x ==-100){
-						clearInterval(temp2);
-						userDirection = 'right';
-						userCharacter.play('wink');
+			temp1 = setInterval(function(){
+				userCharacter.play('rightWalk');
+				userCharacter.x = userCharacter.x+1;
+				if(userCharacter.x >=250){
+					clearInterval(temp1);
+					var ballon = this.game.add.sprite(250+(userCharacter.width*2),userCharacter.y-(userCharacter.height*1.2),'onlySpeech');
+					var total;
+					var now;
+					var categoryName;
+					ballon.anchor.set(0.5);
+					ballon.scale.setTo(-0.3,0.3);
+					ballon.x -= userCharacter.width;
+					userCharacter.play('wink');
+					if(level.times > 0){
+						categoryName = game.add.text(250,-350," "+level.category, { font: "80px arial", fill: "#000000", align: "center" });
+						total=  game.add.text(250,-200,'目標 : '+level.times+'回 以内', { font: "80px arial", fill: "#000000", align: "center" });
+						now =  game.add.text(250,-50,"今　: "+level.nowTimes+"回", { font: "80px arial", fill: "#000000", align: "center" });
 					}
-				},10);
-			},2000);
-		}
-	}, 10);
+					else if(level.amount > 0){
+						categoryName = game.add.text(250,-350," "+level.category, { font: "80px arial", fill: "#000000", align: "center" });
+						total=  game.add.text(250,-200,"目標 : "+level.amount+"円　以内", { font: "80px arial", fill: "#000000", align: "center" });
+						now =  game.add.text(250,-50,"今　: "+level.nowAmounts+"回", { font: "80px arial", fill: "#000000", align: "center" });
+					}
+						categoryName.scale.setTo(-1,1);
+						total.scale.setTo(-1,1);
+						now.scale.setTo(-1,1);
+						ballon.addChild(categoryName);
+						ballon.addChild(total);
+						ballon.addChild(now);
+						var delete_button = game.add.sprite(75+(ballon.width*1),30,'delete_button');
+						delete_button.inputEnabled = true;
+						ballon.addChild(delete_button);
+						delete_button.scale.setTo(-1.5,1.5);
+						delete_button.events.onInputDown.add(function(){
+							userDirection = 'left';
+							ballon.destroy();
+							temp2 = setInterval(function(){
+								userCharacter.play('leftWalk');
+								userCharacter.x = userCharacter.x-1;
+								if(userCharacter.x ==-100){
+									clearInterval(temp2);
+									userDirection = 'right';
+									userCharacter.play('wink');
+								}
+							},10);
+						});
+						GameState.speechGroup.add(ballon);
+				}
+			}, 10);
+	}
 	
 }
 

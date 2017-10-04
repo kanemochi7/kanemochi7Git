@@ -113,6 +113,8 @@ CREATE TABLE	BUDGET_LIMIT(
 	category	VARCHAR2(30)	,
 	times	NUMBER	,
 	amount	NUMBER	,
+	nowtimes NUMBER  ,
+	nowamounts NUMBER  ,
 	CONSTRAINT fk_budget_limit_user FOREIGN KEY(user_id) REFERENCES USERS(user_id) ON DELETE CASCADE		
 	);		
 

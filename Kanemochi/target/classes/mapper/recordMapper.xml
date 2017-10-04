@@ -211,6 +211,23 @@
 	where rownum = 1
 	</select>	
 
+	<select id="checkGoal" parameterType="LimitVO" resultType="LimitVO">
+	select SUM(bl.times) as times, SUM(bl.amount) as amount, COUNT(re.CATEGORY) as nowTimes, SUM(re.RECORD_PRICE) as nowAmounts from BUDGET_LIMIT bl,(select * from record where user_id = #{user_id}) re where bl.user_id = #{user_id}
+	</select>
+	
+	<update id="upGoal" parameterType="String">
+		update budget_limit set
+		NOWTIMES = NOWTIMES+1,
+		NOWAMOUNTS = NOWAMOUNTS+1
+		where user_id = #{id}
+	</update>
+		
+	<select id="getCategory" parameterType="String" resultType="String">
+		select category
+		from budget_limit
+		where user_id = #{id}
+	</select>
+
 	<select id="getExpense" parameterType="String" resultType="SumVO">
 		select sum(record_price) sum
 		from record

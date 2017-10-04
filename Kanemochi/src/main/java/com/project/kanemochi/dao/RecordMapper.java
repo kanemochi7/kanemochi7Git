@@ -30,4 +30,7 @@ public interface RecordMapper {
 	public void insertbudget(String id);
 	public void setbudget_limit(LimitVO vo);
 	public LimitVO getbudget_limit(String id);
+	public LimitVO checkGoal(LimitVO vo);
+	public String getCategory(String id);
+	public void upGoal(String id);
 }

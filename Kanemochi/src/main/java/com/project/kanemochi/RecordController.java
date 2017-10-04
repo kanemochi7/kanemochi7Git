@@ -49,6 +49,7 @@ public class RecordController {
 		System.out.println(vo);
 		dao.input(vo);
 		dao.upcount(vo);
+		dao.upGoal(id);
 		CountOneVO countvo = new CountOneVO(id, category, 0);
 		countvo.setCount(dao.getcount(countvo));
 		return countvo;
@@ -267,7 +268,7 @@ public class RecordController {
 	@ResponseBody
 	public LimitVO getbudget_limit(HttpSession session) {
 		String id = (String)session.getAttribute("loginID");
-		LimitVO result = new LimitVO(id, "", "", 0, 0);
+		LimitVO result = new LimitVO(id, "", "", 0, 0,0,0);
 		LimitVO vo = dao.getbudget_limit(id);
 		if(vo == null) {
 			return result;
@@ -287,7 +288,23 @@ public class RecordController {
 		}
 		return result;
 	}
-
+	@RequestMapping(value = "checkGoal", method = RequestMethod.POST)
+	@ResponseBody
+	public LimitVO checkGoal(HttpSession session){
+		String id = (String)session.getAttribute("loginID");
+		LimitVO result = new LimitVO(id, "", "", 0, 0,0,0);
+		String category = dao.getCategory(id);
+		result.setCategory(category);
+		LimitVO vo = dao.checkGoal(result);
+		vo.setCategory(category);
+		vo.setId(id);
+		System.out.println(vo);
+		if(vo == null) {
+			return result;
+		} else {
+			return vo;			
+		}
+	}
 	@RequestMapping(value = "getExpense", method = RequestMethod.GET)
 	@ResponseBody
 	public int getExpense(HttpSession session){
