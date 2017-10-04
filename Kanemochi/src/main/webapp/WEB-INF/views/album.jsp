@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -59,7 +58,8 @@ th, td {
 	margin: 0 auto;
 }
 .table-row {
-	display:table-row;
+	/* display:table-row; */
+	display: inline-block;
 	padding: 10px; 
  	/* position: relative; */
 }
@@ -69,6 +69,7 @@ th, td {
     vertical-align: middle;
     align-items: center;
     margin: 0 auto;
+    padding: 10px;
 }
 element.style {	
 	display: table-c;
@@ -79,9 +80,6 @@ element.style {
 .modal-content{
 	position: relative;
 	width: 900px;
-	/* left: 45%; */
-	/* background-color:#fff5c3; */
-	/* background-image:url(/kanemochi/resources/image/bg/pinkSky2.png); */
 	background-repeat: repeat-x;
 	background-color: rgba(255,255,255,0.1);
 }
@@ -157,46 +155,24 @@ color:#464545;background-color:#ffffff
 	
 	<c:if test="${fn:length(scList) > 0}" var="result">
 	<div id="target" class="table">
-		<div class="table-row">
-		<c:forEach items="${scList}" var="list" begin="0" end="${((fn:length(scList))/4)+1}" varStatus="status">
+			<div class="table-row">
+			<c:forEach items="${scList}" var="list" begin="0" end="${fn:length(scList)}" varStatus="status">
 				<div class="table-cell">
-					<a href="#" data-toggle="modal" data-target="#myModal">
-						<img id="sc${status.index}" src="${list.screenshotdata}" class="screenshot"/>
-					</a>
+						<a href="#" data-toggle="modal" data-target="#myModal">
+							<img id="sc${status.index}" src="${list.screenshotdata}" class="screenshot"/>
+						</a>
+						<p>${list.shotdate}</p>
 				</div>
-	 	</c:forEach>
-		</div>
-		
- 		<div class="table-row">
-		<c:forEach items="${scList}" var="list" begin="0" end="${((fn:length(scList))/4)+1}" varStatus="status">
-			<div class="table-cell">
-				<p>${list.shotdate}</p>
+				<c:if test ="${status.index %4 == 3}">
+					<div class="table-row" style="display:block;">  </div>
+				</c:if>
+			</c:forEach>
 			</div>
-		</c:forEach>
-		</div>
-		
-		<div class="table-row">
-		<c:forEach items="${scList}" var="list"  begin="${((fn:length(scList))/4)+2}" end="${fn:length(scList)-1}" varStatus="status">
-				<div class="table-cell">
-					<a href="#" data-toggle="modal" data-target="#myModal">
-						<img id="sc${status.index}" src="${list.screenshotdata}" class="screenshot"/>
-					</a>
-				</div>
-	 	</c:forEach>
-		</div>
-		
-		<div class="table-row">
-		<c:forEach items="${scList}" var="list" begin="${((fn:length(scList))/4)+2}" end="${fn:length(scList)-1}" varStatus="status">
-			<div class="table-cell">
-				<p>${list.shotdate}</p>
-			</div>
-		</c:forEach>
-		</div>
 	</div>
 	</c:if>
 	
 	<c:if test="${fn:length(scList) < 0}" var="result">
-		<h1>Take your screenshot!</h1>
+		<h1>Take your screenshot first!</h1>
 	</c:if>
  			 <!-- myModal -->
 		  <div class="modal fade" id="myModal" role="dialog">
@@ -207,10 +183,9 @@ color:#464545;background-color:#ffffff
 		          <h1 class="modal-title">Album</h1>
 		        </div>
 		        <div class="modal-body modal-lg">
-		          <canvas id="canvas" width="600" height="400"></canvas> <!-- 캔버스 크기 -->
+		          <canvas id="canvas" width="600" height="400"></canvas> <!-- canvas size -->
 		        </div>
 		        <div class="modal-footer modal-lg">
-		         <!-- <button type="button" class="btn btn-warning">delete</button> -->
 		          <button type="button" class="btn btn-default" onclick="fbShare()" style ="font-family:PixelMplus12">facebookShare</button>
 		          <button type="button" class="btn btn-default" data-dismiss="modal" style ="font-family:PixelMplus12" onclick="deleteScreenshot()">Close</button>
 		        </div>
@@ -246,7 +221,6 @@ color:#464545;background-color:#ffffff
 		function fbShare() {
 
 			var imgUrl = document.getElementById("canvas").toDataURL();
-			//console.log(imgUrl);
 			var canvas = document.createElement("canvas");
 			canvas.width = 600;
 			canvas.height = 400;
@@ -271,7 +245,6 @@ color:#464545;background-color:#ffffff
 			}
 			var fd = new FormData();
 			fd.append("source", blob);
-			//var msg = prompt("title:");
 			fd.append("message", "");
 			FB.login(function() {
 				var auth = FB.getAuthResponse();
@@ -314,12 +287,10 @@ color:#464545;background-color:#ffffff
 
 			html2canvas(document.getElementById("target"), {
 				onrendered : function(canvas) {
-					ctx.drawImage(img, 0, 0, 600, 400); // 내부 사진 크기
+					ctx.drawImage(img, 0, 0, 600, 400); // screenshot size
 				}
 			});
 		});
-		
 		</script>
-		
 </body>
 </html>
