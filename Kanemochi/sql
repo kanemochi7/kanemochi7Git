@@ -1,8 +1,8 @@
 DROP TABLE	login;		
-DROP TABLE	budget;		
+DROP TABLE	budget;
+DROP TABLE	budget_limit;		
 DROP TABLE	count;		
 DROP TABLE	screenshot;		
-DROP TABLE	screenshot2;		
 DROP TABLE	shop;		
 DROP TABLE	record;		
 DROP TABLE	users;		
@@ -60,14 +60,7 @@ CREATE TABLE	SHOP(
 	makedate	DATE	DEFAULT SYSDATE,
 	CONSTRAINT fk_shop_img FOREIGN KEY(img_id) REFERENCES IMAGE(img_id) ON DELETE CASCADE,		
 	CONSTRAINT fk_shop_user FOREIGN KEY(user_id) REFERENCES USERS(user_id) ON DELETE CASCADE		
-	);		
-CREATE TABLE	SCREENSHOT(		
-	screenshot_num	NUMBER	PRIMARY KEY,
-	user_id	VARCHAR2(30)	NOT NULL,
-	shotdate	DATE	DEFAULT SYSDATE,
-	screenshot_url	varchar2(500)	,
-	CONSTRAINT fk_screenshot_user FOREIGN KEY(user_id) REFERENCES USERS(user_id) ON DELETE CASCADE		
-	);		
+	);				
 CREATE TABLE	COUNT(		
 	count_num	NUMBER	PRIMARY KEY,
 	user_id	VARCHAR2(30)	,
@@ -105,7 +98,7 @@ CREATE TABLE	LOGIN(
 	login_check	NUMBER	,
 	CONSTRAINT fk_login_user FOREIGN KEY(user_id) REFERENCES USERS(user_id) ON DELETE CASCADE		
 	);		
-CREATE TABLE	SCREENSHOT2(		
+CREATE TABLE	SCREENSHOT(		
 	screenshot_num   	NUMBER	PRIMARY KEY,
 	user_id  	VARCHAR2(30) 	NOT NULL,
 	shotdate   	DATE 	DEFAULT SYSDATE,
