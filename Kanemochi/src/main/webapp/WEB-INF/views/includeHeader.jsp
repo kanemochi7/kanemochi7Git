@@ -121,9 +121,7 @@ function getToday() {
 			<input type="image" id="album" class="icon" data-toggle="tooltip" data-placement="bottom" title="スクリーンショットアルバム" src="/kanemochi/resources/image/icon/album.png">
 		</a>
 			<input type="image" id="setting" class="icon" data-toggle="tooltip" data-placement="bottom" title="設定" src="/kanemochi/resources/image/icon/setting.png">
-		<a href="#">
 			<input type="image" id="question" class="icon" data-toggle="tooltip" data-placement="bottom" title="アドバイス" src="/kanemochi/resources/image/icon/questionmark.png">
-		</a>
 	</p>
 	<%-- </c:if> --%>
 	
@@ -151,7 +149,7 @@ function getToday() {
 	</div>
 	
 	<!-- Modal Advice -->
-<!-- 	<div id="advice" class="modal typewriter_body">
+	<div id="advice" class="modal typewriter_body">
 		<span class="close" id="close_advice">&times;</span>
 		<div id="welcome">
 			<div class="typewriter" id="1" onclick="nextLine(2)"><h1>KANEMOCHIへようこそ！</h1></div>
@@ -169,15 +167,31 @@ function getToday() {
 		</div>
 		<div id="write_typewriter">
 			<div class="typewriter" id="8" onclick="nextLine(9)">ここの記録メニュでは、自分の支払いをカテゴリを選んで記録します。</div>
-			<div class="typewriter" id="9" onclick="" style="display:none;"><h3>next▶</h3></div>
+			<div class="typewriter" id="9" onclick="nextDiv4()" style="display:none;"><h3>next▶</h3></div>
 			<div class="writebox"></div>
 		</div>
-
-	</div> -->
+		<div id="category_typewriter">
+			<div class="typewriter" id="10" onclick="nextLine(11)">記録したカテゴリは商店アイテムになって登場します!</div>
+			<div class="typewriter" id="11" onclick="nextDiv5()" style="display:none;"><h3>next▶</h3></div>
+			<div class="categorybox"></div>
+		</div>
+		<div id="progress_typewriter">
+			<div class="typewriter" id="12" onclick="nextLine(13)">記録した価格は予算からどのぐらいか分かりやすくプログレスバーで票示されます!<br>出席、イベントなどを通してポイントを積むこともできます！</div>
+			<div class="typewriter" id="13" onclick="nextDiv6()" style="display:none;"><h3>next▶</h3></div>
+		</div>
+		<div id="menu_typewriter">
+			<div class="typewriter" id="14" onclick="nextLine(15)">マイペジーでは登録した会員情報を編集することができます。<br>通計メニュでは、今まで使ったお金の傾向をチェックできます。<br>screenshotでは自分のゲーム状態を保存でき、facebookへ共有できます。</div>
+			<div class="typewriter" id="15" onclick="nextDiv7()" style="display:none;"><h3>next▶</h3></div>
+			<div class="menubox"></div>
+		</div>
+		<div id="bye">
+			<div class="typewriter" id="16" onclick="endModal()"><h1>ENJOY KANEMOCHI!</h1></div>
+		</div>
+	</div>
 	
 </body>
 <style>
-#welcome {
+#welcome{
     position: absolute;
     right: 500px;
     top: 200px;
@@ -203,7 +217,7 @@ function getToday() {
     width: 300px;
     position: absolute;
     left: 122px;
-    bottom: 83px;
+    bottom: 60px;
     padding: 10px;
 	background-color: black;
 }
@@ -223,7 +237,7 @@ function getToday() {
     width: 320px;
     position: absolute;
     left: 20px;
-    bottom: 83px;
+    bottom: 60px;
     padding: 10px;
     background-color: black;
 }
@@ -232,15 +246,76 @@ function getToday() {
     width: 60px;
     border: 3px solid white;
     position: absolute;
-    left: -82px;
+    left: 20px;
     bottom: -68px;
+}
+
+#category_typewriter {
+	font-size: 18px;
+    display: none;
+    height: 200px;
+    width: 290px;
+    position: absolute;
+    left: 122px;
+    top: 60px;
+    padding: 10px;
+    background-color: black;
+}
+.categorybox {
+    height: 420px;
+    width: 120px;
+    border: 3px solid white;
+    position: absolute;
+    left: -120px;
+    top: 0px;
+}
+
+#progress_typewriter {
+    font-size: 18px;
+    display: none;
+    height: 80px;
+    width: 1100px;
+    position: absolute;
+    right: 180px;
+    bottom: 58px;
+    border-bottom: 3px solid white;
+    padding: 10px;
+    background-color: black;
+}
+
+#menu_typewriter {
+    font-size: 18px;
+    display: none;
+    height: 80px;
+    width: 650px;
+    position: absolute;
+    right: 0px;
+    top: 58px;
+    padding: 10px;
+    background-color: black;
+}
+.menubox {
+    height: 50px;
+    width: 274px;
+    border: 3px solid white;
+    position: absolute;
+    right: 1px;
+    top: -56px;
+}
+
+#bye {
+    display: none;
+    position: absolute;
+    right: 500px;
+    top: 200px;
+	background-color: black;
 }
 	
 /* GLOBAL STYLES */
 .typewriter_body {
   background: #333;
   padding-top: 5em;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
 }
 
@@ -286,6 +361,28 @@ function nextDiv3() {
 	document.getElementById("budget_typewriter").style.display = "none";
 	document.getElementById("write_typewriter").style.display = "block";
 }
+function nextDiv4() {
+	document.getElementById("write_typewriter").style.display = "none";
+	document.getElementById("category_typewriter").style.display = "block";
+}
+function nextDiv5() {
+	document.getElementById("category_typewriter").style.display = "none";
+	document.getElementById("progress_typewriter").style.display = "block";
+}
+function nextDiv6() {
+	document.getElementById("progress_typewriter").style.display = "none";
+	document.getElementById("menu_typewriter").style.display = "block";
+}
+function nextDiv7() {
+	document.getElementById("menu_typewriter").style.display = "none";
+	document.getElementById("bye").style.display = "block";
+}
+function endModal() {
+	document.getElementById("bye").style.display = "none";
+	document.getElementById("advice").style.display = "none";
+	document.getElementById("welcome").style.display = "none";
+}
+
 var advice_modal = document.getElementById("advice");
 var btn_advice = document.getElementById("question");
 var btn_close_advice = document.getElementById("close_advice");
