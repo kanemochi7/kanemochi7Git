@@ -7,16 +7,8 @@
 <script src="/kanemochi/resources/js/jquery-3.2.1.min.js"></script>
 
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Credit</title>
 <style>
-/* 
-** ALL CREDIT GOES TO 
-** Craig Buckler
-** http://www.sitepoint.com/css3-starwars-scrolling-text/
-**
-** Blame me for the music via embedded video bit
-*/
-
 @import url(https://fonts.googleapis.com/css?family=Droid+Sans:400,700);
 
 * { padding: 0; margin: 0; }
@@ -30,7 +22,6 @@ body, html
 {
   width: 100%;
   height: 100%;
-  /* font-family: "Droid Sans", arial, verdana, sans-serif; */
   font-family:'PixelMplus12'; 
 	font-weight: 800;
 	color: #ff6;
@@ -240,19 +231,8 @@ h1 sub
 }
 </style>
 <script src="https://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>
-
-
 </head>
 <body>
-
-
-<!-- ALL CREDIT FOR THE SCROLLING TEXT GOES TO 
-     Craig Buckler
-     http://www.sitepoint.com/css3-starwars-scrolling-text/ 
-
-Blame me for the music via embedded video bit
--->
-
 <div style="overflow:hidden; position:absolute; left:0; top:0; width:50px; height:25px;">
   <div style="margin-top:-290px;">
   <object width="420" height="315">
@@ -300,7 +280,7 @@ Blame me for the music via embedded video bit
     
     <p>Developed by</p> 
     
-    <p><img id="logo-white" style="width:100%" src="/kanemochi/resources/image/logo-white.gif" /></p>
+    <p><img id="logo_white" style="width:100%" src="/kanemochi/resources/image/logo_white.gif" /></p>
     </div>
 </div>
 
