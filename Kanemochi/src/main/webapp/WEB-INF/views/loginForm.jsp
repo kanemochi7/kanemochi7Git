@@ -186,8 +186,8 @@ $(function() {
 	 	<tr>
 	 		<td colspan="2" id="idpw">
 	 			<a href="/kanemochi/member/findIdPwdForm?menu=findinfo"><b>id</b></a> /
-				<a href="/kanemochi/member/findIdPwdForm?menu=findpw"><b>pwd を探す</b></a><br>
-				<a href="#" class="btn btn-info" id="credit" onclick="location.href='/kanemochi/credit'">credit</a>
+				<a href="/kanemochi/member/findIdPwdForm?menu=findpw"><b>pwd を探す</b></a><br><br>
+				<a href="/kanemochi/credit" class="btn btn-info" id="credit">credit</a>
 			</td>
 	 	</tr>
 	</table>
