@@ -192,7 +192,7 @@
 	
 	<insert id="setbudget_limit" parameterType="LimitVO">
 		insert into budget_limit
-		values(seq_budget.nextval, #{user_id}, sysdate, #{category}, #{times}, #{amount})
+		values(seq_budget.nextval, #{user_id}, sysdate, #{category}, #{times}, #{amount}, #{nowTimes}, #{nowAmounts})
 	</insert>
 	
 	<select id="getbudget" parameterType="String" resultType="BudgetVO">
