@@ -74,7 +74,6 @@ public class RecordDAOImpl implements RecordDAO {
 		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);	
 		System.out.println(vo);
 		LimitVO temp = mapper.checkGoal(vo);
-		System.out.println(temp);
 		return temp;
 	}
 	
