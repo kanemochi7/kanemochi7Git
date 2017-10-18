@@ -49,8 +49,8 @@ function drawChart2() {
     height: 450,
     sortBubblesBySize: true,
 	backgroundColor: 'transparent' */
-	hAxis: {title: 'visit'},
-	vAxis: {title: 'average'},
+	hAxis: {title: '訪問回数'},
+	vAxis: {title: '平均'},
 	bubble: {
 			textStyle: {
 			auraColor: 'none',
@@ -102,8 +102,8 @@ function drawChart() {
     height: 450,
     sortBubblesBySize: true,
 	backgroundColor: 'transparent' */
-	hAxis: {title: 'visit'},
-	vAxis: {title: 'average'},
+	hAxis: {title: '訪問回数'},
+	vAxis: {title: '平均'},
 	bubble: {
 			textStyle: {
 			auraColor: 'none',

@@ -73,7 +73,9 @@ public class RecordDAOImpl implements RecordDAO {
 	public LimitVO checkGoal(LimitVO vo) {
 		RecordMapper mapper = sqlsession.getMapper(RecordMapper.class);	
 		System.out.println(vo);
-		return mapper.checkGoal(vo);
+		LimitVO temp = mapper.checkGoal(vo);
+		System.out.println(temp);
+		return temp;
 	}
 	
 	@Override

@@ -238,8 +238,8 @@ google.charts.setOnLoadCallback(drawChart);
 											
 											    var options = {
 											      title : date1+'と'+date2+'の比較グラフ',
-											      vAxis: {title: 'Cups'},
-											      hAxis: {title: 'Month'},
+											      vAxis: {title: 'カテゴリ'},
+											      hAxis: {title: '月'},
 											      width: 700,
 											      height: 400,
 											      backgroundColor : 'transparent',
