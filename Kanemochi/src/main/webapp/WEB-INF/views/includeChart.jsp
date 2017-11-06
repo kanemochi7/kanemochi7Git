@@ -34,7 +34,7 @@ button:hover{
 	margin: 0 auto;
 	padding: 0 auto;
 } */
-svg,rect{
+svg{
 	background-color: rgba( 255, 255, 255, 0.7);
 }
 pdfbtn,pdfbtn2{
@@ -248,6 +248,7 @@ google.charts.setOnLoadCallback(drawChart);
 											    };
 											  	var chart = new google.visualization.ComboChart(document.getElementById('line_div'));
 											    chart.draw(data, options);
+											    
 						     			 }
 						     
 						});

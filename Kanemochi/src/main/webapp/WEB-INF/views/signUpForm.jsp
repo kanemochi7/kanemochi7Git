@@ -200,7 +200,7 @@ $(function() {
 				, method: 'GET'
 				, data: 'user_email=' +user_email
 				, success: function(result) {
-					alert(result);
+					
 					if(result){
 						$.ajax({
 							url: '/kanemochi/member/emailCheck'

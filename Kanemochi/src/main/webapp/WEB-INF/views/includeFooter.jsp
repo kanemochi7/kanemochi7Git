@@ -428,9 +428,7 @@ $(function() {
 		if(times == "") { times = 0 }
 		if(amount == "") { amount = 0 }
 		
-		alert("setbudget2");
-		alert(typeof times);
-		alert(category+","+times+","+amount);
+		
 		
 		$.ajax({
 		url : '/kanemochi/record/setbudget_limit',
@@ -506,12 +504,12 @@ $(function() {
 	function numberWithCommas(x) {
 		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
-/* 	//여기 지워라.
+ 	//여기 지워라.
 	function buildExpUp(){
 		var tempexp = 100;
 		console.log("지나감");
 		upExp(tempexp);
-	} */
+	} 
 	function login_times() {
 		var exp = 0;
 		$.ajax({

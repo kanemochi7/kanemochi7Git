@@ -804,6 +804,7 @@ google.charts.setOnLoadCallback(drawChart);
 	    	<button id="btnExport4" class="btn btn-warning" type="button">Export</button>
 	    	<table id="categoryList" class="table table-striped table-hover "></table>
     	</div>
+    	
     </div>
   </div>
 </div>
