@@ -473,12 +473,7 @@ var GameState = {
   getStatus();
   },
     update:function(){
-    	this.game.world.bringToTop(GameState.canBuildGroup);
-      this.game.world.bringToTop(GameState.buildingGroup);
-      this.game.world.bringToTop(GameState.buildingTopGroup);
-      this.game.world.bringToTop(GameState.elevatorGroup);
-      this.game.world.bringToTop(GameState.elevatorTopGroup);
-      this.game.world.bringToTop(GameState.wallGroup);
+    	
       this.game.world.bringToTop(GameState.npcGroup);
       
       this.game.physics.arcade.collide(GameState.npcGroup,ground);
@@ -642,15 +637,19 @@ function stateBuilding(inputText,buildingX,buildingY){
 	  var checkResult;
 	  var topCheck;
 	  var sprite2 = game.add.sprite(buildingX,buildingY,inputText);
+	  
 	  sprite2.inputEnabled = true;
+	  
 	  var result;
 	  if(typeof(inputText) == "string"){
 		  	if(inputText != 'elevator')
 		  	{
-			    GameState.buildingGroup.add(sprite2);  
+			    GameState.buildingGroup.add(sprite2); 
+			    game.world.bringToTop(GameState.buildingGroup);
 	        }
 		  	else if(inputText == 'elevator'){
-		  		GameState.elevatorGroup.add(sprite2);  
+		  		GameState.elevatorGroup.add(sprite2);
+		  		game.world.bringToTop(GameState.elevatorGroup);
 		  	}
 		    sprite2.events.onInputOver.add(function(){
 				  deleteButtonOn(sprite2);
@@ -662,6 +661,7 @@ function stateBuilding(inputText,buildingX,buildingY){
 			  game.physics.arcade.enable(sprite2);
 			  sprite2.body.allowGravity = false;
 			  sprite2.body.immovable = true;
+			  
 			  	switch (inputText) {
 			    	    case 'cafe':
 			    	      sprite2.name = inputText+'_'+(++buildingCounter[0]);
@@ -859,6 +859,7 @@ function stateBuilding(inputText,buildingX,buildingY){
 		    			 }
 		    			}
 		    		 });
+		    		game.world.bringToTop(GameState.wallGroup);
 		    		leftWing.destroy();
 		    		rightWing.destroy();
 				}, 150);
