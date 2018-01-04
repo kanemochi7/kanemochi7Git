@@ -23,5 +23,6 @@
 		<mapper resource="mapper/expMapper.xml"/>
 		<mapper resource="mapper/GKMapper.xml"/>
 		<mapper resource="mapper/GPMapper.xml"/>
+		<mapper resource="mapper/androidMapper.xml"/>
 	</mappers>
 </configuration>
