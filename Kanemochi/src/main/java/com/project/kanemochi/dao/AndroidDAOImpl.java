@@ -11,6 +11,7 @@ import com.project.kanemochi.vo.CountOneVO;
 import com.project.kanemochi.vo.CountVO;
 import com.project.kanemochi.vo.DateCategoryVO;
 import com.project.kanemochi.vo.LimitVO;
+import com.project.kanemochi.vo.MemberVO;
 import com.project.kanemochi.vo.RecordVO;
 import com.project.kanemochi.vo.ShopVO;
 import com.project.kanemochi.vo.SumVO;
@@ -28,6 +29,12 @@ public class AndroidDAOImpl implements AndroidDAO {
 		System.out.println(record.getRecord_date());
 		System.out.println(record.getUser_id());
 		return mapper.getCalendarData(record);
+	}
+
+	@Override
+	public MemberVO login(MemberVO vo) {
+		AndroidMapper mapper = sqlsession.getMapper(AndroidMapper.class);
+		return mapper.login(vo);
 	}
 
 	
