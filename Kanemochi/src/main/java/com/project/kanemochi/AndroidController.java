@@ -40,9 +40,10 @@ public class AndroidController {
 		MemberVO memberVO = new MemberVO();
 		memberVO.setUser_id(id);
 		memberVO.setUser_pw(pwd);
-		if(dao.login(memberVO)!=null){
+		MemberVO result =dao.login(memberVO);
+		if(result!=null){
 			ArrayList<MemberVO> jsonResult = new ArrayList<>();
-			jsonResult.add(memberVO);
+			jsonResult.add(result);
 			return jsonResult;
 		}
 		return null;	

@@ -34,7 +34,8 @@ public class AndroidDAOImpl implements AndroidDAO {
 	@Override
 	public MemberVO login(MemberVO vo) {
 		AndroidMapper mapper = sqlsession.getMapper(AndroidMapper.class);
-		return mapper.login(vo);
+		MemberVO temp = mapper.login(vo);
+		return temp;
 	}
 
 	
