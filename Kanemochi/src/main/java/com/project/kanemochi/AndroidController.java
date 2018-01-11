@@ -72,7 +72,7 @@ public class AndroidController {
 	
 	@ResponseBody
 	@RequestMapping(value ="insertHouse", method = RequestMethod.POST,produces="application/json;charset=utf-8")
-	public int insertTest(@RequestBody String data){
+	public String insertTest(@RequestBody String data){
 		
 		String tempString = data.replace("%2C", ",");
 		tempString = tempString.replace("=", "");
@@ -101,7 +101,8 @@ public class AndroidController {
 		recordVO.setRecord_price(kane);
 		recordVO.setRecord_pay(payment);
 		int result = dao.insertHouse(recordVO);
+		String resultString = String.valueOf(result);
 		System.out.println(result);
-		return result;
+		return resultString;
 	}
 }
