@@ -15,4 +15,5 @@ public interface AndroidDAO {
 	public ArrayList<RecordVO> getCalendarData(RecordVO record);
 	public MemberVO login(MemberVO vo);
 	public int insertHouse(RecordVO record);
+	public int signUp(MemberVO vo);
 }

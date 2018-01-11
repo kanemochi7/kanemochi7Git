@@ -21,5 +21,9 @@
 		values(seq_record.nextval, #{user_id}, #{record_date}, #{category}, #{record_tag}, #{record_price}, '￥', #{record_pay})
 	</insert>
 	
+	<insert id="signUp" parameterType="MemberVO">
+		insert into users(user_id,user_pw,user_name,user_gender,user_phone,user_email,user_authority,img_id,level_title, user_score) 
+		values(#{user_id},#{user_pw},#{user_name},#{user_gender},#{user_phone},#{user_email},0,#{img_id},1,0)
+	</insert>
 </mapper>
 

@@ -45,6 +45,13 @@ public class AndroidDAOImpl implements AndroidDAO {
 		return result;
 	}
 
+	@Override
+	public int signUp(MemberVO vo) {
+		AndroidMapper mapper = sqlsession.getMapper(AndroidMapper.class);
+		int result = mapper.signUp(vo);
+		return result;
+	}
+
 	
 
 	

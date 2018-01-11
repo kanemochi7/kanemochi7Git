@@ -105,4 +105,43 @@ public class AndroidController {
 		System.out.println(result);
 		return resultString;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value ="signUp", method = RequestMethod.POST,produces="application/json;charset=utf-8")
+	public String signUp(@RequestBody String data){
+		
+		String tempString = data.replace("%2C", ",");
+		tempString = tempString.replace("=", "");
+		System.out.println("user:"+tempString);
+		
+		String[] datas= tempString.split(",");
+		String id = datas[0];
+		System.out.println(id);
+		String pwd = datas[1];
+		System.out.println(pwd);
+		String name = datas[2];
+		System.out.println(name);
+		String email = datas[3];
+		System.out.println(email);
+		String tel = datas[4];
+		System.out.println(tel);
+		String category = datas[5];
+		System.out.println(category);
+		String gender = datas[6];
+		System.out.println(gender);
+
+		
+		MemberVO memberVO = new MemberVO();
+		memberVO.setImg_id(category);
+		memberVO.setUser_email(email);
+		memberVO.setUser_gender(gender);
+		memberVO.setUser_id(id);
+		memberVO.setUser_name(name);
+		memberVO.setUser_phone(tel);
+		memberVO.setUser_pw(pwd);
+		int result = dao.signUp(memberVO);
+		String resultString = String.valueOf(result);
+		System.out.println(result);
+		return resultString;
+	}
 }
