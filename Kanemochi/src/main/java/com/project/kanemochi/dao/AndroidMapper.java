@@ -15,4 +15,5 @@ import com.project.kanemochi.vo.SumVO;
 public interface AndroidMapper {
 	ArrayList<RecordVO> getCalendarData(RecordVO record);
 	MemberVO login(MemberVO vo);
+	int insertHouse(RecordVO record);
 }

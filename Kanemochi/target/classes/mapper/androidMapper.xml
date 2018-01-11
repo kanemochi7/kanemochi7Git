@@ -16,5 +16,10 @@
   		WHERE user_id = #{user_id} AND user_pw = #{user_pw}
 	</select>
 	
+	<insert id="insertHouse" parameterType="RecordVO">
+		insert into record
+		values(seq_record.nextval, #{user_id}, #{record_date}, #{category}, #{record_tag}, #{record_price}, '￥', #{record_pay})
+	</insert>
+	
 </mapper>
 

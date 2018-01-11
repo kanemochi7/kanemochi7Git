@@ -38,6 +38,13 @@ public class AndroidDAOImpl implements AndroidDAO {
 		return temp;
 	}
 
+	@Override
+	public int insertHouse(RecordVO record) {
+		AndroidMapper mapper = sqlsession.getMapper(AndroidMapper.class);
+		int result = mapper.insertHouse(record);
+		return result;
+	}
+
 	
 
 	

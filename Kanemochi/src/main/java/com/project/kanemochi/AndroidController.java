@@ -69,4 +69,39 @@ public class AndroidController {
 		System.out.println(jsonText);
 		return jsonText;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value ="insertHouse", method = RequestMethod.POST,produces="application/json;charset=utf-8")
+	public int insertTest(@RequestBody String data){
+		
+		String tempString = data.replace("%2C", ",");
+		tempString = tempString.replace("=", "");
+		System.out.println("housekeep:"+tempString);
+		
+		String[] datas= tempString.split(",");
+		String id = datas[0];
+		System.out.println(id);
+		String day = datas[1];
+		System.out.println(day);
+		String category = datas[2];
+		System.out.println(category);
+		String tag = datas[3];
+		System.out.println(tag);
+		int kane = Integer.parseInt(datas[4]);
+		System.out.println(kane);
+		String payment = datas[5];
+		System.out.println(payment);
+
+		
+		RecordVO recordVO = new RecordVO();
+		recordVO.setUser_id(id);
+		recordVO.setRecord_date(day);
+		recordVO.setCategory(category);
+		recordVO.setRecord_tag(tag);
+		recordVO.setRecord_price(kane);
+		recordVO.setRecord_pay(payment);
+		int result = dao.insertHouse(recordVO);
+		System.out.println(result);
+		return result;
+	}
 }
